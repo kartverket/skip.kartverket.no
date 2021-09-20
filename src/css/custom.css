@@ -23,6 +23,12 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
+/* Make it look good on dark mode */
+.hero__title,
+.hero__subtitle {
+  color: white;
+}
+
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
