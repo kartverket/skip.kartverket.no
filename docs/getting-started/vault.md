@@ -56,8 +56,8 @@ Ta vare på tokenet som ble generert og bruk det når du confer opp applikasjone
 din.
 
 :::warning Obs!
-Pass på at det ikke blir eksponert noe sted det ikke skal være, behandle det som
-et passord.
+Pass på at tokenet ikke blir eksponert noe sted det ikke skal være, behandle
+tokenet som et passord.
 :::
 
 
