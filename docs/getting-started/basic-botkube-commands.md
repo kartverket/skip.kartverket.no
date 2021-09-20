@@ -11,7 +11,12 @@ BotKube kan man kan gjøre de fleste kommandoer man ville kunne gjort med
 kubectl.
 
 BotKube blir satt opp som en kanal i Slack hvor bot-integrasjonen leverer
-meldinger og man kan be om
+meldinger og man kan be den om å hente ut diverse informasjon om clusteret. Man
+kan også be BotKube abbonere på hendelser i clusteret slik at man får varsling
+om dette i kanalen.
+
+For mer info om bokube kan du se på [BotKubes
+dokumentasjon](https://www.botkube.io/usage/).
 
 ## Kommandoer
 

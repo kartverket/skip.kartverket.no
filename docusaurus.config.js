@@ -30,61 +30,64 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     ],
   ],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      navbar: {
-        title: 'SKIP',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/skip.png',
+  themeConfig: {
+    navbar: {
+      title: 'SKIP',
+      logo: {
+        alt: 'My Site Logo',
+        src: 'img/skip.png',
+      },
+      items: [
+        {
+          type: 'doc',
+          docId: 'intro',
+          position: 'left',
+          label: 'Docs',
         },
-        items: [
-          {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Docs',
-          },
-          {
-            href: 'https://confluence.statkart.no/display/SKIP/TVP+-+Features',
-            label: 'Roadmap',
-            position: 'left',
-          },
-          {
-            href: 'https://gitlab.statkart.no/skip',
-            label: 'GitLab',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Introduction',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'GitLab',
-                href: 'https://gitlab.statkart.no/skip',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Statens Kartverk. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+        {
+          href: 'https://confluence.statkart.no/display/SKIP',
+          label: 'Confluence',
+          position: 'left',
+        },
+        {
+          href: 'https://confluence.statkart.no/display/SKIP/TVP+-+Features',
+          label: 'Roadmap',
+          position: 'left',
+        },
+        {
+          href: 'https://gitlab.statkart.no/skip',
+          label: 'GitLab',
+          position: 'right',
+        },
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Docs',
+          items: [
+            {
+              label: 'Introduction',
+              to: '/docs/intro',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'GitLab',
+              href: 'https://gitlab.statkart.no/skip',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} Statens Kartverk. Built with Docusaurus.`,
+    },
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
+  },
 });
