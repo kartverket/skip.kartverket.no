@@ -21,8 +21,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl: 'https://gitlab.statkart.no/skip/docs/edit/main/website/',
+          editUrl: 'https://gitlab.statkart.no/skip/docs/-/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
