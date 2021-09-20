@@ -73,7 +73,7 @@ annotasjon som plukkes opp av external-dns, og som lar deg aksessere servicen
 ved hjelp av en URL. Verdien til denne må være på formatet <ønsket
 navn>.test.k8s.local .
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -121,7 +121,7 @@ spec:
 
 ## Kommunikasjon mellom pods
 
-TODO: oppdatere når vi har fått POCet og tatt beslutning på service mesh.
+_TODO: oppdatere når vi har fått POCet og tatt beslutning på service mesh._
 
 For å kommunisere mellom pods internt i applikasjonen er vi som minimum nødt til å bruke en service. Dette fordi vi aldri kan være sikker på at IP-adressen til en pod vil være den samme. Ved å bruke en service til å aksessere en gitt pod, sørger vi for at servicen holder styr på DNS og alltid blir oppdatert med ny IP dersom pod'en skulle endre seg.
 
@@ -130,7 +130,7 @@ Legg merke til et par nye ting her:
 - Vi har introdusert en ny label kalt "tier". Dette er egendefinert, og brukes til å skille mellom flere pod'er tilhørende samme applikasjon. Hva man kaller labels eller hvordan man gjør dette er opp til hver enkelt, labels er egendefinerte - eneste krav er at de henger sammen internt, og ikke er et Kubernetes-nøkkelord
 - Vi har som nevnt ovenfor introdusert en ny service for å tilgå det nye deploymentet "example-backend". Den bruker en selector basert på label'ene "example" og "backend" for å identifisere korrekt pod.
 
-```
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:

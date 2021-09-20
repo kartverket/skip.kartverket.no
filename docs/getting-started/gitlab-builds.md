@@ -29,14 +29,14 @@ analyse osv.
 
 Rekkefølgen på stages (og eventuelle ekstra stages utover de som GitLab har
 definert som standard - build, test, deploy) defineres slik i begynnelsen av
-pipelinescriptet: stages:
+pipelinescriptet:
+
+```yaml
+stages:
  - build
  - test
  - publish
-
-
-
-
+```
 
 ### Variabler
 
@@ -108,14 +108,17 @@ https://docs.gitlab.com/ee/development/cicd/templates.html for artikler knyttet
 til utvikling av egne templates.
 
 
+:::caution
+
 Obs! Ved bruk av SAST-template må du sørge for følgende:
 
-    Ved bruk av gradle-wrapper må den være merket som eksekverbar. Kjør
-    kommandoen git update-index --chmod=+x gradlew , commit og push.  Dersom
-    prosjektet benytter en annen java-versjon enn 8, må det settes en CI/CD
-    variabel på prosjekt-eller gruppenivå kalt SAST_JAVA_VERSION med verdi lik
-    java-versjonen man bruker (eks. 11 hvis man bruker java 11).
+- Ved bruk av gradle-wrapper må den være merket som eksekverbar. Kjør kommandoen
+  git update-index --chmod=+x gradlew , commit og push.
+- Dersom prosjektet benytter en annen java-versjon enn 8, må det settes en CI/CD
+  variabel på prosjekt-eller gruppenivå kalt SAST_JAVA_VERSION med verdi lik
+  java-versjonen man bruker (eks. 11 hvis man bruker java 11).
 
+:::
 
 
 ## Bygging/testing
@@ -123,7 +126,7 @@ Obs! Ved bruk av SAST-template må du sørge for følgende:
 Byggesteg foregår ved hjelp av en eller flere bash-kommandoer under nøkkelordet
 "script".
 
-```
+```yaml
 script:
   - echo "Dette er et enkelt byggescript"
   - gradle assemble
@@ -148,7 +151,7 @@ beskrevet ovenfor i seksjonen om variabler. I eksempelet har vi brukt
 HARBOR_USERNAME og HARBOR_TOKEN som navn på disse.
 
 
-```
+```yaml
 publish:
   stage: publish
   image:
@@ -180,7 +183,10 @@ publish:
 
 ## Release
 
-GitLab har et konsept i forhold til kode som kalles "release". Dette er et snapshot av all kode og andre relevante artefakter slik det så ut ved tidspunkte releasen ble opprettet. Den kan tenkes på som en slags git tag med utvidede muligheter for å inkludere dokumentasjon osv.
+GitLab har et konsept i forhold til kode som kalles "release". Dette er et
+snapshot av all kode og andre relevante artefakter slik det så ut ved tidspunkte
+releasen ble opprettet. Den kan tenkes på som en slags git tag med utvidede
+muligheter for å inkludere dokumentasjon osv.
 
 Les mer her: https://docs.gitlab.com/ee/user/project/releases/
 
@@ -188,9 +194,10 @@ Les mer her: https://docs.gitlab.com/ee/user/project/releases/
 ## Komplett løype
 
 
-Eksempel på en komplett pipeline som bygger, tester, publiserer og lager en release:
+Eksempel på en komplett pipeline som bygger, tester, publiserer og lager en
+release:
 
-```
+```yaml
 include:
   - template: Security/SAST.gitlab-ci.yml # for å få med automatiske jobber for sikkerhetskontroll av kode osv.
 

@@ -58,8 +58,8 @@ a token", gi den et navn og trykke "Create".
 
 Kopier den kodenøkkelen du får og legg den inn i skjermbildet. Hvis du har behov
 for denne senere, må du huske på å lagre den på et sikkert sted, da man ikke får
-  lest ut eksisterende tokens på nytt via Bitbucket, men må isåfall lage nytt
-  token.
+lest ut eksisterende tokens på nytt via Bitbucket, men må isåfall lage nytt
+token.
 
 Klikk så på "List your Bitbucket Server repositories", og klikk så på det
 aktuelle repoet man ønsker å importere fra listen som dukker opp.

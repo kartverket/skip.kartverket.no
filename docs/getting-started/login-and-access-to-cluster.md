@@ -4,8 +4,8 @@ sidebar_position: 6
 
 # Login og tilgang til cluster miljøer
 
-```
-kubectl vsphere login --server=<ip/domene> -u <brukernavn> --tanzu-kubernetes-cluster-namespace <namespace> --tanzu-kubernetes-cluster-name <cluster>
+```bash
+$ kubectl vsphere login --server=<ip/domene> -u <brukernavn> --tanzu-kubernetes-cluster-namespace <namespace> --tanzu-kubernetes-cluster-name <cluster>
 ```
 
 NB! Du vil få beskjed om at du kan bytte context vha. `kubectl config use-context
