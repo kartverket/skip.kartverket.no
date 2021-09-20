@@ -34,7 +34,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     navbar: {
       title: 'SKIP',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'SKIP',
         src: 'img/skip.png',
       },
       items: [
@@ -45,14 +45,21 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           label: 'Docs',
         },
         {
-          href: 'https://confluence.statkart.no/display/SKIP',
-          label: 'Confluence',
+          type: 'doc',
+          docId: 'roadmap',
           position: 'left',
+          label: 'Roadmap',
         },
         {
-          href: 'https://confluence.statkart.no/display/SKIP/TVP+-+Features',
-          label: 'Roadmap',
+          type: 'doc',
+          docId: 'changelog',
           position: 'left',
+          label: 'Changelog',
+        },
+        {
+          href: 'https://confluence.statkart.no/display/SKIP',
+          label: 'Confluence',
+          position: 'right',
         },
         {
           href: 'https://gitlab.statkart.no/skip',
@@ -70,6 +77,14 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
             {
               label: 'Introduction',
               to: '/docs/intro',
+            },
+            {
+              label: 'Roadmap',
+              to: '/docs/roadmap',
+            },
+            {
+              label: 'Changelog',
+              to: '/docs/changelog',
             },
           ],
         },
