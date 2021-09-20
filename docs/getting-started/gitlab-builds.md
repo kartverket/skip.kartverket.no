@@ -108,9 +108,7 @@ https://docs.gitlab.com/ee/development/cicd/templates.html for artikler knyttet
 til utvikling av egne templates.
 
 
-:::caution
-
-Obs! Ved bruk av SAST-template må du sørge for følgende:
+:::caution Obs! Ved bruk av SAST-template må du sørge for følgende:
 
 - Ved bruk av gradle-wrapper må den være merket som eksekverbar. Kjør kommandoen
   git update-index --chmod=+x gradlew , commit og push.
