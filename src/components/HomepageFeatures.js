@@ -4,32 +4,35 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Fremtidsrettet platform',
+    Svg: require('../../static/img/undraw_code_review.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        SKIP ble bygget fra bunnen opp til å tilrettelegge for moderne
+        utviklingsmønstre som containers, meshing, mikrotjenester og sky-native
+        tankegang.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Innebygde best practices',
+    Svg: require('../../static/img/undraw_voice_control.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        SKIP lar deg fokusere på applikasjonen din mens SKIP bygger inn best
+        practices i arbeidsflyten, noe som fører til en sikrere, enklere og mer
+        standardisert utvikling- og driftsopplevelse for alle.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
+    title: 'Stabilitet',
+    Svg: require('../../static/img/undraw_programmer.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Platformen vil i bakgrunnen sørge for at applikasjonen skalerer opp ved
+        mye traffikk og ned når det ikke lenger er nødvendig.
+        I tilleg sørger den for at applikasjonene restartes ved ustabilitet.
       </>
     ),
   },
