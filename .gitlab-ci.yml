@@ -9,9 +9,9 @@ cache:
 pages:
   script:
     - yarn install
-    - ./node_modules/.bin/docusaurus build
+    - ./node_modules/.bin/docusaurus build --out-dir=public
   artifacts:
     paths:
-      - build
+      - public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
