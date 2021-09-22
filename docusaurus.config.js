@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   tagline: 'Statens Kartverks Infrastrukturplatform',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/docs/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon/favicon.ico',
   organizationName: 'skip', // Usually your GitHub org/user name.
@@ -76,11 +76,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           items: [
             {
               label: 'Introduction',
-              to: '/docs/intro',
+              to: '/docs/docs/intro',
             },
             {
               label: 'Roadmap',
-              to: '/docs/roadmap',
+              to: '/docs/docs/roadmap',
             },
             {
               label: 'Changelog',
