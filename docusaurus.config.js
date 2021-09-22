@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 (module.exports = {
   title: 'SKIP',
   tagline: 'Statens Kartverks Infrastrukturplatform',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://skip.pages.statkart.no',
   baseUrl: '/docs/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
