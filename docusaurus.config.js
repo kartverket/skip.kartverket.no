@@ -25,8 +25,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             editUrl: "https://gitlab.statkart.no/skip/docs/-/edit/master/",
           },
           blog: {
-            blogTitle: '',
-            blogDescription: 'A Docusaurus powered blog!',
+            blogTitle: 'SKIP-oppdateringer',
+            blogDescription: 'Oppdateringer om signifikante endringer for SKIP-brukere',
             blogSidebarTitle: 'Siste poster',
             feedOptions: {
               type: "all",
