@@ -40,6 +40,18 @@ I sprint 14 fikk vi gjort mye. Vi har:
 - Har POCet Terraform på noen områder. På sikt kommer vi til å anbefale bruk av
   Terraform framfor Helm til utrulling av egenutviklede applikasjoner
 
+### OKR-mål
+
+Fremover skal vi bruke [OKR][okr] til å spore hvor godt vi som team oppnår våre
+mål. Våre tre mål for 4. kvartal 2021 er:
+
+1. Produksjonsmiljøet og tooling skal ha 95% oppetid
+2. 100% Terraform-dekning
+3. 80% SKIP-brukere som er fornøyd eller svært fornøyd med stabilitet og
+   brukeropplevelse
+
+[okr]: https://corporatefinanceinstitute.com/resources/knowledge/strategy/objectives-and-key-results-okr/
+
 ### Plan for sprint 15
 
 I sprint 15 blir hovedfokuset å jobbe videre med "terraformifiseringen" av
