@@ -75,6 +75,11 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             label: "GitLab",
             position: "right",
           },
+          {
+            href: "https://gitlab.statkart.no/skip/issues/-/issues/new?issue#",
+            label: "Registrer sak",
+            position: "right",
+          },
         ],
       },
       footer: {
