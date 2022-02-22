@@ -16,7 +16,7 @@ Anthos Hovedkomponenter er GKE, Anthos Config Management og Anthos Service Mesh.
 ### Hvordan bruker vi Kubernetes
 
 Vi bruker kubernetes gjennom CI/CD-byggeløyper hvor man bruker IAC-verktøyet Terraform og definerer hva som skal utrulles på kubernetes-cluster
-(eksempel på et prosjekt som bruker kubernetes på tiltenkt måte)[https://github.com/kartverket/nibas-backend]. man har ikke mulighet å kjøre exec eller run inne i pod'ene.
+[eksempel på et prosjekt som bruker kubernetes på tiltenkt måte](https://github.com/kartverket/nibas-backend). man har ikke mulighet å kjøre exec eller run inne i pod'ene.
 
 ### Getting Started
 
@@ -27,25 +27,25 @@ Dessverre er de veldig avanserte, og særlig metrikksystemet Google Monitoring k
 
 ### Google Logging
 
-Hovedinterfacen for loggsøk hos SKIP er (Logs Explorer)[https://console.cloud.google.com/logs]. Husk å velge riktig prosjekt øverst på siden - alle logger som kommer fra våre Kubernetes-clustre ligger under `kartverket-anthos` prosjektet - selv om selve applikasjonen kjører på et cluster som ligger i et annet prosjekt.  
+Hovedinterfacen for loggsøk hos SKIP er [Logs Explorer](https://console.cloud.google.com/logs). Husk å velge riktig prosjekt øverst på siden - alle logger som kommer fra våre Kubernetes-clustre ligger under `kartverket-anthos` prosjektet - selv om selve applikasjonen kjører på et cluster som ligger i et annet prosjekt.  
 Google Logging skal automatisk ta mot og indeksere alt av tekst som blir sendt til `stderr` og `stdout` fra applikasjoner som kjører på Google Cloud og Anthos. Dette betyr i teorien at alt er søkbart og skal være enkelt å finne. I praksis er det en del arbeid som skal til for å tolke hver linje tekst korrekt. Dette er et problem som er godt dokumentert, og det er mange som har skrevet forskjellige måter å løse problemet på på forskjellige blogger osv.
-Mer info: (Using the Log Explorer)[https://cloud.google.com/logging/docs/view/logs-viewer-interface]
+Mer info: [Using the Log Explorer](https://cloud.google.com/logging/docs/view/logs-viewer-interface)
 
 ### Google Monitoring
 
-(Google Monitoring)[https://console.cloud.google.com/monitoring/metrics-explorer] er en veldig kraftig tjeneste, og nesten alt som skjer på våre clustre og alle andre tjenester på Google Cloud blir lagt inn her.
+[Google Monitoring](https://console.cloud.google.com/monitoring/metrics-explorer) er en veldig kraftig tjeneste, og nesten alt som skjer på våre clustre og alle andre tjenester på Google Cloud blir lagt inn her.
 A bruke disse metrikkene fornuftig, er dog ikke så enkelt, siden det er så mange av de.
 Siden ingen på SKIP egentlig har begynt å bruke Google Monitoring i stor grad heller, er det lite jeg kan si om de mulighetene som finnes her.
-Mer info: (Introduction to Cloud Monitoring)[https://cloud.google.com/monitoring/docs/monitoring-overview]
+Mer info: [Introduction to Cloud Monitoring](https://cloud.google.com/monitoring/docs/monitoring-overview)
 
 ### Google Error Reporting
 
-(Google Error Reporting)[https://console.cloud.google.com/errors] er et glimrende produkt. Siden Google Cloud uansett har alle logger og metrikker, har de lagt til litt logikk, og lagrer alle feilene i alle applikasjonene på Google Cloud. Merk dog at dette bare fungerer dersom loggene til applikasjonen tolkes riktig.
-Mer info: (View Errors)[https://cloud.google.com/error-reporting/docs/viewing-errors]
+[Google Error Reporting](https://console.cloud.google.com/errors) er et glimrende produkt. Siden Google Cloud uansett har alle logger og metrikker, har de lagt til litt logikk, og lagrer alle feilene i alle applikasjonene på Google Cloud. Merk dog at dette bare fungerer dersom loggene til applikasjonen tolkes riktig.
+Mer info: [View Errors](https://cloud.google.com/error-reporting/docs/viewing-errors)
 
 ## Vault
 
-Vi bruker (Atlassian Vault)[https://www.vaultproject.io/] til oppbevaring av hemmeligheter og nøkler. Vault har også et API som alle applikasjoner kan få tilgang til, for å kunne lage, hente og endre hemmeligheter og nøkler selv.
+Vi bruker [HashiCorp Vault](https://www.vaultproject.io/) til oppbevaring av hemmeligheter og nøkler. Vault har også et API som alle applikasjoner kan få tilgang til, for å kunne lage, hente og endre hemmeligheter og nøkler selv.
 
 ### Bruksområde
 
