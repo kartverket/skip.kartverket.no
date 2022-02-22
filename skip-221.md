@@ -61,15 +61,27 @@ For mer informasjon, og for å få tilgang til Vault, ta kontakt med SKIP-teamet
 
 ## GitHub
 
+Github er en skybasert Git-repository tjeneste som vi bruker til å lagre kildekoden til kartverkets prosjekter. med Github får vi også mye annet også som Kontinuerlig integrasjon, Kode Skanning og flere sikkerhets funksjonalitet.
+
 ### Git-repositories
+
+Et Git-repository er hvor prosjekt-filer lagres. Det skjer ved at hver enkelt person som jobber på det gjeldene prosjektet har sin kopi av repositoriet som ligger på Github. når noen har utført noen endringer på projeskt-filene da kan den endringen sendes til repositoriet som ligger på Github. og den endringen vil da være tilgjenelig for alle på det prosjektet. det at hver enkelt har sin kopi gjør det enklere å håndtere hvis en endring ble sendt til repositoriet viser seg å tilføre en del feil i funksjonalitet som ikke får fikset, da kan man erstatte reposotoriet som ble "syk", med en "frisk" versjon  av repositoriet av en person på prosjektet
 
 ### Automatisk Testing
 
+vi implementerer automatisk testig ved å bruke github action, så når en endring blir sjekket inn i prosjekt trigges en action som er konfigurert til å kjøre test av prosjektet så ved eventuelle innsjekkinger av kode som gjøre repositoriet "syk" så vil man kunne fange det opp i det det blir lagt inn og man kan ta afære med en gang
+
 ### Kontinuerlig Integrasjon
+
+Vi benytter Github actions som er Github's eget CI/CD system.
+Github Actions bruker noe man kan kaller workflow filer, en workflow representerer en eller flere jobber for et repo og inneholder all konfigurasjon for jobben.
+Dette gjør oss i stand til kjøre automatiserte deployments ved commits eller merges slik at nyeste versjon alltid er deployd til klusteret.
+Med Terraform som konfigurasjonsspråk får vi muligheten til å skrive fullstendige deklarative konfigurasjoner som sørger for at alt som kreves for at applikasjonen skal kjøre blir deployed.
 
 ## Objektlagring
 
 ### Bruksområde
+
 
 ### Teknisk beskrivelse
 
