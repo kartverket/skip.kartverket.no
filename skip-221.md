@@ -45,11 +45,11 @@ Mer info: [View Errors](https://cloud.google.com/error-reporting/docs/viewing-er
 
 ## Vault
 
-Vi bruker [HashiCorp Vault](https://www.vaultproject.io/) til oppbevaring av hemmeligheter og nøkler. Vault har også et API som alle applikasjoner kan få tilgang til, for å kunne lage, hente og endre hemmeligheter og nøkler selv.
+Vi bruker [HashiCorp Vault](https://www.vaultproject.io/) til oppbevaring av hemmeligheter og nøkler. Vault har også et API som applikasjoner kan få tilgang til, for å kunne lage, hente og endre hemmeligheter og nøkler selv. Autentisering mot vault kan gjøres på flere måter. For brukere kan AD benyttes, mens applikasjoner kan velge mellom kubernetes, GCP service-konto, token, mm.
 
 ### Bruksområde
 
-Vault kan holde på nøkler for f.eks. databaser, slik at teamet slipper å lagre dette i Kubernetes direkte. I stedet kan man be appen koble seg til Vault for å få passordet til databasen.
+Vault har mange bruksområder rundt autentisering og hemlighetshåndtering. Vault kan holde på brukernavn og passord til f.eks. databaser, slik at teamet slipper å lagre dette i Kubernetes direkte. I stedet kan man be appen koble seg til Vault for å få passordet til databasen. Vault har også muligheter for å opprette [temporære brukernavn og passord til pålogging i feks databaser](https://www.vaultproject.io/docs/secrets/databases/postgresql) eller lignende.
 Vault kan også brukes til å opprette og lagre nye nøkler. Denne funksjonaliteten brukes blant annet i `aut-idporten` modulen.
 
 ### Mer info
