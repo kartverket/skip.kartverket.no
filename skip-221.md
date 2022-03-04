@@ -80,18 +80,36 @@ Med Terraform som konfigurasjonsspråk får vi muligheten til å skrive fullsten
 
 ## Objektlagring
 
-### Bruksområde
+### Bruksområder
 
+Skip tilbyr flere objektlagringstjenester som blant annet gir deg mulighet å lagre terrafrom state til Terraform oppsettet på projektet ditt.
 
 ### Teknisk beskrivelse
 
+vi bruker i dag en Objektlagrings-løsning fra [Minio](https://min.io/product/s3-compatibility) som er et AWS s3-kompatibel løsning for å blant annet lagre Terrafrom state'en for hvert prosjekt som kjøres på SKIP. kartverket holder også på å få på plass en SAN-løsning og da vil det kunne tilbys objektlagring gjennom den tjenesten. f
+
+Google cloud storage
+i tillegg til å lagre terraform state på Minio hos oss så kan man benytte seg av [Google cloud storage](https://cloud.google.com/storage/) som er en lagringstjeneste som følger med Google Anthos. se linken for mer om hvordan dette gjøres
+[Sikker bruk av Terraform State på Google cloud storage](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/306810004/Sikker+bruk+av+Terraform+State+p+Google+Cloud+Storage)
+
 #### Link til S3 API-beskrivelse
+
+[AWS S3 API referanse](https://docs.aws.amazon.com/AmazonS3/latest/API/Type_API_Reference.html)
 
 #### Link til liste over klientbiblioteker og apps
 
+??
+
 ### Advarsel om backups
 
+skip tar ikke ansvar for at backup av objektlagringen blir gjort for øyeblikket. men er noe vi vil se på i fremtiden.
+
 ### Advarsel om rettigheter
+
+for bruk av de ulike løsningene SKIP tilbyr av objektlagring er det viktig å huske på disse tingene:
+
+- ikke bruk samme nøkler flere plasser
+- nøkler skal ikke finnes i kildekoden
 
 ## Cloud Run -- Kommer
 
