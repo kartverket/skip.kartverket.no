@@ -7,13 +7,14 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
   module.exports = {
     title: "SKIP",
     tagline: "Statens Kartverks Infrastrukturplatform",
-    url: "https://skip.pages.statkart.no",
-    baseUrl: "/docs/",
+    url: "https://kartverket.github.io",
+    baseUrl: "/skip-docs/",
+    projectName: 'skip-docs',
+    organizationName: 'kartverket',
+    trailingSlash: false,
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon/favicon.ico",
-    organizationName: "skip", // Usually your GitHub org/user name.
-    projectName: "SKIP", // Usually your repo name.
 
     presets: [
       [
@@ -22,7 +23,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         ({
           docs: {
             sidebarPath: require.resolve("./sidebars.js"),
-            editUrl: "https://gitlab.statkart.no/skip/docs/-/edit/master/",
+            editUrl: "https://github.com/kartverket/skip-docs/edit/main/",
           },
           blog: {
             blogTitle: 'SKIP-oppdateringer',
