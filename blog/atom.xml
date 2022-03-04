@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://kartverket.github.io/skip-docs/blog</id>
+    <id>https://kartverket.github.io/blog</id>
     <title>SKIP Blog</title>
     <updated>2021-10-04T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://kartverket.github.io/skip-docs/blog"/>
+    <link rel="alternate" href="https://kartverket.github.io/blog"/>
     <subtitle>SKIP Blog</subtitle>
-    <icon>https://kartverket.github.io/skip-docs/img/favicon/favicon.ico</icon>
+    <icon>https://kartverket.github.io/img/favicon/favicon.ico</icon>
     <rights>Copyright © 2022 Statens Kartverk</rights>
     <entry>
         <title type="html"><![CDATA[Prosjektstatus sprint 15]]></title>
         <id>sprint-15</id>
-        <link href="https://kartverket.github.io/skip-docs/blog/sprint-15"/>
+        <link href="https://kartverket.github.io/blog/sprint-15"/>
         <updated>2021-10-04T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Målsetning for sprint 15]]></summary>
         <author>
@@ -22,7 +22,7 @@
     <entry>
         <title type="html"><![CDATA[Prosjektstatus sprint 14]]></title>
         <id>sprint-14</id>
-        <link href="https://kartverket.github.io/skip-docs/blog/sprint-14"/>
+        <link href="https://kartverket.github.io/blog/sprint-14"/>
         <updated>2021-09-23T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Målsetning for sprint 14]]></summary>
         <author>

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[167],{9278:function(s){s.exports=JSON.parse('{"allTagsPath":"/skip-docs/blog/tags","slug":"/skip-docs/blog/tags/sprint","name":"sprint","count":2,"permalink":"/skip-docs/blog/tags/sprint"}')}}]);
