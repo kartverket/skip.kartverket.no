@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[535],{5641:function(s){s.exports=JSON.parse('{"title":"Siste poster","items":[{"title":"Prosjektstatus sprint 15","permalink":"/skip-docs/blog/sprint-15"},{"title":"Prosjektstatus sprint 14","permalink":"/skip-docs/blog/sprint-14"}]}')}}]);

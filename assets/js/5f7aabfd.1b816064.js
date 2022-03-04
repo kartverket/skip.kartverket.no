@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[694],{1384:function(s){s.exports=JSON.parse('{"allTagsPath":"/skip-docs/blog/tags","slug":"/skip-docs/blog/tags/skip","name":"skip","count":2,"permalink":"/skip-docs/blog/tags/skip"}')}}]);
