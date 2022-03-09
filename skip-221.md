@@ -98,7 +98,7 @@ i tillegg til å lagre terraform state på Minio hos oss så kan man benytte seg
 
 ### Advarsel om backups
 
-Det blir ikke tatt backup av de forskjelligge objektlagringsløsningene. det må vært enkelt team ta ansvar for selv
+Det blir ikke tatt backup av de forskjelligge objektlagringsløsningene. det må hvert enkelt team ta ansvar for selv
 
 ### Advarsel om rettigheter
 
