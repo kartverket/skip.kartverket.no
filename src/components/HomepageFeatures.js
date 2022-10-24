@@ -8,9 +8,9 @@ const FeatureList = [
     Svg: require('../../static/img/undraw_code_review.svg').default,
     description: (
       <>
-        SKIP ble bygget fra bunnen opp til å tilrettelegge for moderne
-        utviklingsmønstre som containers, meshing, mikrotjenester og sky-native
-        tankegang.
+        SKIP ble bygget fra bunnen av til å være fremtidsrettet og tilrettelegge
+        for autonomi og moderne utviklingsmønstre som containers, hybridsky,
+        mikrotjenester og sky-native tankegang.
       </>
     ),
   },
@@ -20,7 +20,7 @@ const FeatureList = [
     description: (
       <>
         SKIP lar deg fokusere på applikasjonen din mens SKIP bygger inn best
-        practices i arbeidsflyten, noe som fører til en sikrere, enklere og mer
+        practices i arbeidsflyten. Dette fører til en sikrere, enklere og mer
         standardisert utvikling- og driftsopplevelse for alle.
       </>
     ),
@@ -32,7 +32,8 @@ const FeatureList = [
       <>
         Platformen vil i bakgrunnen sørge for at applikasjonen skalerer opp ved
         mye traffikk og ned når det ikke lenger er nødvendig.
-        I tilleg sørger den for at applikasjonene restartes ved ustabilitet.
+        I tillegg sørger den for at applikasjonene restartes ved ustabilitet og
+        gir deg data og metrikker til å overvåke tjenesten din.
       </>
     ),
   },

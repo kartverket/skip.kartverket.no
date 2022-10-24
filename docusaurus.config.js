@@ -49,71 +49,66 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           src: "img/skip.png",
         },
         items: [
+          // {
+          //   type: "doc",
+          //   docId: "intro",
+          //   position: "left",
+          //   label: "Docs",
+          // },
           {
-            type: "doc",
-            docId: "intro",
-            position: "left",
+            href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK",
             label: "Docs",
+            position: "left",
           },
           {
-            type: "doc",
-            docId: "roadmap",
+            href: "https://kartverket.atlassian.net/jira/software/projects/SKIP/boards/2/roadmap",
             position: "left",
             label: "Roadmap",
           },
           {
-            to: "blog",
-            label: "Blog",
+            href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/blog",
             position: "left",
+            label: "Nyhetsbrev",
           },
+          // {
+          //   to: "blog",
+          //   label: "Nyhetsbrev",
+          //   position: "left",
+          // },
           {
-            href: "https://confluence.statkart.no/display/SKIP",
+            href: "https://kartverket.atlassian.net/wiki/spaces/SKIP",
             label: "Confluence",
             position: "right",
           },
           {
-            href: "https://gitlab.statkart.no/skip",
-            label: "GitLab",
-            position: "right",
-          },
-          {
-            href: "https://gitlab.statkart.no/skip/issues/-/issues/new?issue#",
-            label: "Registrer sak",
+            href: "https://github.com/orgs/kartverket/teams/skip",
+            label: "GitHub",
             position: "right",
           },
         ],
       },
       footer: {
         style: "dark",
-        links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Introduction",
-                to: "/docs/docs/intro",
-              },
-              {
-                label: "Roadmap",
-                to: "/docs/docs/roadmap",
-              },
-              {
-                label: "Blog",
-                to: "/docs/blog",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "GitLab",
-                href: "https://gitlab.statkart.no/skip",
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Statens Kartverk. Built with Docusaurus.`,
+        // links: [
+        //   {
+        //     title: "Docs",
+        //     items: [
+        //       {
+        //         label: "Introduction",
+        //         to: "/docs/intro",
+        //       },
+        //       {
+        //         label: "Roadmap",
+        //         to: "/docs/roadmap",
+        //       },
+        //       {
+        //         label: "Blog",
+        //         to: "/blog",
+        //       },
+        //     ],
+        //   },
+        // ],
+        copyright: `Copyright © ${new Date().getFullYear()} Statens Kartverk`,
       },
       prism: {
         theme: lightCodeTheme,
