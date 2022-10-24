@@ -2,7 +2,7 @@
 <rss version="2.0">
     <channel>
         <title>SKIP Blog</title>
-        <link>https://kartverket.github.io/blog</link>
+        <link>https://skip.kartverket.no/blog</link>
         <description>SKIP Blog</description>
         <lastBuildDate>Mon, 04 Oct 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,14 +10,14 @@
         <copyright>Copyright © 2022 Statens Kartverk</copyright>
         <item>
             <title><![CDATA[Prosjektstatus sprint 15]]></title>
-            <link>https://kartverket.github.io/blog/sprint-15</link>
+            <link>https://skip.kartverket.no/blog/sprint-15</link>
             <guid>sprint-15</guid>
             <pubDate>Mon, 04 Oct 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Målsetning for sprint 15]]></description>
         </item>
         <item>
             <title><![CDATA[Prosjektstatus sprint 14]]></title>
-            <link>https://kartverket.github.io/blog/sprint-14</link>
+            <link>https://skip.kartverket.no/blog/sprint-14</link>
             <guid>sprint-14</guid>
             <pubDate>Thu, 23 Sep 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Målsetning for sprint 14]]></description>
