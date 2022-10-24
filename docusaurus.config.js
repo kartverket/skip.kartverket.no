@@ -7,7 +7,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
   module.exports = {
     title: "SKIP",
     tagline: "Statens Kartverks Infrastrukturplatform",
-    url: "https://kartverket.github.io",
+    url: "https://skip.kartverket.no",
     baseUrl: "/",
     projectName: 'skip-docs',
     organizationName: 'kartverket',
