@@ -17,7 +17,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
     favicon: "img/favicon/favicon.ico",
 
     scripts: [
-      '/static/instana.js',
+      '/instana.js',
       // Object format.
       {
         src: 'https://eum.instana.io/eum.min.js',
