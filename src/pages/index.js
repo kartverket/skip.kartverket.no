@@ -5,6 +5,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
 import GetStarted from '../components/GetStarted';
+import ShipAnimation from '../components/ShipAnimation';
 import logo from '../../static/img/skip.png';
 
 function HomepageHeader() {
@@ -38,6 +39,7 @@ export default function Home() {
         <HomepageFeatures />
         <GetStarted />
       </main>
+      <ShipAnimation />
     </Layout>
   );
 }

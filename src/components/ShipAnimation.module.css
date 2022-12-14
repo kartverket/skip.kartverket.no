@@ -1,0 +1,33 @@
+.ship {
+  animation:
+    swing 2s infinite ease-in-out,
+    move 10s 1 linear forwards;
+  transform-origin: bottom center;
+  position: fixed;
+  bottom: -20px;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(-5deg) scaleX(-1);
+  }
+  50% {
+    transform: rotate(5deg) scaleX(-1);
+  }
+  100% {
+    transform: rotate(-5deg) scaleX(-1);
+  }
+}
+
+@keyframes move {
+  0% {
+    left: -200px;
+  }
+  80% {
+    bottom: -20px;
+  }
+  100% {
+    left: 600px;
+    bottom: -200px;
+  }
+}

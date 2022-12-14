@@ -20,8 +20,8 @@ const FeatureList = [
     description: (
       <>
         SKIP lar deg fokusere på applikasjonen din mens SKIP bygger inn best
-        practices i arbeidsflyten. Dette fører til en sikrere, enklere og mer
-        standardisert utvikling- og driftsopplevelse for alle.
+        practices og sikkerhet i arbeidsflyten. Dette fører til en sikrere,
+        enklere og mer standardisert utvikling- og driftsopplevelse for alle.
       </>
     ),
   },
