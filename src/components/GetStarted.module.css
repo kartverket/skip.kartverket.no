@@ -1,0 +1,73 @@
+.heading {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.wrapper {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  padding-top: 24px;
+}
+
+.innerWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.svg {
+  height: 200px;
+  width: 100%
+}
+
+.onboardingList {
+  padding: 0;
+}
+
+.onboardingStep {
+  display: grid;
+  grid-template-areas:
+    "dot title"
+    "line body";
+  grid-template-columns: 30px 1fr;
+}
+
+.onboardingStep:last-child .line::after {
+  display: none;
+}
+
+.dot {
+  grid-area: dot;
+  border-radius: 12px;
+  margin-top: 4px;
+  margin-left: -6px;
+  font-size: 24px;
+}
+
+.line {
+  grid-area: line;
+  margin-left: 6px;
+  margin-bottom: 6px;
+}
+
+.line::after {
+  border-left: 1px solid var(--ifm-font-color-base-inverse);
+  height: 100%;
+  display: block;
+  content: "";
+}
+
+.onboardingStepTitle {
+  grid-area: title;
+  font-size: 1.8rem;
+}
+
+.onboardingStepBody {
+  grid-area: body;
+}
+
+html[data-theme="dark"] .line::after {
+  border-left-color: var(--ifm-font-color-base);
+}
