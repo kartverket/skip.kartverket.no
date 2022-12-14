@@ -9,3 +9,13 @@
   height: 200px;
   width: 200px;
 }
+
+.link {
+  text-align: left;
+  font-weight: bold;
+}
+
+.link::before {
+  content: "→";
+  margin-right: 4px;
+}

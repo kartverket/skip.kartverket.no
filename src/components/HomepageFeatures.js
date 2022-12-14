@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
@@ -11,6 +12,10 @@ const FeatureList = [
         SKIP ble bygget fra bunnen av til å være fremtidsrettet og tilrettelegge
         for autonomi og moderne utviklingsmønstre som containers, hybridsky,
         mikrotjenester og sky-native tankegang.
+        <br />
+        <Link className={styles.link} to="/docs/tech">
+          Les om teknologien bak SKIP
+        </Link>
       </>
     ),
   },
@@ -22,6 +27,10 @@ const FeatureList = [
         SKIP lar deg fokusere på applikasjonen din mens SKIP bygger inn best
         practices og sikkerhet i arbeidsflyten. Dette fører til en sikrere,
         enklere og mer standardisert utvikling- og driftsopplevelse for alle.
+        <br />
+        <Link className={styles.link} to="/docs/security">
+          DevSecOps & Best Practices
+        </Link>
       </>
     ),
   },
@@ -34,6 +43,10 @@ const FeatureList = [
         mye traffikk og ned når det ikke lenger er nødvendig.
         I tillegg sørger den for at applikasjonene restartes ved ustabilitet og
         gir deg data og metrikker til å overvåke tjenesten din.
+        <br />
+        <Link className={styles.link} to="/docs/metrics">
+          Metrikker og varsling
+        </Link>
       </>
     ),
   },

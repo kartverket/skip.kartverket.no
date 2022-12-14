@@ -71,3 +71,10 @@
 html[data-theme="dark"] .line::after {
   border-left-color: var(--ifm-font-color-base);
 }
+
+@media (max-width: 900px) {
+  .innerWrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
