@@ -7,6 +7,10 @@
   bottom: -20px;
 }
 
+@media (prefers-reduced-motion) {
+  animation: none;
+}
+
 @keyframes swing {
   0% {
     transform: rotate(-5deg) scaleX(-1);

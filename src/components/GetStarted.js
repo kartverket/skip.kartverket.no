@@ -24,7 +24,7 @@ export default function GetStarted() {
           </div>
           <ul className={styles.onboardingList}>
             <OnboardingStep title="Kontakt SKIP" emoji="👋">
-              Vi på SKIP-teamet står klare til å ta dere imot på plattformen!
+              Vi på plattformteamet står klare til å ta dere imot på SKIP!
               <br />
               <br />
               Første steg er at produktteamet deres tar kontakt. Etter dette
