@@ -14,5 +14,12 @@ export default function ShipAnimation() {
     }
   }, [clickCount]);
 
-  return <img src={ship} className={styles.ship} onClick={handleClick} />;
+  return (
+    <img
+      aria-hidden={true}
+      src={ship}
+      className={styles.ship}
+      onClick={handleClick}
+    />
+  );
 }

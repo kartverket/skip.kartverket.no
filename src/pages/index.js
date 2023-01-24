@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
@@ -13,7 +14,10 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <img src={logo} />
+        <img
+          src={logo}
+          alt="Logo for SKIP, viser en båt i Kartverkets farger"
+        />
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
@@ -34,6 +38,9 @@ export default function Home() {
     <Layout
       title="SKIP – Statens Kartverks Infrastrukturplatform"
       description="Statens Kartverks Infrastrukturplatform">
+      <Head>
+        <html lang="no" />
+      </Head>
       <HomepageHeader />
       <main>
         <HomepageFeatures />

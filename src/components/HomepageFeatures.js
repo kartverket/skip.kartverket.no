@@ -69,6 +69,7 @@ function Feature({Svg, title, description}) {
 export default function HomepageFeatures() {
   return (
     <section className={styles.features}>
+      <h2 className={styles.srOnly}>Fordeler med SKIP</h2>
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (
