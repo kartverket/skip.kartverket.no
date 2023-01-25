@@ -99,25 +99,18 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
       },
       footer: {
         style: "dark",
-        // links: [
-        //   {
-        //     title: "Docs",
-        //     items: [
-        //       {
-        //         label: "Introduction",
-        //         to: "/docs/intro",
-        //       },
-        //       {
-        //         label: "Roadmap",
-        //         to: "/docs/roadmap",
-        //       },
-        //       {
-        //         label: "Blog",
-        //         to: "/blog",
-        //       },
-        //     ],
-        //   },
-        // ],
+        links: [
+          {
+            title: "Lenker",
+            items: [
+              {
+                label: "Tilgjengelighetserklering",
+                href: "https://uustatus.no/nb/erklaringer/publisert/7148395f-f0cf-4019-9c45-3b83d79fd544",
+              },
+            ],
+          },
+        ],
+
         copyright: `Copyright © ${new Date().getFullYear()} Statens Kartverk`,
       },
       prism: {
