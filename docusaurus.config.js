@@ -104,7 +104,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             title: "Lenker",
             items: [
               {
-                label: "Tilgjengelighetserklering",
+                label: "Tilgjengelighetserklæring",
                 href: "https://uustatus.no/nb/erklaringer/publisert/7148395f-f0cf-4019-9c45-3b83d79fd544",
               },
             ],
