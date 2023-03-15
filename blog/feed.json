@@ -1,0 +1,40 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "SKIP Blog",
+    "home_page_url": "https://skip.kartverket.no/blog",
+    "description": "SKIP Blog",
+    "items": [
+        {
+            "id": "https://skip.kartverket.no/blog/sprint-15",
+            "content_html": "<p>Her følger oppsummering av sprint 14 og teamets målsetning for sprint 15 (Okt 4,\n2021–Okt 18, 2021).</p><h3 class=\"anchor anchorWithStickyNavbar_LWe7\" id=\"oppsummering-sprint-14\">Oppsummering sprint 14<a href=\"#oppsummering-sprint-14\" class=\"hash-link\" aria-label=\"Direct link to Oppsummering sprint 14\" title=\"Direct link to Oppsummering sprint 14\">​</a></h3><p>I sprint 14 fikk vi gjort mye. Vi har:</p><ul><li>Vært i kontakt med VmWare og fått tips til hvordan ephemeral storage kan\nhåndteres slik at helm install/upgrade ikke fører til krisetilstander (årsaken\ntil at GitLab har gått ned flere ganger de siste ukene)</li><li>Fortsatt å forbedre dokumentasjon</li><li>Ny MinIO-instans er etablert og klar for å brukes til backup</li><li>Nytt testmiljø for Kubernetes/Tanzu-oppgraderinger og annen PoC-ing er\netablert på separat maskinvare som vi skal begynne å bruke for å hindre\nustabilitet i prodmiljøet</li><li>Teamet jobber kontinuerlig med å forbedre og utvide Vault-funksjonaliteten og\nbruken av dette</li><li>Verdivurdering, oversikt over tjenester er på plass. Mangler fortsatt\ntopologidiagram/arkitekturskisse</li><li>Sikkerhetsanalyse: Må trimmes ned og deles opp for å bli mer håndterbar.\nAnalyse av GitLab nesten ferdig, mangler bare en tiltakspakke</li><li>Analyse av å flytte GitLab til SaaS: Dette er noe vi ønsker å få til, men må\ngå gjennom konsekvensene av et stort antall bieffekter av å gjøre dette</li><li>Tiltak for kommunikasjon/forventningsstyring: Vi har laget\nkommunikasjonsstrategi og har planlagt en town hall - må velge et tema for\ndenne. Dato må avklares, mulig 15. oktober</li><li>Begynt å sette opp en POC av nytt verktøy for kommunikasjon med resten av\nKartverket</li><li>Har POCet Terraform på noen områder. På sikt kommer vi til å anbefale bruk av\nTerraform framfor Helm til utrulling av egenutviklede applikasjoner</li></ul><h3 class=\"anchor anchorWithStickyNavbar_LWe7\" id=\"okr-mål\">OKR-mål<a href=\"#okr-mål\" class=\"hash-link\" aria-label=\"Direct link to OKR-mål\" title=\"Direct link to OKR-mål\">​</a></h3><p>Fremover skal vi bruke <a href=\"https://corporatefinanceinstitute.com/resources/knowledge/strategy/objectives-and-key-results-okr/\" target=\"_blank\" rel=\"noopener noreferrer\">OKR</a> til å spore hvor godt vi som team oppnår våre\nmål. Våre tre mål for 4. kvartal 2021 er:</p><ol><li>Produksjonsmiljøet og tooling skal ha 95% oppetid</li><li>100% Terraform-dekning</li><li>80% SKIP-brukere som er fornøyd eller svært fornøyd med stabilitet og\nbrukeropplevelse</li></ol><h3 class=\"anchor anchorWithStickyNavbar_LWe7\" id=\"plan-for-sprint-15\">Plan for sprint 15<a href=\"#plan-for-sprint-15\" class=\"hash-link\" aria-label=\"Direct link to Plan for sprint 15\" title=\"Direct link to Plan for sprint 15\">​</a></h3><p>I sprint 15 blir hovedfokuset å jobbe videre med \"terraformifiseringen\" av\nverktøyene våre. På denne måten nærmer vi oss \"Infrastructure as Code\" (IaC) og\nfår en mer fremtidssikker.</p><p>Målet for sprint 15 er ordlagt som følger:</p><blockquote><p>Få over minst 50% av verktøy og 1 egenutviklet applikasjon i Terraform</p></blockquote><p>I tillegg er disse delmålene med i sprinten:</p><ul><li>Løse lav disk/nettverks I/O i clusteret som fører til trege bygg</li><li>Løse feilen med ephemeral storage som tar ned applikasjoner</li><li>Ferdigstille PoC av kommunikasjonsplatform</li><li>Spre kompetanse om Terraform i teamet og ut til brukerene av plattformen</li><li>Fortsette med sikkerhetsanalyser</li><li>Prøve å få nærmere samarbeid med drift</li><li>Undersøke om vi skal flytte issues til Jira</li><li>Vi skal fokusere mer på brukertilfredshet fremover, og skal planlegge en\nspørreundersøkelse opp mot tilfredshet med plattformen. Mer info kommer</li></ul>",
+            "url": "https://skip.kartverket.no/blog/sprint-15",
+            "title": "Prosjektstatus sprint 15",
+            "summary": "Målsetning for sprint 15",
+            "date_modified": "2021-10-04T00:00:00.000Z",
+            "author": {
+                "name": "Espen Henriksen",
+                "url": "http://minside/Person.aspx?accountname=STATKART\\HENESP"
+            },
+            "tags": [
+                "skip",
+                "sprint"
+            ]
+        },
+        {
+            "id": "https://skip.kartverket.no/blog/sprint-14",
+            "content_html": "<p>Velkommen til SKIP-bloggen! Her kommer vi til å kommunisere signifikante\nendringer i platformen samt våre fokusområder fremover.</p><p>Her følger teamets målsetning for sprint 14 (Sep 16, 2021–Sep 30, 2021).</p><p>I sprint 14 skal vi fokusere på følgende delmål:</p><ul><li>Vi setter opp nettside for dokumentasjon og kommunikasjon mot resten av\norganisasjonen (den du leser dette på nå!)</li><li>Vi etablerer velero som backup-system</li><li>Vi ferdigstiller ELK-stack for logging av applikasjon</li><li>Vi får på plass terraform for å bevege platformen nærmere infrastructure as\ncode og GitOps</li><li>Vi jobber videre med Vault</li><li>Vi kartlegger, jobber med skystrategi og dokumenterer oppsett</li><li>Vi jobber kontinuerlig med å stabilisere clusteret</li></ul>",
+            "url": "https://skip.kartverket.no/blog/sprint-14",
+            "title": "Prosjektstatus sprint 14",
+            "summary": "Målsetning for sprint 14",
+            "date_modified": "2021-09-23T00:00:00.000Z",
+            "author": {
+                "name": "Espen Henriksen",
+                "url": "http://minside/Person.aspx?accountname=STATKART\\HENESP"
+            },
+            "tags": [
+                "skip",
+                "sprint"
+            ]
+        }
+    ]
+}
