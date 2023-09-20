@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[713],{3457:s=>{s.exports=JSON.parse('[{"label":"skip","permalink":"/blog/tags/skip","count":2},{"label":"sprint","permalink":"/blog/tags/sprint","count":2}]')}}]);

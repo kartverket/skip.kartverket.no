@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[236],{9504:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/skip","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Oppdateringer om signifikante endringer for SKIP-brukere","blogTitle":"SKIP-oppdateringer"}')}}]);
