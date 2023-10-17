@@ -16,16 +16,6 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon/favicon.ico",
 
-    scripts: [
-      '/instana.js',
-      // Object format.
-      {
-        src: 'https://eum.instana.io/eum.min.js',
-        defer: true,
-        crossOrigin: 'anonymous',
-      },
-    ],
-
     presets: [
       [
         "@docusaurus/preset-classic",
@@ -36,12 +26,11 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             editUrl: "https://github.com/kartverket/skip-docs/edit/main/",
           },
           blog: {
-            blogTitle: 'SKIP-oppdateringer',
-            blogDescription: 'Oppdateringer om signifikante endringer for SKIP-brukere',
-            blogSidebarTitle: 'Siste poster',
+            blogTitle: 'SKIP Ohoy!',
+            blogDescription: 'From Helm to Helm',
+            blogSidebarTitle: 'Recent posts',
             feedOptions: {
               type: "all",
-              copyright: `Copyright © ${new Date().getFullYear()} Statens Kartverk`,
             },
           },
           theme: {
