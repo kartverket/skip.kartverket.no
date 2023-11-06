@@ -4,7 +4,7 @@
 }
 
 .wrapper {
-  background-color: var(--ifm-color-primary);
+  background-color: var(--kv-color-1);
   color: white;
   padding-top: 24px;
 }
