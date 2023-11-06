@@ -24,7 +24,12 @@ function HomepageHeader() {
           <a
             className="button button--secondary button--lg"
             href="https://kartverket.atlassian.net/wiki/spaces/SKIPDOK">
-            Se dokumentasjon
+            Docs
+          </a>
+          <a
+            className="button button--secondary button--lg"
+            href="blog">
+            Tech blog
           </a>
         </div>
       </div>
