@@ -16,16 +16,6 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon/favicon.ico",
 
-    scripts: [
-      '/instana.js',
-      // Object format.
-      {
-        src: 'https://eum.instana.io/eum.min.js',
-        defer: true,
-        crossOrigin: 'anonymous',
-      },
-    ],
-
     presets: [
       [
         "@docusaurus/preset-classic",
@@ -36,12 +26,11 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             editUrl: "https://github.com/kartverket/skip-docs/edit/main/",
           },
           blog: {
-            blogTitle: 'SKIP-oppdateringer',
-            blogDescription: 'Oppdateringer om signifikante endringer for SKIP-brukere',
-            blogSidebarTitle: 'Siste poster',
+            blogTitle: 'SKIP Tech Blog',
+            blogDescription: 'SKIP\'s latest!',
+            blogSidebarTitle: 'Recent posts',
             feedOptions: {
               type: "all",
-              copyright: `Copyright © ${new Date().getFullYear()} Statens Kartverk`,
             },
           },
           theme: {
@@ -75,16 +64,16 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             position: "left",
             label: "Roadmap",
           },
+          //{
+          //  href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/blog",
+          //  position: "left",
+          //  label: "Nyhetsbrev",
+          //},
           {
-            href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/blog",
+            to: "blog",
+            label: "Tech Blog",
             position: "left",
-            label: "Nyhetsbrev",
           },
-          // {
-          //   to: "blog",
-          //   label: "Nyhetsbrev",
-          //   position: "left",
-          // },
           {
             href: "https://kartverket.atlassian.net/wiki/spaces/SKIP",
             label: "Confluence",
