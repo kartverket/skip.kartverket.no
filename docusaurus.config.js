@@ -26,8 +26,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             editUrl: "https://github.com/kartverket/skip-docs/edit/main/",
           },
           blog: {
-            blogTitle: 'SKIP Ohoy!',
-            blogDescription: 'From Helm to Helm',
+            blogTitle: 'SKIP Tech Blog',
+            blogDescription: 'SKIP\'s latest!',
             blogSidebarTitle: 'Recent posts',
             feedOptions: {
               type: "all",
@@ -64,16 +64,16 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             position: "left",
             label: "Roadmap",
           },
+          //{
+          //  href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/blog",
+          //  position: "left",
+          //  label: "Nyhetsbrev",
+          //},
           {
-            href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/blog",
+            to: "blog",
+            label: "Tech Blog",
             position: "left",
-            label: "Nyhetsbrev",
           },
-          // {
-          //   to: "blog",
-          //   label: "Nyhetsbrev",
-          //   position: "left",
-          // },
           {
             href: "https://kartverket.atlassian.net/wiki/spaces/SKIP",
             label: "Confluence",
