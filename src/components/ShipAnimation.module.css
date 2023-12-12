@@ -8,7 +8,9 @@
 }
 
 @media (prefers-reduced-motion) {
-  animation: none;
+  .ship {
+    animation: none;
+  }
 }
 
 @keyframes swing {
