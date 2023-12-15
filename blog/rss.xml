@@ -4,15 +4,360 @@
         <title>SKIP Blog</title>
         <link>https://skip.kartverket.no/blog</link>
         <description>SKIP Blog</description>
-        <lastBuildDate>Sat, 07 Oct 2023 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 14 Dec 2023 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
+            <title><![CDATA[Hybrid Kubernetes in production pt. 2]]></title>
+            <link>https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2</link>
+            <guid>https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2</guid>
+            <pubDate>Thu, 14 Dec 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[In this second installment of the Anthos series, we'll talk about how we run Anthos and hybrid cloud in Kartverket. 
+]]></description>
+            <content:encoded><![CDATA[<p><img loading="lazy" alt="Anthos in Google Cloud" src="https://skip.kartverket.no/assets/images/anthos-4-7d2f18bbcb2f378e0657da61ac28fa2f.jpg" width="2880" height="1200" class="img_ev3q"></p>
+<p>In this second installment of the Anthos series, we will talk about how we run
+Anthos and hybrid cloud at <a href="https://kartverket.no/en" target="_blank" rel="noopener noreferrer">Kartverket</a>. We'll touch
+on the hardware, the software, and the processes we use to keep it running.</p>
+<p>By the end we hope that we'll have de-mystified Anthos a bit, and maybe given
+you an idea of what it takes to run Anthos in production.</p>
+<p>If you haven't read the first part, you can find it
+<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">here</a>.</p>
+<p>This newsletter is the second of the three part series about Anthos in
+Kartverket.</p>
+<ol>
+<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
+<li>How we run Anthos (You are here!)</li>
+<li>Benefits and what we would have done differently (Coming soon)</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="installation-and-upgrades">Installation and upgrades<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#installation-and-upgrades" class="hash-link" aria-label="Direct link to Installation and upgrades" title="Direct link to Installation and upgrades">​</a></h2>
+<p><img loading="lazy" alt="Illustration of the cluster architecture" src="https://skip.kartverket.no/assets/images/anthos-5-41f824768cab6b841ef2fbdc0f5a375b.png" width="1456" height="1082" class="img_ev3q"></p>
+<p>We have been early adopters of Anthos, so when doing the install we did not have
+options for controlplane architecture. We wanted to use existing underlying
+VMware infrastructure, so the nodes in our clusters are VMs, provisioned by
+scripts provided by Google. Our cluster is installed with
+<a href="https://kubernetes.io/blog/2017/01/how-we-run-kubernetes-in-kubernetes-kubeception/" target="_blank" rel="noopener noreferrer">kubeception</a>
+controlplane architechture, this no longer the only, or recommended way. The
+recommended model is <a href="https://cloud.google.com/anthos/clusters/docs/on-prem/latest/how-to/create-user-cluster-controlplane-v2" target="_blank" rel="noopener noreferrer">Controlplane
+V2</a>,
+where the controlplane nodes for the user cluster are in the user cluster
+itself.</p>
+<p>In the kubeception model, Kubernetes clusters are nested inside other Kubernetes
+clusters. Specifically, the control plane of the user clusters runs in an
+admin-cluster. For each on-premise cluster created, a new set of nodes and a
+namespace are created in the admin cluster.</p>
+<p>To install and make changes to the admin cluster, an admin workstation is
+required, which must be located in the same network as the admin cluster. All
+configurations are done using a CLI tool called <code>gkectl</code>. This tool handles most
+cluster administration tasks, and the cluster specific configuration is provided
+in YAML files.</p>
+<p>Our cluster setup is more or less static, and most cluster administration tasks
+involve upgrading or scaling existing clusters. The SKIP team has a cluster
+referred to as “sandbox”, which is always the first recipient of potentially
+breaking changes. After testing in sandbox, we'll deploy changes to both
+development and test environments, and if nothing breaks, we roll out the
+changes to our production environment. This is mostly done outside work-hours,
+although we have not experienced downtime during cluster upgrades. Here is the
+general workflow for upgrading:</p>
+<ol>
+<li>Upgrade your admin workstation to the target version of your upgrade.</li>
+<li>From your admin workstation, upgrade your user clusters.</li>
+<li>After all of the user clusters have been upgraded, you can upgrade your admin
+cluster from the admin workstation.</li>
+</ol>
+<p>We have tried using <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform</a> where possible to
+simplify the setup. This can not be done in the same way for clusters using the
+kubeception model. When we migrate to Controlplane V2 however, clusters can be
+managed via GCP, and we can finally start using terraform for our on-premise
+cluster config in the same way as for our GKE clusters, and GCP configuration in
+general.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="gcp-integration">GCP integration<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#gcp-integration" class="hash-link" aria-label="Direct link to GCP integration" title="Direct link to GCP integration">​</a></h2>
+<p>When working with an on-premise Anthos cluster, some of the nice-to-have
+features of a standard GKE cluster have been lost. However, recently Anthos on
+VMware clusters have gradually received more and more features compared to GKE
+clusters.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="iam-and-groups">IAM and Groups<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iam-and-groups" class="hash-link" aria-label="Direct link to IAM and Groups" title="Direct link to IAM and Groups">​</a></h3>
+<p>Since we were early adaptors of Anthos, we had to endure not being able to
+delegate clusterroles to IAM groups, and had to add single users to
+clusterrole/rolebindings in Kubernetes. This was not a huge problem for us,
+since we were working with a very limited number of teams and devs, but it was
+apparent that this was not going to scale well. Luckily we got support for
+groups before it was a problem, and our config files went from containing way
+too many names and email addresses, to only containing groups.</p>
+<p>Our Google Workspace receives groups and users from our Microsoft Active
+Directory. Groups are initially created either in Entra ID, or on our local
+Domain Controllers, and at set intervals changes are pushed to Google Workspace.
+<a href="https://en.wikipedia.org/wiki/Role-based_access_control" target="_blank" rel="noopener noreferrer">Role-based access control
+(RBAC)</a> based on
+membership in these groups was needed. We wanted to manage this through
+Terraform, and created a repo with where we store and configure our entire IAM
+configuration. Since we have had growing adoption of Kubernetes and public cloud
+in our organization, more teams, projects and apps have been onboarded to SKIP,
+and this IAM repo has grown. We've tried to simplify the structure more than
+once, but since this is a problem not affecting dev teams, we have chosen to
+prioritize other tasks.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="workloads">Workloads<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#workloads" class="hash-link" aria-label="Direct link to Workloads" title="Direct link to Workloads">​</a></h3>
+<p>All clusters created in in Anthos can be viewed from the GCP console, and the
+<a href="https://cloud.google.com/anthos/multicluster-management/gateway/using" target="_blank" rel="noopener noreferrer">Connect
+gateway</a>
+makes it possible to do management from the console (or via kubectl) as well.
+The GCP console can be used to get information about, or manage the state of the
+cluster, workloads and resources present. This is a web GUI, part of the GCP
+console, and not as snappy as cli-tools, but still usable, and intuitive to use.</p>
+<p><img loading="lazy" alt="Anthos in Google Cloud" src="https://skip.kartverket.no/assets/images/workload-5cb93c6dd1fc37775e7194682731de53.png" width="1223" height="618" class="img_ev3q">
+This view shows workloads running in the argocd namespace. All workloads
+displayed here can be clicked, and explored further.</p>
+<p>When accessing the cluster via the Connect gateway there are some limits. The
+Connect gateway does not handle persistent connections, and this makes it
+impossible to do <a href="https://cloud.google.com/anthos/multicluster-management/gateway/using#run_commands_against_the_cluster" target="_blank" rel="noopener noreferrer">exec, port-forward, proxy or
+attach</a>.
+This is not a problem for a production environment, where containers should
+never be used in this way. But for a dev, or sandbox environment, this is a bit
+of a pain-point.</p>
+<p>This issue should be partially fixed in Kubernetes 1.29 and should be completely
+resolved in Kubernetes 1.30.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="service-mesh">Service Mesh<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#service-mesh" class="hash-link" aria-label="Direct link to Service Mesh" title="Direct link to Service Mesh">​</a></h3>
+<p>A <a href="https://istio.io/latest/about/service-mesh/" target="_blank" rel="noopener noreferrer">Service Mesh</a> in Kubernetes is
+an infrastructure layer that manages communication between services. We are
+using Anthos Service Mesh (ASM), which is based on <a href="https://istio.io/" target="_blank" rel="noopener noreferrer">Istio</a> and
+nicely integrated with the GCP console. It's easy to get an overview of
+services, the connection between them, and what services are connected to either
+our internal or external gateways. This can be displayed in a Topology view, or
+if you click on a service, you'll get a more detailed drilldown.</p>
+<p><img loading="lazy" alt="Anthos Service Mesh" src="https://skip.kartverket.no/assets/images/services-67dda8848ee239d94d4edfed09900478.png" width="1539" height="935" class="img_ev3q">
+<em>A snippet of services running in our sandbox cluster.</em></p>
+<p>When we deploy services to our cluster we create almost all Kubernetes and
+service-mesh resources with our custom operator;
+<a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a>. This operator configures
+the resources to fit our setup, and applies "best practices" the easy way. This
+has been one of the great success stories in SKIP, and Skiperator is in
+continuous development.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="deployment">Deployment<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#deployment" class="hash-link" aria-label="Direct link to Deployment" title="Direct link to Deployment">​</a></h2>
+<p>Deployment is a very interesting subject when it comes to Anthos. As a platform
+team, it is our job to make sure that deployment is as quick and convenient as
+possible for the product teams. This ambition has led us to iterate on our
+processes, which has finally led us to a solution that both we and the
+developers enjoy using.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="iteration-1---terraform">Iteration 1 - Terraform<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iteration-1---terraform" class="hash-link" aria-label="Direct link to Iteration 1 - Terraform" title="Direct link to Iteration 1 - Terraform">​</a></h3>
+<p>When we first started out with Anthos, we had a very manual process for
+deploying applications. A service account was provisioned in GCP, which allowed
+the developers to impersonate a service account in Kubernetes, which in turn
+allowed them to deploy apps using Terraform. This approach worked, but had a
+decent amount of rough edges, and also would fail in ways that was hard to
+debug.</p>
+<p>With this approach the developers would have to manage their own Terraform
+files, which most of the time was not within their area of expertise. And while
+SKIP was able to build modules and tools to make this easier, it was still a
+complex system that was hard to understand. Observability and discoverability
+was also an issue.</p>
+<p>Because of this we would consistently get feedback that this way of deploying
+was too complicated and slow, in addition handling Terraform state was a pain.
+As a platform team we're committed to our teams' well being, so we took this
+seriously and looked at alternatives. This was around the time we adopted Anthos,
+so thus Anthos Config Managment was a natural choice.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="iteration-2---anthos-config-managment-acm">Iteration 2 - Anthos Config Managment (ACM)<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iteration-2---anthos-config-managment-acm" class="hash-link" aria-label="Direct link to Iteration 2 - Anthos Config Managment (ACM)" title="Direct link to Iteration 2 - Anthos Config Managment (ACM)">​</a></h3>
+<p><img loading="lazy" alt="Anthos Config Management architecture showing multiple Git repos deployed to a cluster" src="https://skip.kartverket.no/assets/images/acm-1-46a04fbc7dd63ebcae3c08935a5aa51c.png" width="732" height="726" class="img_ev3q"></p>
+<p>ACM is a set of tools that allows you to declaratively manage your Kubernetes
+resources. Here we're mostly going to talk about Config Sync, which is a
+<a href="https://about.gitlab.com/topics/gitops/" target="_blank" rel="noopener noreferrer">GitOps</a> system for Kubernetes.</p>
+<p>In a GitOps system, a team will have a Git repository that contains all the
+Kubernetes resources that they want to deploy. This repository is then synced
+to the Kubernetes cluster, and the resources are applied.</p>
+<p>This can be likened to a pull-based system, where the GitOps tool (Config sync)
+watches the repo for changes and pulls them into the cluster. This is in
+contrast to a push-based system, where a script pushes the changes to a
+cluster. It is therefore a dedicated system for deployment to Kubernetes, and
+following the <a href="https://en.wikipedia.org/wiki/Unix_philosophy" target="_blank" rel="noopener noreferrer">UNIX philosophy</a>
+which focuses on doing that one thing well.</p>
+<p>Using this type of a workflow solves a lot of the issues around the Terraform
+based deployment that we had in the previous iteration. No longer do developers
+need to set up a complicated integration with GCP service accounts and
+impersonation, committing a file to a Git repo will trigger a deployment. The
+Git repo and the manifests in them also works as a state of truth for the
+cluster, instead of having to reverse engineer what was deployed based on
+terraform diffs and state.</p>
+<p><img loading="lazy" alt="ACM UI showing a sync in progress" src="https://skip.kartverket.no/assets/images/acm-2-1a9a222556da2f846d4f64bb1978db27.gif" width="928" height="568" class="img_ev3q"></p>
+<p>It started well, however we soon ran into issues. The system would often take
+a long time to reconcile the sync, and during the sync we would not have any
+visibility into what was happening. This was not a deal breaker, but at the
+same time this was not a particularly good developer experience.</p>
+<p>We also ran into issues with implementing a level of self-service that we were
+satisfied with. We wanted to give the developers the ability to provision their
+own namespaces, but due to the multi-tenant nature of our clusters we also had
+to make sure that teams were not able to write to each others' namespaces.
+This was not a feature we were able to implement, but luckily our next iteration
+had this built in, and we'll get back to that.</p>
+<p>The final nail was the user interface. We simply expected more from a deployment
+system than what ACM was able to provide. The only view into the deployment was
+a long list of resources, which to a developer that is not an expert in
+Kubernetes, was not intuitive enough.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="final-iteration---argo-cd">Final iteration - Argo CD<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#final-iteration---argo-cd" class="hash-link" aria-label="Direct link to Final iteration - Argo CD" title="Direct link to Final iteration - Argo CD">​</a></h3>
+<p><img loading="lazy" src="https://skip.kartverket.no/assets/images/argo-1-10ff6f4861d91a7f670f671e2f0ba43d.png" width="2498" height="1229" class="img_ev3q"></p>
+<p>This finally brought us to our current iteration. We had heard about Argo CD
+before, but initially we were hesitant to add another system to our stack.
+After ACM had introduced us to GitOps and we looked deeper into Argo CD, it was
+obvious to us that Argo was more mature and would give our developers a better
+user experience.</p>
+<p>The killer feature here is the UI. Argo CD has an intuitive and user-friendly
+UI that gives the developers a good overview of what is deployed. Whenever
+anything fails, it's immediately obvious which resource is failing, and Argo
+allows you to drill down into the resource to see the details of the failure,
+logs for deployments, Kubernetes events, etc.</p>
+<p><img loading="lazy" src="https://skip.kartverket.no/assets/images/argo-2-61a9fc0299932ae38d232796c8f4f677.png" width="2499" height="1209" class="img_ev3q"></p>
+<p>The above photo illustrates this well. Here you can see a project with a number
+of <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> applications. The
+green checkmarks indicate that the application is synced and the green heart
+indicates that the application is healthy. A developer can see the underlying
+"owned" resources that Skiperator creates (such as a deployment, service, etc),
+and get a look "behind the curtain" to see what is actually deployed. This helps
+debugging and gives the developers a better insight into what is happening
+during a deployment.</p>
+<p>In terms of multi tenancy, Argo CD has a concept of projects. A project is a
+set of namespaces that a team has access to, and a team can only use Argo to
+sync to namespaces that are part of their project. The namespace allowlist can
+also include wildcards, which sounds small but this solved our self-service
+issue! With our apps-repo architecture, we would give a team a "prefix" (for
+example <code>seeiendom-</code>), and that team would then be able to deploy to and create
+any namespace that started with that prefix. If they tried to deploy to another
+team's namespace they would be stopped, as they would not have access to that
+prefix.</p>
+<p>The prefix feature allows product teams to create a new directory in their apps
+repo, which will then be synced to the cluster and deployed as a new namespace.
+This is a very simple and intuitive workflow for creating short-lived
+deployments, for example for pull requests, and it has been very well received
+by the developers.</p>
+<p>The apps-repo architecture will be a blog post itself at some point, so I won't
+go too much into it.</p>
+<p>And finally, if you're wondering what disaster recovery of an entire cluster
+looks like with Argo CD, I leave you with the following video at the end.</p>
+<video controls="" width="100%" muted=""><source src="/img/argo-3.mov" type="video/mp4"></video>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hybrid-mesh">Hybrid Mesh<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#hybrid-mesh" class="hash-link" aria-label="Direct link to Hybrid Mesh" title="Direct link to Hybrid Mesh">​</a></h2>
+<p>A hybrid mesh service mesh configuration is a setup that allows for service
+networking across different environments. For Kartverket this includes a hybrid
+cloud environment. The setup involves several steps, including setting up
+cross-cluster credentials, installing the east-west gateway, enabling endpoint
+discovery, and configuring certificate authorities. All clusters in a hybrid
+mesh are registered to the same fleet host project, and istiod in each cluster
+must be able to communicate with the Kube-API on the opposing clusters.</p>
+<p>ASM is as previously mentioned based on Istio, and after some internal
+discussion we decided to experiment with running vanilla upstream Istio in our
+GKE clusters running in GCP. Pairing it with ASM in our on-premise clusters
+worked as expected (after a bit of config), and we are now running upstream
+Istio in GKE, with ASM on-prem in a multi-cluster setup. We also looked into
+using managed ASM in our GKE cluster, this was hard for us however, due to it
+requiring firewall openings on-prem for sources we could not predict.</p>
+<p><img loading="lazy" alt="Multi-Primary on different networks" src="https://skip.kartverket.no/assets/images/multi-cluster-37ee6eb4218f5c79582ad4738a942ac6.png" width="748" height="555" class="img_ev3q"></p>
+<p>We have chosen the <a href="https://istio.io/latest/docs/setup/install/multicluster/multi-primary_multi-network/" target="_blank" rel="noopener noreferrer">Multi-Primary on different
+networks</a>
+after reviewing our network topology and configuration. We connect our
+on-premise network, with the GCP VPC through a VPN connection (using host and
+service projects). To have a production ready environment, the VPN connection
+must be configured with redundancy.</p>
+<p>We're working towards getting this architecture into production, as this will
+enable us to seamlessly use GKE clusters in GCP together with our on-premise
+clusters. The elasticity of cloud infrastructure can be utilized where needed,
+and we can handle communication between services on different clusters much more
+smoothly. This has been a bit of a journey to configure, but as a learning
+experience it has been valuable. Being able to address services seamlessly and
+communicate with mTLS enabled by default across sites, zones and clusters
+without developers having to think about it feels a bit like magic.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="monitoring">Monitoring<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#monitoring" class="hash-link" aria-label="Direct link to Monitoring" title="Direct link to Monitoring">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="google-cloud-monitoring">Google Cloud Monitoring<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#google-cloud-monitoring" class="hash-link" aria-label="Direct link to Google Cloud Monitoring" title="Direct link to Google Cloud Monitoring">​</a></h3>
+<p><img loading="lazy" alt="Google Cloud Monitoring dashboard" src="https://skip.kartverket.no/assets/images/gcp-monitoring-1-eb5c94f71f6e0d8c45c6211002c702e5.png" width="2256" height="1108" class="img_ev3q"></p>
+<p>GKE Enterprise includes an agent that collects metrics from the cluster and sends
+them to Google Cloud. This is a great feature which makes it relatively easy
+to get started with metrics and monitoring. However, we have decided not to use
+the agent, and instead use Grafana and LGTM for metrics and monitoring.</p>
+<p>This is mainly due to a couple of challenges:</p>
+<p>The amount of metrics that are collected out of the box and sent to GCP
+contributes a significant part of our total spend. It's not that we have a lot
+of clusters, but the amount of metrics that are collected out of the box is very
+high, and Anthos' default setup didn't give us the control we needed to be able
+to manage it in a good way.</p>
+<p>Note that this was before <a href="https://cloud.google.com/managed-prometheus?hl=en" target="_blank" rel="noopener noreferrer">Managed Service for
+Prometheus</a> was released with
+more fine grained control over what metrics are collected. It is now the
+recommended default, which should make metrics collection easier to manage.</p>
+<p>Second, while Google Cloud Monitoring has a few nice dashboards ready for
+Anthos, it feels inconsistent which dashboards work on-premise and which only
+work in cloud as they are not labeled as such. This is not a big issue, but it's
+a bit annoying. The bigger issue is that all the dashboards feel sluggish and
+slow to load. Several of us have used Grafana before, so we're used to a
+snappy and responsive UI. In our opinion, Google Cloud Monitoring feels clunky
+in comparison.</p>
+<p>So the cost and the user experience were the main reasons we decided to look at
+alternatives to Google Cloud Monitoring. We ended up using Grafana and LGTM,
+which we'll talk about next.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="grafana-with-the-lgtm-stack">Grafana with the LGTM stack<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#grafana-with-the-lgtm-stack" class="hash-link" aria-label="Direct link to Grafana with the LGTM stack" title="Direct link to Grafana with the LGTM stack">​</a></h3>
+<p><img loading="lazy" alt="Grafana dashboard with a Kubernetes cluster overview" src="https://skip.kartverket.no/assets/images/grafana-1-aa91144f9105339f1edf0c1ad1aab0b0.png" width="5088" height="3266" class="img_ev3q"></p>
+<p>When we realized that our needs were not entirely met by Google Cloud Monitoring,
+we started a project to develop a monitoring stack that would meet our needs.
+Since Grafana is open source and has a large community, we decided to use that
+as our frontend. Our backend is the LGTM stack, which is a set of open source
+tools that are designed to work well together for ingesting, storing and querying
+logs, traces and metrics.</p>
+<p>What we noticed immediately was that the product teams were much more engaged
+with this stack than they were with <a href="https://cloud.google.com/monitoring/?hl=en" target="_blank" rel="noopener noreferrer">Google Cloud
+Monitoring</a>. Previously they would
+not really look at the dashboards, but now they are using them and even creating
+their own. This is a huge win for us, as we want the teams to be engaged with
+the monitoring and observability of their services.</p>
+<p>It definitely helps that most developers on the product teams are familiar with
+Grafana, which makes it easier for them to get started as the learning curve is
+not as steep.</p>
+<p>There was a discussion about what the backend should be, if we should use
+<a href="https://grafana.com/products/cloud/" target="_blank" rel="noopener noreferrer">Grafana Cloud</a> or host it ourselves. There
+would be a lot of benefits of using the cloud, as we would not have to maintain
+the stack or worry about performance or storage. There was, however, a concern
+about cost and whether or not log files could be shipped to a cloud provider. In
+the end we decided to host it ourselves, mostly because we didn't have control
+over what quantities of data we're processing. Now that we have a better
+understanding of our usage we can use that to calculate our spend, so we're not
+ruling out migrating to Grafana Cloud in the future.</p>
+<p>The collection (scraping) of data is done by <a href="https://grafana.com/oss/agent/" target="_blank" rel="noopener noreferrer">Grafana
+Agent</a>, which is an "all-in-one" agent that
+collects metrics, logs and traces. This means a few less moving parts for the
+stack, as we don't have to run both <a href="https://prometheus.io/" target="_blank" rel="noopener noreferrer">Prometheus</a>,
+<a href="https://fluentbit.io/" target="_blank" rel="noopener noreferrer">Fluent Bit</a> and some
+<a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a> compatible agent for traces. It's a
+relatively new project, but it's already relative stable and has a lot of
+features. It uses a funky format for configuration called river, which is based
+on Hashicorp's HCL. The config enables forming pipelines to process data before
+it's forwarded to Loki, Tempo or Mimir.  It's a bit different, but it works well
+and is easy to understand and configure to our needs.</p>
+<p><img loading="lazy" alt="Alerting with Grafana" src="https://skip.kartverket.no/assets/images/grafana-2-849aa5c18bba686f0b10f13a446ff672.png" width="5088" height="3342" class="img_ev3q"></p>
+<p>Using a system like Grafana also enables us to build an integrated experience
+that also includes alerting. Using Grafana alerting and OnCall, we configure
+alerts that are sent to the correct team based on the service that is failing.
+This helps the teams get a better overview of what is happening in their
+services, and also helps us as a platform team to not have to be involved in
+every alert that is triggered.</p>
+<p>Overall we're very happy with the LGTM stack, even though it's a fair bit of
+work to maintain the stack (especially with Istio and other security measures).
+We're also happy with Grafana, and we're looking forward to seeing what the
+future holds for monitoring and observability in Kubernetes.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h2>
+<p>To summarize: We like Anthos, and we think it's a great platform for running
+hybrid Kubernetes. As a platform team we look at each feature on a case-by-case
+basis, with the goal of giving our developers the best possible experience
+instead of naively trying to use as much as possible of the platform. Because of
+this we've decided to use Anthos for Kubernetes and service mesh, but not for
+config sync and monitoring. This has given us a great platform that we're
+confident will serve us well for years to come.</p>
+<p>Stay tuned for the third and final part of this series, where we'll talk about
+the benefits we've seen from Anthos, and what we would have done differently if
+we were to start over.</p>
+<p><em>Disclaimer - Google, GKE and Anthos are trademarks of Google LLC and this website is not
+endorsed by or affiliated with Google in any way.</em></p>]]></content:encoded>
+            <category>anthos</category>
+            <category>kubernetes</category>
+            <category>hybrid</category>
+        </item>
+        <item>
             <title><![CDATA[Hybrid Kubernetes in production pt. 1]]></title>
             <link>https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1</link>
             <guid>https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1</guid>
-            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+            <pubDate>Tue, 07 Nov 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[One of the biggest challenges that we hear is the challenge of running hybridized K8s workloads. Here we share our experience using Anthos for hybrid cloud
 ]]></description>
             <content:encoded><![CDATA[<p><img loading="lazy" alt="Anthos in Google Cloud" src="https://skip.kartverket.no/assets/images/anthos-1-7de3d78d58e53af12f241a38a12f68ef.png" width="3618" height="2994" class="img_ev3q"></p>
@@ -36,7 +381,7 @@ least long enough to be able to share our thoughts.</p>
 Kartverket.</p>
 <ol>
 <li>Why we chose Anthos (You are here!)</li>
-<li>How we run Anthos (Coming soon)</li>
+<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
 <li>Benefits and what we would have done differently (Coming soon)</li>
 </ol>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="so-why-a-hybrid-cloud">So why a hybrid cloud?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#so-why-a-hybrid-cloud" class="hash-link" aria-label="Direct link to So why a hybrid cloud?" title="Direct link to So why a hybrid cloud?">​</a></h2>
@@ -162,7 +507,7 @@ endorsed by or affiliated with Google in any way.</em></p>]]></content:encoded>
             <title><![CDATA[SKIP has a tech blog!]]></title>
             <link>https://skip.kartverket.no/blog/welcome</link>
             <guid>https://skip.kartverket.no/blog/welcome</guid>
-            <pubDate>Fri, 06 Oct 2023 00:00:00 GMT</pubDate>
+            <pubDate>Mon, 06 Nov 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[SKIP is starting a tech blog! 🚀
 ]]></description>
             <content:encoded><![CDATA[<p><img loading="lazy" alt="Anthos in Google Cloud" src="data:image/png;base64,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" width="250" height="285" class="img_ev3q"></p>

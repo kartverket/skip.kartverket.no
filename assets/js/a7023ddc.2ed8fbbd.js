@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[713],{3457:e=>{e.exports=JSON.parse('[{"label":"anthos","permalink":"/blog/tags/anthos","count":2},{"label":"kubernetes","permalink":"/blog/tags/kubernetes","count":2},{"label":"hybrid","permalink":"/blog/tags/hybrid","count":2}]')}}]);
