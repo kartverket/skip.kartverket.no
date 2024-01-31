@@ -4,10 +4,195 @@
         <title>SKIP Blog</title>
         <link>https://skip.kartverket.no/blog</link>
         <description>SKIP Blog</description>
-        <lastBuildDate>Tue, 26 Dec 2023 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 25 Jan 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Hybrid Kubernetes in production pt. 3]]></title>
+            <link>https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3</link>
+            <guid>https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3</guid>
+            <pubDate>Thu, 25 Jan 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[In this final installment of the Anthos series, we'll talk about what we learned on the way building hybrid infrastructure
+]]></description>
+            <content:encoded><![CDATA[<p><img loading="lazy" alt="Anthos in Google Cloud" src="https://skip.kartverket.no/assets/images/anthos-6-bf519df28c4acffaa304344b0ad145aa.jpg" width="770" height="588" class="img_ev3q"></p>
+<p>In this final installment of the Anthos series, we will talk about what we
+learned on the way to building hybrid infrastructure at <a href="https://kartverket.no/en" target="_blank" rel="noopener noreferrer">Kartverket</a>.</p>
+<p>It's been a long journey, and there's plenty of things we've learned along the
+way in building a hybrid Kubernetes platform. We'll try to share some of those
+hard earned lessons in this post.</p>
+<p>This newsletter is the first of three part series about Anthos in
+Kartverket.</p>
+<ol>
+<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
+<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
+<li>Benefits and what we would have done differently (You are here!)</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="do-you-really-need-hybrid">Do you really need hybrid?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#do-you-really-need-hybrid" class="hash-link" aria-label="Direct link to Do you really need hybrid?" title="Direct link to Do you really need hybrid?">​</a></h2>
+<p>When we started out, there was an assumption that it was simply impossible to
+use the cloud. This came from all sides of the organization, so this was
+taken as a given. SKIP was therefore started as a project to build an on-premise
+Kubernetes platform to service our needs as a transition to cloud native
+development principles.</p>
+<p>As we moved along, a lot of these assumptions got challenged. We found that
+most of these assumptions were based on misunderstandings or a lack of a deeper
+understanding of cloud technologies and the surrounding legal aspects. This led
+to a fear of the unknown, and subsequent inaction. In the end it turned out
+that quite a lot of our workloads could indeed run in the public cloud, given some
+minor adjustments.</p>
+<p>Had we started out with the knowledge we have now, we would probably have
+started with a public cloud provider, and then moved to hybrid when and if
+we saw a need for it. Using a cloud provider's managed Kubernetes offering
+is significantly easier than running your own, and you can get started much
+faster, with less risk.</p>
+<p>Given our organization, we would probably have ended up with hybrid anyway, but
+that complexity could potentially have been moved down the timeline to a point
+where the platform was more mature.</p>
+<p>Starting with hybrid is a massive undertaking, and you should have a good reason
+for doing so. Do you need hybrid, or do you just need to mature your
+organization? If you do, reduce the scope of the initial work to get to a
+workable platform, and preferably start in the cloud, adding hybrid features
+later. If you're not sure, you probably don't need hybrid.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hybrid-gives-your-organization-flexibility">Hybrid gives your organization flexibility<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#hybrid-gives-your-organization-flexibility" class="hash-link" aria-label="Direct link to Hybrid gives your organization flexibility" title="Direct link to Hybrid gives your organization flexibility">​</a></h2>
+<p><img loading="lazy" alt="Illustration of cloud components" src="https://skip.kartverket.no/assets/images/cloud-1-92f59291846076655bb737aa95d25a59.jpg" width="2880" height="1200" class="img_ev3q"></p>
+<p>Now that we've built a platform that seamlessly runs workloads in both public
+cloud and on-premise, we have a lot of flexibility in where we run our workloads
+and how we manage them. Our experience is that this makes it easier for the
+organization to mature legacy workloads.</p>
+<p>All our greenfield projects are written with cloud native principles in mind,
+which makes it trivial to run them in the cloud. Legacy workloads, however, are
+not so lucky. They are often written with a lot of assumptions about the
+underlying infrastructure and are not cognizant of the resources they use. This
+means they are a poor fit to lift and shift to the cloud, as they will often be
+expensive and inefficient.</p>
+<p>With a hybrid platform, we can use our on-premise offering as a spring board for
+modernization. Product teams will start by shifting their app to our on-premise
+Kubernetes platform, and then gradually modernize it to be cloud native.
+This method gives a few immediate benefits from the lift and shift like better
+observability, developer experience and security features but also gives fewer of the
+drawbacks, as the on-premise cloud is closer to the existing dependencies than a
+public cloud. Once this is done, smaller chunks kan be rewritten as
+microservices and moved to the cloud, communicating with the monolith seamlessly
+over the hybrid network. This is sometimes referred to as the <a href="https://microservices.io/patterns/refactoring/strangler-application.html" target="_blank" rel="noopener noreferrer">strangler
+application</a>.</p>
+<p>This method significantly reduces the scope of refactoring, as one can focus on
+gradually rewriting smaller modules instead of rewriting the entire application.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="service-mesh-is-hard-but-maybe-a-necessary-evil-to-make-hybrid-less-painful">Service mesh is hard, but maybe a necessary evil to make hybrid less painful<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#service-mesh-is-hard-but-maybe-a-necessary-evil-to-make-hybrid-less-painful" class="hash-link" aria-label="Direct link to Service mesh is hard, but maybe a necessary evil to make hybrid less painful" title="Direct link to Service mesh is hard, but maybe a necessary evil to make hybrid less painful">​</a></h2>
+<p><img loading="lazy" alt="Illustration of service mesh with Istio logo" src="https://skip.kartverket.no/assets/images/mesh-1-154deaa307f1f382bd1b5c33494d1712.png" width="2200" height="917" class="img_ev3q"></p>
+<p>Oh my word how we have struggled with service mesh.</p>
+<p>Starting from nothing with a goal of providing a secure-by-default zero-trust
+network layer with observability and traffic control is quite an undertaking,
+especially when you pair that with setting up a new kubernetes-based
+infrastructure from scratch. Istio is famously complex, and we've had our fair
+share of that.</p>
+<p>So how do we feel about Istio? There are various opinions in the team, but if we
+average them all out, we're content. It's quite complex and can be hard to
+debug, but it does the job. As we've matured and gotten more experience with
+Istio, we've also started to see more benefits, like extensions for <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter" target="_blank" rel="noopener noreferrer">handling
+OAuth2</a>
+and the traffic control features for gradual rollouts which we used for
+canary-testing the migration of some of our larger applications to SKIP. Not all
+of these features, like EnvoyFilters, are supported by Anthos Service Mesh (ASM),
+which is why we're exploring using upstream Istio instead of ASM.</p>
+<p>One thing we quickly learned is to not let the product teams configure the
+service mesh directly using service mesh resources. This is a recipe for
+disaster. We tried this in the beginning, and first of all it's a huge
+complexity burden for the product teams. We also started getting a lot of
+weird issues when product teams would configure the mesh in ways that broke
+their encapsulation. Since the service mesh is a cluster-wide feature, if one
+team makes an invalid configuration, it can break other teams' workloads.
+Kubernetes namespaces be damned. We've therefore moved to a model where the
+platform team provides an abstraction through
+<a href="https://github.dev/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> which configures the
+service mesh on their behalf.</p>
+<p>Finally, I think it's prudent to ask yourself wether or not you actually need a
+service mesh. If you're running a small cluster with a few services, you'll
+probably be fine with using the built-in Kubernetes features like Ingress and
+Network Policies. The observability features are nice, but you can get most of
+them with a combination of <a href="https://grafana.com/docs/tempo/latest/metrics-generator/service_graphs/" target="_blank" rel="noopener noreferrer">instrumentation and
+Grafana</a>.</p>
+<p>If you need service mesh then limit the scope until you get comfortable with the
+mesh, for example start with just mTLS and observability, and then add zero
+trust networking features later.</p>
+<p>Also keep in mind there is a lot of competition in the service mesh space, and
+there are some interesting alternatives to Istio, like
+<a href="https://linkerd.io/" target="_blank" rel="noopener noreferrer">Linkerd</a> and the up-and-coming <a href="https://cilium.io/use-cases/cluster-mesh/" target="_blank" rel="noopener noreferrer">Cilium Service
+Mesh</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-helps-you-as-a-platform-team-getting-started-with-best-practices-even-if-you-plan-to-move-to-open-source-components-later">Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#anthos-helps-you-as-a-platform-team-getting-started-with-best-practices-even-if-you-plan-to-move-to-open-source-components-later" class="hash-link" aria-label="Direct link to Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later" title="Direct link to Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later">​</a></h2>
+<p><img loading="lazy" alt="Google Anthos logo" src="https://skip.kartverket.no/assets/images/anthos-2-1a3889bc339c3f2ac97e81d32c482cff.png" width="2200" height="917" class="img_ev3q"></p>
+<p>When our platform team started out a few years ago, we picked some of the
+brightest cloud engineers from within the organization and combined them with
+some consultants to work on the platform. Most of these engineers had some
+experience working with Kubernetes and cloud, but not building something of this
+scale from scratch. The first months would therefore be a learning experience for
+most of the team.</p>
+<p>I think a lot of teams will be in a similar situation, and this is where a
+managed service like Anthos can be a huge help. Anthos is built with best
+practices in mind, so a lot of the architecture decisions were built-in to the
+installer. Choosing a managed offering, even when running on-prem has therefore
+helped us deliver value to the product teams much quicker than if we had to
+build everything from scratch.</p>
+<p>What's important to point out is that choosing something that is managed does
+not rule out using open source components later. We started out using all the
+parts that Anthos gave us, including service mesh, logging, monitoring and
+configuration management. Managed services do come with some tradeoffs, however,
+as you lose some of the finer control of the platform. As the team has matured
+and gained experience, we've started to replace some of these components with
+open source alternatives, which has helped us save money and gain more control
+over our platform. This has the downside of having to maintain these
+components ourselves, but with more experience in the team, this is a tradeoff
+we feel is worth it.</p>
+<p>Even though we're increasingly using more open source components, we don't
+regret using a paid managed offering in the beginning. It helped us get started
+and make the right decisions early on, and we're now in a position where we can
+capitalize on that great start.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="keep-in-mind-autoscaling-when-choosing-licensing-models">Keep in mind autoscaling when choosing licensing models<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#keep-in-mind-autoscaling-when-choosing-licensing-models" class="hash-link" aria-label="Direct link to Keep in mind autoscaling when choosing licensing models" title="Direct link to Keep in mind autoscaling when choosing licensing models">​</a></h2>
+<p><img loading="lazy" alt="Autoscaling" src="https://skip.kartverket.no/assets/images/anthos-7-e3f4b6cffc3dd928706042e2610f75e4.png" width="2200" height="917" class="img_ev3q"></p>
+<p>This may be an obvious point to some of the more experienced platform engineers
+out there, but it was still something that we had to learn. When we started out,
+we appreciated the simplicity of SaaS products that billed per node, as it made
+it easy to predict costs. We could simply look at the number of nodes we had
+running and multiply that with the price per node to get a relatively accurate
+estimate of what this offering would cost. This would turn out to be a double
+edged sword, however.</p>
+<p>It is safe to assume that one of the reasons people choose Kubernetes is the ability
+to scale workloads easily. This could be scaling up to handle more traffic, or
+scaling down to save money. This is a great feature, but as the number of workloads
+grow, the provisioned nodes will start to become insufficient and new nodes will
+be provisioned. With Kubernetes and Anthos on VMware this can be done
+automatically, which is a fantastic feature.</p>
+<p>The problem arises when you scale out more nodes and have a static license that
+bills per node. We've made the mistake of getting contracts with two (now just
+one) SaaS providers where we order a set of nodes, let's say 10, and when
+workloads scale up, we end up with more than 10 nodes. This means we're not
+running that SaaS-service's agents on the new nodes, which can be anything from
+inconvenient to critical, depending on the service. In the end we've had to
+restrict our node scaling to avoid this issue, which goes against the whole
+ethos of Kubernetes. We're also provisioning bigger nodes than we need to avoid
+scaling out, which can be suboptimal.</p>
+<p>We're now working with the vendors to get a more flexible license that bills per
+node on demand, but this is something to keep in mind when choosing a SaaS
+offering. Try to factor in the future scaling needs of your platform when
+purchasing SaaS services.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h2>
+<p>To summarize: We've learned a lot on our journey to building a hybrid Kubernetes
+platform. Over the last few years we've iterated on our platform and learned
+lots of great lessons. It's been a huge help and privilege to have the support
+of our organization, especially in terms of us being allowed to fail and learn
+from our mistakes. The Norwegian saying "it's never too late to turn around"
+comes to mind, as we've changed course several times on our journey, sometimes
+to the annoyance of our product teams who depend on a stable platform - but in
+the end we've ended up with a better product - a platform we can be proud of and
+that our product teams love using.</p>
+<p>Thanks for reading this series on Anthos and hybrid Kubernetes. We hope you've
+learned something from our experiences, and that our hard earned lessons can
+help you on your journey to building a hybrid Kubernetes platform.</p>
+<p><em>Disclaimer - Google, GKE and Anthos are trademarks of Google LLC and this website is not
+endorsed by or affiliated with Google in any way.</em></p>]]></content:encoded>
+            <category>anthos</category>
+            <category>kubernetes</category>
+            <category>hybrid</category>
+        </item>
         <item>
             <title><![CDATA[SKIP on Plattformpodden!]]></title>
             <link>https://skip.kartverket.no/blog/skip-on-plattformpodden</link>
@@ -44,7 +229,7 @@ Kartverket.</p>
 <ol>
 <li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
 <li>How we run Anthos (You are here!)</li>
-<li>Benefits and what we would have done differently (Coming soon)</li>
+<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
 </ol>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="installation-and-upgrades">Installation and upgrades<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#installation-and-upgrades" class="hash-link" aria-label="Direct link to Installation and upgrades" title="Direct link to Installation and upgrades">​</a></h2>
 <p><img loading="lazy" alt="Illustration of the cluster architecture" src="https://skip.kartverket.no/assets/images/anthos-5-41f824768cab6b841ef2fbdc0f5a375b.png" width="1456" height="1082" class="img_ev3q"></p>
@@ -398,7 +583,7 @@ Kartverket.</p>
 <ol>
 <li>Why we chose Anthos (You are here!)</li>
 <li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
-<li>Benefits and what we would have done differently (Coming soon)</li>
+<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
 </ol>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="so-why-a-hybrid-cloud">So why a hybrid cloud?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#so-why-a-hybrid-cloud" class="hash-link" aria-label="Direct link to So why a hybrid cloud?" title="Direct link to So why a hybrid cloud?">​</a></h2>
 <p><img loading="lazy" alt="Illustration: Anthos runs on GCP, on-premise, other clouds and Edge" src="https://skip.kartverket.no/assets/images/anthos-3-c8c56e8241d54a23f269d181b5d7eb57.png" width="378" height="235" class="img_ev3q"></p>
