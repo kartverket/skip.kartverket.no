@@ -21,7 +21,7 @@ learned on the way to building hybrid infrastructure at <a href="https://kartver
 <p>It's been a long journey, and there's plenty of things we've learned along the
 way in building a hybrid Kubernetes platform. We'll try to share some of those
 hard earned lessons in this post.</p>
-<p>This newsletter is the first of three part series about Anthos in
+<p>This newsletter is the final entry of a three part series about Anthos in
 Kartverket.</p>
 <ol>
 <li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
