@@ -1,7 +1,7 @@
 ---
 title: Crisis Management Exercises
 description: >
-    In this blog post, we'll talk a bit about crisis management, disaster recovery and how to refine your plans through exercises.
+    Crisis management and disaster recovery exercises are a great way to learn and to refine your processes and documentation! You should do it too!
 slug: crisis-management-exercises
 authors:
   - name: Thomas Berg
@@ -78,6 +78,7 @@ All in all, we considered the exercise to be a great success, with many importan
 
 
 ## What did we learn?
+![Illustration of malicious actor](img/whatdidwelearn.jpeg)
 ### Lesson 1: You are only as good as your documentation
 Documentation is vitally important during a crisis, and should be detailed enough that any team member may follow it on a step-by-step basis and be able to restore normal service, even with minimal knowledge and during a stressful situation.
 This ensures that you avoid being dependent upon key personnel that might or might not be available during a crisis scenario, and also ensures that you retain vital institutional knowledge even when team members move on to different tasks or even new jobs.
@@ -89,11 +90,13 @@ Ideally, you should be able to react on these alerts instead of messages from us
 
 ### Lesson 3: Test your plans!
 Merely having plans, routines and documentation is insufficient. Unless they have been thoroughly tested and their quality assured through crisis exercises in realistic scenarios and conditions, they should be treated as flawed and unreliable until the opposite is proven. 
-Running crisis management exercises is a great way to expose flaws, insufficiencies and outdated documentation, and careful note-taking and post-mortems should be the norm throughout the exercise in order to easily identify and update weak spots in your plans and documentation. As systems and circumstances change, so should plans and documentation too in order to reflect the new order of the day.
+Running crisis management exercises is a great way to expose flaws, insufficiencies and outdated documentation, and careful note-taking and postmortems should be the norm throughout the exercise in order to easily identify and update weak spots in your plans and documentation. As systems and circumstances change, so should plans and documentation too in order to reflect the new order of the day.
 
 ### Lesson 4: Communicate!
 Openness and communication is critical during both exercises and real-world crisis scenarios. Plans should always involve key points of communication - who needs to be informed, whose responsibility it is to keep said people informed, and the frequency, scope and format of information to disseminate.
-This also applies to communication afterwards. Anyone in your organization should be able to understand what happened, how it was solved and what lessons were learned from it. This contributes to a culture of openness, learning and improvement. Hoarding information and disseminating it only on a "need-to-know" basis only breeds distrust and contempt.
+This also applies to communication afterwards. Anyone in your organization should be able to understand what happened, how it was solved and what lessons were learned from it. 
+In Kartverket, we solve this by writing postmortems about incidents, summing up the incident itself and what we learned from it. We favour [Blameless Postmortems](https://www.atlassian.com/incident-management/postmortem/blameless), enabling us to quickly and thoroughly analayze and document all aspects of an incident without focusing on individual mistakes   and avoid passing blame.
+This contributes to a culture of openness, learning and improvement. Hoarding information and disseminating it only on a "need-to-know" basis only breeds distrust and contempt, as does a culture that focuses on blaming and punishing people for mistakes instead of learning from them.
 A further bonus when communicating the happenings and results of your crisis management exercises is the potential to inspire others - when people see the great results and lessons you yourselves have gained from such exercises, they might want to try it with their own systems and teams. 
 
 ### Lesson 5: Let the "newbies" handle it
@@ -103,4 +106,5 @@ It is also a great confidence booster, because if they succeed, they'll gain val
 ### Lesson 6: Crisis exercises as team building
 Crisis exercises are fun and contribute to better teamwork! They bring everyone together in order to achieve a common goal - get things up and running again as quickly as possible. Combine it with "pair programming" - that is, if possible make sure at least two people are working on any given task together - this helps facilitate cooperation and communication, and provides an extra set of eyes to help catch any manual errors or deviations from the plan.
 
-
+## Thank you for reading!
+We appreciate you taking the time to read through this blog post. We have learned quite a lot (and had lots of fun) through our approach to crisis management exercises. We hope our experiences and thoughts regarding this subject has been interesting, and that they may inspire others to start doing crisis management exercises as well.
