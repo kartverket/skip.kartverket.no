@@ -85,7 +85,7 @@ This ensures that you avoid being dependent upon key personnel that might or mig
 ### Lesson 2: Logging, logging, logging! Oh, and monitoring too!
 Having the ability to search through logs of all parts of our system greatly simplifies any incident management, whether the incident revolved around malicious actors or other factors.
 But logs by themselves are not sufficient - you need some sort of monitoring and alerting system in order to alert on and react to abnormal situations/behaviour in your systems.
-Ideally, you should be able to react on these alerts instead of messages from user - or worse, customers - that something is wrong.
+Ideally, you should be able to react on these alerts instead of messages from users - or worse, customers - that something is wrong.
 
 ### Lesson 3: Test your plans!
 Merely having plans, routines and documentation is insufficient. Unless they have been thoroughly tested and their quality assured through crisis exercises in realistic scenarios and conditions, they should be treated as flawed and unreliable until the opposite is proven. 
