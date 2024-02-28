@@ -39,7 +39,8 @@ Admittedly, it was somewhat difficult to set up a realistic scenario without out
 so in the end we simulated a hostile takeover of the user account belonging to the person responsible for planning and running the exercise.
 
 The first sign that something was amiss was an alert from our [Sysdig Secure](https://sysdig.com/products/platform/) toolset, a [Falco](https://falco.org)-based agent software which continually monitors our cluster 
-for signs of abnormal activity according to a predefined ruleset and provides a SaaS portal for further analysis and management of threats.
+for signs of abnormal activity according to a predefined ruleset and provides a SaaS portal for further analysis and management of threats. 
+(We will cover more of our security features and mechanisms and how we try to build a modern kubernetes based application platform with built-in security and zero trust in a future blog post.)
 After initial examination, we found that the incident was of such a nature that we engaged our crisis management plan in order to investigate, contain and mitigate the incident.
 We simulated communication with the organization-level crisis management team, having regular meetings in order to keep them informed of progress.
 Systematic examination of logs and audit logs soon turned up suspicious activity confined to one specific platform developer account, and the
