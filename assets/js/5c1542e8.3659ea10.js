@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[1129],{9542:s=>{s.exports=JSON.parse('{"label":"disaster-recovery","permalink":"/blog/tags/disaster-recovery","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);
