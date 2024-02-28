@@ -65,7 +65,7 @@ experience and insight into setting up our services from scratch.
 We therefore decided that the newest team members would be the ones to actually execute all the 
 actions outlined in our documentation, while the rest of us followed along and made notes, updated documentation and otherwise provided guidance throughout the process.
 
-The first run-through of the recovery process took around 2-3 hours before everything was in working order. Once the IAM, RBAC, Istio and ArgoCD was up and running, it was merely a matter of using ArgoCD to synchronize and deploy all relevant workloads.
+The first run-through of the recovery process took around 2-3 hours before everything was in working order. Keep in mind that we took the time to update our documentation and explain everything we did while we were working, so in a real-life scenario this would have been even quicker. Once the IAM, RBAC, Istio and ArgoCD was up and running, it was merely a matter of using ArgoCD to synchronize and deploy all relevant workloads.
 Afterwards, we had a meeting to discuss the process and what experiences we gained from it. Based on the feedback from this meeting, we made further adjustments and updates to our documentation
 in order to make it even easier to follow on a step-by-step basis, focusing on removing any ambiguity and put any "tribal" knowledge among our platform developers into writing.
 This ensured that we are way less dependent on the knowledge and skillset of specific people, enabling any team member to contribute to recovery efforts by simply following the documentation.
