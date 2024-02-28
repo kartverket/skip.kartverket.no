@@ -2,7 +2,7 @@
 title: Crisis Management Exercises
 description: >
     In this blog post, we'll talk a bit about crisis management, disaster recovery and how to refine your plans through exercises.
-slug: hybrid-kubernetes-in-production-part-3
+slug: crisis-management-exercises
 authors:
   - name: Thomas Berg
     title: Team Lead and Platform Developer
