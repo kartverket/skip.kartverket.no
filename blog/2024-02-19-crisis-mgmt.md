@@ -13,7 +13,7 @@ image: /img/crisis_3.jpeg
 hide_table_of_contents: false
 ---
 
-![Anthos in Google Cloud](img/crisismanagamentexercise.jpeg)
+![Crisis management exercise](img/crisismanagamentexercise.jpeg)
 
 Every IT organization with some semblance of sanity has at least one crisis management or disaster recovery plan, and probably several, depending on the scope and severity of the scenario.
 Ranging from "one of our more important applications is experiencing issues in production" through "everything is on fire" on to total loss of data,
