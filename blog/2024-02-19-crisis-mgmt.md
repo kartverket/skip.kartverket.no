@@ -8,7 +8,7 @@ authors:
     title: Team Lead and Platform Developer
     url: https://github.com/berg-thom
     image_url: https://github.com/berg-thom.png
-tags: [crisis_management, disaster_recovery, exercises]
+tags: [crisis-management, disaster-recovery, exercises]
 image: /img/crisis_3.jpeg
 hide_table_of_contents: false
 ---
