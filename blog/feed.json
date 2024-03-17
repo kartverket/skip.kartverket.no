@@ -29,8 +29,8 @@
             "summary": "In this final installment of the Anthos series, we'll talk about what we learned on the way building hybrid infrastructure\n",
             "date_modified": "2024-01-25T00:00:00.000Z",
             "author": {
-                "name": "Espen Henriksen",
-                "url": "https://espen.dev"
+                "name": "Eline Henriksen",
+                "url": "https://eliine.dev"
             },
             "tags": [
                 "anthos",
@@ -46,8 +46,8 @@
             "summary": "SKIP has been featured on the Plattformpodden podcast! Give it a listen!\n",
             "date_modified": "2023-12-26T00:00:00.000Z",
             "author": {
-                "name": "Espen Henriksen",
-                "url": "https://espen.dev"
+                "name": "Eline Henriksen",
+                "url": "https://eliine.dev"
             },
             "tags": [
                 "podcast",
@@ -62,8 +62,8 @@
             "summary": "In this second installment of the Anthos series, we'll talk about how we run Anthos and hybrid cloud in Kartverket. \n",
             "date_modified": "2023-12-14T00:00:00.000Z",
             "author": {
-                "name": "Espen Henriksen",
-                "url": "https://espen.dev"
+                "name": "Eline Henriksen",
+                "url": "https://eliine.dev"
             },
             "tags": [
                 "anthos",
@@ -79,8 +79,8 @@
             "summary": "One of the biggest challenges that we hear is the challenge of running hybridized K8s workloads. Here we share our experience using Anthos for hybrid cloud\n",
             "date_modified": "2023-11-07T00:00:00.000Z",
             "author": {
-                "name": "Espen Henriksen",
-                "url": "https://espen.dev"
+                "name": "Eline Henriksen",
+                "url": "https://eliine.dev"
             },
             "tags": [
                 "anthos",
@@ -96,8 +96,8 @@
             "summary": "SKIP is starting a tech blog! 🚀\n",
             "date_modified": "2023-11-06T00:00:00.000Z",
             "author": {
-                "name": "Espen Henriksen",
-                "url": "https://espen.dev"
+                "name": "Eline Henriksen",
+                "url": "https://eliine.dev"
             },
             "tags": []
         }
