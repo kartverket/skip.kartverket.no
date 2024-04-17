@@ -9,11 +9,11 @@ authors:
     url: https://eliine.dev
     image_url: https://github.com/eliihen.png
 tags: []
-image: /img/crisis_3.jpeg
+image: https://logos.flamingtext.com/City-Logos/Todo-Logo.png
 hide_table_of_contents: false
 ---
 
-![TODO](img/TODO.jpeg)
+![TODO](https://logos.flamingtext.com/City-Logos/Todo-Logo.png)
 
 Argo CD is an awesome tool. It helps teams de-mystify the deployment process on
 Kubernetes by providing a visual representation of the deployments in the
@@ -299,7 +299,7 @@ directory. Argo CD would allow this, as the manifests are read into an Argo CD
 application. Then the attacker could delete the namespace and take down the
 cluster.
 
-![A slide from KubeCon Europe 2024 showing why it's a bad idea to let product teams create namespaces]()
+![A slide from KubeCon Europe 2024 showing why it's a bad idea to let product teams create namespaces](https://logos.flamingtext.com/City-Logos/Todo-Logo.png)
 
 It's useful in this multi-tenancy scenario to think of namespaces as resources
 owned by the platform team and namespace-scoped resources as owned by the
