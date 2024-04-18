@@ -2,7 +2,7 @@
 title: Introducing Apps Repositories
 description: >
     TODO
-slug: instroducing-apps-repositories
+slug: introducing-apps-repositories
 authors:
   - name: Eline Henriksen
     title: Product Owner and Platform Developer
