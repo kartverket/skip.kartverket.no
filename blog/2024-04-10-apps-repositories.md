@@ -1,8 +1,8 @@
 ---
-title: Apps Repositories
+title: Introducing Apps Repositories
 description: >
     TODO
-slug: apps-repositories
+slug: instroducing-apps-repositories
 authors:
   - name: Eline Henriksen
     title: Product Owner and Platform Developer
@@ -332,7 +332,7 @@ compromise the host node.
 
 Friends don't let friends edit namespaces!
 
-## Self service customizations
+## Self service customization
 
 So we set up an ApplicationSet that configures best practices and secure
 defaults for product teams! Great! But now that team with experienced cloud
@@ -517,6 +517,8 @@ objects.
 
 We're also adding a special case where for `directory` sources (the default) we
 exclude `config.json` files, as we don't want to sync the config file with Argo.
+This allows us to extend it later to add options for other tools like Kustomize
+or Helm.
 
 Keep in mind that we don't want users to inject maliciously formed patches, so
 we cast booleans to booleans. 
@@ -538,7 +540,10 @@ we cast booleans to booleans.
     {{- end }}
 ```
 
-Here is the complete `ApplicationSet`:
+## Complete ApplicationSet
+
+Here is a complete `ApplicationSet` containing all the features we've discussed
+so far.
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -569,8 +574,8 @@ spec:
           generators:
           - git:
               directories:
-              - path: sandbox/*/config.json
-              repoURL: https://github.com/kartverket/dfo-apps.git
+              - path: env/*/*/config.json
+              repoURL: https://github.com/kartverket/exampleteam-apps.git
               revision: HEAD
           - list:
               elements:
@@ -590,8 +595,8 @@ spec:
       name: '{{.path.basenameNormalized}}'
     spec:
       destination:
-        name: in-cluster
-        namespace: '{{.path.basenameNormalized}}'
+        namespace: '{{ index .path.segments 2 }}'
+        server: '{{ index .path.segments 1 }}'
       project: exampleteam
       source:
         path: '{{.path.path}}'
@@ -617,18 +622,59 @@ spec:
     {{- if .autoSync }}
       syncPolicy:
         automated:
-          allowEmpty: {{ .allowEmpty }}
-          prune: {{ .prune }}
-          selfHeal: {{ .selfHeal }}
+          allowEmpty: {{ .allowEmpty | toJson }}
+          prune: {{ .prune | toJson }}
+          selfHeal: {{ .selfHeal | toJson }}
     {{- end }}
 ```
 
-## Tradeoffs
-- Moving projects from team to team
-- Onboarding a team is a two-step process (creating project and app repo)
 
 ## Results
-- Onboarding times have become super short
-- Teams find this intuitive, especially when combined with auto-sync
+
+With Argo CD and the apps repo architecture, we've seen some real improvements
+in our deploy system. Teams find it to be incredibly intuitive to just update a
+file in Git and have it be instantly reflected in Argo CD and Kubernetes,
+especially when combined with Argo CD auto-sync.
+
+Onboarding new teams is quick and easy, since just putting files into a Git repo
+is something most developers are already familiar with. We just show them the
+structure of the apps repo and they're good to go. A team can go from not having
+any experience with Kubernetes to deploying their first application in a matter
+of minutes.
+
+Migrating from one cluster to another is also a breeze. Just move manifests from
+one directory under `env` to another, and the ApplicationSet will take care of
+the rest. This is especially useful for teams that want to start developing with
+new cloud native principles on-premises, modernizing the application and
+eventually moving to the cloud.
+
+I feel the key part of this architecture is the `config.json` file. It allows
+a degree of customization that is not possible with the default `ApplicationSet`
+template and was to us the last missing piece. It allows teams to change
+configuration without needing to know about the `ApplicationSet` abstraction,
+and it allows the platform team to enforce security and best practices.
+
+### Tradeoffs
+
+But of course, there are some drawbacks. Like always, it's tradeoffs all the
+way down. 
+
+Since a product team uses an apps repo to organize their apps, moving apps
+from one team to another will require migrating from one repo to another. This
+will require some manual work to prevent deleting the entire namespace and
+recreating it in the new repo. Usually this is not a big issue, and it happens
+very rarely, but it's something to keep in mind.
+
+And speaking from personal experience, this does require some manual work during
+onboarding to set up the apps repo and the ApplicationSet. This is something we
+can automate in the future, but for now it's a manual process.
 
 ## Thank you for reading!
+
+We hope you found this article helpful and informative. Getting into
+`ApplicationSets` can be a bit tricky, so we hope we managed to convey the most
+important parts in a clear and understandable way. Thanks for reading!
+
+We recently created a Mastodon account [@kv_plattform](https://mastodon.social/@kv_plattform)!
+If you want to contact us or discuss this article, feel free to reach out to us
+there.
