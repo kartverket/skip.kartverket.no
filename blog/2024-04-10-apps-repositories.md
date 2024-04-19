@@ -1,19 +1,22 @@
 ---
 title: Introducing Apps Repositories
 description: >
-    TODO
+  What's the best way to scale when adding more teams to Argo CD? How can we
+  make sure that we're building our GitOps in a way that facilitates self
+  service and security? Kartverket shares our experiences and introduces the
+  apps repo architecture
 slug: introducing-apps-repositories
 authors:
   - name: Eline Henriksen
     title: Product Owner and Platform Developer
     url: https://eliine.dev
     image_url: https://github.com/eliihen.png
-tags: []
-image: https://logos.flamingtext.com/City-Logos/Todo-Logo.png
+tags: [kubernetes, argo-cd, gitops]
+image: /img/apps-repo-announcment.jpeg
 hide_table_of_contents: false
 ---
 
-![TODO](https://logos.flamingtext.com/City-Logos/Todo-Logo.png)
+![A screenshot of Argo CD](./img/argo-3.png)
 
 Argo CD is an awesome tool. It helps teams de-mystify the deployment process on
 Kubernetes by providing a visual representation of the deployments in the
@@ -92,6 +95,8 @@ this manifest repo an apps repo.
 
 ## Introducing apps repositories
 
+![A cartoon character standing on a stage pointing to large letters saying "Apps repo"](./img/apps-repo-announcment.jpeg)
+
 The apps repo is where the product teams put their manifests. It has a consistent
 structure and is designed to be read by an Argo CD ApplicationSet. It also has a
 lot of nifty features that enable self-service which we'll get back to.
@@ -152,6 +157,8 @@ With this ApplicationSet any directory within `env/*/*` will be picked up by
 the ApplicationSet controller and a new Argo CD Application will be created
 based on the template in the `template` object. This enables a product team
 to create any number of applications for their products.
+
+![A chart showing apps repos synced into Kubernetes](./img/argo-apps-repos.png)
 
 An example use for this is a product team wanting a namespace for each of
 their products. Instead of having to order a new namespace from the platform
@@ -369,7 +376,7 @@ would also mean the changes disappear when the pod restarts.
 Because none of these options seemed to be the best, we created a better
 solution. By using a combination of generators and the new [template patch](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Template/#template-patch)
 feature in Argo CD 2.8 we can look through every directory in the apps repo
-for a configuration file called `config.json`. 
+for a configuration file called `config.json`.
 
 Let's look at an example `config.json` file. This example file is commited in
 the apps repo to the `env/foo-cluster/foo-main` directory.
@@ -660,14 +667,21 @@ But of course, there are some drawbacks. Like always, it's tradeoffs all the
 way down. 
 
 Since a product team uses an apps repo to organize their apps, moving apps
-from one team to another will require migrating from one repo to another. This
-will require some manual work to prevent deleting the entire namespace and
-recreating it in the new repo. Usually this is not a big issue, and it happens
-very rarely, but it's something to keep in mind.
+from one team to another will require migrating files from one repo to another.
+This will require some manual work to prevent Argo deleting the entire namespace
+when the directory is removed from the old repo. Usually this is not a big
+issue, and moving projects between teams happens very rarely, but it's something
+to keep in mind.
 
-And speaking from personal experience, this does require some manual work during
-onboarding to set up the apps repo and the ApplicationSet. This is something we
-can automate in the future, but for now it's a manual process.
+There is also a risk that a team could accidentally delete a namespace by
+removing a directory in the apps repo. We have mitigated this by disabling
+auto-sync for most mission critical applications in production.
+
+And finally, projects that don't have clear ownership or shared ownership can
+be tricky to place into a repo. You could make an apps repo for a "psuedo-team"
+consisting of the teams that need access, but generally we find that it's better
+that all products have a clear singular main owner. This also prevents 
+[diffusion of responsibility](https://en.wikipedia.org/wiki/Diffusion_of_responsibility).
 
 ## Thank you for reading!
 
