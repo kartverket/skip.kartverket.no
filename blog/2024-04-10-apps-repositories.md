@@ -1,5 +1,5 @@
 ---
-title: Introducing Apps Repositories
+title: "Scaling with Argo CD: Introducing the Apps Repo Architecture"
 description: >
   What's the best way to scale when adding more teams to Argo CD? How can we
   make sure that we're building our GitOps in a way that facilitates self
