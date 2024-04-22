@@ -109,5 +109,8 @@ const darkCodeTheme = themes.dracula;
         additionalLanguages: ["java"],
       },
     },
+    clientModules: [
+      './src/posthog.js'
+    ],
   }
 );
