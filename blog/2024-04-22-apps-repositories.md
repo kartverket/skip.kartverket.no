@@ -207,7 +207,7 @@ Simple repos will probably be fine with directories containing simple yaml-files
 that are synced to the cluster. Newer product teams especially appreciate the
 simplicity of this approach. To optimize for this you may consider using a 
 `template` directory at the base containing some example files that are copied
-into the sub-directories. A psuedo-coded GitHub action that uses a
+into the sub-directories. A pseudo-coded GitHub action that uses a
 `frontend.yaml` template from the templates directory could look like the
 following:
 
@@ -678,7 +678,7 @@ removing a directory in the apps repo. We have mitigated this by disabling
 auto-sync for most mission critical applications in production.
 
 And finally, projects that don't have clear ownership or shared ownership can
-be tricky to place into a repo. You could make an apps repo for a "psuedo-team"
+be tricky to place into a repo. You could make an apps repo for a "pseudo-team"
 consisting of the teams that need access, but generally we find that it's better
 that all products have a clear singular main owner. This also prevents 
 [diffusion of responsibility](https://en.wikipedia.org/wiki/Diffusion_of_responsibility).
