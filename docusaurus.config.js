@@ -111,6 +111,9 @@ const darkCodeTheme = themes.dracula;
     },
     scripts: [
         'https://platform.twitter.com/widgets.js'
-    ]
+    ],
+    clientModules: [
+      './src/posthog.js'
+    ],
   }
 );
