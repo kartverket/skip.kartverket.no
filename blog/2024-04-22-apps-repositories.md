@@ -138,7 +138,7 @@ spec:
     spec:
       destination:
         namespace: '{{ index .path.segments 2 }}'
-        server: '{{ index .path.segments 1 }}'
+        name: '{{ index .path.segments 1 }}'
       project: exampleteam
       source:
         path: '{{.path.path}}'
@@ -501,7 +501,7 @@ merge.
       - matrix:
           generators:
           - git:
-              directories:
+              files:
               - path: env/*/*/config.json
               repoURL: 'https://github.com/kartverket/exampleteam-apps.git'
               revision: HEAD
@@ -580,7 +580,7 @@ spec:
       - matrix:
           generators:
           - git:
-              directories:
+              files:
               - path: env/*/*/config.json
               repoURL: https://github.com/kartverket/exampleteam-apps.git
               revision: HEAD
@@ -603,7 +603,7 @@ spec:
     spec:
       destination:
         namespace: '{{ index .path.segments 2 }}'
-        server: '{{ index .path.segments 1 }}'
+        name: '{{ index .path.segments 1 }}'
       project: exampleteam
       source:
         path: '{{.path.path}}'
