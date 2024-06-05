@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
@@ -10,6 +10,15 @@ import GetStarted from '../components/GetStarted';
 import ShipAnimation from '../components/ShipAnimation';
 import logo from '../../static/img/skip.png';
 import { initializeFaro } from '@grafana/faro-react';
+
+if (ExecutionEnvironment.canUseDOM) {
+  initializeFaro({
+    url: 'https://faro.atkv3-sandbox.kartverket.cloud/collect',
+    app: {
+      name: 'skip.kartverket.no',
+    },
+  });
+}
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -54,16 +63,6 @@ export default function Home() {
         <GetStarted />
       </main>
       <ShipAnimation />
-      <BrowserOnly>
-        {() => {
-          initializeFaro({
-            url: 'https://faro.atkv3-sandbox.kartverket.cloud/collect',
-            app: {
-              name: 'skip.kartverket.no',
-            },
-          });
-        }}
-      </BrowserOnly>
     </Layout>
   );
 }
