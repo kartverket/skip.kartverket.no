@@ -8,6 +8,14 @@ import HomepageFeatures from '../components/HomepageFeatures';
 import GetStarted from '../components/GetStarted';
 import ShipAnimation from '../components/ShipAnimation';
 import logo from '../../static/img/skip.png';
+import { initializeFaro } from '@grafana/faro-react';
+
+initializeFaro({
+  url: 'https://faro.atkv3-sandbox.kartverket.cloud/collect',
+  app: {
+    name: 'skip.kartverket.no',
+  },
+});
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
