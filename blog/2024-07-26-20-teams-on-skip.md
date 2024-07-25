@@ -12,7 +12,26 @@ image: /img/apps-repo-announcment.jpeg
 hide_table_of_contents: false
 ---
 
-![A screenshot of Argo CD](./img/argo-3.png)
+![Cake with text saying 20 teams on SKIP and DASK](ECFE029D-75DB-4B3C-950A-DE8E7F5AF63F_1_105_c.jpeg)
+
+We recently passed an important milestone, onboarding our 20th team on
+Kartverket's platform. Since we started a few years ago we've been working hard
+to build a platform that drives positive change in Kartverket, and we're proud
+of the results we've got. Our research shows that users are happy with the
+technology and support they get, and that they're able to deliver faster and
+more securely than before.
+
+Building a platform is not easy, and it requires re-thinking a lot of assumptions
+held in your organization. It's therefore easy to lose your way and to end up
+with something that doesn't deliver on the high standards you've set for
+your organization. Like everyone that starts with something new we've made
+mistakes along the way, we've had to change course multiple times and most
+importantly we've learned a lot in our journey.
+
+On the occasion of this achievement we're going to look back at the decisions we
+made that led us to building a successful platform. In this tech blog we are
+showcasing the the secrets to our success - the decisions that have had the
+biggest impact.
 
 <!--truncate-->
 
@@ -35,10 +54,10 @@ Some of these are:
   applying the configuration from the GitOps repository without worrying about
   losing state.
 - **Ownership**: For each application, there is a clear owner. This owner is
-  responsible for the application and maintains an supports the applicationa
-  This way we're able to avoid the "tragedy of the commons", where no one is
-  responsible for the application. If an app has unclear or short-term
-  ownership, you don't get to use the platform. We're not an orphanage.
+  responsible for the application and maintains and supports it.  This way we're
+  able to avoid the "tragedy of the commons", where no one is responsible for
+  an application. If an app has unclear or short-term ownership, you simply
+  don't get to use the platform. We're not an orphanage.
 - **Financing**: You use the platform? You also pay for its continued support
   and development. While we currently we don't have a full chargeback model we
   have a "fair" model where your department is expected to pitch in a certain
@@ -80,7 +99,7 @@ help each other out before you jump in and help.
 ## Make time for innovation
 
 It's easy to get bogged down in the day-to-day work of keeping the platform
-running. This is why it's important to set aside time for innovation, and this
+running. This is why it's important to set aside time for innovation, this
 is something we take very seriously. 
 
 On SKIP we have dedicated innovation days where we work on new features,
@@ -118,14 +137,12 @@ video lessons, as this creates discussion and further ideas.
 
 There's plenty of examples of features that are results of work done on these
 days. On-premise Web Application Firewall with Wasm, Grafana features, open
-source tools like [Skiperator]](https://github.com/kartverket/skiperator) and
+source tools like [Skiperator](https://github.com/kartverket/skiperator) and
 [Skyline](https://github.com/kartverket/skyline) as well as this very website!
 
 No one has time to prioritize innovation, and we're no different. But we
 prioritize it anyway, because we know that it's important to keep improving and
 to keep learning.
-
-## Listen to your users
 
 ## Communication is key
 
@@ -186,18 +203,58 @@ long time. After this you can think about a website, merchandise like stickers
 and t-shirts, and a mascot. These things are not necessary, but they can help
 build a sense of identity and community around your platform.
 
-## Using the cloud is scary
+## Using the cloud is a long journey
 
-Talk directly with your legal team.
+As a platform team, it's our responsibility to push for modern, user-friendly
+and secure solutions. This generally means using public cloud solutions like
+Google Cloud Platform. But for most organizations, pushing this narrative incurs
+significant friction and to some extent fear due to legal and cost concerns.
+This is understandable, as the known is always more comfortable than the
+unknown, and it's a view that's hard to change.
+
+This is why it's important to take a long-term view on this. You're not going to
+move everything to the cloud overnight, and you're not going to convince
+everyone to get on board with this idea overnight. It's a long journey, and you
+need to be patient and persistent. 
+
+We've spent years pushing for the cloud, and we're still not there. You're going
+to sit in meetings until you're blue in the face, and you're going to have to
+fight for every little thing over and over again. But it's necessary. Once 
+everyone has a clear understanding of the risks and how to mitigate them, you
+will be able to formulate a document guiding the organization's teams on how to
+get to the cloud from a compliance point of view.
+
+If I have any recommendations on how to get to the cloud as easily as possible,
+it would be to first get leadership buy-in. This is the most important thing, as
+it will make the next steps easier. After you've done this and got a competent
+platform team in place, you can start pushing for the cloud. Here you need to
+talk directly with the legal team, not via other people. Have representatives of
+the platform team sit down with the lawyers and talk through the risks and how
+to mitigate them.  This is the only way you can combine the technical and legal
+aspects of this work. Working in silos and not talking to each other is a
+surefire way to fail.
 
 ## Autonomy and platform as a product
 
-Listen to your users. Build the features that they need.
+Your platform is a product, and so you need to work as a product team. This
+means continuously improving your product, listening to your users, and building
+the features that they need.
 
-It's important to be able to say "no" to requests. As an autonomous team, you
-should be able to make decisions on your own based on your stakeholders' needs.
-Just because someone asks loudly for something, doesn't mean it's the right
-fit for your platform. Dare to challenge assumptions and ask why.
+Research-based literature like "Team Topologies" establishes the importance of
+autonomous teams in modern organizations. Traditional top-down organizations are
+just not going to be able to have as close of a relationship with their
+stakeholders as a team that is able to proactively understand the needs of their
+users and make their own decisions that push continuous improvement of their
+products. This is why it's important, even for infrastructure teams, to be able
+to own their roadmap and make decisions on what to build when.
+
+Stakeholder management is key here. You need to be able to understand the needs
+of your stakeholders and to be able to prioritize these needs. Ensure you are
+empowered to be able to say "no" to requests. As an autonomous team, you should
+have done the research to know the needs of your users better than anyone, and
+sometimes requests don't align well with that. Just because someone asks loudly
+for something, doesn't mean it's the right fit for your platform. Dare to
+challenge assumptions and ask why.
 
 ## Abstractions save time
 
@@ -208,15 +265,40 @@ Work smarter not harder.
 
 ## Build forward- and backwards compatibility
 
+We've had multiple experiences where we've weighed our options and decided to
+make a breaking change. Just recently we asked our users to migrate their apps
+from one cluster to another in order to improve the architecture of the
+platform. Multiple options were considered, but in the end the scale of the
+changes meant that upgrading the clusters in-place would not be practical, so
+we commissioned new clusters with the new architecture and asked users to
+migrate their apps.
+
+In our case, we had a simple way to migrate, only requiring moving a config file
+from one directory to another to make the change. But even so, this was a time
+consuming process for our users, and a laborious process for us to support.
+This is because even though the change was simple, it was still a change that
+required testing and validation, and it was a change that was not necessarily
+the highest priority for the teams that were asked to make it. So even though
+the change was simple, it took months.
+
 If you ask your users to make changes to their applications, you're asking a
 team that is already busy to do more work. Any changes you ask them to make
 will take time, as it would not necessarily be the highest priority for them.
-Therefore avoiding the need for changes is a good thing, so wherever possible
-building in forward and backwards compatibility by inferring as much as
+Therefore avoiding breaking changes should be a primary goal, so wherever
+possible building in forward and backwards compatibility by inferring as much as
 possible from the existing configuration is a good thing.
 
+When building operators, don't change or remove fields that are in use. Use 
+default values for new fields, and use lists of objects instead of raw values
+like lists of strings as they are easier to extend.
 
 ## Documentation is key
+
+One thing we keep hearing from our users is the need for more and better
+documentation. And this is understandable. When you're using a platform, you
+don't want to have to ask for help all the time. You want to be able to 
+discover platform features and implement them yourself with the support of
+good documentation.
 
 When responding to a query, instead of answering the question, we should be
 asking ourselves: "How can we make sure that this question never gets asked
