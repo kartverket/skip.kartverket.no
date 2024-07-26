@@ -63,11 +63,12 @@ Some of these are:
   able to avoid the "tragedy of the commons", where no one is responsible for
   an application. If an app has unclear or short-term ownership, you simply
   don't get to use the platform. We're not an orphanage.
-- **Financing**: You use the platform? You also pay for its continued support
-  and development. While we currently we don't have a full chargeback model we
-  have a "fair" model where your department is expected to pitch in a certain
-  amount of money to the platform. This is a way to ensure that the platform is
-  sustainable.
+- **Financing**: You use the platform? You also need to pay for its continued
+  support and development. We're working towards a chargeback model where your
+  department is billed for the resources they use as a way to ensure that the
+  platform is sustainable. Until this is ready, we expose the costs of the
+  resources used by each team and then negotiate with the departments on how to
+  cover these costs, but this is time-consuming work.
 - **Secure by default**: We enforce security best practices by default. Examples
   of this are zero trust networking with Network Policies, where no app can talk
   to another without explicitly allowing this. Some applications will need to opt
@@ -236,10 +237,11 @@ will be able to formulate a document guiding the organization's teams on how to
 get to the cloud from a compliance point of view.
 
 If you asked me for any recommendations on how to get to the cloud as easily as
-possible, it would be to first get leadership buy-in. This is the most important
-thing, as it will make the next steps easier. After you've done this and got a
-competent platform team in place, you can start pushing for the cloud. Here you
-need to talk directly with the legal team, not via other people. Have
+possible, it would be to first get leadership buy-in across the organization.
+This is important, as it will make any large initiative like cloud migration
+easier. After this and a competent platform team is in place, you can start
+pushing for the cloud technologies and eventually cloud migration. Here you need
+to talk directly with the legal team, not via other people.  Have
 representatives of the platform team sit down with the lawyers and talk through
 the risks and how to mitigate them.  This is the only way you can combine the
 technical and legal aspects of this work. Working in silos and not talking to
@@ -259,13 +261,13 @@ users and make their own decisions that push continuous improvement of their
 products. This is why it's important, even for infrastructure teams, to be able
 to own their roadmap and make decisions on what to build when.
 
-Stakeholder management is key here. You need to be able to understand the needs
-of your stakeholders and to be able to prioritize these needs. Ensure you are
-empowered to be able to say "no" to requests. As an autonomous team, you should
-have done the research to know the needs of your users better than anyone, and
-sometimes requests don't align well with that. Just because someone asks loudly
-for something, doesn't mean it's the right fit for your platform. Dare to
-challenge assumptions and ask why.
+As a team you're obviously limited to the amount of resources you have and not
+able to do everything, so understanding the needs of your stakeholders and
+prioritizing them is essential. You need to do research to know the needs of
+your users; sometimes requests don't align well with the actual needs. Just
+because someone asks loudly for something, doesn't mean it's the right fit for
+your platform. Saying yes to everything does not result in a good product. Dare
+to challenge assumptions and ask why.
 
 ## Abstractions save time
 
