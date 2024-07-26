@@ -13,11 +13,11 @@ authors:
     url: https://eliine.dev
     image_url: https://github.com/eliihen.png
 tags: [learnings, kubernetes]
-image: /img/apps-repo-announcment.jpeg
+image: /img/20-teams-on-skip.jpeg
 hide_table_of_contents: false
 ---
 
-![Cake with text saying 20 teams on SKIP and DASK](img/20-teams-on-skip.jpeg)
+![Cake with text saying 20 teams on SKIP and DASK](/img/20-teams-on-skip.jpeg)
 
 We recently passed an important milestone, onboarding our 20th team on
 Kartverket's platform. Since we started a few years ago we've been working hard
