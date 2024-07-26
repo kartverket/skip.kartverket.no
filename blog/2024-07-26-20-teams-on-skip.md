@@ -54,10 +54,10 @@ Some of these are:
 - **Stateless**: Our clusters are stateless, which means that we can easily
   replace them if something goes wrong. All configuration is held in a GitOps
   repository and all state is held in external systems like managed databases,
-  object storage, etc. This significantly reduces operational complexity, and
-  means that when a cluster goes down we can easily replace or revert it by
+  object storage, etc. This significantly reduces operational complexity and
+  recovery time. If a cluster fails we can easily replace or revert it by
   applying the configuration from the GitOps repository without worrying about
-  losing state.
+  losing state, or doing time-consuming data recovery operations.
 - **Ownership**: For each application, there is a clear owner. This owner is
   responsible for the application and maintains and supports it.  This way we're
   able to avoid the "tragedy of the commons", where no one is responsible for
