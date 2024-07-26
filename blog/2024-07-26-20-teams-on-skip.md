@@ -1,18 +1,23 @@
 ---
 title: "20 teams on SKIP: What we've learned along the way"
 description: >
+  We recently passed an important milestone, onboarding our 20th team on
+  Kartverket's platform. On the occasion of this achievement we're going to look
+  back at the decisions we made that led us to building a successful platform.
+  In this tech blog we are showcasing the the secrets to our success - the
+  decisions that have had the biggest impact.
 slug: 20-teams-on-skip
 authors:
   - name: Eline Henriksen
     title: Product Owner and Platform Developer
     url: https://eliine.dev
     image_url: https://github.com/eliihen.png
-tags: [kubernetes]
+tags: [learnings, kubernetes]
 image: /img/apps-repo-announcment.jpeg
 hide_table_of_contents: false
 ---
 
-![Cake with text saying 20 teams on SKIP and DASK](ECFE029D-75DB-4B3C-950A-DE8E7F5AF63F_1_105_c.jpeg)
+![Cake with text saying 20 teams on SKIP and DASK](img/20-teams-on-skip.jpeg)
 
 We recently passed an important milestone, onboarding our 20th team on
 Kartverket's platform. Since we started a few years ago we've been working hard
@@ -116,7 +121,7 @@ work on anything that's on the roadmap, as this is work that we're already going
 to do. This is a great way to get new ideas and to work on things that might not
 otherwise get done.
 
-![Innovation work](<Screenshot 2024-07-24 at 13.22.07.png>)
+![Innovation work](img/innovation-day-results.png)
 
 There's a little bit of structure around these days, but not too much. 
 
@@ -135,6 +140,8 @@ experiences and discuss if this work can be improved and put into production.
 We encourage everyone to show something, even if it's not finished or you did
 video lessons, as this creates discussion and further ideas.
 
+![Demo time!](img/show-and-tell.jpeg)
+
 There's plenty of examples of features that are results of work done on these
 days. On-premise Web Application Firewall with Wasm, Grafana features, open
 source tools like [Skiperator](https://github.com/kartverket/skiperator) and
@@ -145,6 +152,8 @@ prioritize it anyway, because we know that it's important to keep improving and
 to keep learning.
 
 ## Communication is key
+
+![SKIPs kommunikasjonsstrategi](img/communication.png)
 
 Unfortunately a lot of infrastructure teams don't prioritize communication very
 well. This is a mistake. Communication is key to building a successful platform.
@@ -175,9 +184,11 @@ This can be done through a status page, a Slack channel, or postmortems. Again,
 we use a blend of these so that we can reach as many users as possible at the
 right time.
 
-Do these things and you will have happy users.
+Do these things and you will have happy users that feel informed.
 
 ## Branding is important
+
+![SKIP logo](img/skip-brand.png)
 
 Do you think Spotify would be as successful if it was called "Music Player"? 
 Do you think Apple would be as successful if it was called "Computer Company"?
@@ -258,8 +269,40 @@ challenge assumptions and ask why.
 
 ## Abstractions save time
 
-Build technology that makes product teams' jobs easier. That saves you time as
-you will need to do less support.
+It should go without saying that a platform team's job is to make tools that
+make product teams' jobs easier. But it really can't be said enough. The more
+good tooling you create, the less you have to do support. This is a win-win for
+everyone.
+
+When building tools, think about how you can abstract away complexity. This can
+be done in many ways, but we've had great success building an operator that
+abstracts away the complexity of managing applications on Kubernetes. The
+operator is called [Skiperator](https://github.com/kartverket/skiperator) and
+makes deploying applications on Kubernetes as easy as writing a configuration
+manifest.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  namespace: sample
+  name: sample-two
+spec:
+  image: nginxinc/nginx-unprivileged
+  port: 80
+  replicas: 2
+  ingresses:
+    - foo.com
+    - bar.com
+```
+
+The key takeaway here is that abstractions like Skiperator are designed to speak
+the language of the user. There is no mention of NetworkPolicies or Istio
+VirtualServices in the configuration, as these are things that the user
+generally doesn't have any knowledge of. Instead, the user can specify things
+like "I want to expose this service to the internet" or "I want to run this job
+every day at midnight". This simplifies the user experience of Kubernetes, which
+is a complex system, and makes it easier for users to get started.
 
 Work smarter not harder.
 
@@ -295,28 +338,72 @@ like lists of strings as they are easier to extend.
 ## Documentation is key
 
 One thing we keep hearing from our users is the need for more and better
-documentation. And this is understandable. When you're using a platform, you
-don't want to have to ask for help all the time. You want to be able to 
-discover platform features and implement them yourself with the support of
-good documentation.
+documentation. This is understandable. When you're using a platform, you don't
+want to have to ask for help all the time - you want to be able to discover
+platform features and implement them yourself with the support of good
+documentation.
 
-When responding to a query, instead of answering the question, we should be
-asking ourselves: "How can we make sure that this question never gets asked
-again?". In this case you can write documentation, or improve existing
-documentation and reply with a link to the docs. This is a double win, as you
-will save time in the future and the user will now know where to look for
-answers.
+The point here is that as a platform team you need to prioritize documentation.
+A task is not done until it has been documented. This way announcing new
+features will always include a link to the documentation where users can dive
+deeper into the feature and how to use it, like the example below.
 
-## No one is irreplaceable
+![A Slack thread announcing a new SKIP feature](img/feature-announcement.png)
+
+The bigger challenge here is preventing documentation from going stale. It's
+too easy to forget about updating documentation to reflect changes in the
+code. Here we can share a few tips from our experience:
+
+First, the obvious way to keep docs up to date is to allocate time to update
+them. One way we do this is that a few times a year we will do a documentation
+grooming session where we huddle together and review documentation, rewriting it
+when we find out of date information.
+
+A more interesting way to keep docs up to date is changing how you respond to a
+questions. Instead of answering questions immediately, we should be asking
+ourselves: "How can we make sure that this question never gets asked again?". In
+our case we spend some time to write documentation or improve existing
+documentation and reply with a link to the documentation page. This is a triple
+win, as you will now have more updated documentation, save time in the future by
+being able to refer to the improved docs instead of writing a lengthy response
+and the user will now know where to look for answers.
 
 ## Learn from others
 
+When building a platform you'll quickly learn that you don't have all the
+answers. You might discuss how to implement a feature with your team, but you
+might not have the experience to know what works well in this context. When you
+get into this situation, an outside perspective can be crucial to avoid making
+costly mistakes.
+
 One great advantage of working in the public sector is that we can ask other
-platform teams for advice and learn from their experiences. We can also share
-our experiences with others. This is a great way to learn and improve.
+public sector platform teams for advice and learn from their experiences. We can
+also share our experiences with others, which is usually interesting. Invest
+some time in building these relationships of mutual benefit.
+
+![Public PaaS presentation](img/public-paas.png)
+
+I also want to give special credit to Hans Kristian Flaatten and the [Public
+PaaS](https://offentlig-paas.no/) network here. Having a shared forum to discuss
+platform issues is a strong asset and helps the Norwegian public sector get
+ahead and stay competitive.
 
 Even if you work in the private sector, you can still learn from other
-organizations.  Honestly, if you want to learn from someone's experiences it
+organizations. Honestly, if you want to learn from someone's experiences it
 never hurts to ask. Teams generally want to help each other out, and it's
-usually possible to make a trade of some sort. Offer to give a talk on your
-experiences and ask if they can do the same. It's a win-win for both parties.
+usually possible to make a trade of some sort. I suggest to offer to give a talk
+on your experiences and ask if they can do the same. It's a win-win for both
+parties.
+
+## Conclusion
+
+You may think building a platform is mostly technology, and we've written a lot
+about technology in [previous blog
+posts](/blog/hybrid-kubernetes-in-production-part-1). But it's important to
+remember that building a platform is also about building a community, and
+communities have expectations and needs that go beyond technology. This is a
+strength, and not a weakness, as if you're able to inspire and motivate your
+users you will be able to build a platform that is sustainable and that drives
+positive change in your organization.
+
+Best of luck in your endeavors!
