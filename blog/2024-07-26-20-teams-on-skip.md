@@ -21,7 +21,7 @@ hide_table_of_contents: false
 
 We recently passed an important milestone, onboarding our 20th team on
 Kartverket's platform. Since we started a few years ago we've been working hard
-to build a platform that drives positive change in Kartverket, and we're proud
+to build a platform that drives positive change at Kartverket, and we're proud
 of the results we've got. Our research shows that users are happy with the
 technology and support they get, and that they're able to deliver faster and
 more securely than before.
@@ -35,7 +35,7 @@ importantly we've learned a lot in our journey.
 
 On the occasion of this achievement we're going to look back at the decisions we
 made that led us to building a successful platform. In this tech blog we are
-showcasing the the secrets to our success - the decisions that have had the
+showcasing the secrets to our success - the decisions that have had the
 biggest impact.
 
 <!--truncate-->
@@ -54,7 +54,7 @@ Some of these are:
 - **Stateless**: Our clusters are stateless, which means that we can easily
   replace them if something goes wrong. All configuration is held in a GitOps
   repository and all state is held in external systems like managed databases,
-  object storage, etc. This significantly reduces operational complexity, as
+  object storage, etc. This significantly reduces operational complexity, and
   means that when a cluster goes down we can easily replace or revert it by
   applying the configuration from the GitOps repository without worrying about
   losing state.
@@ -115,7 +115,7 @@ a culture of learning and innovation.
 
 In practice we have two days in a row of dedicated innovation work every other
 month. We used to have one day every month, but we found that this was not
-enough time to really get into the flow of things so we started running double
+enough time to really get into the flow of things so we started doing two
 days every 2 months, which worked better. We also have a rule that you can't
 work on anything that's on the roadmap, as this is work that we're already going
 to do. This is a great way to get new ideas and to work on things that might not
@@ -163,15 +163,15 @@ shipped and the changes you will ship in the future. Not informing them and
 keeping them up to date with what's going on is a surefire way to lose their
 trust and to make them unhappy.
 
-It starts with simply informing users of the new things that ship. This can be
+It starts with simply informing users of the new features that ship. This can be
 done through a Slack channel, a newsletter, a blog or a town hall meeting. We
 use a combination of all of these, but the most important thing is that you
 inform your users of what's coming. An added benefit of this is helps push
 adoption of new features and excitement around the platform by showcasing
 innovation.
 
-The next step is informing users on what will ship when. This will help users
-plan their work and to know what to expect, but it also helps users feel
+The next step is informing users on what will ship and when. This will help
+users plan their work and to know what to expect, but it also helps users feel
 involved when they see their requests being planned. This can be done through a
 roadmap, a technical forum, or a blog. We use a combination of all of these, but
 the easiest way to do this is to have a roadmap that you keep up to date on a
@@ -181,7 +181,7 @@ Now for the hard part: When things go wrong, you need to communicate this as
 well. Product teams will want to know when their applications are affected by
 outages or other issues, and they will want to know what you're doing to fix it.
 This can be done through a status page, a Slack channel, or postmortems. Again,
-we use a blend of these so that we can reach as many users as possible at the
+we use a mix of these so that we can reach as many users as possible at the
 right time.
 
 Do these things and you will have happy users that feel informed.
@@ -229,21 +229,21 @@ everyone to get on board with this idea overnight. It's a long journey, and you
 need to be patient and persistent. 
 
 We've spent years pushing for the cloud, and we're still not there. You're going
-to sit in meetings until you're blue in the face, and you're going to have to
+to have to participate in many (*many!*) meetings, and you're going to have to
 fight for every little thing over and over again. But it's necessary. Once 
 everyone has a clear understanding of the risks and how to mitigate them, you
 will be able to formulate a document guiding the organization's teams on how to
 get to the cloud from a compliance point of view.
 
-If I have any recommendations on how to get to the cloud as easily as possible,
-it would be to first get leadership buy-in. This is the most important thing, as
-it will make the next steps easier. After you've done this and got a competent
-platform team in place, you can start pushing for the cloud. Here you need to
-talk directly with the legal team, not via other people. Have representatives of
-the platform team sit down with the lawyers and talk through the risks and how
-to mitigate them.  This is the only way you can combine the technical and legal
-aspects of this work. Working in silos and not talking to each other is a
-surefire way to fail.
+If you asked me for any recommendations on how to get to the cloud as easily as
+possible, it would be to first get leadership buy-in. This is the most important
+thing, as it will make the next steps easier. After you've done this and got a
+competent platform team in place, you can start pushing for the cloud. Here you
+need to talk directly with the legal team, not via other people. Have
+representatives of the platform team sit down with the lawyers and talk through
+the risks and how to mitigate them.  This is the only way you can combine the
+technical and legal aspects of this work. Working in silos and not talking to
+each other is a surefire way to fail.
 
 ## Autonomy and platform as a product
 
@@ -270,8 +270,8 @@ challenge assumptions and ask why.
 ## Abstractions save time
 
 It should go without saying that a platform team's job is to make tools that
-make product teams' jobs easier. But it really can't be said enough. The more
-good tooling you create, the less you have to do support. This is a win-win for
+make product teams' jobs easier. But it really can't be said enough. The better
+the tooling you provide, the less you have to do support. This is a win-win for
 everyone.
 
 When building tools, think about how you can abstract away complexity. This can
@@ -359,7 +359,7 @@ them. One way we do this is that a few times a year we will do a documentation
 grooming session where we huddle together and review documentation, rewriting it
 when we find out of date information.
 
-A more interesting way to keep docs up to date is changing how you respond to a
+A more interesting way to keep docs up to date is changing how you respond to
 questions. Instead of answering questions immediately, we should be asking
 ourselves: "How can we make sure that this question never gets asked again?". In
 our case we spend some time to write documentation or improve existing
