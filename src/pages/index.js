@@ -13,9 +13,10 @@ import { initializeFaro } from '@grafana/faro-react';
 
 if (ExecutionEnvironment.canUseDOM) {
   initializeFaro({
-    url: "https://faro.atkv3-prod.kartverket.cloud/collect",
+    url: 'https://faro.atgcp1-prod.kartverket.cloud/collect',
     app: {
       name: 'skip.kartverket.no',
+      environment: location.host === 'skip.kartverket.no' ? 'prod' : 'dev',
     },
   });
 }
