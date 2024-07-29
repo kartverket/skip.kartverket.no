@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[533],{8017:s=>{s.exports=JSON.parse('{"permalink":"/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":8,"blogDescription":"SKIP\'s latest!","blogTitle":"SKIP Tech Blog"}')}}]);
