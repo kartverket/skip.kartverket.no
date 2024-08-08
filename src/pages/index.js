@@ -10,8 +10,9 @@ import GetStarted from '../components/GetStarted';
 import ShipAnimation from '../components/ShipAnimation';
 import logo from '../../static/img/skip.png';
 import { initializeFaro } from '@grafana/faro-react';
+import Link from '@docusaurus/Link';
 
-if (ExecutionEnvironment.canUseDOM) {
+if (ExecutionEnvironment.canUseDOM && location.host !== 'localhost') {
   initializeFaro({
     url: 'https://faro.atgcp1-prod.kartverket.cloud/collect',
     app: {
@@ -33,16 +34,16 @@ function HomepageHeader() {
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <a
+          <Link
             className="button button--secondary button--lg"
-            href="https://kartverket.atlassian.net/wiki/spaces/SKIPDOK">
+            to="docs/tech">
             Docs
-          </a>
-          <a
+          </Link>
+          <Link
             className="button button--secondary button--lg"
-            href="blog">
+            to="blog">
             Tech blog
-          </a>
+          </Link>
         </div>
       </div>
     </header>

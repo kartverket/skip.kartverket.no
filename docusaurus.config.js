@@ -17,6 +17,12 @@ const darkCodeTheme = themes.dracula;
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon/favicon.ico",
 
+    markdown: {
+        mermaid: true,
+    },
+
+    themes: ['@docusaurus/theme-mermaid'],
+
     presets: [
       [
         "@docusaurus/preset-classic",
@@ -49,39 +55,19 @@ const darkCodeTheme = themes.dracula;
           src: "img/skip.png",
         },
         items: [
-          // {
-          //   type: "doc",
-          //   docId: "intro",
-          //   position: "left",
-          //   label: "Docs",
-          // },
           {
-            href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK",
+            type: "doc",
+            docId: "tech",
+            position: "left",
             label: "Docs",
-            position: "left",
           },
-          {
-            href: "https://kartverket.atlassian.net/jira/software/projects/SKIP/boards/2/roadmap",
-            position: "left",
-            label: "Roadmap",
-          },
-          //{
-          //  href: "https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/blog",
-          //  position: "left",
-          //  label: "Nyhetsbrev",
-          //},
           {
             to: "blog",
             label: "Tech Blog",
             position: "left",
           },
           {
-            href: "https://kartverket.atlassian.net/wiki/spaces/SKIP",
-            label: "Confluence",
-            position: "right",
-          },
-          {
-            href: "https://github.com/orgs/kartverket/teams/skip",
+            href: "https://github.com/kartverket",
             label: "GitHub",
             position: "right",
           },
@@ -106,11 +92,16 @@ const darkCodeTheme = themes.dracula;
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ["java"],
+        additionalLanguages: ["java", "hcl", "docker"],
       },
     },
     scripts: [
         'https://platform.twitter.com/widgets.js'
+    ],
+    plugins: [
+        [require.resolve('docusaurus-lunr-search'), {
+            languages: ['en', 'no']
+        }],
     ],
   }
 );
