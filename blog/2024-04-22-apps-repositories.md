@@ -318,7 +318,7 @@ resources in their apps repository. This should be denied using Argo and/or
 cluster policies.
 
 If a team is able to create namespace resources (or other cluster scoped
-resources) in their namespace an attacked can use this to break their namespace
+resources) in their namespace an attacker can use this to break their namespace
 "encapsulation". Imagine for example if one could use their apps repo to sync
 a namespace resource named `kube-system` into their `env/foo-cluster/foo-main`
 directory. Argo CD would allow this, as the manifests are read into an Argo CD
