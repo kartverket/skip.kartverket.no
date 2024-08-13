@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[3505],{83722:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/kubernetes","page":1,"postsPerPage":10,"totalPages":1,"totalCount":5,"blogDescription":"SKIP\'s latest!","blogTitle":"SKIP Tech Blog"}')}}]);

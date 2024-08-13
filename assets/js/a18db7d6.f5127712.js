@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[6598],{95393:s=>{s.exports=JSON.parse('{"label":"crisis-management","permalink":"/blog/tags/crisis-management","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);
