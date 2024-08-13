@@ -2,12 +2,6 @@
 
 For å jobbe med Kubernetes cluster så har man et par valg. Det første du vil skaffe deg er nok CLI verktøyet `kubectl` , men det kan være nyttig å bruke et litt mer visuelt verktøy for å få bedre oversikt. Her er et par anbefalinger.
 
-## OpenLens
-
-OpenLens er et oversiktsverktøy for å forenkle oversikt over kubernetes cluster. OpenLens tilbyr et brukervennlig GUI hvor man kan klikke seg inn på forskjellige clusterressurser for å få informasjon og gjøre endringer.
-
-![OpenLens](images/image-20231004-083102.png)
-
 ## K9s
 
 K9s er terminalbasert men gir deg mer informasjon enn du ellers ville fått ved enkle kubectl kommandoer. Se her en oversikt over alle Podder som kjører i et namespace.
