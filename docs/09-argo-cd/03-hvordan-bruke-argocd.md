@@ -8,11 +8,11 @@ Vi kan også anbefale kurset [https://kodekloud.com/courses/argocd/](https://kod
 
 ## Applikasjoner
 
-Det første man gjør når man skal ta i bruk Argo er å gå til nettsiden og logge inn. Lenkene til nettsiden finner man på [Argo CD](index.md) og alle kan logge inn med kartverket-brukeren sin hvis man er på et team som har fulgt [Komme i gang med Argo CD](komme_igang_med_argocd.md).
+Det første man gjør når man skal ta i bruk Argo er å gå til nettsiden og logge inn. Lenkene til nettsiden finner man på [Argo CD](index.md) og alle kan logge inn med kartverket-brukeren sin hvis man er på et team som har fulgt [Komme i gang med Argo CD](01-komme-i-gang-med-argocd.md).
 
 ![](images/applikasjonerargocd.png)
 
-Det neste som møter deg er en oversikt over applikasjonene som Argo leser ut, avbildet over. Dersom man ikke sere noen applikasjoner her, sjekk om dere har fulgt alle stegene i [Komme i gang med Argo CD](komme_igang_med_argocd.md) og at dere har manifester som er satt opp til å bli synket inn fra [apps-repoet](02-hva-er-et-apps-repo.md) deres. Disse prosjektene blir automatisk opprettet basert på mappestrukturen i apps-repoet deres, så det er ingen behov for å opprette eller rydde opp prosjekter manuelt.
+Det neste som møter deg er en oversikt over applikasjonene som Argo leser ut, avbildet over. Dersom man ikke sere noen applikasjoner her, sjekk om dere har fulgt alle stegene i [Komme i gang med Argo CD](01-komme-i-gang-med-argocd.md) og at dere har manifester som er satt opp til å bli synket inn fra [apps-repoet](02-hva-er-et-apps-repo.md) deres. Disse prosjektene blir automatisk opprettet basert på mappestrukturen i apps-repoet deres, så det er ingen behov for å opprette eller rydde opp prosjekter manuelt.
 
 Klikk på et av kortene på denne siden og dere vil gå inn i en mer detaljert visning hvor man ser alle ressursene som blir synkronisert.
 

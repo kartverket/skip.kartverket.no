@@ -69,7 +69,7 @@ Etter imaget er publisert til [ghcr.io](http://ghcr.io/) puller bygget apps-repo
 
 Dette kan også gjøres med en PR istedenfor å pushe rett til apps-repoet om man vil ha en godkjenning før deploy.
 
-For å logge inn på apps-repoet brukes metoden som beskrives i [Tilgang til repoer med tokens fra GitHub Actions](../Github/fixme.md).
+For å logge inn på apps-repoet brukes metoden som beskrives i [Tilgang til repoer med tokens fra GitHub Actions](../08-github-actions/tilgang-til-repoer-med-tokens-fra-github-actions.md).
 
 :::info
 Dersom man bruker Argo CD til å opprette namespacer for alle branches og pull requests er det viktig å slette branchene når de ikke lenger er i bruk. Det er begrenset med kapasitet på clusterene og å anskaffe hardware, både on-prem og i sky, er ekstremt kostbart. Det holder å slette filene i apps-repoet for å rydde opp, noe som kan gjøres automatisk ved sletting av branches.

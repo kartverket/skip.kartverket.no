@@ -40,7 +40,7 @@ The product team does not need to create a GCP project themselves!
 - If the team requires Terraform:
   - Service account for Terraform is set up through [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) and are granted access to its Kubernetes namespace with [WIF](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation).
   - Terraform state is migrated/set up
-  - The team and app-repository is set up in accordance with [Komme i gang med Argo CD](../Argo%20CD/komme_igang_med_argocd.md)
+  - The team and app-repository is set up in accordance with [Komme i gang med Argo CD](../09-argo-cd/01-komme-i-gang-med-argocd.md)
 
 ## Product team tasks
 

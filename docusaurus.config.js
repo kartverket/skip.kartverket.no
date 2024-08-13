@@ -57,7 +57,7 @@ const darkCodeTheme = themes.dracula;
         items: [
           {
             type: "doc",
-            docId: "tech",
+            docId: "index",
             position: "left",
             label: "Docs",
           },
@@ -65,6 +65,11 @@ const darkCodeTheme = themes.dracula;
             to: "blog",
             label: "Tech Blog",
             position: "left",
+          },
+          {
+            href: "https://kartverket.atlassian.net/wiki/spaces/SIK/overview",
+            label: "Sikkerhetshåndboka",
+            position: "right",
           },
           {
             href: "https://github.com/kartverket",
