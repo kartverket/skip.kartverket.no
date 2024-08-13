@@ -16,10 +16,12 @@
   "dependencies": {
     "@docusaurus/core": "3.0.0",
     "@docusaurus/preset-classic": "3.0.0",
+    "@docusaurus/theme-mermaid": "3.0.0",
     "@grafana/faro-react": "^1.7.3",
     "@mdx-js/react": "^3.0.0",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.0.0",
+    "docusaurus-lunr-search": "^3.4.0",
     "file-loader": "^6.2.0",
     "posthog-js": "^1.128.1",
     "prism-react-renderer": "^2.1.0",
