@@ -499,7 +499,7 @@ must not be accessible to the teams, or an attacker can simply add exclusions.</
 resources in their apps repository. This should be denied using Argo and/or
 cluster policies.</p>
 <p>If a team is able to create namespace resources (or other cluster scoped
-resources) in their namespace an attacked can use this to break their namespace
+resources) in their namespace an attacker can use this to break their namespace
 "encapsulation". Imagine for example if one could use their apps repo to sync
 a namespace resource named <code>kube-system</code> into their <code>env/foo-cluster/foo-main</code>
 directory. Argo CD would allow this, as the manifests are read into an Argo CD
