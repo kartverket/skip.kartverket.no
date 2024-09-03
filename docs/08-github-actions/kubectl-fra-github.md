@@ -77,7 +77,7 @@ on: push
 jobs:
   sandbox:
     name: get pods
-    uses: kartverket/github-workflows/.github/workflows/run-kubectl.yaml@4.2.2
+    uses: kartverket/github-workflows/.github/workflows/run-kubectl.yaml@v4.2.2
     with:
       cluster_name: atgcp1-sandbox
       service_account: test-deploy@test-sandbox-5cx6.iam.gserviceaccount.com
