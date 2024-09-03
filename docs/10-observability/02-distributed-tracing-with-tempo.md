@@ -81,7 +81,7 @@ There is currently no inbuilt mechanism in [ArgoKit](https://github.com/kartverk
 
 ### View traces
 
-Traces can be viewed through our Grafana instance at [monitoring.kartverket.dev](https://monitoring.kartverket.dev/) . From here, choose **Explore** in the menu and then the correct **Tempo** data source corresponding to the environment you wish to view traces for.
+Traces can be viewed through our Grafana instance at [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud/) . From here, choose **Explore** in the menu and then the correct **Tempo** data source corresponding to the environment you wish to view traces for.
 
 
 After that, you have the choice of using the **Search** (graphical build tool for queries) or **TraceQL** (manual query specification) tools.

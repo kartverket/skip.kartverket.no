@@ -27,9 +27,8 @@ Før dette kan gjøres må man gå igjennom denne sjekklisten:
 - [Logs with Loki](../10-observability/05-logs-with-Loki.md)
 - [Alerting with Grafana](../10-observability/04-alerting-with-grafana.md)
 
-Denne sjekklisten gjelder eksponering av tjenster som skal være tilgjengelig på internett, uavhengig av miljø (dev/test/prod). Hvis man har planer om å eksponere en applikasjon idevellertestmå man i tillegg kontakte SKIP for å sikre at alle sikkerhetskrav overholdes.
+Denne sjekklisten gjelder eksponering av tjenester som skal være tilgjengelig på internett, uavhengig av miljø (dev/prod). Hvis man ønsker og har behov for å eksponere en applikasjon eksternt i dev må man i tillegg kontakte SKIP for å sikre at alle sikkerhetskrav overholdes.
 
 Navnekonvensjon for eksternt tilgjengelig domenenavn vil i så fall være
 
-- &lt;applikasjonX&gt;.dev.kartverket.no
-- &lt;applikasjonX&gt;.test.kartverket.no
+- \<applikasjonX\>.atkv3-dev.kartverket.cloud

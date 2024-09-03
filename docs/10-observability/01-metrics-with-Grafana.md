@@ -40,7 +40,7 @@ spec:
 
 ### Viewing metrics
 
-In order to view metrics and dashboards, visit our Grafana instance at [monitoring.kartverket.dev](https://monitoring.kartverket.dev/) .
+In order to view metrics and dashboards, visit our Grafana instance at [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud/) .
 
 Here we offer pre-provisioned dashboards that can be viewed to gain insight into how an environment is performing, as well as more detailed metrics about single applications. In addition, there is a dashboard named `JVM (Micrometer)` which is a generic dashboard that offers basic information about Java applications, instrumented through Micrometer.
 
