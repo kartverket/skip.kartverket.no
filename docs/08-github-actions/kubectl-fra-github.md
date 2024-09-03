@@ -83,8 +83,10 @@ jobs:
       service_account: test-deploy@test-sandbox-5cx6.iam.gserviceaccount.com
       kubernetes_project_id: kube-sandbox-6e32
       project_number: 833464945837
-      command: get pods
       namespace: default
+      commands: |
+          get pods  
+          get pods -l app=nginx
 ```
 
 Forklaring:
@@ -92,6 +94,6 @@ Forklaring:
 - `service_account`: navnet på service accounten som skal brukes. denne blir opprettet i gcp-service-accounts, og slutter på `-deploy`
 - `kubernetes_project_id`: id til prosjektet som clusteret ligger i, finnes med `gcloud projects list | grep kubernetes`
 - `project_number`: nummeret til prosjektet som service accounten ligger i, dette er produkt prosjektet, finnes med `gcloud projects list | grep produkt`
-- `command`: kubectl kommandoen du vil kjøre, uten kubectl foran
+- `commands`: kubectl kommandoene du vil kjøre, uten kubectl foran. husk å bruk multiline string.
 - `namespace`: namespace du vil kjøre kommandoen i
 - `kubectl_version`: versjonen av kubectl du vil bruke, default er latest stable. format: v1.30.0
