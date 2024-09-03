@@ -6,9 +6,10 @@ Dokumentasjonen til Argo CD er også veldig god, så det kan være greit å gå 
 
 ## Lenker til Argo
 
-- [Dev (argocd.dev.skip.statkart.no)](https://argocd.dev.skip.statkart.no/)
-- [Test (argocd.test.skip.statkart.no)](https://argocd.test.skip.statkart.no/)
-- [Prod (argocd.prod.skip.statkart.no)](https://argocd.prod.skip.statkart.no/)
+Du må være på Kartverkets nettverk eller VPN for å kunne nå disse lenkene.
+
+- [Dev (argo-dev.kartverket.dev)](https://argo-dev.kartverket.dev/)
+- [Prod (argo-prod.kartverket.dev)](https://argo-prod.kartverket.dev/)
 
 ## GitOps
 

@@ -7,13 +7,13 @@ Applications on SKIP use [Grafana](https://grafana.com/) for monitoring for unex
 Here are some useful links for handling alerts:
 
 - [Alert config (grafana-alerts on GitHub)](https://github.com/kartverket/grafana-alerts)
-- [Alert dashboard](https://monitoring.kartverket.dev/alerting/list?view=state)
-- [Critical alerts dashboard](https://monitoring.kartverket.dev/d/dd79f2b5-feca-45ff-9396-f67d22adc3c5/alerts?orgId=1)
-- [Current active incidents](https://monitoring.kartverket.dev/a/grafana-oncall-app/alert-groups)
-- [Synthetic Monitoring overview](https://monitoring.kartverket.dev/d/fU-WBSqWz/synthetic-monitoring-summary?dashboard=summary&orgId=1)
-- [Synthetic Monitoring checks](https://monitoring.kartverket.dev/a/grafana-synthetic-monitoring-app/checks)
-- [Planned alert silences (maintainance periods)](https://monitoring.kartverket.dev/alerting/silences)
-- [Alert Schedules](https://monitoring.kartverket.dev/a/grafana-oncall-app/schedules?p=1)
+- [Alert dashboard](https://monitoring.kartverket.cloud/alerting/list?view=state)
+- [Critical alerts dashboard](https://monitoring.kartverket.cloud/d/dd79f2b5-feca-45ff-9396-f67d22adc3c5/alerts?orgId=1)
+- [Current active incidents](https://monitoring.kartverket.cloud/a/grafana-oncall-app/alert-groups)
+- [Synthetic Monitoring overview](https://monitoring.kartverket.cloud/d/fU-WBSqWz/synthetic-monitoring-summary?dashboard=summary&orgId=1)
+- [Synthetic Monitoring checks](https://monitoring.kartverket.cloud/a/grafana-synthetic-monitoring-app/checks)
+- [Planned alert silences (maintainance periods)](https://monitoring.kartverket.cloud/alerting/silences)
+- [Alert Schedules](https://monitoring.kartverket.cloud/a/grafana-oncall-app/schedules?p=1)
 
 ## Creating alerts
 
