@@ -6,7 +6,7 @@ Skiperator is developed by SKIP for the Kubernetes platform and is based on the 
 
 The operator is designed to be used by application developers to deploy their applications and jobs into a Kubernetes cluster.
 It will create all the necessary resources for the application to run, such as deployments, services, and ingress resources, 
-and also handle security aspects like setting up network policies and service accounts so you as a developer doesn't have to worry about it.
+and also handle security aspects like setting up network policies and service accounts so you as a developer don't have to worry about it.
 
 Logs and metrics will be automatically available on https://monitoring.kartverket.cloud
 
