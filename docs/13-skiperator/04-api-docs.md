@@ -1,8 +1,3 @@
----
-toc_min_heading_level: 2
-toc_max_heading_level: 6
----
-
 # API Reference
 
 Packages:
@@ -31,7 +26,6 @@ Resource Types:
 
 
 Application
-
 
 Root object for Application resource. An application resource is a resource for easily managing a Dockerized container within the context of a Kartverket cluster.
 This allows product teams to avoid the need to set up networking on the cluster, as well as a lot of out of the box security features.
@@ -73,8 +67,7 @@ This allows product teams to avoid the need to set up networking on the cluster,
         <td><b><a href="#applicationstatus">status</a></b></td>
         <td>object</td>
         <td>
-          ApplicationStatus
-
+          SkiperatorStatus
 
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
         </td>
@@ -177,7 +170,6 @@ or running third-party containers where you don't have control over the Dockerfi
 resource will be assigned as environment variables. Supports both configmaps
 and secrets.
 
-
 For mounting as files see FilesFrom.<br/>
         </td>
         <td>false</td>
@@ -187,10 +179,8 @@ For mounting as files see FilesFrom.<br/>
         <td>
           Mounting volumes into the Deployment are done using the FilesFrom argument
 
-
 FilesFrom supports ConfigMaps, Secrets and PVCs. The Application resource
 assumes these have already been created by you, and will fail if this is not the case.
-
 
 For mounting environment variables see EnvFrom.<br/>
         </td>
@@ -220,7 +210,6 @@ make the app reachable on the internet. Note that other addresses than skip.stat
 The below hostnames will also have TLS certificates issued and be reachable on both
 HTTP and HTTPS.
 
-
 Ingresses must be lowercase, contain no spaces, be a non-empty string, and have a hostname/domain separated by a period
 They can optionally be suffixed with a plus and name of a custom TLS secret located in the istio-gateways namespace.
 E.g. "foo.atkv3-dev.kartverket-intern.cloud+env-wildcard-cert"<br/>
@@ -243,7 +232,6 @@ Any amount of labels can be added as wanted, and they will all cascade down to a
           Liveness probes define a resource that returns 200 OK when the app is running
 as intended. Returning a non-200 code will make kubernetes restart the app.
 Liveness is optional, but when provided, path and port are required
-
 
 See Probe for structure definition.<br/>
         </td>
@@ -269,7 +257,6 @@ things like annotations on the Pod to change the behaviour of sidecars, and set 
         <td>
           An optional priority. Supported values are 'low', 'medium' and 'high'.
 The default value is 'medium'.
-
 
 Most workloads should not have to specify this field. If you think you
 do, please consult with SKIP beforehand.<br/>
@@ -311,9 +298,7 @@ This redirect does not happen on the route /.well-known/acme-challenge/, as the 
         <td>
           The number of replicas can either be specified as a static number as follows:
 
-
 	replicas: 2
-
 
 Or by specifying a range between min and max to enable HorizontalPodAutoscaling.
 The default value for replicas is:
@@ -363,7 +348,6 @@ the default strategy, RollingUpdate, is not usable. Setting type to
 Recreate will take down all the pods before starting new pods, whereas the
 default of RollingUpdate will try to start the new pods before taking down the
 old ones.
-
 
 Valid values are: RollingUpdate, Recreate. Default is RollingUpdate<br/>
         </td>
@@ -450,7 +434,6 @@ other namespaces namespace is required<br/>
 
 
 InternalRule
-
 
 The rules list specifies a list of applications. When no namespace is
 specified it refers to an app in the current namespace. For apps in
@@ -542,8 +525,6 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
         <td>
           protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match.
 If not specified, this field defaults to TCP.<br/>
-          <br/>
-            <i>Default</i>: TCP<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -594,7 +575,6 @@ If other ports or protocols are required then `ports` must be specified as well<
 
 ExternalRule
 
-
 Describes a rule for allowing your Application to route traffic to external applications and hosts.
 
 <table>
@@ -620,7 +600,6 @@ Describes a rule for allowing your Application to route traffic to external appl
           Non-HTTP requests (i.e. using the TCP protocol) need to use IP in addition to hostname
 Only required for TCP requests.
 
-
 Note: Hostname must always be defined even if IP is set statically<br/>
         </td>
         <td>false</td>
@@ -642,7 +621,6 @@ HTTPS on port 80 and 443 respectively are put into the allowlist<br/>
 
 
 ExternalPort
-
 
 A custom port describing an external host
 
@@ -688,7 +666,6 @@ A custom port describing an external host
 
 
 InternalRule
-
 
 The rules list specifies a list of applications. When no namespace is
 specified it refers to an app in the current namespace. For apps in
@@ -780,8 +757,6 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
         <td>
           protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match.
 If not specified, this field defaults to TCP.<br/>
-          <br/>
-            <i>Default</i>: TCP<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -824,10 +799,9 @@ If not specified, this field defaults to TCP.<br/>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
-          <br/>
+          Protocol defines network protocols supported for things like container ports.<br/>
           <br/>
             <i>Enum</i>: TCP, UDP, SCTP<br/>
-            <i>Default</i>: TCP<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -865,7 +839,6 @@ If field is false, the contents of AllowList will be used instead if AllowList i
         <td>[]string</td>
         <td>
           Allows specific endpoints. Common endpoints one might want to allow include /actuator/health, /actuator/startup, /actuator/info.
-
 
 Note that endpoints are matched specifically on the input, so if you allow /actuator/health, you will *not* allow /actuator/health/<br/>
         </td>
@@ -1004,9 +977,7 @@ Selects a key of a ConfigMap.
 This field is effectively required, but due to backwards compatibility is
 allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
-TODO: Add other useful fields. apiVersion, kind, uid?
-More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.<br/>
+More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
             <i>Default</i>: <br/>
         </td>
@@ -1130,9 +1101,7 @@ Selects a key of a secret in the pod's namespace
 This field is effectively required, but due to backwards compatibility is
 allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
-TODO: Add other useful fields. apiVersion, kind, uid?
-More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.<br/>
+More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
             <i>Default</i>: <br/>
         </td>
@@ -1188,7 +1157,6 @@ TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://git
 
 
 FilesFrom
-
 
 Struct representing information needed to mount a Kubernetes resource as a file to a Pod's directory.
 One of ConfigMap, Secret, EmptyDir or PersistentVolumeClaim must be present, and just represent the name of the resource in question
@@ -1339,30 +1307,21 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
           Connection name for the CloudSQL instance. Found in the Google Cloud Console under your CloudSQL resource.
 The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-north1:my-db".<br/>
         </td>
-        <td>false</td>
-      </tr><tr>
-        <td><b>enabled</b></td>
-        <td>boolean</td>
-        <td>
-          <br/>
-          <br/>
-            <i>Default</i>: false<br/>
-        </td>
-        <td>false</td>
+        <td>true</td>
       </tr><tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
           The IP address of the CloudSQL instance. This is used to create a serviceentry for the CloudSQL proxy.<br/>
         </td>
-        <td>false</td>
+        <td>true</td>
       </tr><tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
           Service account used by cloudsql auth proxy. This service account must have the roles/cloudsql.client role.<br/>
         </td>
-        <td>false</td>
+        <td>true</td>
       </tr><tr>
         <td><b>version</b></td>
         <td>string</td>
@@ -1406,7 +1365,6 @@ If enabled, an ID-porten client be provisioned.<br/>
         <td>
           AccessTokenLifetime is the lifetime in seconds for any issued access token from ID-porten.
 
-
 If unspecified, defaults to `3600` seconds (1 hour).<br/>
           <br/>
             <i>Minimum</i>: 1<br/>
@@ -1444,7 +1402,6 @@ initiated a logout elsewhere as part of a single logout (front channel logout) p
 Which type of integration you choose will provide guidance on which scopes you can use with the client.
 A client can only have one integration type.
 
-
 NB! It is not possible to change the integration type after creation.<br/>
           <br/>
             <i>Enum</i>: krr, idporten, api_klient<br/>
@@ -1481,7 +1438,6 @@ has been initiated and performed by the application.<br/>
 You will not be able to add a scope to your client that conflicts with the client's IntegrationType.
 For example, you can not add a scope that is limited to the IntegrationType `krr` of IntegrationType `idporten`, and vice versa.
 
-
 Default for IntegrationType `krr` = ("krr:global/kontaktinformasjon.read", "krr:global/digitalpost.read")
 Default for IntegrationType `idporten` = ("openid", "profile")
 IntegrationType `api_klient` have no Default, checkout Digdir documentation.<br/>
@@ -1493,7 +1449,6 @@ IntegrationType `api_klient` have no Default, checkout Digdir documentation.<br/
         <td>
           SessionLifetime is the maximum lifetime in seconds for any given user's session in your application.
 The timeout starts whenever the user is redirected from the `authorization_endpoint` at ID-porten.
-
 
 If unspecified, defaults to `7200` seconds (2 hours).
 Note: Attempting to refresh the user's `access_token` beyond this timeout will yield an error.<br/>
@@ -1514,7 +1469,6 @@ Note: Attempting to refresh the user's `access_token` beyond this timeout will y
 Liveness probes define a resource that returns 200 OK when the app is running
 as intended. Returning a non-200 code will make kubernetes restart the app.
 Liveness is optional, but when provided, path and port are required
-
 
 See Probe for structure definition.
 
@@ -2044,7 +1998,6 @@ resources of other apps on the cluster.
           Limits set the maximum the app is allowed to use. Exceeding this limit will
 make kubernetes kill the app and restart it.
 
-
 Limits can be set on the CPU and memory, but it is not recommended to put a limit on CPU, see: https://home.robusta.dev/blog/stop-using-cpu-limits<br/>
         </td>
         <td>false</td>
@@ -2055,7 +2008,6 @@ Limits can be set on the CPU and memory, but it is not recommended to put a limi
           Requests set the initial allocation that is done for the app and will
 thus be available to the app on startup. More is allocated on demand
 until the limit is reached.
-
 
 Requests can be set on the CPU and memory.<br/>
         </td>
@@ -2168,7 +2120,6 @@ Recreate will take down all the pods before starting new pods, whereas the
 default of RollingUpdate will try to start the new pods before taking down the
 old ones.
 
-
 Valid values are: RollingUpdate, Recreate. Default is RollingUpdate
 
 <table>
@@ -2199,8 +2150,7 @@ Valid values are: RollingUpdate, Recreate. Default is RollingUpdate
 
 
 
-ApplicationStatus
-
+SkiperatorStatus
 
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.
 
@@ -2214,6 +2164,13 @@ A status field shown on a Skiperator resource which contains information regardi
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>accessPolicies</b></td>
+        <td>string</td>
+        <td>
+          Indicates if access policies are valid<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
         <td><b><a href="#applicationstatusconditionsindex">conditions</a></b></td>
         <td>[]object</td>
         <td>
@@ -2244,23 +2201,6 @@ A status field shown on a Skiperator resource which contains information regardi
 
 
 Condition contains details for one aspect of the current state of this API Resource.
-
-This struct is intended for direct use as an array at the field path .status.conditions.  For example,
-
-```go
-	type FooStatus struct{
-	    // Represents the observations of a foo's current state.
-	    // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"
-	    // +patchMergeKey=type
-	    // +patchStrategy=merge
-	    // +listType=map
-	    // +listMapKey=type
-	    Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
-
-
-	    // other fields
-	}
-```
 
 <table>
     <thead>
@@ -2313,11 +2253,7 @@ This field may not be empty.<br/>
         <td><b>type</b></td>
         <td>string</td>
         <td>
-          type of condition in CamelCase or in foo.example.com/CamelCase.
-
-Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be
-useful (see .node.status.conditions), the ability to deconflict is important.
-The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)<br/>
+          type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2471,13 +2407,12 @@ Status
         <td>
           <br/>
         </td>
-        <td>false</td>
+        <td>true</td>
       </tr><tr>
         <td><b><a href="#routingstatus">status</a></b></td>
         <td>object</td>
         <td>
-          ApplicationStatus
-
+          SkiperatorStatus
 
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
         </td>
@@ -2586,8 +2521,7 @@ A status field shown on a Skiperator resource which contains information regardi
 
 
 
-ApplicationStatus
-
+SkiperatorStatus
 
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.
 
@@ -2601,6 +2535,13 @@ A status field shown on a Skiperator resource which contains information regardi
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>accessPolicies</b></td>
+        <td>string</td>
+        <td>
+          Indicates if access policies are valid<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
         <td><b><a href="#routingstatusconditionsindex">conditions</a></b></td>
         <td>[]object</td>
         <td>
@@ -2631,24 +2572,6 @@ A status field shown on a Skiperator resource which contains information regardi
 
 
 Condition contains details for one aspect of the current state of this API Resource.
-
-This struct is intended for direct use as an array at the field path .status.conditions.  For example,
-
-
-```go
-	type FooStatus struct{
-	    // Represents the observations of a foo's current state.
-	    // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"
-	    // +patchMergeKey=type
-	    // +patchStrategy=merge
-	    // +listType=map
-	    // +listMapKey=type
-	    Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
-
-
-	    // other fields
-	}
-```
 
 <table>
     <thead>
@@ -2701,11 +2624,7 @@ This field may not be empty.<br/>
         <td><b>type</b></td>
         <td>string</td>
         <td>
-          type of condition in CamelCase or in foo.example.com/CamelCase.
-
-Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be
-useful (see .node.status.conditions), the ability to deconflict is important.
-The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)<br/>
+          type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2825,8 +2744,6 @@ Status
 
 
 
-A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.
-The Container field of a SKIPJob is only mutable if the Cron field is set. If unset, you must delete your SKIPJob to change container settings.
 SKIPJob is the Schema for the skipjobs API
 
 <table>
@@ -2859,15 +2776,17 @@ SKIPJob is the Schema for the skipjobs API
         <td><b><a href="#skipjobspec">spec</a></b></td>
         <td>object</td>
         <td>
-          SKIPJobSpec defines the desired state of SKIPJob<br/>
+          SKIPJobSpec defines the desired state of SKIPJob
+
+A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.
+The Container field of a SKIPJob is only mutable if the Cron field is set. If unset, you must delete your SKIPJob to change container settings.<br/>
         </td>
         <td>true</td>
       </tr><tr>
         <td><b><a href="#skipjobstatus">status</a></b></td>
         <td>object</td>
         <td>
-          ApplicationStatus
-
+          SkiperatorStatus
 
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
         </td>
@@ -2882,6 +2801,9 @@ A status field shown on a Skiperator resource which contains information regardi
 
 
 SKIPJobSpec defines the desired state of SKIPJob
+
+A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.
+The Container field of a SKIPJob is only mutable if the Cron field is set. If unset, you must delete your SKIPJob to change container settings.
 
 <table>
     <thead>
@@ -2956,7 +2878,6 @@ Once set, you may not change Container without deleting your current SKIPJob
         <td>
           AccessPolicy
 
-
 Zero trust dictates that only applications with a reason for being able
 to access another resource should be able to reach it. This is set up by
 default by denying all ingress and egress traffic from the Pods in the
@@ -3005,7 +2926,6 @@ that are allowed to talk with this Application and which resources this app can 
         <td>
           GCP
 
-
 Configuration for interacting with Google Cloud Platform<br/>
         </td>
         <td>false</td>
@@ -3014,7 +2934,6 @@ Configuration for interacting with Google Cloud Platform<br/>
         <td>object</td>
         <td>
           Probe
-
 
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
@@ -3042,7 +2961,6 @@ Type configuration for all types of Kubernetes probes.<br/>
         <td>
           Probe
 
-
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
@@ -3051,7 +2969,6 @@ Type configuration for all types of Kubernetes probes.<br/>
         <td>object</td>
         <td>
           ResourceRequirements
-
 
 A simplified version of the Kubernetes native ResourceRequirement field, in which only Limits and Requests are present.
 For the units used for resources, see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes<br/>
@@ -3076,7 +2993,6 @@ is RestartPolicyAlways.<br/>
         <td>
           Probe
 
-
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
@@ -3090,7 +3006,6 @@ Type configuration for all types of Kubernetes probes.<br/>
 
 
 AccessPolicy
-
 
 Zero trust dictates that only applications with a reason for being able
 to access another resource should be able to reach it. This is set up by
@@ -3161,7 +3076,6 @@ other namespaces namespace is required<br/>
 
 
 InternalRule
-
 
 The rules list specifies a list of applications. When no namespace is
 specified it refers to an app in the current namespace. For apps in
@@ -3253,8 +3167,6 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
         <td>
           protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match.
 If not specified, this field defaults to TCP.<br/>
-          <br/>
-            <i>Default</i>: TCP<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -3305,7 +3217,6 @@ If other ports or protocols are required then `ports` must be specified as well<
 
 ExternalRule
 
-
 Describes a rule for allowing your Application to route traffic to external applications and hosts.
 
 <table>
@@ -3331,7 +3242,6 @@ Describes a rule for allowing your Application to route traffic to external appl
           Non-HTTP requests (i.e. using the TCP protocol) need to use IP in addition to hostname
 Only required for TCP requests.
 
-
 Note: Hostname must always be defined even if IP is set statically<br/>
         </td>
         <td>false</td>
@@ -3353,7 +3263,6 @@ HTTPS on port 80 and 443 respectively are put into the allowlist<br/>
 
 
 ExternalPort
-
 
 A custom port describing an external host
 
@@ -3399,7 +3308,6 @@ A custom port describing an external host
 
 
 InternalRule
-
 
 The rules list specifies a list of applications. When no namespace is
 specified it refers to an app in the current namespace. For apps in
@@ -3491,8 +3399,6 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
         <td>
           protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match.
 If not specified, this field defaults to TCP.<br/>
-          <br/>
-            <i>Default</i>: TCP<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -3535,10 +3441,9 @@ If not specified, this field defaults to TCP.<br/>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
-          <br/>
+          Protocol defines network protocols supported for things like container ports.<br/>
           <br/>
             <i>Enum</i>: TCP, UDP, SCTP<br/>
-            <i>Default</i>: TCP<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -3675,9 +3580,7 @@ Selects a key of a ConfigMap.
 This field is effectively required, but due to backwards compatibility is
 allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
-TODO: Add other useful fields. apiVersion, kind, uid?
-More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.<br/>
+More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
             <i>Default</i>: <br/>
         </td>
@@ -3801,9 +3704,7 @@ Selects a key of a secret in the pod's namespace
 This field is effectively required, but due to backwards compatibility is
 allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
-TODO: Add other useful fields. apiVersion, kind, uid?
-More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.<br/>
+More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
             <i>Default</i>: <br/>
         </td>
@@ -3859,7 +3760,6 @@ TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://git
 
 
 FilesFrom
-
 
 Struct representing information needed to mount a Kubernetes resource as a file to a Pod's directory.
 One of ConfigMap, Secret, EmptyDir or PersistentVolumeClaim must be present, and just represent the name of the resource in question
@@ -3919,7 +3819,6 @@ NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
 
 
 GCP
-
 
 Configuration for interacting with Google Cloud Platform
 
@@ -4013,30 +3912,21 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
           Connection name for the CloudSQL instance. Found in the Google Cloud Console under your CloudSQL resource.
 The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-north1:my-db".<br/>
         </td>
-        <td>false</td>
-      </tr><tr>
-        <td><b>enabled</b></td>
-        <td>boolean</td>
-        <td>
-          <br/>
-          <br/>
-            <i>Default</i>: false<br/>
-        </td>
-        <td>false</td>
+        <td>true</td>
       </tr><tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
           The IP address of the CloudSQL instance. This is used to create a serviceentry for the CloudSQL proxy.<br/>
         </td>
-        <td>false</td>
+        <td>true</td>
       </tr><tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
           Service account used by cloudsql auth proxy. This service account must have the roles/cloudsql.client role.<br/>
         </td>
-        <td>false</td>
+        <td>true</td>
       </tr><tr>
         <td><b>version</b></td>
         <td>string</td>
@@ -4056,7 +3946,6 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
 
 
 Probe
-
 
 Type configuration for all types of Kubernetes probes.
 
@@ -4196,7 +4085,6 @@ a given pod.<br/>
 
 Probe
 
-
 Type configuration for all types of Kubernetes probes.
 
 <table>
@@ -4287,7 +4175,6 @@ Minimum value is 1<br/>
 
 ResourceRequirements
 
-
 A simplified version of the Kubernetes native ResourceRequirement field, in which only Limits and Requests are present.
 For the units used for resources, see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
 
@@ -4307,7 +4194,6 @@ For the units used for resources, see https://kubernetes.io/docs/concepts/config
           Limits set the maximum the app is allowed to use. Exceeding this limit will
 make kubernetes kill the app and restart it.
 
-
 Limits can be set on the CPU and memory, but it is not recommended to put a limit on CPU, see: https://home.robusta.dev/blog/stop-using-cpu-limits<br/>
         </td>
         <td>false</td>
@@ -4318,7 +4204,6 @@ Limits can be set on the CPU and memory, but it is not recommended to put a limi
           Requests set the initial allocation that is done for the app and will
 thus be available to the app on startup. More is allocated on demand
 until the limit is reached.
-
 
 Requests can be set on the CPU and memory.<br/>
         </td>
@@ -4333,7 +4218,6 @@ Requests can be set on the CPU and memory.<br/>
 
 
 Probe
-
 
 Type configuration for all types of Kubernetes probes.
 
@@ -4585,8 +4469,7 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 
 
 
-ApplicationStatus
-
+SkiperatorStatus
 
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.
 
@@ -4600,6 +4483,13 @@ A status field shown on a Skiperator resource which contains information regardi
         </tr>
     </thead>
     <tbody><tr>
+        <td><b>accessPolicies</b></td>
+        <td>string</td>
+        <td>
+          Indicates if access policies are valid<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
         <td><b><a href="#skipjobstatusconditionsindex">conditions</a></b></td>
         <td>[]object</td>
         <td>
@@ -4630,24 +4520,6 @@ A status field shown on a Skiperator resource which contains information regardi
 
 
 Condition contains details for one aspect of the current state of this API Resource.
-
-This struct is intended for direct use as an array at the field path .status.conditions.  For example,
-
-
-```go
-	type FooStatus struct{
-	    // Represents the observations of a foo's current state.
-	    // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"
-	    // +patchMergeKey=type
-	    // +patchStrategy=merge
-	    // +listType=map
-	    // +listMapKey=type
-	    Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
-
-
-	    // other fields
-	}
-```
 
 <table>
     <thead>
@@ -4700,11 +4572,7 @@ This field may not be empty.<br/>
         <td><b>type</b></td>
         <td>string</td>
         <td>
-          type of condition in CamelCase or in foo.example.com/CamelCase.
-
-Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be
-useful (see .node.status.conditions), the ability to deconflict is important.
-The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)<br/>
+          type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
       </tr><tr>

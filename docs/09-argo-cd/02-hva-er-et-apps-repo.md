@@ -11,9 +11,10 @@ Et apps-repo inneholder [manifest-filer](https://kartverket.atlassian.net/wiki/s
 Du vil se at et apps-repo har en predefinert mappestruktur. Den ser omtrent slik ut:
 
 ```
-dev/         # 1
-  foo-main/  # 2
-    app.yaml # 3
+env/         # 1
+   [cluster]/ # 2
+      foo-main/  # 3
+        app.yaml # 4
 ```
 
 På toppnivå (1) finner man mapper som gjenspeiler hvilket miljø det skal synkroniseres til. Dette er enten `dev`, `test` eller `prod`.
