@@ -7,7 +7,7 @@ These are just simple examples. Teams usually use libsonnet to generate the yaml
 For more detailed information on how to configure the CRDs see the [configuring](03-configuring.md) for more common use cases and [API docs](04-api-docs.md) for complete documentation.
 ## Application
 An Application is our abstraction of a deployment. Skiperator will create all the necessary resources for you.
-Create a file named `app.yaml` in `env/atkv1-dev/myapp` with the following content:
+Create a file named `app.yaml` in `env/atkv3-dev/myapp` with the following content:
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -32,7 +32,7 @@ Your app should be reachable from the domain `myapp.atkv3-dev.kartverket-intern.
 
 ## SKIPJob
 A SKIPJob is our abstraction of a job or a cron job. Skiperator will create all the necessary resources for you.
-Create a file named `job.yaml` in `env/atkv1-dev/myjob` with the following content:
+Create a file named `job.yaml` in `env/atkv3-dev/myjob` with the following content:
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
