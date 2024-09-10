@@ -245,6 +245,8 @@ This is the same as for applications, except we don't define inbound policies fo
 One thing that is important to remember with routes is that the order of the routes matters.
 The route that is defined first will be the one that is matched first.
 
+If your backend service expects requests without the leading pathPrefix, you can configure `rewriteUri` to remove the prefix before it arrives at the backend.
+
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
 kind: Routing
@@ -254,8 +256,8 @@ spec:
     hostname: kartverket.com
     routes:
         - pathPrefix: /api          # Highest priority
+          rewriteUri: true
           targetApp: backend-app
         - pathPrefix: /             # Lowest priority
           targetApp: frontend-app
-```
 
