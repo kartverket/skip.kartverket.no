@@ -58,7 +58,7 @@ Skiperator will create network policies that allow the SKIPJob to connect to the
 SKIPJobs must be postfixed with `-skipjob` in the access policy. You can also connect to applications in other namespaces, see more in [configuring](03-configuring.md) or the [api docs](04-api-docs.md).
 
 ## Routing
-A Routing is our abstraction of a reverse proxy routing rule. Under the hood its using istio to proxy your requests.
+A Routing is an optional resource that you can use to facilitate path based routing, allowing multiple microservices to share the same hostname. Under the hood it's using Istio to proxy requests based on the http path. By using Routing you should remove the `ingresses` field in you Application manifest.
 For example if you have two applications, frontend and backend, you can create a routing rule that routes requests to `/api` to the backend and everything else to the frontend.
 
 ```yaml 
