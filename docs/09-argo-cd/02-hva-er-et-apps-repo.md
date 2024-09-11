@@ -11,12 +11,13 @@ Et apps-repo inneholder [manifest-filer](https://kartverket.atlassian.net/wiki/s
 Du vil se at et apps-repo har en predefinert mappestruktur. Den ser omtrent slik ut:
 
 ```
-dev/         # 1
-  foo-main/  # 2
-    app.yaml # 3
+env/         # 1
+   [cluster]/ # 2
+      foo-main/  # 3
+        app.yaml # 4
 ```
 
-På toppnivå (1) finner man mapper som gjenspeiler hvilket miljø det skal synkroniseres til. Dette er enten `dev`, `test` eller `prod`.
+På env nivå (2) finner man mapper som gjenspeiler hvilket miljø det skal synkroniseres til. Dette er navnet på clusteret, enten `atkv3-dev`, `atvk3-prod`, `atgcp1-dev` eller `atgcp1-prod`.
 
 På nivå 2 finner man navnet på namespacet som det skal deployes til. Dette må starte med et gitt prefiks, vanligvis produktnavnet (i dette tilfellet heter produktet `foo` ). Etter prefikset kan man skrive hva man vil, vanligvis navnet på branchen i git som er deployed her. Dette kan være nyttig om man ønsker å deploye en mer stabil `main` branch deployed i tillegg til å deploye pull requests som testes live før de merges.
 
