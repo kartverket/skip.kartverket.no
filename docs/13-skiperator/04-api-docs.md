@@ -4356,6 +4356,16 @@ If unset, Jobs missing their deadline will be considered failed jobs and will no
 all running Pods will be terminated.<br/>
         </td>
         <td>false</td>
+      </tr><tr>
+        <td><b>timeZone</b></td>
+        <td>string</td>
+        <td>
+          The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified,
+this will default to the time zone of the cluster.
+
+Example: "Europe/Oslo"<br/>
+        </td>
+        <td>false</td>
       </tr></tbody>
 </table>
 
