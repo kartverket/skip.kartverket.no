@@ -216,6 +216,17 @@ E.g. "foo.atkv3-dev.kartverket-intern.cloud+env-wildcard-cert"<br/>
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b><a href="#applicationspecistiosettings">istioSettings</a></b></td>
+        <td>object</td>
+        <td>
+          IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
+interval for tracing is the only supported option.
+By default, tracing is enabled with a random sampling percentage of 10%.<br/>
+          <br/>
+            <i>Default</i>: map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>labels</b></td>
         <td>map[string]string</td>
         <td>
@@ -1455,6 +1466,98 @@ Note: Attempting to refresh the user's `access_token` beyond this timeout will y
           <br/>
             <i>Minimum</i>: 3600<br/>
             <i>Maximum</i>: 7200<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.istioSettings
+<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
+
+
+
+IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
+interval for tracing is the only supported option.
+By default, tracing is enabled with a random sampling percentage of 10%.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#applicationspecistiosettingstelemetry">telemetry</a></b></td>
+        <td>object</td>
+        <td>
+          Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.<br/>
+          <br/>
+            <i>Default</i>: map[tracing:[map[randomSamplingPercentage:10]]]<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.istioSettings.telemetry
+<sup><sup>[↩ Parent](#applicationspecistiosettings)</sup></sup>
+
+
+
+Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#applicationspecistiosettingstelemetrytracingindex">tracing</a></b></td>
+        <td>[]object</td>
+        <td>
+          Tracing is a list of tracing configurations for the telemetry resource. Normally only one tracing configuration is needed.<br/>
+          <br/>
+            <i>Default</i>: [map[randomSamplingPercentage:10]]<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.istioSettings.telemetry.tracing[index]
+<sup><sup>[↩ Parent](#applicationspecistiosettingstelemetry)</sup></sup>
+
+
+
+Tracing contains relevant settings for tracing in the telemetry configuration
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>randomSamplingPercentage</b></td>
+        <td>integer</td>
+        <td>
+          RandomSamplingPercentage is the percentage of requests that should be sampled for tracing, specified by a whole number between 0-100.
+Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
+          <br/>
+            <i>Default</i>: 10<br/>
+            <i>Minimum</i>: 0<br/>
+            <i>Maximum</i>: 100<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -2827,6 +2930,17 @@ Once set, you may not change Container without deleting your current SKIPJob<br/
         <td>object</td>
         <td>
           Settings for the Job if you are running a scheduled job. Optional as Jobs may be one-off.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecistiosettings">istioSettings</a></b></td>
+        <td>object</td>
+        <td>
+          IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
+interval for tracing is the only supported option.
+By default, tracing is enabled with a random sampling percentage of 10%.<br/>
+          <br/>
+            <i>Default</i>: map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4364,6 +4478,98 @@ all running Pods will be terminated.<br/>
 this will default to the time zone of the cluster.
 
 Example: "Europe/Oslo"<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.istioSettings
+<sup><sup>[↩ Parent](#skipjobspec)</sup></sup>
+
+
+
+IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
+interval for tracing is the only supported option.
+By default, tracing is enabled with a random sampling percentage of 10%.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecistiosettingstelemetry">telemetry</a></b></td>
+        <td>object</td>
+        <td>
+          Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.<br/>
+          <br/>
+            <i>Default</i>: map[tracing:[map[randomSamplingPercentage:10]]]<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.istioSettings.telemetry
+<sup><sup>[↩ Parent](#skipjobspecistiosettings)</sup></sup>
+
+
+
+Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecistiosettingstelemetrytracingindex">tracing</a></b></td>
+        <td>[]object</td>
+        <td>
+          Tracing is a list of tracing configurations for the telemetry resource. Normally only one tracing configuration is needed.<br/>
+          <br/>
+            <i>Default</i>: [map[randomSamplingPercentage:10]]<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.istioSettings.telemetry.tracing[index]
+<sup><sup>[↩ Parent](#skipjobspecistiosettingstelemetry)</sup></sup>
+
+
+
+Tracing contains relevant settings for tracing in the telemetry configuration
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>randomSamplingPercentage</b></td>
+        <td>integer</td>
+        <td>
+          RandomSamplingPercentage is the percentage of requests that should be sampled for tracing, specified by a whole number between 0-100.
+Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
+          <br/>
+            <i>Default</i>: 10<br/>
+            <i>Minimum</i>: 0<br/>
+            <i>Maximum</i>: 100<br/>
         </td>
         <td>false</td>
       </tr></tbody>
