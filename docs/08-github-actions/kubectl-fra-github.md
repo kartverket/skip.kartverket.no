@@ -4,6 +4,8 @@ Det kan være nyttig å kunne kjøre kubectl fra Github Actions når for eksempe
 
 Vi har laget en GitHub Workflow som gjør det enkelt å kjøre kubectl kommandoer fra GitHub Actions, denne heter `run-kubectl` og den kan du finne [her](https://github.com/kartverket/github-workflows/blob/main/.github/workflows/run-kubectl.yaml).
 
+Denne fungerer BARE med cloud GKE cluster.
+
 ## Oppsett
 
 Før du kan bruke denne actionen må du gjøre noen endringer i [`gcp-service-accounts`](https://github.com/kartverket/gcp-service-accounts/) og i ditt teams apps-repo.
