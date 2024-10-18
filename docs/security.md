@@ -15,7 +15,7 @@ Et eksempel på dette er prinsippet om Zero Trust i nettverkslaget. All trafikk
 på Kubernetes er i utgangspunktet stengt, en pod kan ikke snakke med en hvilken
 som helst annen. Kun om begge tjenestene åpner for at de kan snakke med
 hverandre kan trafikken flyte mellom dem. Dette gjør produktteamene selv ved
-å sette `accessPolicty` i sitt Skiperator-manifest.
+å sette `accessPolicy` i sitt Skiperator-manifest.
 
 All trafikk mellom podder i Kubernetes er kryptert med mTLS helt automatisk. Det
 eneste man trenger å gjøre er å sende spørringer til en annen pod, så krypterer
