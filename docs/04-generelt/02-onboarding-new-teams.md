@@ -38,7 +38,7 @@ Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 - Workflow i IAM-repositoriet må kjøres av et SKIP-medlem med tilgang til dette.
 - Teamene synkroniseres fra AD til IAM
 - Hvis teamet krever Terraform:
-  - Service account for Terraform settes opp med [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) og gitt tilganger til kubernetes namespace via [WIF](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation).
+  - Service account for Terraform settes opp med [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) og gis tilganger til kubernetes namespace via [WIF](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation).
   - Terraform state migreres/settes opp
   - Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../09-argo-cd/01-komme-i-gang-med-argocd.md)
 
