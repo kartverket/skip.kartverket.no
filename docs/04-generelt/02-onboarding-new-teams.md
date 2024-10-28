@@ -1,4 +1,4 @@
-# Onboarding new product teams onto SKIP
+# Onboarding av nytt produkt-team til SKIP
 
 :::info
 Vil teamet ditt bruke SKIP? Vennligst les denne artikkelen først: [Hva skal til for å bruke Plattformen?](https://kartverket.atlassian.net/wiki/spaces/DT/pages/497614849/Hva+skal+til+for+bruke+Plattformen)
