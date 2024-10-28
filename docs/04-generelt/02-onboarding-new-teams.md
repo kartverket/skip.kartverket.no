@@ -28,7 +28,7 @@ Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 - Invitere til GCP- og Kubernetes-kurs hvis produktteamet ønsker det
 - Gi en introduksjon til ArgoCD og beste praksis for dette verktøyet
 
-### During onboarding
+### Under onboarding
 
 - Invitere til et kickoff-møte hvor kontaktpunkter, ansvarsfordeling, support, veikart og andre relevante saker diskuteres.
 - GitHub, gitt at teamet ikke har brukt dette før
@@ -42,7 +42,7 @@ Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
   - Terraform state migreres/settes opp
   - Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../09-argo-cd/01-komme-i-gang-med-argocd.md)
 
-## Product team tasks
+## Produkt-team oppgaver
 
 The product team is responsible for delegating tasks among themselves.
 
