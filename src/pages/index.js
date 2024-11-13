@@ -2,12 +2,25 @@ import React from 'react';
 import clsx from 'clsx';
 import Head from '@docusaurus/Head';
 import Layout from '@theme/Layout';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
 import GetStarted from '../components/GetStarted';
 import ShipAnimation from '../components/ShipAnimation';
 import logo from '../../static/img/skip.png';
+import { initializeFaro } from '@grafana/faro-react';
+import Link from '@docusaurus/Link';
+
+if (ExecutionEnvironment.canUseDOM && location.host !== 'localhost') {
+  initializeFaro({
+    url: 'https://faro.atgcp1-prod.kartverket.cloud/collect',
+    app: {
+      name: 'skip.kartverket.no',
+      environment: location.host === 'skip.kartverket.no' ? 'prod' : 'dev',
+    },
+  });
+}
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -21,16 +34,16 @@ function HomepageHeader() {
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <a
+          <Link
             className="button button--secondary button--lg"
-            href="https://kartverket.atlassian.net/wiki/spaces/SKIPDOK">
+            to="docs">
             Docs
-          </a>
-          <a
+          </Link>
+          <Link
             className="button button--secondary button--lg"
-            href="blog">
+            to="blog">
             Tech blog
-          </a>
+          </Link>
         </div>
       </div>
     </header>

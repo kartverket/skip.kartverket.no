@@ -1,0 +1,38 @@
+# nonk8s
+apiVersion: "backstage.io/v1alpha1"
+kind: "Component"
+metadata:
+  name: "skip.kartverket.no"
+  tags:
+  - "public"
+spec:
+  type: "website"
+  lifecycle: "production"
+  owner: "skip"
+  system: "skip"
+---
+apiVersion: "backstage.io/v1alpha1"
+kind: "Group"
+metadata:
+  name: "security_champion_skip.kartverket.no"
+  title: "Security Champion skip.kartverket.no"
+spec:
+  type: "security_champion"
+  parent: "it_security_champions"
+  members:
+  - "omaen"
+  children:
+  - "resource:skip.kartverket.no"
+---
+apiVersion: "backstage.io/v1alpha1"
+kind: "Resource"
+metadata:
+  name: "skip.kartverket.no"
+  links:
+  - url: "https://github.com/kartverket/skip.kartverket.no"
+    title: "skip.kartverket.no på GitHub"
+spec:
+  type: "repo"
+  owner: "security_champion_skip.kartverket.no"
+  dependencyOf:
+  - "component:skip.kartverket.no"
