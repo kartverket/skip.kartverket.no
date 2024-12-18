@@ -4,7 +4,7 @@
 Vil teamet ditt bruke SKIP? Vennligst les denne artikkelen først: [Hva skal til for å bruke Plattformen?](https://kartverket.atlassian.net/wiki/spaces/DT/pages/497614849/Hva+skal+til+for+bruke+Plattformen)
 :::
 
-Denne siden innholder ansvarsområder og viktige oppgaver som må gjøres før onboarding av nye produktteam til SKIP-plattformen. Både av oppgaver som må gjøres av SKIP-teamet, samt oppgaver som må gjøres av det nye produktteamet er beskrevet her.
+Denne siden innholder instruksjoner for onboarding av nye produktteam til SKIP-plattformen. Både oppgaver som må gjøres av SKIP-teamet, og oppgaver som må gjøres av det nye produktteamet er beskrevet her.
 
 
 Vi setter stor pris på om du rapporterer eventuelle mangler og/eller manglende informasjon i denne veiledningen til SKIP-teamet, enten ved å kontakte oss eller ved å kommentere direkte i dette dokumentet.
@@ -13,7 +13,7 @@ Vi setter stor pris på om du rapporterer eventuelle mangler og/eller manglende 
 Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 :::
 
-## SKIP-team oppgaver
+## SKIP-teamets oppgaver
 
 ### Før onboarding
 
@@ -33,7 +33,7 @@ Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 - Invitere til et kickoff-møte hvor kontaktpunkter, ansvarsfordeling, support, veikart og andre relevante saker diskuteres.
 - GitHub, gitt at teamet ikke har brukt dette før
 - Opprette grupper ved å legge dem til entra-id-config
-- Teamet må merkes med security i admin.google.com. Dette kan kun gjøres gjennom click-ops og kun Bård og Eline har tilgang, dessverre.
+- Teamet må merkes med security i admin.google.com.
 - Teamet må legges til IAM-repositoriet
 - Workflow i IAM-repositoriet må kjøres av et SKIP-medlem med tilgang til dette.
 - Teamene synkroniseres fra AD til IAM
@@ -44,16 +44,19 @@ Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 
 ## Produkt-team oppgaver
 
-The product team is responsible for delegating tasks among themselves.
+Produktteamet har ansvaret for å fordele disse oppgavene internt.
 
 - Informere SKIP om hvem som er teamleder slik at de kan administrere AD-gruppen
 - Vurdere hvilke teammedlemmer som trenger ekstra Kubernetes/GCP-kurs
-- Hvis ArgoCD skal brukes: Opprette nytt Apps-repositorium i GitHub basert på denne [SKIP malen](https://github.com/kartverket/apps-template)
+- Hvis ArgoCD skal brukes: Opprette nytt Apps-repo i GitHub basert på denne [SKIP malen](https://github.com/kartverket/apps-template)
 - Sørge for at applikasjonen har en [IP og/eller DPIA](https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338711/Mal+for+IP+-+DPIA+og+ROS.+KOPIER+SIDENE+TIL+ET+EGET+OMR+DE.)
 - Tilpasse applikasjonen for å tilfredsstille SKIPs sikkerhetskrav
 - Lese, forstå og følge GitHub-sikkerhetskravene: [Sikkerhet på GitHub](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/308216163/Sikkerhet+p+GitHub)
 - Fullføre ROS-analyse
-- Forberede informasjon til SKIP-teamet, inkludert tekniske forventninger og tjenestedesign/arkitektur
+- Forberede informasjon til SKIP-teamet
+  - Tekniske forventninger
+  - Tjenestedesign/arkitektur
+  - Utenforliggende avhengiheter
 - Ta ansvar for egne krav og kommunisere disse tydelig og konsist til SKIP
 - Sørge for at alle teammedlemmer inviteres til møter og Slack-grupper under onboarding-prosessen
 - Lese og forstå SKIP-dokumentasjonen
