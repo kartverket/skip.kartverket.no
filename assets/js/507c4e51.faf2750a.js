@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[5369],{50439:s=>{s.exports=JSON.parse('{"label":"gitops","permalink":"/blog/tags/gitops","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);

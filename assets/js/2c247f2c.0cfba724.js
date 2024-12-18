@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[8374],{2623:s=>{s.exports=JSON.parse('{"label":"exercises","permalink":"/blog/tags/exercises","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);
