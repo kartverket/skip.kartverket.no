@@ -1,6 +1,6 @@
 # URLer og sertifikat for tjenester på SKIP
 
-For å bruke sertifikat på tjenester man skal eksponere utenfor kubernetes-clusteret anbefaler vi å bruke Skiperator. Skiperator håndterer utstedelse og fornying av sertfikater ved hjelp av [cert-manager.](https://cert-manager.io/) [Vår implementasjon av cert-manager](https://github.com/kartverket/certificate-management) bruker [ACME protokollen](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) og [http-01 challenge](https://letsencrypt.org/docs/challenge-types/#http-01-challenge) for å bevise at vi er eier av domenet vi skal utstede cert til. Vi utsteder sertifikater automatisk i både dev og prod med [Let’s encrypt](https://letsencrypt.org/).
+For å bruke sertifikat på tjenester man skal eksponere utenfor kubernetes-clusteret anbefaler vi å bruke Skiperator. Skiperator håndterer utstedelse og fornying av sertfikater ved hjelp av [cert-manager.](https://cert-manager.io/) [Vi har valgt å bruke cert-manager og ACME for sertifikater i SKIP.](./10-bruk-av-acme-og-certmanager.md) Implementasjonen vår bruker [ACME protokollen](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) og [http-01 challenge](https://letsencrypt.org/docs/challenge-types/#http-01-challenge) for å bevise at vi er eier av domenet vi skal utstede cert til. Vi utsteder sertifikater automatisk i både dev og prod med [Let’s encrypt](https://letsencrypt.org/).
 
 [![ACME](images/acme.png)](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment)
 
