@@ -1852,6 +1852,18 @@ This overrides the default separator.
 The default separator is `:`. If `name` contains `/`, the default separator is instead `/`.<br/>
         </td>
         <td>false</td>
+      </tr><tr>
+        <td><b>visibility</b></td>
+        <td>enum</td>
+        <td>
+          Visibility controls the scope's visibility.
+Public scopes are visible for everyone.
+Private scopes are only visible for the organization that owns the scope as well as
+organizations that have been granted consumer access.<br/>
+          <br/>
+            <i>Enum</i>: private, public<br/>
+        </td>
+        <td>false</td>
       </tr></tbody>
 </table>
 
