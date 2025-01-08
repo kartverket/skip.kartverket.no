@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[473],{84600:s=>{s.exports=JSON.parse('{"permalink":"/blog/tags/plattformpodden","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"SKIP\'s latest!","blogTitle":"SKIP Tech Blog"}')}}]);

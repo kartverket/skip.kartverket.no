@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[1903],{1912:s=>{s.exports=JSON.parse('{"blogBasePath":"/blog","blogTitle":"SKIP Tech Blog","authorsListPath":"/blog/authors"}')}}]);

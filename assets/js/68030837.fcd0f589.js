@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkskip_docs=self.webpackChunkskip_docs||[]).push([[3384],{130:s=>{s.exports=JSON.parse('{"label":"anthos","permalink":"/blog/tags/anthos","allTagsPath":"/blog/tags","count":3,"unlisted":false}')}}]);
