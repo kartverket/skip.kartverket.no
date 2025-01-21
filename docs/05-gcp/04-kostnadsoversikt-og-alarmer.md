@@ -36,7 +36,6 @@ module "mitt_team_gcp_budget" {
   ]
   slack_channel_name           = "#your-teams-slack-channel"
   email_address                = "alerts@example.com"
-  notification_host_gcp_project_id = "some-project-id"   
 }
 ```
 
@@ -44,12 +43,12 @@ Forklaringer på variabler:
 - `name`: Navnet på budsjettet, dere velger selv
 - `project_ids`: Prosjektene som budsjettet skal gjelde for. En prosjekt ID finner dere på 'forsiden' til prosjektet på [GCP](https://console.cloud.google.com).
 - `budget_amount`: Beløpet som budsjettet skal varsle om. Dette er i EURO.
-- `alert_exceeded_threshold`: Dette er en liste med tall som sier hvor mye av budsjettet som skal overskrides før det varsles. Tallene er i desimalformat av prosent, altså 0.75 = 75%.
-- `alert_forecast_threshold`: Samme som over, men her varsles det om forventet bruk.
+- `alert_exceeded_threshold`: Dette er en liste med tall som sier hvor mye av budsjettet som skal overskrides før det varsles. Tallene er i desimalformat av prosent, altså 0.75 = 75%. Valgfritt, standard er 0.75 og 1.0.
+- `alert_forecast_threshold`: Samme som over, men her varsles det om forventet bruk. Valgfritt, standard er 1.0.
 - `slack_channel_name`: Navnet på slack-kanalen som varsler skal sendes til, husk å inkluder # foran navnet.
 - `email_address`: E-postadressen som varsler skal sendes til.
-- `notification_host_gcp_project_id`: Prosjekt ID til prosjektet som varsler skal sendes fra. Her kan dere velge hvilket prosjekt selv.
 
+README i cost-alerts repoet inneholder mer utfyllende informasjon om bruk av modulen.
 ### Slack
 Dersom dere har lagt inn at det skal varsles til slack, så må dere invitere `SKIP Slack Bot` til kanalen det skal varsles til.
 
