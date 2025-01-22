@@ -52,3 +52,9 @@ README i cost-alerts repoet inneholder mer utfyllende informasjon om bruk av mod
 ### Slack
 Dersom dere har lagt inn at det skal varsles til slack, så må dere invitere `SKIP Slack Bot` til kanalen det skal varsles til.
 
+1. Gå til slack kanalen og trykk på medlemslisten oppe til høyre i vinduet
+![bilde som viser øvre delen av en slack kanal](images/slackbot-step1.png)
+2. Trykk på `Integrations` i menyen som kommer opp, velg deretter `Add an App`
+![bilde som viser en popup meny av hvor man legger til medlemmer og apps](images/slackbot-step2.png)
+3. Søk etter `SKIP Slack Bot` og trykk på `Add`
+![bilde som viser en side der man kan søke etter apps](images/slackbot-step3.png)
