@@ -17,8 +17,8 @@ Kostnadsalarmer i GCP heter 'budgets', så herfra referes kostnadsalarmer som bu
 ### Hvordan sette opp et budsjett
 [cost-alerts](https://github.com/kartverket/cost-alerts) fungerer på mange måter likt som [grafana-alerts](https://github.com/kartverket/grafana-alerts) repoet.
 Dersom dere skal opprette deres første budsjett, så opprett en PR mot cost-alerts repoet hvor dere gjør følgende:
-- Opprett en fil med navnet på teamet i `teams` mappen, f.eks `teams/skip.tf` 
-- Legg til en linje i `CODEOWNERS`-filen, med følgende format: `teams/skip.tf @kartverket/skip`
+- Opprett en fil med navnet på teamet i `teams` mappen, f.eks `teams/mitt-team.tf` 
+- Legg til en linje i `CODEOWNERS`-filen, med følgende format: `teams/mitt-team.tf @kartverket/mitt-team`
 
 I `teams/mitt-team.tf`-filen så kan man opprette et budsjett slik:
 
