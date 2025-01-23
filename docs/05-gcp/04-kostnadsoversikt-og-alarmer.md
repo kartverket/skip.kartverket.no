@@ -6,6 +6,8 @@ Dashboardet viser kostnader fordelt på prosjekter og tjenester, og gir en overs
 
 Dashboardet kan man finne [her](https://monitoring.kartverket.cloud/d/ee3q31rt3uosgd/gcp-cost?orgId=1&from=now-7d&to=now&timezone=browser&var-division=eiendom&var-team=$__all).
 
+> **Merk:** GCP Cost dashboardet vil vise små forskjeller fra GCP Budgets, dette skyldes start tiden på intervallet.   
+> Dataen i dashboardet kan også oppdatere seg litt tregere. Se på dashboardet som en pekepinn, mens GCP Budgets er fasiten.
 ## Alarmer
 For å unngå overraskelser i form av høye kostnader, er det viktig å sette opp alarmer. Alarmer kan settes opp for å varsle om kostnader som overstiger en viss grense, eller for å varsle om kostnader som øker raskt.
 
@@ -52,3 +54,9 @@ README i cost-alerts repoet inneholder mer utfyllende informasjon om bruk av mod
 ### Slack
 Dersom dere har lagt inn at det skal varsles til slack, så må dere invitere `SKIP Slack Bot` til kanalen det skal varsles til.
 
+1. Gå til slack kanalen og trykk på medlemslisten oppe til høyre i vinduet
+![bilde som viser øvre delen av en slack kanal](images/slackbot-step1.png)
+2. Trykk på `Integrations` i menyen som kommer opp, velg deretter `Add an App`
+![bilde som viser en popup meny av hvor man legger til medlemmer og apps](images/slackbot-step2.png)
+3. Søk etter `SKIP Slack Bot` og trykk på `Add`
+![bilde som viser en side der man kan søke etter apps](images/slackbot-step3.png)
