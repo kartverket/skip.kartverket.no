@@ -6,6 +6,8 @@ Dashboardet viser kostnader fordelt på prosjekter og tjenester, og gir en overs
 
 Dashboardet kan man finne [her](https://monitoring.kartverket.cloud/d/ee3q31rt3uosgd/gcp-cost?orgId=1&from=now-7d&to=now&timezone=browser&var-division=eiendom&var-team=$__all).
 
+> **Merk:** GCP Cost dashboardet vil vise små forskjeller fra GCP Budgets, dette skyldes start tiden på intervallet.   
+> Dataen i dashboardet kan også oppdatere seg litt tregere. Se på dashboardet som en pekepinn, mens GCP Budgets er fasiten.
 ## Alarmer
 For å unngå overraskelser i form av høye kostnader, er det viktig å sette opp alarmer. Alarmer kan settes opp for å varsle om kostnader som overstiger en viss grense, eller for å varsle om kostnader som øker raskt.
 
