@@ -16,6 +16,7 @@ Dette kan gjøres i [cost-alerts](https://github.com/kartverket/cost-alerts) rep
 
 Kostnadsalarmer i GCP heter 'budgets', så herfra referes kostnadsalarmer som budsjett.
 
+> Standard intervall på budsjetter er månedlig. Det vil si fra den første til den siste dagen i måneden.
 ### Hvordan sette opp et budsjett
 [cost-alerts](https://github.com/kartverket/cost-alerts) fungerer på mange måter likt som [grafana-alerts](https://github.com/kartverket/grafana-alerts) repoet.
 Dersom dere skal opprette deres første budsjett, så opprett en PR mot cost-alerts repoet hvor dere gjør følgende:
