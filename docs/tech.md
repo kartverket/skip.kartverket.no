@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Teknologien bak SKIP
 
-![Oversikt over teknologier brukt i SKIP gjengitt under](img/technologies.png)
+![Oversikt over teknologier brukt i SKIP gjengitt under](04-generelt/images/plattform_core.jpg)
 
 SKIP er basert på en moderne teknologiplattform bygget rundt Google Cloud,
 GitOps-prinsipper og innebygget sikkerhet.
