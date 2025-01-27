@@ -28,4 +28,4 @@ accessPolicy:
 
 ## Database i sky
 
-Det er mulig å bruke database i GCP, men her gjenstår det noe utforsking før vi har en god løype for produktteamene. Ta kontakt med SKIP så tar vi en dialog rundt database i sky.
+Se [Cloud SQL for PostgreSQL](../05-gcp/04-cloud-sql.md) for mer informasjon om hvordan sette opp og ta bruk Cloud SQL for PostgreSQL.

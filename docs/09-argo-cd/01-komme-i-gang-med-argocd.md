@@ -19,10 +19,6 @@ For å starte med Argo CD må du gjøre følgende:
 
 - Sørg for at teamet ditt oppfyller [Hva skal til for å bruke Kompass?](https://kartverket.atlassian.net/wiki/spaces/DT/pages/497614849/Hva+skal+til+for+bruke+Plattformen)
 - Produktteamet deres må ha en team-gruppe i Azure AD
-    - Samle en liste med alle teammedlemmer
-    - Velg to av teammedlemmene som skal ha høyere tilganger, for eksempel tech lead og team lead
-    - Send denne listen til produkteier SKIP som bestiller opprettelse av CLOUD_SK_TEAM-gruppe
-    - Pass på at team-gruppen legges inn i [Enterprise Applicationen](https://portal.azure.com/#view/Microsoft_AAD_IAM/ManagedAppMenuBlade/~/Overview/objectId/d1f40d68-5df9-491d-826f-86f2f74c0763/appId/2a5ecbb5-6fd3-4488-976f-03a073af2568/preferredSingleSignOnMode/saml/servicePrincipalType/Application) til ArgoCD for alle relevante miljø
 - Det må settes opp et apps-repo
     - Les [Hva er et apps-repo](02-hva-er-et-apps-repo.md) for å forstå hvordan apps-repoer fungerer
     - Repoet opprettes fra [apps-template malen](https://github.com/kartverket/apps-template)
