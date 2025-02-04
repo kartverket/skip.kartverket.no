@@ -12,7 +12,7 @@ For å eksponere en applikasjon som kjører på SKIP mot internett må man:
 Før dette kan gjøres må man gå igjennom denne sjekklisten:
 
 - Gjør dere kjent med [Overordnede føringer](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/599130113/Overordnede+f+ringer) og spesielt [Ansvarsfordeling](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/770113537/Ansvarsfordeling) fra Sikkerhetshåndboka
-- Opprett metadata om applikasjonen i henhold til [Sikkerhet i repoet](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/732397586/Sikkerhet+i+repoet) . Dette gjør at applikasjonen blir knyttet opp i [Utviklerportalen](https://kartverket.dev) (fortsatt under arbeid)
+- Opprett metadata i GitHub-repoene tilknyttet applikasjonen i henhold til sikkerhet i repoet. Dette sikrer at applikasjonen blir integrert i Utviklerportalen og får tilgang til sikkerhetsmetrikker.
 - Foranalyse må være gjennomført (det kommer løype for dette i PureService)
 - Det er gjort IP (Innledende Personvernsvurdering) og eventuelt DPIA. Kopier malen [IP, DPIA og ROS-analyse for [det som vurderes]](https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338719/IP+DPIA+og+ROS-analyse+for+det+som+vurderes+.+IKKE+SKRIV+INN+I+MALEN+men+kopier+sidene.) til deres område og fyll ut informasjonen der.
 - ROS-analyse gjennomført og godkjent av risikoeier/systemeier
