@@ -1,4 +1,4 @@
-# Sjekkliste før internett-eksponering
+# Sjekkliste før internetteksponering
 
 :::info
 Denne siden er under utarbeidelse og er et samarbeid mellom utvikling og sikkerhet
