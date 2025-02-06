@@ -1993,6 +1993,17 @@ metrics will be dropped by default. See util/constants.go for the default list.<
             <i>Default</i>: /metrics<br/>
         </td>
         <td>false</td>
+      </tr><tr>
+        <td><b>scrapeInterval</b></td>
+        <td>string</td>
+        <td>
+          ScrapeInterval specifies the interval at which Prometheus should scrape the metrics.
+The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
+If minutes ("Xm") are used, the value must be at least 1m.<br/>
+          <br/>
+            <i>Default</i>: 60s<br/>
+        </td>
+        <td>false</td>
       </tr></tbody>
 </table>
 
@@ -4686,6 +4697,17 @@ metrics will be dropped by default. See util/constants.go for the default list.<
           The HTTP path where Prometheus compatible metrics exists<br/>
           <br/>
             <i>Default</i>: /metrics<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>scrapeInterval</b></td>
+        <td>string</td>
+        <td>
+          ScrapeInterval specifies the interval at which Prometheus should scrape the metrics.
+The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
+If minutes ("Xm") are used, the value must be at least 1m.<br/>
+          <br/>
+            <i>Default</i>: 60s<br/>
         </td>
         <td>false</td>
       </tr></tbody>
