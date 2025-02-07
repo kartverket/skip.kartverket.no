@@ -113,7 +113,7 @@ Vi anbefaler at du leser gjennom [Google sin dokumentasjon](https://cloud.google
 
 ### Katastrofehåndtering
 Google Cloud SQL har innebygd failover, og det betyr at dersom primærinstansen din går ned, så vil en av de tilgjengelige replicaene ta over.    
-Dette må konfigureres i terraform, ved bruk av `availability_type` variabelen, default på denne er `ZONAL` som betyr at du ikke får en secondary instans.    
+Dette må konfigureres i terraform, ved bruk av `availability_type` [variabelen](https://github.com/kartverket/terraform-modules/wiki/cloud_sql#input_availability_type), default på denne er `ZONAL` som betyr at du ikke får en secondary instans.    
 I produksjon er det anbefalt å ha en secondary instans, og da må `availability_type` settes til `REGIONAL` i terraform.   
 Les mer her: [Google sin dokumentasjon](https://cloud.google.com/sql/docs/postgres/high-availability)    
 
