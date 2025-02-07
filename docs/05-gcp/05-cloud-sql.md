@@ -107,7 +107,7 @@ Skiperator vil nå:
 
 ### Backup
 CloudSQL er en google managed løsning av postgres, og det betyr også at det har et innebygd backup system, og håndteres i gcp console.   
-Dette systemet tar automatisk backup av databasen din, og lagrer disse i 7 dager som standard.   
+Dette systemet tar automatisk backup av databasen din, og lagrer disse i 7 dager som standard.  Hvis du har behov for å bevare backups lengre enn dette kan det konfigureres med en variabel til terraform-modulen, ref: https://github.com/kartverket/terraform-modules/wiki/cloud_sql#input_retained_backups
 Backupen er inkrementel og man har `Point-in-time` recovery tilgjengelig.   
 Vi anbefaler at du leser gjennom [Google sin dokumentasjon](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups) for å forstå hvordan backup fungerer i CloudSQL.
 
