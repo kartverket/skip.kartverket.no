@@ -72,7 +72,7 @@ spec:
     outbound:
       external:
       - host: <instansnavn>-db-<env>  # Velg selv hva du vil kalle denne, så lenge den er unik
-        ip: 22.334.12.56 # IP-adressen til databasen, den finner du i GCP
+        ip: 22.334.12.56 # Privat IP-adresse til databasen, den finner du i GCP
         ports:
           - name: sql
             port: 5432
