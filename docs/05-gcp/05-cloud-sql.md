@@ -6,7 +6,7 @@ SKIP har laget to terraform-moduler ([cloud_sql](https://github.com/kartverket/t
 [cloud_sql_config](https://github.com/kartverket/terraform-modules/tree/main/cloud_sql_config)) for å gjøre det enkelt å 
 sette opp nye Cloud SQL-instanser i GCP.
 
-Dokoumentasjon for hvordan modulene brukes finnes på wiki-siden til [terraform-modules](https://github.com/kartverket/terraform-modules/wiki)
+Dokumentasjon for hvordan modulene brukes finnes på wiki-siden til [terraform-modules](https://github.com/kartverket/terraform-modules/wiki)
 Spesielt guiden for [hvordan bruke terraform-modules repoet](https://github.com/kartverket/terraform-modules/wiki/Hvordan-bruke-dette-repoet) er relevant.
 
 ## Bruke instansen fra SKIP
