@@ -17,13 +17,13 @@
     "@docusaurus/core": "3.7.0",
     "@docusaurus/preset-classic": "3.7.0",
     "@docusaurus/theme-mermaid": "3.7.0",
-    "@grafana/faro-react": "^1.12.3",
+    "@grafana/faro-react": "^1.13.3",
     "@mdx-js/react": "^3.1.0",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
     "docusaurus-lunr-search": "^3.6.0",
     "file-loader": "^6.2.0",
-    "posthog-js": "^1.211.0",
+    "posthog-js": "^1.216.1",
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -45,6 +45,6 @@
     "node": "16.9.1"
   },
   "devDependencies": {
-    "prettier": "^3.4.2"
+    "prettier": "^3.5.0"
   }
 }
