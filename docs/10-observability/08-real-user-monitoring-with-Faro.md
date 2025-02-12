@@ -1,6 +1,6 @@
 # Real User Monitoring with Faro
 
-![](images/faro_header.png)
+![Faro Grafana Dashboard](images/faro_header.png)
 
 Detecting loading times of pages and user behavior within their browsers can often be tricky, as there are no logs or metrics generated to inspect. [Grafana Faro](https://grafana.com/oss/faro/) solves this by enabling you to add a JavaScript SDK to your frontend which sends events over HTTP to a receiver that ingests the data into Grafana. This way you are able to observe real user behavior metrics in real time using Grafana and set alerts on them as you usually would with Grafana Alerting.
 
