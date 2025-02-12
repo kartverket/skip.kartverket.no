@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 15
 ---
 
 # Sikkerhet
@@ -27,4 +27,3 @@ konfigurert får man utstedt et gyldig sertifikat som gjør at all trafikk
 krypteres med HTTPS helt automatisk. Dette sertifikatet fornyes også automatisk.
 
 Dette og mye mer fører til at det er lett å gjøre rett på SKIP.
-

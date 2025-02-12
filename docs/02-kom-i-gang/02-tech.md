@@ -1,10 +1,6 @@
----
-sidebar_position: 1
----
-
 # Teknologien bak SKIP
 
-![Oversikt over teknologier brukt i SKIP gjengitt under](04-generelt/images/plattform_core.jpg)
+![Oversikt over teknologier brukt i SKIP gjengitt under](../04-generelt/images/plattform_core.jpg)
 
 SKIP er basert på en moderne teknologiplattform bygget rundt Google Cloud,
 GitOps-prinsipper og innebygget sikkerhet.
@@ -29,4 +25,3 @@ Med SKIP er det lett for utviklere å utforske mulighetene innen moderne
 skyinfrastruktur. Vi på SKIP-teamet hjelper deg med å raskt implementere,
 administrere og optimalisere skybaserte tjenester, og holde tritt med det stadig
 skiftende teknologiske landskapet. Velkommen ombord til SKIP!
-

@@ -1,14 +1,25 @@
-# 🔭 Observability
+# 🔭 Metrikker og varslinger
 
-Observability refers to the ability to understand a system’s inner state based on its external output. This enables developers to diagnose problems and understand the system’s performance.
+![Grafana Dashboard](../img/grafana.png)
 
-Observability is often achieved through logging, metrics and tracing. A high level of observability makes troubleshooting more efficient, and is critical for modern, distributed systems where traditional methods of troubleshooting may not be sufficient.
+På SKIP gir vi deg verktøyene som trengs for å mestre den komplekse verden av
+skybasert teknologi. En av våre allierte i denne reisen er Grafana - en kraftig
+plattform som gir deg visuell innsikt og kontroll over ytelse og helse
+i sanntid.
 
-– ChatGPT
+Grafana er ditt verktøy til å forstå og optimalisere dine tjenester på
+SKIP-plattformen. Med Grafana kan du overvåke og analysere data fra en rekke
+kilder, og dermed få en dypere forståelse av hvordan dine applikasjoner kjører.
 
-[Grafana Arkitektur](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/626851841/Grafana+Arkitektur)
+Men Grafana går utover bare overvåking. Det gir deg muligheten til å lage
+skreddersydde dashbords som gir deg akkurat den innsikten du vil ha. Du kan
+spore trender, identifisere potensielle problemer før de eskalerer, og
+automatisere reaksjoner på avvikende hendelser.
 
-## Handy resources
+Ved å bruke Grafana på SKIP-plattformen får teknologer som deg selv muligheten
+til å gjøre mer enn bare å reagere på hendelser - du kan være proaktiv ved
+å tolke data og ta beslutninger før avviket skjer. Grafana gir deg verktøyene
+til å ta velinformerte beslutninger, optimalisere ytelse og levere stabile og
+gode brukeropplevelser.
 
-- [Intro to o11y: What is Observability?](https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability)
-- [Bloggen til Charity Majors](https://charity.wtf/tag/observability/)
+Så ta på deg våtdrakten og dykk inn i dataene til Grafana på SKIP-plattformen!
