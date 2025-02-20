@@ -3,6 +3,6 @@
     "line_length": 180
   },
   "MD033": {
-    "allowed_elements": ["iframe"]
+    "allowed_elements": ["iframe", "html"]
   }
 }

@@ -1,4 +1,4 @@
-# 🔭 Metrikker og varslinger
+# 🔭 Observabilitet
 
 ![Grafana Dashboard](../img/grafana.png)
 

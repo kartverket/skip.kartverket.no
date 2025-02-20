@@ -1,3 +1,7 @@
+---
+sidebar_position: 0
+---
+
 # What is Observability?
 
 Observability refers to the ability to understand a system’s inner state based on its external output. This enables developers to diagnose problems and understand the system’s performance.
