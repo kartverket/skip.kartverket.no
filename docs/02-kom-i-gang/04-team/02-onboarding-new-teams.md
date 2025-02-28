@@ -6,7 +6,6 @@ Vil teamet ditt bruke SKIP? Vennligst les denne artikkelen først: [Hva skal til
 
 Denne siden innholder instruksjoner for onboarding av nye produktteam til SKIP-plattformen. Både oppgaver som må gjøres av SKIP-teamet, og oppgaver som må gjøres av det nye produktteamet er beskrevet her.
 
-
 Vi setter stor pris på om du rapporterer eventuelle mangler og/eller manglende informasjon i denne veiledningen til SKIP-teamet, enten ved å kontakte oss eller ved å kommentere direkte i dette dokumentet.
 
 :::info
@@ -22,7 +21,7 @@ Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 - Invitere til et møte for å avklare forventninger mellom SKIP og produktteamet
 - Invitere til gjennomgang av applikasjoner
 - Bli enige om frekvensen av onboarding standups med produktteamet og invitere til disse
- -Sørge for at en prosess rundt risikovurdering (“ROS-analyse”) startes. Denne vurderingen må være klar i tide til produksjon
+- Sørge for at en prosess rundt risikovurdering (“ROS-analyse”) startes. Denne vurderingen må være klar i tide til produksjon
 - Opprette en kanal på Slack for samarbeid under onboarding
 - Invitere til #gen-skip, #gen-argo og andre relevante felleskanaler for bruk av SKIP
 - Invitere til GCP- og Kubernetes-kurs hvis produktteamet ønsker det

@@ -42,4 +42,4 @@ Når en secret er opprettet, kan man klikke seg inn på den, og velge **PERMISSI
 
 ![Access control](images/access_control.png)
 
-I de fleste tilfeller vil man bruke External Secret til å hente ut disse hemmelighetene. Det kan gjøres ved å opprette ExternalSecrets-ressurser i Kubernetes som henter ned hemmeligheten til en Kubernetes Secret. Det står mer om dette inkludert tilgangsstyring på [Hente hemmeligheter fra hemmelighetshvelv](../09-argo-cd/04-hente-hemmeligheter-fra-hemmelighetsvelv.md) .
+I de fleste tilfeller vil man bruke External Secret til å hente ut disse hemmelighetene. Det kan gjøres ved å opprette ExternalSecrets-ressurser i Kubernetes som henter ned hemmeligheten til en Kubernetes Secret. Det står mer om dette inkludert tilgangsstyring på [Hente hemmeligheter fra hemmelighetshvelv](./09-argo-cd/04-hente-hemmeligheter-fra-hemmelighetsvelv.md) .
