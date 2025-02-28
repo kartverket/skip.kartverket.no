@@ -65,7 +65,7 @@ spec:
   replyUrls:
     - url: https://test-app.atgcp1-prod.kartverket-intern.cloud/oauth2/callback
   secretName: azuread-secret
-  secretKeyPrefix: "RANDOM_PREFIX"
+  secretKeyPrefix: "RANDOM"
   secretProtected: false
   singlePageApplication: false
 ```
@@ -79,21 +79,21 @@ metadata:
   name: azuread-secret
   namespace: test-namespace
 data:
-  AZURE_APP_CERTIFICATE_KEY_ID: ++++++++
-  AZURE_APP_CLIENT_ID: ++++++++
-  AZURE_APP_CLIENT_SECRET: ++++++++
-  AZURE_APP_JWK: ++++++++
-  AZURE_APP_JWKS: ++++++++
-  AZURE_APP_NEXT_CERTIFICATE_KEY_ID: ++++++++
-  AZURE_APP_NEXT_CLIENT_SECRET: ++++++++
-  AZURE_APP_NEXT_JWK: ++++++++
-  AZURE_APP_NEXT_PASSWORD_KEY_ID: ++++++++
-  AZURE_APP_PASSWORD_KEY_ID: ++++++++
-  AZURE_APP_PRE_AUTHORIZED_APPS: ++++++++
-  AZURE_APP_TENANT_ID: ++++++++
-  AZURE_APP_WELL_KNOWN_URL: ++++++++
-  AZURE_OPENID_CONFIG_ISSUER: ++++++++
-  AZURE_OPENID_CONFIG_JWKS_URI: ++++++++
-  AZURE_OPENID_CONFIG_TOKEN_ENDPOINT: ++++++++
+  RANDOM_APP_CERTIFICATE_KEY_ID: ++++++++
+  RANDOM_APP_CLIENT_ID: ++++++++
+  RANDOM_APP_CLIENT_SECRET: ++++++++
+  RANDOM_APP_JWK: ++++++++
+  RANDOM_APP_JWKS: ++++++++
+  RANDOM_APP_NEXT_CERTIFICATE_KEY_ID: ++++++++
+  RANDOM_APP_NEXT_CLIENT_SECRET: ++++++++
+  RANDOM_APP_NEXT_JWK: ++++++++
+  RANDOM_APP_NEXT_PASSWORD_KEY_ID: ++++++++
+  RANDOM_APP_PASSWORD_KEY_ID: ++++++++
+  RANDOM_APP_PRE_AUTHORIZED_APPS: ++++++++
+  RANDOM_APP_TENANT_ID: ++++++++
+  RANDOM_APP_WELL_KNOWN_URL: ++++++++
+  RANDOM_OPENID_CONFIG_ISSUER: ++++++++
+  RANDOM_OPENID_CONFIG_JWKS_URI: ++++++++
+  RANDOM_OPENID_CONFIG_TOKEN_ENDPOINT: ++++++++
 type: Opaque
 ```
