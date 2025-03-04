@@ -4,9 +4,11 @@
 Vil teamet ditt bruke SKIP? Vennligst les denne artikkelen først: [Hva skal til for å bruke Plattformen?](https://kartverket.atlassian.net/wiki/spaces/DT/pages/497614849/Hva+skal+til+for+bruke+Plattformen)
 :::
 
-Denne siden innholder instruksjoner for onboarding av nye produktteam til SKIP-plattformen. Både oppgaver som må gjøres av SKIP-teamet, og oppgaver som må gjøres av det nye produktteamet er beskrevet her.
+Denne siden innholder instruksjoner for onboarding av nye produktteam til SKIP-plattformen. Både oppgaver som må gjøres av SKIP-teamet, og oppgaver som må gjøres av det nye
+produktteamet er beskrevet her.
 
-Vi setter stor pris på om du rapporterer eventuelle mangler og/eller manglende informasjon i denne veiledningen til SKIP-teamet, enten ved å kontakte oss eller ved å kommentere direkte i dette dokumentet.
+Vi setter stor pris på om du rapporterer eventuelle mangler og/eller manglende informasjon i denne veiledningen til SKIP-teamet, enten ved å kontakte oss eller ved å kommentere
+direkte i dette dokumentet.
 
 :::info
 Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
@@ -39,7 +41,7 @@ Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 - Hvis teamet krever Terraform:
   - Service account for Terraform settes opp med [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) og gis tilganger til kubernetes namespace via [WIF](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation).
   - Terraform state migreres/settes opp
-  - Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../09-argo-cd/01-komme-i-gang-med-argocd.md)
+  - Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../..//03-applikasjon-utrulling/09-argo-cd/01-komme-i-gang-med-argocd.md)
 
 ## Produkt-team oppgaver
 
