@@ -1,5 +1,6 @@
 # Hente hemmeligheter fra hemmelighetshvelv
-![](images/556138500.png)
+
+![Secrets](images/556138500.png)
 De aller fleste applikasjoner har hemmeligheter den trenger å få tilgang til. Dette kan for eksempel være API-nøkler og passord til databaser. Disse skal lagres på en forsvarlig måte i et hemmelighetshvelv, og dette er beskrevet i sikkerhetshåndboka under [Hemmeligheter](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/499351621/Hemmeligheter) . Når hemmelighetene da ligger i hvelvet kommer spørsmålet om hvordan applikasjonen skal få tak i dem, og det er der ExternalSecrets kommer inn.
 
 External Secrets Operator (ESO) er en operator som kjører i clusteret og har evnen til å hente hemmeligheter fra hvelv som Vault og Google Secret Manager (GSM). Disse blir synkronisert fra hvelvet til kubernetes secrets som kan mountes inn i podder. Synkroniseringen beskrives som en “fra-til” konfigurasjon hvor man sier hvor hemmelighetene ligger og hvordan de skal se ut når de er synkronisert til Kubernetes.
@@ -14,7 +15,8 @@ Mer om external secrets finnes på [https://external-secrets.io/v0.7.2/](https:/
 
 ESO lytter i clusteret etter [ExternalSecret](https://external-secrets.io/v0.7.2/api/externalsecret/) - og [SecretStore](https://external-secrets.io/v0.7.2/api/secretstore/) -manifester. I det øyeblikket disse blir plukket opp blir de lest som konfigurasjon for ESO og en synk mot hvelvet starter som vil ende opp med å opprette en Kubernetes Secret. Kubernetes Secreten vil også synkroniseres regelmessig slik at man kan f.eks. rullere hemmeligheter ved å endre dem i hvelvet.
 
-### SecretStore
+## SecretStore
+
 SecretStore-manifestet definerer et hvelv, slik som Vault eller GSM, og må settes opp først. Denne konfigurasjonen vil også inneholde hvordan ESO skal autentisere seg og kan gjenbrukes av flere ExternalSecret-manifester. Disse settes typisk opp av et produktteam for deres namespace for å definere hvor de har lagret sine hemmeligheter.
 
 Se [GCPSMProvider](https://external-secrets.io/v0.7.2/api/spec/#external-secrets.io/v1beta1.GCPSMProvider) for alle gyldige verdier.
@@ -80,6 +82,7 @@ spec:
 Se også [Get all keys from one GSM secret](https://external-secrets.io/v0.8.1/guides/all-keys-one-secret/)
 
 ### Mounting av hemmelighet
+
 Når ESO har synkronisert inn hemmeligheten og opprettet en Kubernetes Secret er det ofte slik at man ønsker å bruke dette i en Pod. Vanligvis gjennom å mounte dette som miljøvariabler eller som en fil på filsystemet, eksempelvis for sertfikater. Bruker man Skiperator er dette veldig rett frem.
 
 Se også [Using Secrets as files from a Pod](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) og [Using Secrets as environment variables](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables) , men merk at spec er annerledes med Skiperator.

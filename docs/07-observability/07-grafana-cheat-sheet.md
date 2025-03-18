@@ -41,4 +41,4 @@ sum by (destination_app, response_code) (
 )
 ```
 
-# Useful Loki queries
+### Useful Loki queries

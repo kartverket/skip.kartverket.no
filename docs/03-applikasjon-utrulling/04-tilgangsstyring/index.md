@@ -1,4 +1,5 @@
 # 🔐 Tilgangsstyring i SKIP
+
 SKIP tilbyr innebygd støtte for tilgangsstyring gjennom tre identitetstilbydere: Microsoft Entra ID, IDPorten og Maskinporten.
 Plattformen støtter tre hovedoperasjoner:
 
@@ -9,6 +10,7 @@ Plattformen støtter tre hovedoperasjoner:
 Før du konfigurerer klientregistrering, token-validering eller innlogging, bør du vurdere hvilken identitetstilbyder som best passer til behovene i din applikasjon.
 
 ## Valg av identitetstilbyder
+
 Når du velger en identitetstilbyder, bør du ta hensyn til bruksområdet for applikasjonen:
 
 - **Microsoft Entra ID**: Brukes når applikasjonen er ment for internt bruk i Kartverket, og brukerne er ansatte i Kartverket. Dette gjelder enten hvis man skal tilby et API for andre interne tjenester eller ansatte i Kartverket, eller hvis man ønsker å konsumere et API som er beskyttet med Entra ID.

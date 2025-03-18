@@ -1,9 +1,10 @@
 # Provisjonere infrastruktur med Crossplane
+
 :::note
 Denne siden er et utkast og vil kunne forandre seg
 :::
 
-![](images/556630024.png)
+![Crossplane car](images/556630024.png)
 
 Når man deployer en applikasjon til SKIP er det også tilfeller hvor man ønsker å provisjonere infrastruktur. For eksempel kan dette være å opprette servicekontoer i GCP, lage hemmeligheter i Secret Manager eller sette opp tjenester som PubSub. Dette er noe som tidligere har vært gjort med Terraform, og det er fremdeles mulig å gjøre, men med GitOps finnes det enklere måter å gjøre det på slik at man ikke trenger å kjøre en egen GitHub Action for terraform-jobben.
 
@@ -15,7 +16,7 @@ Se også [https://docs.crossplane.io/v1.11/getting-started/introduction/](https:
 Crossplane er ganske nytt og å ta dette i bruk vil kreve samarbeid med SKIP-teamet
 :::
 
-![](images/556433430.png)
+![Crossplane diagram 01](images/556433430.png)
 
 Crossplane er ganske fleksibelt. SKIP kan for eksempel lage komposisjoner av flere ressurser som gjør at ting som f.eks. brannveggregler kan settes opp automatisk når man lager en Cloud SQL-instans. Man kan også bruke de innebygde ressursene i [GCP provideren](https://marketplace.upbound.io/providers/upbound/provider-gcp/v0.28.0/crds) direkte, og det anbefales å bli kjent med den provideren.
 
@@ -23,7 +24,7 @@ Crossplane er ganske fleksibelt. SKIP kan for eksempel lage komposisjoner av fle
 
 La oss si vi har en applikasjon som er deployed med Argo CD og vi ønsker å sette opp en database for denne applikasjonen med Cloud SQL. Da vil vi ha en mappestruktur i vårt [apps-repo](02-hva-er-et-apps-repo.md) som ser slik ut:
 
-```
+```none
 dev/
   namespace/
     app.yaml # Skiperator-manifest for applikasjonen
@@ -36,7 +37,7 @@ Deretter kan man opprette ressurser som er støttet av SKIP dokumentert lenger n
 
 For å provisjonere opp ressurser oppretter produktteamet manifester på Kubernetes som blir lest av Crossplane. Et eksempel på å opprette lagring (bucket).
 
-```
+```yaml
 apiVersion: skip.kartverket.no/v1alpha1
 kind: BucketInstance
 metadata:
@@ -52,8 +53,8 @@ spec:
 
 Etter dette er lagt ut vil man kunne se status på crossplane ressursene som et hvilket som helst annen kubernetes-ressurs.
 
-```
-$ kubectl get bucketinstance
+```bash
+kubectl get bucketinstance
 ```
 
 Man kan også bruke `kubectl describe` for å hente ut events på disse ressursene. Events sier mer om hva som skjer og er nyttig til feilsøking.
@@ -73,7 +74,7 @@ Følgende ressurser er støttet for å provisjoneres med Crossplane i dag:
 
 For å komme i gang med Crossplane må du gjøre noe setup. Alle produktteam får automatisk opprettet en servicekonto på GCP som vil brukes av Crossplane til å autentisere mot GCP, og for at Crossplane skal få brukt denne må det ligge en secret i namespacet deres. For å få inn denne kan dere opprette en secret ved hjelp av en ExternalSecret (se [Hente hemmeligheter fra hemmelighetshvelv](04-hente-hemmeligheter-fra-hemmelighetsvelv.md)) som kopierer hemmeligheten fra Google Secret Manager inn i Kubernetes. Dette må dere sette opp for hvert prefiks i `<prefix>-main` mappen deres i apps-repoet:
 
-```
+```yaml
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:

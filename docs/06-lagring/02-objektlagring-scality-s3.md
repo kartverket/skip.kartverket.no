@@ -1,6 +1,6 @@
 # Objektlagring med Scality S3
 
-![](images/image-20231004-081415.png)
+![Scality](images/image-20231004-081415.png)
 
 I Kartverket har vi en lokalt S3-kompatibel lagringsløsning ved navn Scality. Denne er mulig å få tilgang til, og er godt egnet i tilfellet at dere trengre å lagre filer fra en container.
 

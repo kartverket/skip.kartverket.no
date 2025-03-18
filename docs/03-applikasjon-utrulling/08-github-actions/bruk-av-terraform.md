@@ -2,7 +2,6 @@
 
 For applikasjoner anbefaler vi å brukes [Argo CD](../09-argo-cd/index.md) til utrulling av containere til Kubernetes. Terraform kan brukes til annen infrastruktur i Google Cloud eller on-prem.
 
-
 ## Lagring av state
 
 Terraform bruker state for å kontrollere og sammenlikne den nåværende konfigurasjonen mot det som kjører, staten må lagres lokalt eller ekstern. På SKIP bruker vi Google Cloud Storage til å lagre state, og oppsettet for dette kan man se under.

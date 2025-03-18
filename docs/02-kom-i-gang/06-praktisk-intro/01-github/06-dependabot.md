@@ -1,12 +1,16 @@
 # Dependabot
 
-Dependabot benytter [GitHub dependency graph](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph) for å gi beskjed om sårbare avhengigheter, samt oppgradering av disse. Dette er skrudd på automatisk for alle GitHub-repoer. I tillegg kan det skrus på automatiske versjonsoppdateringer med Dependabot, slik at Dependabot lager PR-er for nye versjoner for språk/økosystem som er aktivert.
+Dependabot benytter [GitHub dependency graph](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph)
+for å gi beskjed om sårbare avhengigheter, samt oppgradering av disse. Dette er skrudd på automatisk for alle GitHub-repoer. I tillegg kan det skrus på automatiske
+versjonsoppdateringer med Dependabot, slik at Dependabot lager PR-er for nye versjoner for språk/økosystem som er aktivert.
 
 ## Skru på automatiske versjonsoppdateringer
 
-Automatiske versjonsoppdateringer må skrus på av en bruker med "Admin"-rolle i repoet. For det aktuelle repoet kan du gå til "Settings > Code security > Dependabot > Dependabot version updates" og trykke på "Enable".
+Automatiske versjonsoppdateringer må skrus på av en bruker med "Admin"-rolle i repoet. For det aktuelle repoet kan du gå til
+"Settings > Code security > Dependabot > Dependabot version updates" og trykke på "Enable".
 
-Dersom dette ikke er gjort fra før må du sette opp en initiell versjon av filen `.github/dependabot.yml`. Det er anbefalt å sette opp både for oppdatering av GitHub Actions for alle repoer som et minimum:
+Dersom dette ikke er gjort fra før må du sette opp en initiell versjon av filen `.github/dependabot.yml`. Det er anbefalt å sette opp for oppdatering av GitHub Actions for
+alle repoer som et minimum:
 
 ```yaml
 version: 2
@@ -17,7 +21,7 @@ updates:
       interval: "daily"
 ```
 
-I tillegg bør det settes opp for de ulike språkene/økosystemene som ligger i repoet. Se eksemplene i avsnittet [Eksempelkonfigurasjoner](#-eksempelkonfigurasjoner-).
+I tillegg bør det settes opp for de ulike språkene/økosystemene som ligger i repoet. Se eksemplene i avsnittet [Eksempelkonfigurasjoner](#eksempelkonfigurasjoner).
 
 ## Feilsøking av Dependabot
 
@@ -25,12 +29,12 @@ For å se Dependabot-feil i et repo kan man gå til "Insights > Dependency graph
 
 Se også [GitHub-dokumentasjonen](https://docs.github.com/en/code-security/dependabot/troubleshooting-dependabot) for mer detaljert beskrivelse av feilsøking.
 
-
 ## Konfigurasjon av Dependabot
 
 ### Begrense antallet pull requests fra Dependabot
 
-Antallet PR-er er begrenset til 5 for vanlige versjonsoppdateringer og 10 for sikkerhetsoppdateringer. Antallet åpne PR-er kan konfigureres med `open-pull-requests-limit` for hvert økosystem. F.eks.:
+Antallet PR-er er begrenset til 5 for vanlige versjonsoppdateringer og 10 for sikkerhetsoppdateringer. Antallet åpne PR-er kan konfigureres med `open-pull-requests-limit` for
+hvert økosystem. F.eks.:
 
 ```yaml
   - package-ecosystem: "<ecosystem>"
@@ -40,7 +44,7 @@ Antallet PR-er er begrenset til 5 for vanlige versjonsoppdateringer og 10 for si
 
 ### Oppdateringsintervall
 
-Man kan styre Dependabot kjører ved å konfigurere `schedule` for hvert `package-ecosystem`. 
+Man kan styre Dependabot kjører ved å konfigurere `schedule` for hvert `package-ecosystem`.
 
 For å kjøre oppdateringer hver morgen i ukedagene:
 
@@ -102,7 +106,8 @@ registries:
 
 #### GitHub
 
-Denne brukes typisk for actions som ligger i private/interne repoer. Dependabot må bli gitt eksplisitt tilgang for å lese nye private/interne repoer (spør om hjelp i `#gen-github` på Slack). Se også [dokumentasjonen](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/configuring-access-to-private-registries-for-dependabot#git).
+Denne brukes typisk for actions som ligger i private/interne repoer. Dependabot må bli gitt eksplisitt tilgang for å lese nye private/interne repoer
+(spør om hjelp i `#gen-github` på Slack). Se også [dokumentasjonen](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/configuring-access-to-private-registries-for-dependabot#git).
 
 ```yaml
 registries:
@@ -172,7 +177,7 @@ Pass på at `directory` peker til mappen som inneholder `Dockerfile`.
       interval: "daily"
 ```
 
-### NPM
+### NPM eksempel
 
 ```yaml
   - package-ecosystem: "npm"
@@ -196,7 +201,6 @@ For å unngå for mange PR-er for minor- og patchversjoner er det i mange tilfel
           - "minor"
           - "patch"
 ```
-
 
 ### Go
 
@@ -237,4 +241,3 @@ Dersom det er flere mapper som inneholder Terraform kan `directories` brukes:
     schedule:
       interval: "daily"
 ```
-

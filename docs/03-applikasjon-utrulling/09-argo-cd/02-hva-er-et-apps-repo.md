@@ -1,6 +1,6 @@
 # Hva er et apps-repo
 
-![](images/555810821.png)
+![Github repo](images/555810821.png)
 
 Når dere [kommer i gang med Argo](./01-komme-i-gang-med-argocd.md) får teamet deres et apps-repo. Hva er dette og hvordan bruker man det?
 
@@ -10,7 +10,7 @@ Et apps-repo inneholder [manifest-filer](https://kartverket.atlassian.net/wiki/s
 
 Du vil se at et apps-repo har en predefinert mappestruktur. Den ser omtrent slik ut:
 
-```
+```code
 env/         # 1
    [cluster]/ # 2
       foo-main/  # 3

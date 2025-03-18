@@ -8,7 +8,6 @@ Det kan opprettes en egen action som både sender inn avhengigheter og gjør dep
 
 Merk at oppsett mot private pakkebrønner må gjøres i tillegg (Tailscale eller annet), slik som for vanlige bygg. Java-distribusjon og -versjon må også konfigureres til å tilsvare det som brukes i kodebasen.
 
-
 ```yaml
 name: Publiser Gradle-avhengigheter og PR review
 

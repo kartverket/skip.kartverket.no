@@ -20,6 +20,7 @@ Du vil også se at det ligger tre grupper øverst i denne listen. Dette er grupp
 det forventes også at dere fyller ut disse med de enkeltpersonene som skal ha disse ansvarsområdene.
 
 Dersom du er logget inn som team lead vil **Add members**-knappen øverst være mulig å klikke på. Dersom du vil legge til et nytt teammedlem klikker du på denne og søker opp den
-personen du ønsker å legge til. Etter dette bekreftes vil denne personen legges i gruppen og etter litt tid få de tilgangene som forventes.
+personen du ønsker å legge til. Etter dette bekreftes vil denne personen legges i gruppen og etter litt tid få de tilgangene som forventes. Team lead må også legge til seg selv som
+ medlem for å tilgang til SKIPs tjenester.
 
 For å fjerne (offboarde) et teammedlem krysser du av i firkanten ved siden av bildet på brukeren og klikker **Remove**. Dette er også noe som kun team lead kan gjøre.

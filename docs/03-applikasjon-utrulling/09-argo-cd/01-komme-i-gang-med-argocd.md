@@ -4,7 +4,7 @@
 
 Så du ønsker å komme i gang med å deploye til SKIP. Det er bra! Vi bruker et par teknologier for å gjøre det enklest mulig å deploye koden sin til plattformen, og disse er:
 
-- [GitHub](../07-github/01-tilgang-til-github.md) – Kodelagring
+- [GitHub](../../02-kom-i-gang/06-praktisk-intro/01-github/01-tilgang-til-github.md) – Kodelagring
 - [GitHub Actions](../08-github-actions/index.md) – Bygging av artefakter og containere
 - [Argo CD](index.md) – Deploye til SKIP
 - [External Secrets](04-hente-hemmeligheter-fra-hemmelighetsvelv.md) – Synkronisere hemmeligheter til Kubernetes
@@ -18,7 +18,7 @@ Her skal vi beskrive hvordan du kommer i gang med å synke ut applikasjonene din
 For å starte med Argo CD må du gjøre følgende:
 
 - Sørg for at teamet ditt oppfyller [Hva skal til for å bruke SKIP?](https://kartverket.atlassian.net/wiki/spaces/DT/pages/497614849/Hva+skal+til+for+bruke+Plattformen)
-- Produktteamet deres må ha en team-gruppe i EntraID AD
+- Produktteamet deres må ha en team-gruppe i Entra ID
 - Det må settes opp et apps-repo
   - Les [Hva er et apps-repo](02-hva-er-et-apps-repo.md) for å forstå hvordan apps-repoer fungerer
   - Repoet opprettes fra [apps-template malen](https://github.com/kartverket/apps-template)

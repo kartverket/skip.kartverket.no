@@ -1,6 +1,6 @@
 # Kubectl fra GitHub Actions
 
-Det kan være nyttig å kunne kjøre kubectl fra Github Actions når for eksempel man ønsker å restarte et deployment eller kjøre en jobb on demand. 
+Det kan være nyttig å kunne kjøre kubectl fra Github Actions når for eksempel man ønsker å restarte et deployment eller kjøre en jobb on demand.
 
 Vi har laget en GitHub Workflow som gjør det enkelt å kjøre kubectl kommandoer fra GitHub Actions, denne heter `run-kubectl` og den kan du finne [her](https://github.com/kartverket/github-workflows/blob/main/.github/workflows/run-kubectl.yaml).
 
@@ -9,9 +9,10 @@ Vi har laget en GitHub Workflow som gjør det enkelt å kjøre kubectl kommandoe
 Før du kan bruke denne actionen må du gjøre noen endringer i [`gcp-service-accounts`](https://github.com/kartverket/gcp-service-accounts/) og i ditt teams apps-repo.
 
 ### 1. Legg til ekstra permissions til deploy service accounten
-run-kubectl tar i bruk Workload Identity Federation som du kan lese mer om [her](https://skip.kartverket.no/docs/github-actions/autentisering-med-workload-identity-federation), 
+
+run-kubectl tar i bruk Workload Identity Federation som du kan lese mer om [her](https://skip.kartverket.no/docs/github-actions/autentisering-med-workload-identity-federation),
 men den krever også ekstra tilganger for å kunne koble til clusteret.
-I `gcp-service-accounts` har du sannsynligvis definert opp ditt gcp project for å kunne bruke det i GitHub Actions, 
+I `gcp-service-accounts` har du sannsynligvis definert opp ditt gcp project for å kunne bruke det i GitHub Actions,
 og dermed fått laget en deploy service account og et workload identity pool.
 Da må du bare legge til en ekstra rolle i modul-definisjonen slik:
 
@@ -30,6 +31,7 @@ module "utviklerportal" {
   ]
 }
 ```
+
 Nå skal deploy kontoen kunne koble seg til clusteret.
 
 ### 2. Legg til role og rolebinding i ditt apps-repo
@@ -63,13 +65,15 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-navn på service accounten er `"modulnavn"-deploy`, hvor modulnavn finnes i `gcp-service-accounts`. 
+navn på service accounten er `"modulnavn"-deploy`, hvor modulnavn finnes i `gcp-service-accounts`.
 du kan også finne den med `gcloud config set project <projectid> && gcloud iam service-accounts list | grep deploy`
 
 ### 3. Legg til GitHub workflow
+
 Nå skal alt være konfigurert og du kan legge til en GitHub workflow som kjører `run-kubectl` workflow.
 
-eksempel: 
+eksempel:
+
 ```yaml
 name: Get pods
 on: push
@@ -90,6 +94,7 @@ jobs:
 ```
 
 Forklaring:
+
 - `cluster_name`: navnet på clusteret du vil koble til, dette kan du finne med `gcloud container fleet memberships list`. mer [her](https://skip.kartverket.no/docs/kubernetes/logge-inn-p%C3%A5-cluster)
 - `service_account`: navnet på service accounten som skal brukes. denne blir opprettet i gcp-service-accounts, og slutter på `-deploy`
 - `kubernetes_project_id`: id til prosjektet som clusteret ligger i, finnes med `gcloud projects list | grep kubernetes`

@@ -15,7 +15,7 @@ Dere kommer til å møte på en del forskjellige verktøy når dere skal deploye
 - [Nacho SKIP](https://github.com/kartverket/nacho-skip) signerer container images med en kryptografisk signatur etter de er bygget
 
 GitHub Actions er et CI-systemet som SKIP legger opp til at alle produktteam skal kunne bruke for å automatisere bygging av Docker-images i tillegg til muligheter for å opprette infrastruktur i skyen ved hjelp av Terraform på en automatisert måte.
-![](images/306905644.png)
+![Choose workflow](images/306905644.png)
 Actions lages ved å skrive YAML-filer i `.github/workflows` -mappa i roten av repoet. Man kan også trykke på “Actions” og “New workflow” i GitHub og få opp dialogen over. Der kan man velge fra et eksisterende bibliotek med eksempler på Actions som kan hjelpe med å komme i gang med en action. For eksempel kan man trykke “View all” på “Continous Integration” for å finne eksempler på hvordan man bygger med java eller node.js. DIsse er ofte gode utgangspunkt når man skal sette opp et nytt bygg.
 
 Les [https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) for en introduksjon til Actions.
@@ -34,7 +34,7 @@ Dersom dere bruker metoden over vil dere merke at dere ikke trenger å sette tag
 
 Resultatet blir å finne på GitHub repositoriet til koden og ser slik ut:
 
-![](images/306745536.png) 
+![GH Repo](images/306745536.png)
 
 Det er anbefalt å kjøre skannere på images som bygges før de deployes. Da vil sårbarheter kunne vises i [Utviklerportalen](https://kartverket.dev/). Se [Pharos](./pharos.md) for å komme i gang med kodeskanning.
 

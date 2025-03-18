@@ -171,4 +171,3 @@ module "skip" {
 ```
 
 When you later add more alerts to the critical level you also need to discuss with vaktlaget so they can sign off on the new alerts before they are added.
-

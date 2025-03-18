@@ -8,7 +8,7 @@ Vår ArgoCD installasjon kommer med en rekke triggers og templates for utseende 
 
 Se [https://github.com/kartverket/skip-apps/blob/main/bases/argocd/patches/argocd-notifications-templates.yml](https://github.com/kartverket/skip-apps/blob/main/bases/argocd/patches/argocd-notifications-templates.yml) for hvilke triggers som er tilgjengelig.
 
-### Slack
+## Slack
 
 For Slack er det satt opp en notifikasjonskanal for hvert team på mønster &lt;teamnavn&gt;-argocd-alerts, f.eks. #nrl-argocd-alerts. Disse kanalene er videre satt opp med integration mot Slack-appen “ArgoCD Notifications” som tar imot meldinger fra ArgoCD og dytter de inn i korrekt kanal.
 
@@ -21,7 +21,7 @@ For Slack er det satt opp en notifikasjonskanal for hvert team på mønster &lt;
 For Github er det satt opp en app kalt “KV ArgoCD Notifications” som har mulighet til å skrive til Github workflow statuser til de forskjellige apps-repoene. Kontakt en av Kartverkets Github-administratorer dersom flere apps-repoer skal legges til her.
 
 Eksempler på notifikasjoner:
-![Fig. 2 Et lite grønt “checkmark” indikerer at utrulling til ArgoCD har gått bra](images/594280578.png) 
+![Fig. 2 Et lite grønt “checkmark” indikerer at utrulling til ArgoCD har gått bra](images/594280578.png)
 ![Fig.3 … og klikker man på det får man opp en liten detaljvisning med linker til ArgoCD](images/594542693.png)
 
 ### Standardnotifikasjoner

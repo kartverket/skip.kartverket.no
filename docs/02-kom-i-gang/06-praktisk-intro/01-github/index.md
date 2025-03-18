@@ -1,6 +1,6 @@
 # 🗃️ GitHub
 
-![](images/638386242.jpg)
+![Where the world builds software](images/638386242.jpg)
 
 Kartverket lagrer kildekode på [github.com](https://github.com/), og
 gjennom organisasjonen vår distribuerer vi tilgang ved å fordele lisensene vi har kjøpt inn. For å få tilgang følg sjekklisten under.
