@@ -1,3 +1,0 @@
-# 🤖 Maskinporten
-
-📝 WIP 📝
