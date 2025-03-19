@@ -8,19 +8,19 @@ Servicekontoer bør enten opprettes med terraform eller via [gcp-service-account
 
 ## 2. Gi WIF IAM Policy til Servicekonto
 
-To authenticate this service account in GCP from Kubernetes, the service account in Kubernetes needs to be given permission to impersonate the GCP service account. This is done by giving the Kubernetes Service Account the role `iam.workloadIdentityUser` through a so called Workload Identity Pool.
+For å autentisere som denne GCP servicekontoen fra kubernetes må kubernetes service kontoen gis tilganger til det. Dette gjøres ved å gi rollen `iam.workloadIdentityUser`. 
 
-Given the following variables:
+Gitt variablene:
 
 ```
-GCP_SA_NAME - Name of the GCP service account
-GCP_SA_PROJECT_ID - GCP Project ID where the service account resides
-KUBERNETES_PROJECT_ID - GCP Project ID for the Kubernetes cluster (for example kubernetes-dev-94b9 for dev-cluster)
-KUBERNETES_NAMESPACE - The Kubernetes namespace where the Pod will run
-KUBERNETES_SA_NAME - The Kubernetes service account name that your Pod is using (typically same name as Application, and with the -skipjob suffix for SKIPJobs)
+GCP_SA_NAME - Navnet på GCP servicekontoen
+GCP_SA_PROJECT_ID - GCP Project ID til prosjektet SA ligger i
+KUBERNETES_PROJECT_ID - GCP Project ID forKubernetes cluster (for eksempel kubernetes-dev-94b9 for dev-cluster)
+KUBERNETES_NAMESPACE - The Kubernetes namespace hvor servicekontoen er opprettet
+KUBERNETES_SA_NAME - The Kubernetes service account som brukes av Pod (Vanligvis samme som applikasjonsnavnet, men med et suffix -skipjob for SKIPJob'er)
 ```
 
-Run the following command using the `gcloud` CLI:
+Kjør følgende kommando med `gcloud` CLI:
 
 ```bash
 gcloud iam service-accounts add-iam-policy-binding \
