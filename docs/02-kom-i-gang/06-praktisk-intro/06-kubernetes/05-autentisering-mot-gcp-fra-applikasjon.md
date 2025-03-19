@@ -14,7 +14,7 @@ Gitt variablene:
 
 ```
 GCP_SA_NAME - Navnet på GCP servicekontoen
-GCP_SA_PROJECT_ID - GCP Project ID til prosjektet SA ligger i
+GCP_SA_PROJECT_ID - GCP Project ID til prosjektet GCP SA ligger i
 KUBERNETES_PROJECT_ID - GCP Project ID for Kubernetes-cluster (for eksempel `kubernetes-dev-94b9` for dev-clusteret)
 KUBERNETES_NAMESPACE - The Kubernetes namespace hvor servicekontoen er opprettet
 KUBERNETES_SA_NAME - The Kubernetes service account som brukes av Pod (Vanligvis samme som applikasjonsnavnet, men med et suffix -skipjob for SKIPJob'er)
