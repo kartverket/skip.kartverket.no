@@ -13,12 +13,15 @@ Felles for alle identitetstilbydere på SKIP er at klientregistrering støttes f
 - [**Digdirator**](https://github.com/nais/digdirator) håndterer klientregistrering mot Digdir sine fellesløsninger, nemlig **ID-porten** og **Maskinporten**.
 - [**Azurerator**](https://github.com/nais/azurerator) tar seg av klientregistrering mot **Microsoft Entra ID** (tidligere kjent som Azure Active Directory).
 
+Når man skal registrere en klient mot en eller flere av identitetstilbyderne, har man tre valg.
+Man kan benytte seg av [Skiperator](../03-skiperator/04-api-docs.md) dersom klientregistreringen hører til en SKIP-applikasjon.
+Alternativt kan man bruke CRD-ene fra [Digdirator](https://github.com/nais/digdirator) og [Azurerator](https://github.com/nais/azurerator) direkte.
 
 
 <Tabs>
     <TabItem value="skiperator" label="Skiperator">
 
-        CRD-en `Application` definert i Skiperator tilbyr et forenklet API for å registrere klienter mot **ID-porten** og **Maskinporten**.
+        Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten** og **Maskinporten**.
         Vi jobber også med å innføre tilsvarende funksjonalitet for **Entra ID**, men det er ikke helt klart ennå.
 
         <Tabs>
@@ -51,14 +54,17 @@ spec:
       - "openid"
       - "profile"
 ```
-                Fordelen med denne metoden er at Skiperator automatisk injiserer hemmelighetene som Digdirator oppretter
+                Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert
                 som miljøvariabler i deploymenten til `application`. Dette gjør at applikasjonen enkelt kan få tilgang til
-                hemmelighetene under kjøring.
+                hemmelighetene i et kjøretidsmiljø.
             </TabItem>
             <TabItem value="maskinporten" label="Maskinporten">
                 [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot Maskinporten
-                via spesifikasjonen til `Application`. Følgende eksempel demonstrerer en minimal konfigurasjon for å registrere en klient i Maskinporten.
+                via spesifikasjonen til `Application`.
+                Følgende eksempel konfigurerer en integrasjon mot Maskinporten og eksponerer scopet `innsyn` og setter HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS
+                som godkjente konsumenter av dette scopet.
                 Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
+
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -71,21 +77,32 @@ spec:
   port: 8080
   maskinporten:
     enabled: true
+    scopes:
+      exposes:
+      - name: "innsyn"
+        enabled: true
+        product: "Produktområde"
+        consumers:
+        - name: HUSLØS HURTIG TIGER AS
+          orgno: "987654321"
+        - name: KOSTBAR LEKKER APE AS
+          orgno: "123456789"
 ```
 
-                Fordelen med denne metoden er at Skiperator automatisk injiserer hemmelighetene som Digdirator oppretter
+                Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert
                 som miljøvariabler i deploymenten til `application`. Dette gjør at applikasjonen enkelt kan få tilgang til
-                hemmelighetene under kjøring.
+                hemmelighetene i et kjøretidsmiljø.
             </TabItem>
         </Tabs>
     </TabItem>
     <TabItem value="native" label="Digdirator / Azurerator">
 
-        Man kan benytte seg direkte av CRD-ene (Custom Resource Definitions) som Digdirator og Azurerator introduserer for å registrere klienter mot ID-porten, Maskinporten og Entra ID.
+        Hvis man ønsker å registrere en klient fritt uten å knytte den til en Skiperator-applikasjon, kan man benytte seg av CRD-ene som Digdirator og Azurerator introduserer direkte.
+        Dette gjør det mulig å definere klientregistreringen uavhengig av en spesifikk applikasjon i Skiperator.
         Fordelen med denne tilnærmingen er at man får full kontroll over konfigurasjonen og stor fleksibilitet ved å frikoble registreringen fra applikasjonen.
         Ulempen er at det krever mer innsikt i oppsettet, og at injisering av hemmeligheter i deploymenten må håndteres separat.
 
-        Digdirator introduserer CRD-ene `IdportenClient` og `MaskinportenClient`, som definerer konfigurasjonen for registrering av klienter mot henholdsvis **ID-porten** og **Maskinporten**.
+        Digdirator introduserer CRD-ene `IDPortenClient` og `MaskinportenClient`, som definerer konfigurasjonen for registrering av klienter mot henholdsvis **ID-porten** og **Maskinporten**.
         Azurerator introduserer CRD-en `AzureAdApplication`, som brukes til å registrere klienter mot **Microsoft Entra ID**.
 
         Alle tre CRD-ene fungerer på samme måte: De overvåkes av sine respektive Kubernetes-operatører, som benytter konfigurasjonen til å registrere en klient mot den aktuelle identitetstilbyderen.
@@ -93,12 +110,13 @@ spec:
 
         <Tabs>
             <TabItem value="azurerator" label="AzureAdApplication">
-                App-registreringer opprettet med Azureator følger følgende navnekonvensjon basert på `AzureAdApplication`-manifestet: `cluster:namespace:name`.
+                En kan registrere en klient mot Entra ID ved å opprette en `AzureAdApplication`-ressurs.
+                Registreringer opprettet med Azureator følger følgende navnekonvensjon basert på `AzureAdApplication`-manifestet: `cluster:namespace:name`.
 
                 ### Spesifikasjonen til `AzureAdApplication`
 
                 <details>
-                    <summary><strong>spec</strong> _(required)_ – Spesifikasjon for `AzureAdApplication</summary>
+                    <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `AzureAdApplication`</summary>
 
                     <p><strong>allowAllUsers</strong> _(bool, required)_ – Bestemmer om alle brukere i tenanten som Azurerator er konfigurert mot skal få tilgang.</p>
 
@@ -129,7 +147,7 @@ spec:
                         </details>
                     </details>
 
-                    <p><strong>secretName</strong> _(string, required)_ – Navnet på Kubernetes-hemmeligheten der hemmeligheter og annen informasjon for Entra ID applikasjonen lagres.</p>
+                    <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
                     <p><strong>secretKeyPrefix</strong> _(string, optional)_ – Et valgfritt brukerdefinert prefiks som brukes på nøklene i den genererte hemmeligheten, og erstatter standardprefikset (AZURE).</p>
                     <p><strong>secretProtected</strong> _(bool, optional)_ – Angir om hemmeligheten skal tilbaketrekkes selv når den ikke er i bruk.</p>
                     <p><strong>singlePageApplication</strong> _(bool, optional)_ – Angir om denne Entra ID-applikasjonen skal registreres som en single-page-application for bruk i klient-side-applikasjoner uten tilgang til hemmeligheter.</p>
@@ -137,10 +155,10 @@ spec:
 
                 ### Eksempel
 
-                Følgende eksempel er et YAML-manifest som oppretter app-registreringen `atgcp1-sandbox:tilgangsstyring-main:test-app`.
+                Følgende eksempel oppretter app-registreringen `atgcp1-sandbox:tilgangsstyring-main:test-app`.
                 Den gir kun tilgang til direkte medlemmer av gruppene med objekt-ID `2720e397-081d-4d9b-852e-0d81f45a304f` eller `c3c94454-aefc-44f9-9076-58ea47547941`.
                 Den forhåndsautoriserer også Entra ID klienten `atgcp1-dev:other-namespace:other-app`.
-                Når registrering er fullført vil Azurerator automatisk opprette Kubernetes-hemmeligheten `entraid-secret` i namespacet `tilgangsstyring-main`.
+                Når registrering er fullført vil Azurerator opprette Kubernetes-hemmeligheten `entraid-secret` i namespacet `tilgangsstyring-main`.
 
 ```yaml
 apiVersion: nais.io/v1
@@ -164,15 +182,125 @@ spec:
 
             </TabItem>
             <TabItem value="idportenclient" label="IdportenClient">
-                ## 🚧 Under arbeid 🚧
+                En kan registrere en klient mot ID-porten ved å opprette en `IDPortenClient`-ressurs.
 
-                Dette innholdet er under arbeid og forhåpentligvis straks klart!
+                ### Spesifikasjonen til `IDPortenClient`
+
+                <details>
+                    <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `IDPortenClient`</summary>
+
+                    <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
+
+                    <p><strong>integrationType</strong> _(string, optional)_ – Definerer integrasjonstypen for klienten. Bestemmer hvilke scopes som kan registreres. Kan ikke endres etter opprettelse. Tillatte verdier: `krr`, `idporten`, `api_klient`.</p>
+
+                    <p><strong>scopes</strong> _([]string, optional)_ – Definerer OAuth2-scopes for klienten. Begrenset basert på `integrationType`.</p>
+
+                    <p><strong>frontchannelLogoutURI</strong> _(string, optional)_ – URL som ID-porten omdirigere til når en utlogging utløses av en annen applikasjon.</p>
+
+                    <p><strong>postLogoutRedirectURIs</strong> _([]string, optional)_ – Liste over gyldige URI-er hvor ID-porten kan omdirigere etter utlogging.</p>
+
+                    <p><strong>redirectURIs</strong> _([]string], optional)_ – Liste over redirect URI-er som skal registreres hos DigDir.</p>
+
+                    <p><strong>accessTokenLifetime</strong> _(integer, optional)_ – Maksimal levetid i sekunder for `access_token` som returneres fra ID-porten. Min: 1, maks: 3600.</p>
+
+                    <p><strong>clientURI</strong> _(string, optional)_ – URL til klienten brukt av DigDir når en 'tilbake'-knapp vises eller ved feil.</p>
+
+                    <p><strong>clientName</strong> _(string, optional)_ – Navnet på klienten registrert hos DigDir. Vises under innlogging for brukerorienterte flyter.</p>
+
+                    <p><strong>sessionLifetime</strong> _(integer, optional)_ – Maksimal øktlevetid i sekunder for en innlogget sluttbruker for denne klienten. Min: 3600, maks: 28800.</p>
+
+                    <p><strong>ssoDisabled</strong> _(bool, optional)_ – Kontrollerer Single Sign-On-oppsettet for klienten. Hvis satt til `true`, er SSO deaktivert.</p>
+                </details>
+
+                ### Eksempel
+
+                Følgende eksempel registrerer en klientintegrasjon mot ID-porten av typen `idporten`.
+                Når registrering er fullført vil Digdirator opprette Kubernetes-hemmeligheten `idporten-secret` i namespacet `tilgangsstyring-main`.
+
+```yaml
+apiVersion: nais.io/v1
+kind: IDPortenClient
+metadata:
+  name: test-client
+  namespace: tilgansstyring-main
+spec:
+  clientName: Test Application
+  clientURI: https://test-app.atgcp1-sandbox.kartverket-intern.cloud
+  frontchannelLogoutURI: https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/logout
+  integrationType: idporten
+  redirectURIs:
+  - https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/callback
+  scopes:
+  - openid
+  - profile
+  secretName: idporten-secret
+```
+
             </TabItem>
             <TabItem value="maskinportenclient" label="MaskinportenClient">
-                ## 🚧 Under arbeid 🚧
+                En kan registrere en klient mot Maskinporten ved å opprette en `MaskinportenClient`-ressurs.
 
-                Dette innholdet er under arbeid og forhåpentligvis straks klart!
+                ### Spesifikasjonen til `MaskinportenClient`
+
+                <details>
+                    <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `MaskinportenClient`</summary>
+
+                    <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
+                    <p><strong>clientName</strong> _(string, optional)_ – Navnet på klienten registrert hos DigDir. Vises under innlogging for brukerorienterte flyter, og er ellers en lesbar måte å skille mellom klienter i DigDirs selvbetjeningsportal.</p>
+                    <details>
+                        <summary><strong>scopes</strong> _([]object, optional)_ – Definerer hvilke scopes applikasjonen konsumerer og hvilke den eksponerer.</summary>
+                        <details>
+                            <summary><strong>consumes</strong> _([]object, optional)_ – En liste med scopes din klient kan forespørre tilgang til.</summary>
+                            <p><strong>name</strong> _(string, required)_ – Scopene som applikasjonen konsumerer for å få tilgang til en ekstern organisasjons API.</p>
+                        </details>
+                        <details>
+                            <summary><strong>exposes</strong> _([]object, optional)_ – En liste med scopes din applikasjon ønsker å eksponere til andre organisasjoner hvor tilgang er basert på organisasjonsnummer.</summary>
+                            <p><strong>enabled</strong> _(bool, required)_ – Hvis `true`, så er detkonfigurerte scopet tilgjengelig for bruk og til å bli konsumert av organisasjoner som har fått godkjent tilgang.</p>
+                            <p><strong>name</strong> _(string, påkrevd)_ – Det faktiske sub-scopet kombinert med `product`.</p>
+                            <p><strong>product</strong> _(string, valgfritt)_ – Produktområde tilknyttet scopet. Dette vil inkluderes i resultatet: `org:<product><name>`.</p>
+                            <p><strong>atMaxAge</strong> _(int, valgfritt)_ – Maksimal tillatt levetid for token i sekunder. Defaulter til 30 sekunder.</p>
+                            <p><strong>allowedIntegrations</strong> _([]string, valgfritt)_ – Liste over tillatte integrasjonstyper for dette eksponerte omfanget. Defaulter til `maskinporten`.</p>
+                            <details>
+                                <summary><strong>consumers</strong> _([]object, valgfritt)_ – Liste over eksterne konsumenter som har tilgang til å konsumere dette scopet og som kan forespørre `access_token`.</summary>
+                                <p><strong>orgno</strong> – Det eksterne organisasjonsnummeret.</p>
+                                <p><strong>name</strong> – Beskrivende felt brukt utelukkende for oversikt.</p>
+                            </details>
+                            <p><strong>accessibleForAll</strong> – Tillater alle organisasjoner å få tilgang til scopet.</p>
+                            <p><strong>delegationSource</strong> – Delegasjonskilde for scopet. Default er tomt, noe som betyr at ingen delegasjon er tillatt.</p>
+                            <p><strong>separator</strong> – Tegnet som skiller `product` og `name` i det endelige scopet. Resultatet blir da `<prefix>:<product><separator><name>`. Defaulter til `:` med mindre `name` inneholder `/`, i det tilfellet defaultes det til `/`.</p>
+                            <p><strong>visibility</strong> – Kontrollerer synligheten til scopet. Offentlige scopes er synlige for alle, mens private scopes kun er synlige for organisasjonen som eier scopet og organisasjoner som har fått tilgang som konsumenter. Defaulter til `public`. Tillatte verdier: `private`, `public`.</p>
+                        </details>
+                    </details>
+                </details>
+
+                ### Eksempel
+
+                Følgende eksempel registrerer en klientintegrasjon mot Maskinporten og definerer scopet `innsyn`.
+                Den setter HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS som godkjente konsumenter av scopet.
+                Når registrering er fullført vil Digdirator opprette Kubernetes-hemmeligheten `maskinporten-secret` i namespacet `tilgangsstyring-main`.
+```yaml
+apiVersion: nais.io/v1
+kind: MaskinportenClient
+metadata:
+  name: test-client
+  namespace: tilgangsstyring-main
+spec:
+  clientName: innsikt-secure-deltashare
+  scopes:
+    exposes:
+    - enabled: true
+      name: "innsyn"
+      product: "Produktområde"
+      consumers:
+      - name: HUSLØS HURTIG TIGER AS
+        orgno: "987654321"
+      - name: KOSTBAR LEKKER APE AS
+        orgno: "123456789"
+  secretName: maskinporten-secret
+```
             </TabItem>
         </Tabs>
     </TabItem>
 </Tabs>
+
+
