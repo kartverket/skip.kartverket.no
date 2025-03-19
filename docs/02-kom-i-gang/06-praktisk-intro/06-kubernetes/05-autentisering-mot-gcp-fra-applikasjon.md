@@ -8,7 +8,7 @@ Servicekontoer bør enten opprettes med terraform eller via [gcp-service-account
 
 ## 2. Gi WIF IAM Policy til Servicekonto
 
-For å autentisere som denne GCP servicekontoen fra kubernetes må kubernetes service kontoen gis tilganger til det. Dette gjøres ved å gi rollen `iam.workloadIdentityUser`. 
+For å autentisere som denne GCP-servicekontoen fra Kubernetes må Kubernetes-servicekontoen gis tilganger til det. Dette gjøres ved å gi Kubernetes-servicekontoen rollen `iam.workloadIdentityUser`.
 
 Gitt variablene:
 
