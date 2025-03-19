@@ -2018,40 +2018,39 @@
     utility-types "^3.10.0"
     webpack "^5.88.1"
 
-"@grafana/faro-core@^1.12.3":
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-core/-/faro-core-1.12.3.tgz#1ed19ba528227a90dc96e67eeaaf809721c23959"
-  integrity sha512-rfFHlIq1xL4agIrz59Eaz7KpzVblv3CZeqx8d7Qyx1yNP3x4ZQ3l9NqqLqc1Y1bbzlJYPyP98fMg8F6rwe2sMw==
+"@grafana/faro-core@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-core/-/faro-core-1.14.1.tgz#89d73c5577a146af37f61d40d69027e576a0f462"
+  integrity sha512-wPQEJ3Ow4s5m+scrHUHAbwCTMoXlXgwdjtO5PCKCimaI5q4nzFHp5D2FpFGDul2WfRVzwWvkhX6A7CGTui/myw==
   dependencies:
     "@opentelemetry/api" "^1.9.0"
     "@opentelemetry/otlp-transformer" "^0.57.1"
 
-"@grafana/faro-react@^1.12.3":
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-react/-/faro-react-1.12.3.tgz#d66e456630bbc8a1707e4c48e00a67bea9aa5a2a"
-  integrity sha512-QL7x1RFKdkr4t81bLOkVwOFI0O07W6Ad5RcAsLPL00sJcsLBARN5VmxtrOJ1Ec+CgDoSJfpbNA5Esf+TD3nCWw==
+"@grafana/faro-react@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-react/-/faro-react-1.14.1.tgz#6d35be84dd5a5560ac265fa19fe552e4b2059fa5"
+  integrity sha512-tmoQE6TUdlepizWUNjbtjU1/HBxO9rBHhwx9FvEh7qIJDkdJdZoE2lG3VTQPhT013WuT5rnTnsS6g3L1HoqYeA==
   dependencies:
-    "@grafana/faro-web-sdk" "^1.12.3"
-    "@grafana/faro-web-tracing" "^1.12.3"
+    "@grafana/faro-web-sdk" "^1.14.1"
+    "@grafana/faro-web-tracing" "^1.14.1"
     hoist-non-react-statics "^3.3.2"
 
-"@grafana/faro-web-sdk@^1.12.3":
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-web-sdk/-/faro-web-sdk-1.12.3.tgz#05634c23aff0d863436a50e4e19e31fa104ad754"
-  integrity sha512-yXBP/rrxCI08wsb6mTVmHFGUAUiVT/9ti3tZ82/llC8IApNWj0NUaPcHD7zgNwYs9fq1L4dVWzWfLZnxF4BWqQ==
+"@grafana/faro-web-sdk@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-web-sdk/-/faro-web-sdk-1.14.1.tgz#dba04c524ec0445b717df921bc0f50f54eb83313"
+  integrity sha512-Ii1xdpYysBfHO7XbK05uCXGwskDzLH7CYSdXU2gC8loRDR5PiqPzEczzVFeNhzGRcQzcecYWMxOzeucXdhNilw==
   dependencies:
-    "@grafana/faro-core" "^1.12.3"
+    "@grafana/faro-core" "^1.14.1"
     ua-parser-js "^1.0.32"
     web-vitals "^4.0.1"
 
-"@grafana/faro-web-tracing@^1.12.3":
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-web-tracing/-/faro-web-tracing-1.12.3.tgz#36607833dab9d3de2bf59d90378b9f2cc1ea9065"
-  integrity sha512-RoY5vtgrBMs2MM3kXmbDZrjLmxXQ3JaZjSyP36KJ99MYzKopDrznlX90vfeTh/j65RAhiSiGxFV/t7CjvHtcxw==
+"@grafana/faro-web-tracing@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-web-tracing/-/faro-web-tracing-1.14.1.tgz#13b597f32e44d0a29344ef9ff67550a0b992a67d"
+  integrity sha512-fbsWIj6XCyRD3wd7FAYvxtMMtsN5/I8wb6ak4JCp2iNt2aEa7lhLNTM6r5hKq6oSe77vrl/bfgI51qEw+mdoNw==
   dependencies:
-    "@grafana/faro-web-sdk" "^1.12.3"
+    "@grafana/faro-web-sdk" "^1.14.1"
     "@opentelemetry/api" "^1.9.0"
-    "@opentelemetry/context-zone" "1.30.1"
     "@opentelemetry/core" "^1.30.0"
     "@opentelemetry/exporter-trace-otlp-http" "^0.57.0"
     "@opentelemetry/instrumentation" "^0.57.0"
@@ -2280,19 +2279,6 @@
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.9.0.tgz#d03eba68273dc0f7509e2a3d5cba21eae10379fe"
   integrity sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==
-
-"@opentelemetry/context-zone-peer-dep@1.30.1":
-  version "1.30.1"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/context-zone-peer-dep/-/context-zone-peer-dep-1.30.1.tgz#1e947cb5408a0815a3fbdfabca09b861d0b169df"
-  integrity sha512-8oJQR+MBblY5WGOm26AOBLogN+FoO26QEZssH9WJd1qSD7ABMefq9qyGyN9xilFFl2ABPHgcMzkfYb8vx9JBEA==
-
-"@opentelemetry/context-zone@1.30.1":
-  version "1.30.1"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/context-zone/-/context-zone-1.30.1.tgz#b2676f91e53f4f7ff2ef4602b6ff671c4ee8bb7e"
-  integrity sha512-N6CACt5sxXD6XzS2jJPqstNJZ/QFqeW56IiKfHb6hYOelCXVvYfxheF7byAeRXa7+N8rmXUP7aRdupALXP5hdQ==
-  dependencies:
-    "@opentelemetry/context-zone-peer-dep" "1.30.1"
-    zone.js "^0.11.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.15.0"
 
 "@opentelemetry/core@1.30.1", "@opentelemetry/core@^1.30.0":
   version "1.30.1"
@@ -5078,9 +5064,9 @@ domhandler@^5.0.1, domhandler@^5.0.2, domhandler@^5.0.3:
     domelementtype "^2.3.0"
 
 dompurify@^3.2.1:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.2.3.tgz#05dd2175225324daabfca6603055a09b2382a4cd"
-  integrity sha512-U1U5Hzc2MO0oW3DF+G9qYN0aT7atAou4AgI0XjWz061nyBPbdxkfdhfy5uMgGn6+oLFCfn44ZGbdDqCzVmlOWA==
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.2.4.tgz#af5a5a11407524431456cf18836c55d13441cd8e"
+  integrity sha512-ysFSFEDVduQpyhzAob/kkuJjf5zWkZD8/A9ywSp1byueyuCfHamrCBa14/Oc2iiB0e51B+NpxSl5gmzn+Ms/mg==
   optionalDependencies:
     "@types/trusted-types" "^2.0.7"
 
@@ -8868,10 +8854,10 @@ postcss@^8.4.21, postcss@^8.4.24, postcss@^8.4.26, postcss@^8.4.38:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
-posthog-js@^1.211.0:
-  version "1.211.0"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.211.0.tgz#e193cdc6874287a8465469edac2765f509bccfb1"
-  integrity sha512-PpOh9dmGFCc66xHdxeqhYEUNzPMGaxaSYeTAnTT7NEDGXtWfY3tM0qVZqWpVA6bzTdCpAx2W9UZHFmcY9RtdEA==
+posthog-js@^1.225.1:
+  version "1.225.1"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.225.1.tgz#9122fb321b54c27b6f7becc902799fbfb0f35674"
+  integrity sha512-JO12aGlKbznD91osyNPgsQXP4jwLYdDtGrEL6idjGBb4ETFpud6tfe2Jdaow3672c3fNjFFNyu2ybXC3793VOA==
   dependencies:
     core-js "^3.38.1"
     fflate "^0.4.8"
@@ -8883,10 +8869,10 @@ preact@^10.19.3:
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.20.2.tgz#0b343299a8c020562311cc25db93b3d832ec5e71"
   integrity sha512-S1d1ernz3KQ+Y2awUxKakpfOg2CEmJmwOP+6igPx6dgr6pgDvenqYviyokWso2rhHvGtTlWWnJDa7RaPbQerTg==
 
-prettier@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.4.2.tgz#a5ce1fb522a588bf2b78ca44c6e6fe5aa5a2b13f"
-  integrity sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==
+prettier@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.3.tgz#4fc2ce0d657e7a02e602549f053b239cb7dfe1b5"
+  integrity sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==
 
 pretty-error@^4.0.0:
   version "4.0.0"
@@ -9680,14 +9666,7 @@ send@0.19.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serialize-javascript@^6.0.0, serialize-javascript@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-6.0.1.tgz#b206efb27c3da0b0ab6b52f48d170b7996458e5c"
-  integrity sha512-owoXEFjWRllis8/M1Q+Cw5k8ZH40e3zhp/ovX+Xr/vi1qj6QesbyXXViFbpNvWvPNAD62SutwEXavefrLJWj7w==
-  dependencies:
-    randombytes "^2.1.0"
-
-serialize-javascript@^6.0.2:
+serialize-javascript@^6.0.0, serialize-javascript@^6.0.1, serialize-javascript@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-6.0.2.tgz#defa1e055c83bf6d59ea805d8da862254eb6a6c2"
   integrity sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==
@@ -10951,11 +10930,6 @@ yocto-queue@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.0.0.tgz#7f816433fb2cbc511ec8bf7d263c3b58a1a3c251"
   integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
-
-"zone.js@^0.11.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.15.0.tgz#4810624e58d6dcf7b8379c1631765589917a0d8f"
-  integrity sha512-9oxn0IIjbCZkJ67L+LkhYWRyAy7axphb3VgE2MBDlOqnmHMPWGYMxJxBYFueFq/JGY2GMwS0rU+UCLunEmy5UA==
 
 zwitch@^1.0.0:
   version "1.0.5"
