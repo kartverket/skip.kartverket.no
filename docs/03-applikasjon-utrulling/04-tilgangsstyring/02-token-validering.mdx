@@ -1,7 +1,257 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # 🛡️ Token-validering og grovkornet autorisasjon
 
-## 🚧 Under utvikling 🚧
+SKIP tilbyr innebygd støtte for å sette opp Kubernetes-ressurser som kan validere autentisiteten og autorisasjonen på
+inkommende requests før den i det hele tatt når applikasjonen. Dette er mulig fordi SKIP benytter seg av [Istio](https://istio.io/) som service mesh
+og instruerer Istio til å sette opp en [Istio-sidecar](https://istio.io/latest/docs/reference/config/networking/sidecar/)
+i hver `pod`.
 
-Token-validering og grovkornet autorisasjon fra plattform er for tiden under utvikling og er ikke helt klart ennå.
-Vi jobber hardt for å gjøre det tilgjengelig, og vi gleder oss til å vise deg hvordan du kan ta den i bruk så snart vi er klare!
-Følg med for oppdateringer.
+Fordelen med at hver `pod` har en `istio-sidecar` er at Istio introduserer flere nyttige CRD-er som kan berike kapabilitetene
+til `istio-sidecar`. SKIP benytter seg av `RequestAuthentication` til å validere tokens (JWT)
+til innkommende requests, og `AuthorizationPolicy` til å autorisere tilgang basert på claims.
+
+![Istio Sidecar Container Architecture](images/istio-sidecar.png)
+*Source: [Kube by Example](https://kubebyexample.com/learning-paths/istio/intro)*
+
+## 🤖 Token-validering og grovkornet autorisasjon med Skiperator
+
+SKIP tilbyr gjennom Skiperator et forenklet API-spec for å sette opp token-validering og grovkornet autorisasjon for en Skiperator-appliaksjon
+basert på Json Web Tokens (JWTs). Per nå er det kun støtte i Skiperator for å sette opp token-validering
+og grovkornet autorisasjon for **ID-porten** og **Maskinporten**.
+
+Skiperator bygger inn to prinsipper i hvordan den setter opp token-validering og grovkornet autorisasjon.
+- **Gyldig JWT by default**: Med mindre endepunkt er eksplisitt spesifisert som åpne _må_
+innkommende request ha en gyldig JWT.
+- **Trygge standardinnstillinger**: Hvis man uheldigvis spesifiserer endepunkt som åpne samtidig sam man setter opp autorisasjon for
+samme endepunkt, så vil Skiperator foretrekke å sikre endepunktet med å kreve gyldig og autorisert JWT.
+
+## 📖 Eksempler
+
+Under følger en rekke eksmepler på hvordan å konfigurere token-validering og grovkornet autorisasjon på SKIP.
+For enkelhets skyld viser alle eksemplene hvordan man setter det opp for **ID-porten**, men
+samme API-spec blir brukt på tvers av identitetstilbydere, og du finner den i
+[Skiperator sin API-dokumentajson](../03-skiperator/04-api-docs.md).
+
+### Eksempel 1: Token-validering for **alle** endepunkt
+
+Følgende manifest konfigurerer token-validering for alle endepunktene inn til `application`.
+Siden klientregistreringen i dette eksmepelet ble utført gjennom Skiperator, kjenner Skiperator allerede til den relevante Kubernetes-hemmelighet som
+inneholder client ID-en. Derfor er det ikke nødvendig å spesifisere denne eksplisitt.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+  idporten:
+    enabled: true
+    requestAuth:
+      enabled: true
+```
+
+### Eksempel 2: Legg til åpne endepunkt
+
+Følgende manifest konfigurerer token-validering for alle endepunktene inn til `application`, **utenom** for `GET` til `/api/cars` og `/api/cars/public*`.
+Legg merke til bruken av wildcard (`*`). Resultatet vil her bli at `GET` mot `/api/cars`, `/api/cars/public` og alle andre sub-paths av `/api/cars/public` vil være åpne.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+  idporten:
+    enabled: true
+    requestAuth:
+      enabled: true
+      ignoreAuth:
+        - paths:
+            - "/api/cars"
+            - "/api/cars/public*"
+          methods:
+            - "GET"
+```
+
+### Eksempel 3: Legg til autoriserte endepunkt
+
+Følgende manifest konfigurerer token-validering for alle endepunktene inn til `application`, **utenom** for endepunktene `/api/cars*` og `/api/cars/public` for alle metoder.
+I tillegg spesifiserer den at `POST`, `PUT` og `DELETE` til `/api/cars/admin` kun er lov hvis JWT-claimet `roles` eksisterer med verdien `admin`.
+Legg merke til at vi da spesifiserer at `/api/cars` og alle sub-paths skal være åpne, som er i konflikt med at `POST`, `PUT` og `DELETE` til `/api/cars/admin`
+skal trenge autorisert JWT. Her spiller prinsippet om **trygge standardinnstillinger** inn, og Skiperator vil defaulte til å forsatt kreve autorisert
+JWT for `POST`, `PUT` og `DELETE` til `/api/cars/admin`.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+  idporten:
+    enabled: true
+    requestAuth:
+      enabled: true
+      ignoreAuth:
+        - paths:
+            - "/api/cars*"
+            - "/api/cars/public"
+      authRules:
+        - paths:
+            - "/api/cars/public*"
+          methods:
+            - "POST"
+            - "PUT"
+            - "DELETE"
+          when:
+            - claim: "roles"
+              values: "admin"
+```
+
+### Eksempel 4: Token-validering og grovkornet autorisasjon med flere identitetstilbydere
+
+Følgende manifest konfigurerer token-validering og grovkornet autorisasjon for **både** ID-porten og Maksinporten.
+Skiperator tolker dette som følger:
+- `/api/idporten/public` og `/api/maskinporten/public` er åpne endepunkt for alle metoder.
+- `/api/idporten/secret` **må** ha en gyldig JWT signert av ID-porten med claimet `roles` har verdien `admin` for alle metoder.
+- `/api/maskinporten/secret` **må** ha en gyldig JWT signert av Maskinporten med claimet `consumer` har verdien `123456789` for alle metoder.
+- Resterende endepunkt krever gydlgi JWT signert av **enten ID-porten eller Maskinporten**.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+  idporten:
+    enabled: true
+    requestAuth:
+      enabled: true
+      ignoreAuth:
+        - paths:
+            - "/api/idporten/public"
+      authRules:
+        - paths:
+            - "/api/idporten/secret"
+          when:
+            - claim: "roles"
+              values: "admin"
+  maskinporten:
+    enabled: true
+    requestAuth:
+      enabled: true
+      ignoreAuth:
+        - paths:
+          - "/api/maskinporten/public"
+      authRules:
+        - paths:
+            - "/api/maskinporten/secret"
+          when:
+            - claim: "consumer"
+              values: "123456789"
+```
+
+## 🙋‍♂️ FAQ
+
+### Hva hvis jeg registrerte en klient med `IDPortenClient` eller `MaskinportenClient`?
+
+Hvis klientregistrering ble gjort via Digdirator sine CRD-er, så er man nødt til å informere Skiperator om
+Kubernetes-hemmeligheten som ble opprettet av Digdirator. Det gjør man ved å spesifisere navnet på hemmeligheten i spesifikasjonen.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+  idporten:
+    enabled: true
+    requestAuth:
+      enabled: true
+      secretName: <SECRET NAME>
+```
+
+### Hva hvis jeg har registrert en klient utenfor SKIP?
+
+Hvis klientregistrering ble gjort utenfor SKIP, så er man nødt til å opprette en Kubernetes-hemmelighet på et kjent format og deretter legge
+inn navnet på hemmeligheten i Skiperator-manifestet. Hvis hemmelighetene ligger i [Google Secret Manager](https://cloud.google.com/security/products/secret-manager?hl=en)
+kan man benytte [External Secrets Operator](../09-argo-cd/04-hente-hemmeligheter-fr) til å opprette hemmeligheten. Ettersom Digdirator oppretter
+Kubernetes-hemmelighet med forhåndsbestemt format er det viktig at det samme formatet følges for at Skiperator skal kunne hente
+ut nødvendig informasjon fra hemmeligheten.
+
+<Tabs>
+    <TabItem value="idporten-secret" label="ID-porten">
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: idporten-secret
+spec:
+  data:
+  - remoteRef:
+      key: <client-id i Google Secret Manager>
+    secretKey: IDPORTEN_CLIENT_ID
+  - remoteRef:
+      key: <issuer-uri i Google Secret Manager>
+    secretKey: IDPORTEN_ISSUER
+  - remoteRef:
+      key: <jwks-uri id i Google Secret Manager>
+    secretKey: IDPORTEN_JWKS_URI
+
+  # Oppdaterer hemmeligheten hver time
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: SecretStore
+    name: gsm
+
+  # Oppretter en Kubernetes-hemmelighet med navn idporten-secret
+  target:
+    name: idporten-secret
+```
+    </TabItem>
+    <TabItem value="maskinporten-secret" label="Maskinporten">
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: maskinporten-secret
+spec:
+  data:
+  - remoteRef:
+      key: <client-id i Google Secret Manager>
+    secretKey: MASKINPORTEN_CLIENT_ID
+  - remoteRef:
+      key: <issuer-uri i Google Secret Manager>
+    secretKey: MASKINPORTEN_ISSUER
+  - remoteRef:
+      key: <jwks-uri id i Google Secret Manager>
+    secretKey: MASKINPORTEN_JWKS_URI
+
+  # Oppdaterer hemmeligheten hver time
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: SecretStore
+    name: gsm
+
+  # Oppretter en Kubernetes-hemmelighet med navn idporten-secret
+  target:
+    name: maskinporten-secret
+```
+    </TabItem>
+</Tabs>
