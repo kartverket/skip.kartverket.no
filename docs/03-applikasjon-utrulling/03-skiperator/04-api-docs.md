@@ -1347,8 +1347,6 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
         <td>string</td>
         <td>
           Image version for the CloudSQL proxy sidecar.<br/>
-          <br/>
-            <i>Default</i>: 2.15.1<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -4371,8 +4369,6 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
         <td>string</td>
         <td>
           Image version for the CloudSQL proxy sidecar.<br/>
-          <br/>
-            <i>Default</i>: 2.15.1<br/>
         </td>
         <td>false</td>
       </tr></tbody>
