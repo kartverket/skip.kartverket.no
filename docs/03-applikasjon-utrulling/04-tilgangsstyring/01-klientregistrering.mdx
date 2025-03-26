@@ -18,13 +18,15 @@ Man kan benytte seg av [Skiperator](../03-skiperator/04-api-docs.md) dersom klie
 Alternativt kan man bruke CRD-ene fra [Digdirator](https://github.com/nais/digdirator) og [Azurerator](https://github.com/nais/azurerator) direkte.
 
 
-<Tabs>
+<Tabs queryString={"operator"}>
     <TabItem value="skiperator" label="Skiperator">
 
         Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten** og **Maskinporten**.
         Vi jobber også med å innføre tilsvarende funksjonalitet for **Entra ID**, men det er ikke helt klart ennå.
 
-        <Tabs>
+        Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert som miljøvariabler i deploymenten til application. Dette gjør at applikasjonen enkelt kan få tilgang til hemmelighetene i et kjøretidsmiljø.
+
+        <Tabs queryString={"idp"}>
             <TabItem value="entraid" label="Entra ID">
                 ## 🚧 Under utvikling 🚧
 
@@ -56,9 +58,6 @@ spec:
       - "profile"
 // diff-add-end
 ```
-                Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert
-                som miljøvariabler i deploymenten til `application`. Dette gjør at applikasjonen enkelt kan få tilgang til
-                hemmelighetene i et kjøretidsmiljø.
             </TabItem>
             <TabItem value="maskinporten" label="Maskinporten">
                 [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot Maskinporten
@@ -92,10 +91,6 @@ spec:
           orgno: "123456789"
 // diff-add-end
 ```
-
-                Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert
-                som miljøvariabler i deploymenten til `application`. Dette gjør at applikasjonen enkelt kan få tilgang til
-                hemmelighetene i et kjøretidsmiljø.
             </TabItem>
         </Tabs>
     </TabItem>
@@ -103,17 +98,12 @@ spec:
 
         Hvis man ønsker å registrere en klient fritt uten å knytte den til en Skiperator-applikasjon, kan man benytte seg av CRD-ene som Digdirator og Azurerator introduserer direkte.
         Dette gjør det mulig å definere klientregistreringen uavhengig av en spesifikk applikasjon i Skiperator.
+
         Fordelen med denne tilnærmingen er at man får full kontroll over konfigurasjonen og stor fleksibilitet ved å frikoble registreringen fra applikasjonen.
         Ulempen er at det krever mer innsikt i oppsettet, og at injisering av hemmeligheter i deploymenten må håndteres separat.
 
-        Digdirator introduserer CRD-ene `IDPortenClient` og `MaskinportenClient`, som definerer konfigurasjonen for registrering av klienter mot henholdsvis **ID-porten** og **Maskinporten**.
-        Azurerator introduserer CRD-en `AzureAdApplication`, som brukes til å registrere klienter mot **Microsoft Entra ID**.
-
-        Alle tre CRD-ene fungerer på samme måte: De overvåkes av sine respektive Kubernetes-operatører, som benytter konfigurasjonen til å registrere en klient mot den aktuelle identitetstilbyderen.
-        Etter registreringen opprettes en Kubernetes-hemmelighet som inneholder nødvendige hemmeligheter og relevante URI-er. Disse brukes både til token-validering og for å gjennomføre ulike OAuth 2.0-flows.
-
-        <Tabs>
-            <TabItem value="azurerator" label="AzureAdApplication">
+        <Tabs queryString={"idp"}>
+            <TabItem value="entraid" label="Entra ID">
                 En kan registrere en klient mot Entra ID ved å opprette en `AzureAdApplication`-ressurs.
                 Registreringer opprettet med Azureator følger følgende navnekonvensjon basert på `AzureAdApplication`-manifestet: `cluster:namespace:name`.
 
@@ -185,7 +175,7 @@ spec:
 ```
 
             </TabItem>
-            <TabItem value="idportenclient" label="IdportenClient">
+            <TabItem value="idporten" label="ID-porten">
                 En kan registrere en klient mot ID-porten ved å opprette en `IDPortenClient`-ressurs.
 
                 ### Spesifikasjonen til `IDPortenClient`
@@ -241,7 +231,7 @@ spec:
 ```
 
             </TabItem>
-            <TabItem value="maskinportenclient" label="MaskinportenClient">
+            <TabItem value="maskinporten" label="Maskinporten">
                 En kan registrere en klient mot Maskinporten ved å opprette en `MaskinportenClient`-ressurs.
 
                 ### Spesifikasjonen til `MaskinportenClient`
