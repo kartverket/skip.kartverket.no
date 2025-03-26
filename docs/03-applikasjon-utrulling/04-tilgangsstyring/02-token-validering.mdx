@@ -51,8 +51,10 @@ spec:
   port: 8080
   idporten:
     enabled: true
+// diff-add-start
     requestAuth:
       enabled: true
+// diff-add-end
 ```
 
 ### Eksempel 2: Legg til åpne endepunkt
@@ -71,6 +73,7 @@ spec:
   port: 8080
   idporten:
     enabled: true
+// diff-add-start
     requestAuth:
       enabled: true
       ignoreAuth:
@@ -79,6 +82,7 @@ spec:
             - "/api/cars/public*"
           methods:
             - "GET"
+// diff-add-end
 ```
 
 ### Eksempel 3: Legg til autoriserte endepunkt
@@ -100,6 +104,7 @@ spec:
   port: 8080
   idporten:
     enabled: true
+// diff-add-start
     requestAuth:
       enabled: true
       ignoreAuth:
@@ -116,6 +121,7 @@ spec:
           when:
             - claim: "roles"
               values: "admin"
+// diff-add-end
 ```
 
 ### Eksempel 4: Token-validering og grovkornet autorisasjon med flere identitetstilbydere
@@ -138,6 +144,7 @@ spec:
   port: 8080
   idporten:
     enabled: true
+// diff-add-start
     requestAuth:
       enabled: true
       ignoreAuth:
@@ -149,8 +156,10 @@ spec:
           when:
             - claim: "roles"
               values: "admin"
+// diff-add-end
   maskinporten:
     enabled: true
+// diff-add-start
     requestAuth:
       enabled: true
       ignoreAuth:
@@ -162,6 +171,7 @@ spec:
           when:
             - claim: "consumer"
               values: "123456789"
+// diff-add-end
 ```
 
 ## 🙋‍♂️ FAQ
@@ -184,7 +194,9 @@ spec:
     enabled: true
     requestAuth:
       enabled: true
+// diff-add-start
       secretName: <SECRET NAME>
+// diff-add-end
 ```
 
 ### Hva hvis jeg har registrert en klient utenfor SKIP?
