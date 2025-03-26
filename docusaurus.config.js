@@ -100,6 +100,11 @@ const darkCodeTheme = themes.dracula;
         additionalLanguages: ["java", "hcl", "docker"],
         magicComments: [
           {
+            className: 'code-block-highlighted-line',
+            line: 'highlight-next-line',
+            block: {start: 'highlight-start', end: 'highlight-end'},
+          },
+          {
             className: 'code-block-diff-add-line',
             line: 'diff-add',
             block: {start: 'diff-add-start', end: 'diff-add-end'},

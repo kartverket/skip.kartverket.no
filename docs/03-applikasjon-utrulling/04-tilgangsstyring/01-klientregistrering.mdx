@@ -3,10 +3,12 @@ import TabItem from '@theme/TabItem';
 
 # 📝 Klientregistrering
 
-Klientregistrering er en sentral del av tilgangsstyring med OAuth 2.0 og OIDC. Når du registrerer en klient, får applikasjonen sin egen identitet og kan autentisere seg mot de valgte identitetstilbyderne.
+Klientregistrering er en sentral del av tilgangsstyring med OAuth 2.0 og OIDC. Når du registrerer en klient, får applikasjonen
+sin egen identitet og kan autentisere seg mot de valgte identitetstilbyderne.
 
 Vi anbefaler å ha et bevisst forhold til hvilke tjenester som skal dele samme `audience`.
-Det er ofte mer hensiktsmessig å velge en restriktiv tilnærming, der hver tjeneste får sin egen klientregistrering, fremfor å gruppere flere tjenester under én felles klient. Dette gir bedre kontroll over tilgangsstyring og sikkerhet.
+Det er ofte mer hensiktsmessig å velge en restriktiv tilnærming, der hver tjeneste får sin egen klientregistrering,
+fremfor å gruppere flere tjenester under én felles klient. Dette gir bedre kontroll over tilgangsstyring og sikkerhet.
 
 Felles for alle identitetstilbydere på SKIP er at klientregistrering støttes fra plattformen ved hjelp av Kubernetes-operatorer.
 
@@ -18,27 +20,77 @@ Man kan benytte seg av [Skiperator](../03-skiperator/04-api-docs.md) dersom klie
 Alternativt kan man bruke CRD-ene fra [Digdirator](https://github.com/nais/digdirator) og [Azurerator](https://github.com/nais/azurerator) direkte.
 
 
+
 <Tabs queryString={"operator"}>
     <TabItem value="skiperator" label="Skiperator">
 
-        Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten** og **Maskinporten**.
-        Vi jobber også med å innføre tilsvarende funksjonalitet for **Entra ID**, men det er ikke helt klart ennå.
+        Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten**, **Maskinporten** og **Entra ID**.
 
-        Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert som miljøvariabler i deploymenten til application. Dette gjør at applikasjonen enkelt kan få tilgang til hemmelighetene i et kjøretidsmiljø.
+        Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert som miljøvariabler i deploymenten til applikasjonen.
+        Dette gjør at applikasjonen enkelt kan få tilgang til hemmelighetene i et kjøretidsmiljø.
 
         <Tabs queryString={"idp"}>
             <TabItem value="entraid" label="Entra ID">
-                ## 🚧 Under utvikling 🚧
+                [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
+                via spesifikasjonen til `Application`.
 
-                Automatisert klientregistrering mot Entra ID i SKiperator application-manifestet er for tiden under utvikling og er ikke helt klart ennå.
-                Vi jobber hardt for å gjøre det tilgjengelig, og vi gleder oss til å vise deg hvordan du kan ta den i bruk så snart vi er klare!
-                Følg med for oppdateringer.
+                Følgende eksempel oppretter en app-registrering i Entra ID.
+                - Kun direkte medlemmer av gruppene `42acac87-d6e2-4d1c-ab7a-b8634f68fb6e` og `f749a88e-0811-4b73-95d4-18e7d8e348c9`
+                vil få tilgang til applikasjonen og gruppe ID-ene vil også inkluderes i `groups`-claimet i tokenet.
+                - App-registreringen `other-cluster:other-namespace-other-app` vil bli lagt til som en forhåndsautorisert app og få
+                tildelte app-rollen `app_role` og scopet `custom_scope`.
+                - Ettersom redirect URL-er ikke er eksplisitt spesifisert vil `https://an-ingress.com/oauth2/callback` og
+                `https://another-ingress.com/oauth2/callback` blir registrert som redirect URI-er.
+                - Ettersom logout URL ikke er eksplisitt spesifisert vil den første ingressen bli registrert som logout URL, i.e.
+                `https://an-ingress.com/oauth2/logout`.
+
+                Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+// highlight-start
+  ingresses:
+    - an-ingress.com
+    - another-ingress.com
+// highlight-end
+// diff-add-start
+  entraid:
+    enabled: true
+    claims:
+      groups:
+        - id: 42acac87-d6e2-4d1c-ab7a-b8634f68fb6e
+        - id: f749a88e-0811-4b73-95d4-18e7d8e348c9
+    preAuthorizedApplications:
+      - application: other-app
+        namespace: other-namespace
+        cluster: other-cluster
+        permissions:
+          roles:
+            - app_role
+          scopes:
+            - custom_scope
+// diff-add-end
+```
+
+
             </TabItem>
             <TabItem value="idporten" label="ID-porten">
                 [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
-                via spesifikasjonen til `Application`. Følgende eksempel konfigurerer en integrasjon av typen `api_klient`,
-                setter **redirect path** til `/oauth/callback` og spesifiserer scopes `openid` og `profile`. Resten av feltene som støttes
-                kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
+                via spesifikasjonen til `Application`.
+
+                Følgende eksempel konfigurerer en integrasjon mot ID-porten.
+                - Integrasjonstypen settes til `api_klient`.
+                - **Redirect path** settes til `/oauth/callback`
+                - Scopene `openid` og `profile` settes.
+
+                Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
 kind: Application
@@ -117,7 +169,7 @@ spec:
                     <details>
                         <summary><strong>claims</strong> _(object, optional)_ – Definerer konfigurasjon av claims som inkluderes i tokenene som returneres til Entra ID applikasjonen.</summary>
                         <details>
-                            <summary><strong>groups</strong> _([]object, optional)_ – En liste over Entra ID gruppe ID-er som skal inkluderes i `groups-claimet i tokenene utstedt av Entra ID. Dette tildeler også grupper til app-registreringen brukt for tilgangskontroll. Kun direkte medlemmer av gruppene får tilgang.</summary>
+                            <summary><strong>groups</strong> _([]object, optional)_ – En liste over Entra ID gruppe ID-er som skal inkluderes i `groups`-claimet i tokenene utstedt av Entra ID. Dette tildeler også grupper til app-registreringen brukt for tilgangskontroll. Kun direkte medlemmer av gruppene får tilgang.</summary>
                             <p><strong>id</strong> _(string, required)_ – Objekt-ID-en (OID) til en Entra ID-gruppe.</p>
                         </details>
                     </details>

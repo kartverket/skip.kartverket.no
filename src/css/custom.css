@@ -38,11 +38,22 @@ article img {
 }
 
 html[data-theme='dark'] .code-block-diff-add-line {
-  background-color: rgba(0, 139, 0, 0.25); /* darker green tint */
+  background-color: #008b0040; /* darker green tint */
 }
 
 html[data-theme='dark'] .code-block-diff-remove-line {
-  background-color: rgba(139, 0, 0, 0.25); /* darker red tint */
+  background-color: #8b000040
+}
+
+html[data-theme='dark'] .code-block-highlighted-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.code-block-highlighted-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 -40px;
+  padding: 0 40px;
 }
 
 .code-block-diff-add-line {
