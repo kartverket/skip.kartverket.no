@@ -31,10 +31,10 @@ Alternativt kan man bruke CRD-ene fra [Digdirator](https://github.com/nais/digdi
 
         <Tabs queryString={"idp"}>
             <TabItem value="entraid" label="Entra ID">
-                [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
+                [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å opprette an app-registrering i Entra ID
                 via spesifikasjonen til `Application`.
 
-                Følgende eksempel oppretter en app-registrering i Entra ID.
+                Eksempelet under oppretter en app-registrering i Entra ID med følgende konfigurasjon:
                 - Kun direkte medlemmer av gruppene `42acac87-d6e2-4d1c-ab7a-b8634f68fb6e` og `f749a88e-0811-4b73-95d4-18e7d8e348c9`
                 vil få tilgang til applikasjonen og gruppe ID-ene vil også inkluderes i `groups`-claimet i tokenet.
                 - App-registreringen `other-cluster:other-namespace-other-app` vil bli lagt til som en forhåndsautorisert app og få
@@ -55,11 +55,9 @@ metadata:
 spec:
   image: image
   port: 8080
-// highlight-start
   ingresses:
     - an-ingress.com
     - another-ingress.com
-// highlight-end
 // diff-add-start
   entraid:
     enabled: true
@@ -85,9 +83,9 @@ spec:
                 [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
                 via spesifikasjonen til `Application`.
 
-                Følgende eksempel konfigurerer en integrasjon mot ID-porten.
+                Eksempelet under setter opp en integrasjon mot ID-porten med følgende konfigurasjon.
                 - Integrasjonstypen settes til `api_klient`.
-                - **Redirect path** settes til `/oauth/callback`
+                - Redirect path settes til `/oauth/callback`.
                 - Scopene `openid` og `profile` settes.
 
                 Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
@@ -114,8 +112,11 @@ spec:
             <TabItem value="maskinporten" label="Maskinporten">
                 [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot Maskinporten
                 via spesifikasjonen til `Application`.
-                Følgende eksempel konfigurerer en integrasjon mot Maskinporten og eksponerer scopet `innsyn` og setter HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS
-                som godkjente konsumenter av dette scopet.
+
+                Eksempelet under setter opp en integrasjon mot Maskinporten med følgende konfigurasjon.
+                - Scopet `innsyn` opprettes og organisasjonene HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS
+                settes som godkjente konsumenter av dette scopet.
+
                 Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
 
 
