@@ -2,24 +2,32 @@
 
 ![Grafana Dashboard](../img/grafana.png)
 
-På SKIP gir vi deg verktøyene som trengs for å mestre den komplekse verden av
-skybasert teknologi. En av våre allierte i denne reisen er Grafana - en kraftig
-plattform som gir deg visuell innsikt og kontroll over ytelse og helse
-i sanntid.
 
-Grafana er ditt verktøy til å forstå og optimalisere dine tjenester på
-SKIP-plattformen. Med Grafana kan du overvåke og analysere data fra en rekke
-kilder, og dermed få en dypere forståelse av hvordan dine applikasjoner kjører.
+## Hva er observabilitet?
 
-Men Grafana går utover bare overvåking. Det gir deg muligheten til å lage
-skreddersydde dashbords som gir deg akkurat den innsikten du vil ha. Du kan
-spore trender, identifisere potensielle problemer før de eskalerer, og
-automatisere reaksjoner på avvikende hendelser.
+Observabilitet handler om evnen til å forstå den indre tilstanden og
+oppførselen til et system basert på de eksterne dataene det produserer, som
+logger, metrikker og sporingsdata (*traces*). Det gir team muligheten til å få
+innsikt i hvordan systemet fungerer, identifisere problemer, og diagnostisere
+årsakene til disse problemene uten å måtte endre systemets kode eller
+overvåkingsmekanismer. Observabilitet går utover tradisjonell overvåkning ved å
+tilby en mer fleksibel og dypere analyse av systemets ytelse og helsetilstand,
+noe som gjør det mulig å stille og besvare nye spørsmål om systemet etter hvert
+som de oppstår.
 
-Ved å bruke Grafana på SKIP-plattformen får teknologer som deg selv muligheten
-til å gjøre mer enn bare å reagere på hendelser - du kan være proaktiv ved
-å tolke data og ta beslutninger før avviket skjer. Grafana gir deg verktøyene
-til å ta velinformerte beslutninger, optimalisere ytelse og levere stabile og
-gode brukeropplevelser.
+## Hva tilbyr SKIP?
 
-Så ta på deg våtdrakten og dykk inn i dataene til Grafana på SKIP-plattformen!
+SKIP tilbyr innsamling, visualisering og alarmering basert på telemetri
+innsamlet fra applikasjonene på SKIP. Telemetrien vi samler inn er metrikker,
+logger og traces.
+
+[Grafana](https://monitoring.kartverket.cloud/) er verktøyet for å søke,
+visualisere og sammenstille innsamlet telemetri fra ulike kilder. Her kan du
+også se hvilke alarmer som er konfigurert, alarmhistorikk og hvilke alarmer som
+går akkurat nå.
+
+
+## Andre nyttige ressurser
+
+- [Intro to o11y: What is Observability?](https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability)
+- [Bloggen til Charity Majors](https://charity.wtf/tag/observability/)

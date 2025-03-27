@@ -111,6 +111,11 @@ const darkCodeTheme = themes.dracula;
         '@docusaurus/plugin-client-redirects',
         {
           redirects: [
+            // 28.03.25 - temporary to avoid links breaking
+            {
+              to: '/docs/observability',
+              from: '/docs/observability/what-is-o11y',
+            },
           ],
         },
       ],
