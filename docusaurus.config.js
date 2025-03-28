@@ -104,9 +104,16 @@ const darkCodeTheme = themes.dracula;
         'https://platform.twitter.com/widgets.js'
     ],
     plugins: [
-        [require.resolve('docusaurus-lunr-search'), {
-            languages: ['en', 'no']
-        }],
+      [require.resolve('docusaurus-lunr-search'), {
+          languages: ['en', 'no']
+      }],
+      [
+        '@docusaurus/plugin-client-redirects',
+        {
+          redirects: [
+          ],
+        },
+      ],
     ],
   }
 );
