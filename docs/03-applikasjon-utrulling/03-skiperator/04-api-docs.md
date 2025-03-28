@@ -1581,8 +1581,8 @@ An enum value of `header` means that the JWT is present in the `Authorization` h
 An enum value of `cookie` means that the JWT is present as a cookie called `BearerToken`.
 
 If omitted, its default value depends on the provider type:
-- Defaults to "cookie" for providers supporting user login (e.g. IDPorten).
-- Defaults to "header" for providers not supporting user login (e.g. Maskinporten).<br/>
+  Defaults to "cookie" for providers supporting user login (e.g. IDPorten).
+  Defaults to "header" for providers not supporting user login (e.g. Maskinporten).<br/>
           <br/>
             <i>Enum</i>: header, cookie<br/>
         </td>
@@ -1938,8 +1938,8 @@ An enum value of `header` means that the JWT is present in the `Authorization` h
 An enum value of `cookie` means that the JWT is present as a cookie called `BearerToken`.
 
 If omitted, its default value depends on the provider type:
-- Defaults to "cookie" for providers supporting user login (e.g. IDPorten).
-- Defaults to "header" for providers not supporting user login (e.g. Maskinporten).<br/>
+  Defaults to "cookie" for providers supporting user login (e.g. IDPorten).
+  Defaults to "header" for providers not supporting user login (e.g. Maskinporten).<br/>
           <br/>
             <i>Enum</i>: header, cookie<br/>
         </td>
