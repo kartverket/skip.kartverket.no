@@ -1549,18 +1549,7 @@ The paths can also contain the wildcard operator '*', but only at the end.<br/>
         <td>[]object</td>
         <td>
           This field specifies a list of operations to copy the claim to HTTP headers on a successfully verified token.
-The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.
-```
-
-	outputClaimToHeaders:
-	- header: x-my-company-jwt-group
-	  claim: my-group
-	- header: x-test-environment-flag
-	  claim: test-flag
-	- header: x-jwt-claim-group
-	  claim: nested.key.group
-
-```<br/>
+The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1917,18 +1906,7 @@ The paths can also contain the wildcard operator '*', but only at the end.<br/>
         <td>[]object</td>
         <td>
           This field specifies a list of operations to copy the claim to HTTP headers on a successfully verified token.
-The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.
-```
-
-	outputClaimToHeaders:
-	- header: x-my-company-jwt-group
-	  claim: my-group
-	- header: x-test-environment-flag
-	  claim: test-flag
-	- header: x-jwt-claim-group
-	  claim: nested.key.group
-
-```<br/>
+The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.<br/>
         </td>
         <td>false</td>
       </tr><tr>
