@@ -116,6 +116,10 @@ const darkCodeTheme = themes.dracula;
               to: '/docs/observability',
               from: '/docs/observability/what-is-o11y',
             },
+            {
+              to: '/docs/observability/metrikker',
+              from: '/docs/observability/metrics-with-Grafana',
+            },
           ],
         },
       ],
