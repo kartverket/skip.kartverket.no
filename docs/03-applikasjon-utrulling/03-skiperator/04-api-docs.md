@@ -1207,8 +1207,6 @@ Defaults to 0644.
 Directories within the path are not affected by this setting.
 This might be in conflict with other options that affect the file
 mode, like fsGroup, and the result can be other mode bits set.<br/>
-          <br/>
-            <i>Default</i>: 420<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4220,8 +4218,6 @@ Defaults to 0644.
 Directories within the path are not affected by this setting.
 This might be in conflict with other options that affect the file
 mode, like fsGroup, and the result can be other mode bits set.<br/>
-          <br/>
-            <i>Default</i>: 420<br/>
         </td>
         <td>false</td>
       </tr><tr>
