@@ -2057,40 +2057,40 @@
     utility-types "^3.10.0"
     webpack "^5.88.1"
 
-"@grafana/faro-core@^1.14.1":
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-core/-/faro-core-1.14.1.tgz#89d73c5577a146af37f61d40d69027e576a0f462"
-  integrity sha512-wPQEJ3Ow4s5m+scrHUHAbwCTMoXlXgwdjtO5PCKCimaI5q4nzFHp5D2FpFGDul2WfRVzwWvkhX6A7CGTui/myw==
+"@grafana/faro-core@^1.14.3":
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-core/-/faro-core-1.14.3.tgz#cd09ff636c95c72b2bace00ae0ce02c246763900"
+  integrity sha512-NMoHMxzBcLKMRnX0vmWptP1NNLl1EyZNc6TyWKAysDcRi3z41o1FPE6Qmb583CPVo/Vbjp/2+e07knLScCdtjA==
   dependencies:
     "@opentelemetry/api" "^1.9.0"
     "@opentelemetry/otlp-transformer" "^0.57.1"
 
-"@grafana/faro-react@^1.14.1":
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-react/-/faro-react-1.14.1.tgz#6d35be84dd5a5560ac265fa19fe552e4b2059fa5"
-  integrity sha512-tmoQE6TUdlepizWUNjbtjU1/HBxO9rBHhwx9FvEh7qIJDkdJdZoE2lG3VTQPhT013WuT5rnTnsS6g3L1HoqYeA==
+"@grafana/faro-react@^1.14.3":
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-react/-/faro-react-1.14.3.tgz#edb8844b388c71b82c681cd14f3b76fee8e88c97"
+  integrity sha512-scYTzBpHdE5tfQgFw/+azuLkspskuYNxmJQdVqTWSLKWX1eIytuRwdPD+v64Kk+BvEuE79W12sK2lUJSUPyxOw==
   dependencies:
-    "@grafana/faro-web-sdk" "^1.14.1"
-    "@grafana/faro-web-tracing" "^1.14.1"
+    "@grafana/faro-web-sdk" "^1.14.3"
+    "@grafana/faro-web-tracing" "^1.14.3"
     hoist-non-react-statics "^3.3.2"
 
-"@grafana/faro-web-sdk@^1.14.1":
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-web-sdk/-/faro-web-sdk-1.14.1.tgz#dba04c524ec0445b717df921bc0f50f54eb83313"
-  integrity sha512-Ii1xdpYysBfHO7XbK05uCXGwskDzLH7CYSdXU2gC8loRDR5PiqPzEczzVFeNhzGRcQzcecYWMxOzeucXdhNilw==
+"@grafana/faro-web-sdk@^1.14.3":
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-web-sdk/-/faro-web-sdk-1.14.3.tgz#0d288e49ad2bd8c0fa05d7225a99a72616cb627c"
+  integrity sha512-uSHwCbz/Bh/VnjGoDDfgZdqOzmRSIrpU4EZGWCFM4ATEqmcU0vkthhbEXxB1w0xVlWX6G60GVs/n+7dG6cuiFA==
   dependencies:
-    "@grafana/faro-core" "^1.14.1"
+    "@grafana/faro-core" "^1.14.3"
     ua-parser-js "^1.0.32"
     web-vitals "^4.0.1"
 
-"@grafana/faro-web-tracing@^1.14.1":
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/@grafana/faro-web-tracing/-/faro-web-tracing-1.14.1.tgz#13b597f32e44d0a29344ef9ff67550a0b992a67d"
-  integrity sha512-fbsWIj6XCyRD3wd7FAYvxtMMtsN5/I8wb6ak4JCp2iNt2aEa7lhLNTM6r5hKq6oSe77vrl/bfgI51qEw+mdoNw==
+"@grafana/faro-web-tracing@^1.14.3":
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/@grafana/faro-web-tracing/-/faro-web-tracing-1.14.3.tgz#99878764ec1e6b0ed138fce8f1377a72d01f6ddd"
+  integrity sha512-XzAJJeXSWkAOkI1f1Gb9jZxXTfqyutJjt8gO6oa40iFKSwmFgjepgZ1KiPNb5KSLYZ15lg71wM93fFsOPQ/7Hg==
   dependencies:
-    "@grafana/faro-web-sdk" "^1.14.1"
+    "@grafana/faro-web-sdk" "^1.14.3"
     "@opentelemetry/api" "^1.9.0"
-    "@opentelemetry/core" "^1.30.0"
+    "@opentelemetry/core" "^2.0.0"
     "@opentelemetry/exporter-trace-otlp-http" "^0.57.0"
     "@opentelemetry/instrumentation" "^0.57.0"
     "@opentelemetry/instrumentation-fetch" "^0.57.0"
@@ -2319,12 +2319,19 @@
   resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.9.0.tgz#d03eba68273dc0f7509e2a3d5cba21eae10379fe"
   integrity sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==
 
-"@opentelemetry/core@1.30.1", "@opentelemetry/core@^1.30.0":
+"@opentelemetry/core@1.30.1":
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/@opentelemetry/core/-/core-1.30.1.tgz#a0b468bb396358df801881709ea38299fc30ab27"
   integrity sha512-OOCM2C/QIURhJMuKaekP3TRBxBKxG/TWWA0TL2J6nXUtDnuCtccy49LUJF8xPFXMX+0LMcxFpCo8M9cGY1W6rQ==
   dependencies:
     "@opentelemetry/semantic-conventions" "1.28.0"
+
+"@opentelemetry/core@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/core/-/core-2.0.0.tgz#37e9f0e9ddec4479b267aca6f32d88757c941b3a"
+  integrity sha512-SLX36allrcnVaPYG3R78F/UZZsBsvbc7lMCLx37LyH5MJ1KAAZ2E3mW9OAD3zGz0G8q/BtoS5VUrjzDydhD6LQ==
+  dependencies:
+    "@opentelemetry/semantic-conventions" "^1.29.0"
 
 "@opentelemetry/exporter-trace-otlp-http@^0.57.0":
   version "0.57.1"
@@ -2437,6 +2444,11 @@
   version "1.28.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/semantic-conventions/-/semantic-conventions-1.28.0.tgz#337fb2bca0453d0726696e745f50064411f646d6"
   integrity sha512-lp4qAiMTD4sNWW4DbKLBkfiMZ4jbAboJIGOQr5DvciMRI494OapieI9qiODpOt0XBr1LjIDy1xAGAnVs5supTA==
+
+"@opentelemetry/semantic-conventions@^1.29.0":
+  version "1.30.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/semantic-conventions/-/semantic-conventions-1.30.0.tgz#3a42c4c475482f2ec87c12aad98832dc0087dc9a"
+  integrity sha512-4VlGgo32k2EQ2wcCY3vEU28A0O13aOtHz3Xt2/2U5FAh9EfhD6t6DqL5Z6yAnRCntbTFDU4YfbpyzSlHNWycPw==
 
 "@pnpm/config.env-replace@^1.1.0":
   version "1.1.0"
@@ -8893,10 +8905,10 @@ postcss@^8.4.21, postcss@^8.4.24, postcss@^8.4.26, postcss@^8.4.38:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
-posthog-js@^1.231.0:
-  version "1.231.0"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.231.0.tgz#3e3ede543171c799bc16d074ca22beab933c1fba"
-  integrity sha512-8v3zRytQBg3KyKUPLy/9S5fw7ATeiKz3n3pLFxl1fQsV/a2mIt/MAwkIREZXTzi7mamsvtfXhSdggG7UYK/Ojw==
+posthog-js@^1.234.10:
+  version "1.234.10"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.234.10.tgz#5009cbea9e6f006216b19a5e1f2e25075e70f86d"
+  integrity sha512-PCwfDtvzuQU1PfMVxZ/G6K9vQmBZvoIlYjE+3e5trycCd70rKJbPKAQX5cg0bI5+z5HZTcUQdq1A/NvDsMFQeA==
   dependencies:
     core-js "^3.38.1"
     fflate "^0.4.8"
