@@ -601,7 +601,7 @@ Describes a rule for allowing your Application to route traffic to external appl
         <td><b>host</b></td>
         <td>string</td>
         <td>
-          <br/>
+          The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3651,7 +3651,7 @@ Describes a rule for allowing your Application to route traffic to external appl
         <td><b>host</b></td>
         <td>string</td>
         <td>
-          <br/>
+          The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
       </tr><tr>
