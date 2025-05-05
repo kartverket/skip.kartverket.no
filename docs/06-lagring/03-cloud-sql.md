@@ -114,8 +114,8 @@ Vi har laget et dashboard, sammen med DBAene, for monitorering av CloudSQL datab
 I tillegg så finnes også Googles standard dashboard og metrikker som man kan finne inne på CloudSQL ressursen i GCP consolen.
 
 For alarmering så brukes [grafana-alerts](https://github.com/kartverket/grafana-alerts) repoet som for alle andre type alerts. 
-Her har vi utviklet en [cloud_sql_alerts]() modul som gir dere et sett med standard alarmer.
-Metrikker vi baserer oss på blir hentet ut ved hjelp av [sql_exporter](https://github.com/justwatchcom/sql_exporter), disse metrikkene er hentet ut på grunnlag av predefinerte SQL spørringer som DBAene har definert. 
+Her har vi utviklet en [cloud_sql_alerts](https://github.com/kartverket/grafana-alerts/tree/main/modules/cloud_sql_alerts) modul som gir dere et sett med standard alarmer.
+Metrikker vi baserer oss på blir hentet ut ved hjelp av [sql_exporter](https://github.com/justwatchcom/sql_exporter), disse metrikkene er hentet ut på grunnlag av SQL-spørringer som DBAene har predefinert. 
 Ønskes det andre metrikker så ta kontakt med dem.
 
 Det er også tilgjengelig et sett med standardmetrikker fra Google gjennom grafana, for å bruke disse så gå inn i [explore view i grafana](https://monitoring.kartverket.cloud/explore).
