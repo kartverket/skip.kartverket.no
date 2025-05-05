@@ -107,6 +107,20 @@ Skiperator vil nå:
 - 'mounte' sertifikatene inn i filsystemet til poden, slik applikasjonen kan bruke de til å koble til databasen
 - laste inn passord hemmeligheten som en env variabel inn i poden, slik applikasjonen kan koble til databasen
 
+## Monitorering og alarmering
+> Fungerer bare dersom dere bruker høyere versjon enn 0.9.1 av [cloud_sql](https://github.com/kartverket/terraform-modules/wiki/cloud_sql) modulen.
+
+Vi har laget et dashboard, sammen med DBAene, for monitorering av CloudSQL databasene, som kan finne [her](https://monitoring.kartverket.cloud/d/aek9kpwgzv280f/dba-cloudsql?orgId=1&from=now-30m&to=now&timezone=browser&var-Env=prod&var-ProjectID=utviklerportal-prod-ba53&var-Instance=backstage-prod).
+I tillegg så finnes også Googles standard dashboard og metrikker som man kan finne inne på CloudSQL ressursen i GCP consolen.
+
+For alarmering så brukes [grafana-alerts](https://github.com/kartverket/grafana-alerts) repoet som for alle andre type alerts. 
+Her har vi utviklet en [cloud_sql_alerts]() modul som gir dere et sett med standard alarmer.
+Metrikker vi baserer oss på blir hentet ut ved hjelp av [sql_exporter](https://github.com/justwatchcom/sql_exporter), disse metrikkene er hentet ut på grunnlag av predefinerte SQL spørringer som DBAene har definert. 
+Ønskes det andre metrikker så ta kontakt med dem.
+
+Det er også tilgjengelig et sett med standardmetrikker fra Google gjennom grafana, for å bruke disse så gå inn i [explore view i grafana](https://monitoring.kartverket.cloud/explore).
+Velg `Google Cloud Monitoring` som datasource, og velg prosjektet ditt og Cloudsql som service. Se på `cloud_sql_alerts` modulen dersom du ønsker å se hvordan de kan brukes i en alert.
+
 ## Backup og katastrofehåndtering
 
 ### Backup
