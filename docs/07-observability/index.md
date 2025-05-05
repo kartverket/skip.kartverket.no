@@ -30,4 +30,5 @@ går akkurat nå.
 ## Andre nyttige ressurser
 
 - [Intro to o11y: What is Observability?](https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability)
+- [What is Observability?](https://www.dash0.com/faq/what-is-observability)
 - [Bloggen til Charity Majors](https://charity.wtf/tag/observability/)
