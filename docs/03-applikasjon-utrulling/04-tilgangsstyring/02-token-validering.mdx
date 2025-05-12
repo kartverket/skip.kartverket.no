@@ -9,11 +9,28 @@ og instruerer Istio til å sette opp en [Istio-sidecar](https://istio.io/latest/
 i hver `pod`.
 
 Fordelen med at hver `pod` har en `istio-sidecar` er at Istio introduserer flere nyttige CRD-er som kan berike kapabilitetene
-til `istio-sidecar`. SKIP benytter seg av `RequestAuthentication` til å validere tokens (JWT)
-til innkommende requests, og `AuthorizationPolicy` til å autorisere tilgang basert på claims.
+til `istio-sidecar`. To av disse CRD-ene er [`RequestAuthentication`](https://istio.io/latest/docs/reference/config/security/request_authentication/)
+og [`AuthorizationPolicy`](https://istio.io/latest/docs/reference/config/security/authorization-policy/), som blant annet kan brukes til å validere tokens (JWT) til innkommende requests og autorisere tilgang basert på claims.
 
+// TODO: Bytt bilde basert på light/dark mode
 ![Istio Sidecar Container Architecture](images/istio-sidecar.png)
 *Source: [Kube by Example](https://kubebyexample.com/learning-paths/istio/intro)*
+
+SKIP benytter seg av kubernetes operatoren [Ztoperator](https://github.com/kartverket/ztoperator) for å håndheve token-validering og grovkornet autorisasjon for tjenester som kjører på SKIP.
+
+Hvis man ønsker å benytte seg av SKIP sin løsning for å sette opp token-validering og grovkornet autorisasjon, har man to valg.
+Man kan benytte seg av [Skiperator](../03-skiperator/index.md) dersom man ønsker å holde konfigurasjonen nær Skiperator-manifestet.
+Alternativt kan man bruke CRD-en fra [Ztoperator](https://github.com/kartverket/ztoperator) direkte.
+
+<Tabs queryString={"operator"}>
+    <TabItem value="skiperator" label="Skiperator">
+
+    </TabItem>
+    <TabItem value="ztoperator" label="Ztoperator">
+
+    </TabItem>
+</Tabs>
+
 
 ## 🤖 Token-validering og grovkornet autorisasjon med Skiperator
 

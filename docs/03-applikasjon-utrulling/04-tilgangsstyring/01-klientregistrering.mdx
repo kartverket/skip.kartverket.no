@@ -12,11 +12,11 @@ fremfor å gruppere flere tjenester under én felles klient. Dette gir bedre kon
 
 Felles for alle identitetstilbydere på SKIP er at klientregistrering støttes fra plattformen ved hjelp av Kubernetes-operatorer.
 
-- [**Digdirator**](https://github.com/nais/digdirator) håndterer klientregistrering mot Digdir sine fellesløsninger, nemlig **ID-porten** og **Maskinporten**.
-- [**Azurerator**](https://github.com/nais/azurerator) tar seg av klientregistrering mot **Microsoft Entra ID** (tidligere kjent som Azure Active Directory).
+- [**Digdirator**](https://github.com/nais/digdirator) håndterer klientregistrering mot Digdir sine fellesløsninger: **ID-porten** og **Maskinporten**.
+- [**Azurerator**](https://github.com/nais/azurerator) håndterer klientregistrering mot **Microsoft Entra ID** (tidligere kjent som Azure Active Directory).
 
 Når man skal registrere en klient mot en eller flere av identitetstilbyderne, har man tre valg.
-Man kan benytte seg av [Skiperator](../03-skiperator/04-api-docs.md) dersom klientregistreringen hører til en SKIP-applikasjon.
+Man kan benytte seg av [Skiperator](../03-skiperator/index.md) dersom klientregistreringen hører til en SKIP-applikasjon.
 Alternativt kan man bruke CRD-ene fra [Digdirator](https://github.com/nais/digdirator) og [Azurerator](https://github.com/nais/azurerator) direkte.
 
 
@@ -24,63 +24,19 @@ Alternativt kan man bruke CRD-ene fra [Digdirator](https://github.com/nais/digdi
 <Tabs queryString={"operator"}>
     <TabItem value="skiperator" label="Skiperator">
 
-        Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten**, **Maskinporten** og **Entra ID**.
+        Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten** og **Maskinporten**.
+        Det jobbes også med et forenklet API for å registrere klienter mot **Entra ID**, men dette er ikke helt klart ennå.
 
         Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert som miljøvariabler i deploymenten til applikasjonen.
         Dette gjør at applikasjonen enkelt kan få tilgang til hemmelighetene i et kjøretidsmiljø.
 
         <Tabs queryString={"idp"}>
             <TabItem value="entraid" label="Entra ID">
-                [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å opprette an app-registrering i Entra ID
-                via spesifikasjonen til `Application`.
-
-                Eksempelet under oppretter en app-registrering i Entra ID med følgende konfigurasjon:
-                - Kun direkte medlemmer av gruppene `42acac87-d6e2-4d1c-ab7a-b8634f68fb6e` og `f749a88e-0811-4b73-95d4-18e7d8e348c9`
-                vil få tilgang til applikasjonen og gruppe ID-ene vil også inkluderes i `groups`-claimet i tokenet.
-                - App-registreringen `other-cluster:other-namespace-other-app` vil bli lagt til som en forhåndsautorisert app og få
-                tildelte app-rollen `app_role` og scopet `custom_scope`.
-                - Ettersom redirect URL-er ikke er eksplisitt spesifisert vil `https://an-ingress.com/oauth2/callback` og
-                `https://another-ingress.com/oauth2/callback` blir registrert som redirect URI-er.
-                - Ettersom logout URL ikke er eksplisitt spesifisert vil den første ingressen bli registrert som logout URL, i.e.
-                `https://an-ingress.com/oauth2/logout`.
-
-                Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
-
-```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
-kind: Application
-metadata:
-  name: application
-  namespace: tilgangsstyring-main
-spec:
-  image: image
-  port: 8080
-  ingresses:
-    - an-ingress.com
-    - another-ingress.com
-// diff-add-start
-  entraid:
-    enabled: true
-    claims:
-      groups:
-        - id: 42acac87-d6e2-4d1c-ab7a-b8634f68fb6e
-        - id: f749a88e-0811-4b73-95d4-18e7d8e348c9
-    preAuthorizedApplications:
-      - application: other-app
-        namespace: other-namespace
-        cluster: other-cluster
-        permissions:
-          roles:
-            - app_role
-          scopes:
-            - custom_scope
-// diff-add-end
-```
-
-
+               ### 🚧 UNDER UTVIKLING 🚧
+               Opprettelse av app-registrering i Entra ID via spesifikasjonen til `Application` jobbes med, men er ikke klart helt ennå.
             </TabItem>
             <TabItem value="idporten" label="ID-porten">
-                [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
+                [Skiperator](../03-skiperator/index.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
                 via spesifikasjonen til `Application`.
 
                 Eksempelet under setter opp en integrasjon mot ID-porten med følgende konfigurasjon.
@@ -110,7 +66,7 @@ spec:
 ```
             </TabItem>
             <TabItem value="maskinporten" label="Maskinporten">
-                [Skiperator](../03-skiperator/04-api-docs.md) tilbyr støtte for å sette opp en klientintegrasjon mot Maskinporten
+                [Skiperator](../03-skiperator/index.md) tilbyr støtte for å sette opp en klientintegrasjon mot Maskinporten
                 via spesifikasjonen til `Application`.
 
                 Eksempelet under setter opp en integrasjon mot Maskinporten med følgende konfigurasjon.
@@ -149,11 +105,11 @@ spec:
     </TabItem>
     <TabItem value="native" label="Digdirator / Azurerator">
 
-        Hvis man ønsker å registrere en klient fritt uten å knytte den til en Skiperator-applikasjon, kan man benytte seg av CRD-ene som Digdirator og Azurerator introduserer direkte.
-        Dette gjør det mulig å definere klientregistreringen uavhengig av en spesifikk applikasjon i Skiperator.
+        Hvis en ønsker å opprette en klientintegrasjon uten å knytte den til en Skiperator-applikasjon, kan man benytte seg av CRD-ene som Digdirator og Azurerator introduserer direkte.
+        Dette gjør det mulig å opprette og vedlikeholde klientregistreringen uavhengig av en spesifikk applikasjon i Skiperator.
 
         Fordelen med denne tilnærmingen er at man får full kontroll over konfigurasjonen og stor fleksibilitet ved å frikoble registreringen fra applikasjonen.
-        Ulempen er at det krever mer innsikt i oppsettet, og at injisering av hemmeligheter i deploymenten må håndteres separat.
+        Ulempen er at det krever mer innsikt i oppsettet, og at [injisering av hemmeligheter i deploymenten må håndteres separat](../03-skiperator/03-configuring.md#environment-variables).
 
         <Tabs queryString={"idp"}>
             <TabItem value="entraid" label="Entra ID">
