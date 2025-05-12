@@ -1,7 +1,5 @@
 # Cloud SQL for PostgreSQL
 
-> **MERK:** CloudSQL fungerer bare fra sky cluster (atgcp1-*)
-
 ## Oppsett av instanser med terraform
 
 SKIP har laget to terraform-moduler ([cloud_sql](https://github.com/kartverket/terraform-modules/tree/main/cloud_sql) og
