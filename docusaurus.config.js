@@ -121,9 +121,25 @@ const darkCodeTheme = themes.dracula;
         'https://platform.twitter.com/widgets.js'
     ],
     plugins: [
-        [require.resolve('docusaurus-lunr-search'), {
-            languages: ['en', 'no']
-        }],
+      [require.resolve('docusaurus-lunr-search'), {
+          languages: ['en', 'no']
+      }],
+      [
+        '@docusaurus/plugin-client-redirects',
+        {
+          redirects: [
+            // 28.03.25 - temporary to avoid links breaking
+            {
+              to: '/docs/observability',
+              from: '/docs/observability/what-is-o11y',
+            },
+            {
+              to: '/docs/observability/metrikker',
+              from: '/docs/observability/metrics-with-Grafana',
+            },
+          ],
+        },
+      ],
     ],
   }
 );

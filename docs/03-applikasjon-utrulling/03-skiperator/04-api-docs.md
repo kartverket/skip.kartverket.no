@@ -601,7 +601,7 @@ Describes a rule for allowing your Application to route traffic to external appl
         <td><b>host</b></td>
         <td>string</td>
         <td>
-          <br/>
+          The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -662,9 +662,9 @@ A custom port describing an external host
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
-          The protocol to use for communication with the host. Only HTTP, HTTPS and TCP are supported.<br/>
+          The protocol to use for communication with the host. Supported protocols are: HTTP, HTTPS, TCP and TLS.<br/>
           <br/>
-            <i>Enum</i>: HTTP, HTTPS, TCP<br/>
+            <i>Enum</i>: HTTP, HTTPS, TCP, TLS<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -1197,6 +1197,19 @@ NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b>defaultMode</b></td>
+        <td>integer</td>
+        <td>
+          defaultMode is optional: mode bits used to set permissions on created files by default.
+Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511.
+YAML accepts both octal and decimal values, JSON requires decimal values for mode bits.
+Defaults to 0644.
+Directories within the path are not affected by this setting.
+This might be in conflict with other options that affect the file
+mode, like fsGroup, and the result can be other mode bits set.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>emptyDir</b></td>
         <td>string</td>
         <td>
@@ -1334,12 +1347,19 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
         </td>
         <td>true</td>
       </tr><tr>
+        <td><b>publicIP</b></td>
+        <td>boolean</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Default</i>: false<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>version</b></td>
         <td>string</td>
         <td>
           Image version for the CloudSQL proxy sidecar.<br/>
-          <br/>
-            <i>Default</i>: 2.8.0<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -1367,7 +1387,7 @@ Settings for IDPorten integration with Digitaliseringsdirektoratet
         <td>boolean</td>
         <td>
           Whether to enable provisioning of an ID-porten client.
-If enabled, an ID-porten client be provisioned.<br/>
+If enabled, an ID-porten client will be provisioned.<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -1387,7 +1407,7 @@ If unspecified, defaults to `3600` seconds (1 hour).<br/>
         <td>string</td>
         <td>
           The name of the Client as shown in Digitaliseringsdirektoratet's Samarbeidsportal
-Meant to be a human-readable name for separating clients in the portal<br/>
+Meant to be a human-readable name for separating clients in the portal.<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1442,6 +1462,13 @@ has been initiated and performed by the application.<br/>
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b><a href="#applicationspecidportenrequestauthentication">requestAuthentication</a></b></td>
+        <td>object</td>
+        <td>
+          RequestAuthentication specifies how incoming JWTs should be validated.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>scopes</b></td>
         <td>[]string</td>
         <td>
@@ -1472,6 +1499,130 @@ Note: Attempting to refresh the user's `access_token` beyond this timeout will y
 </table>
 
 
+### Application.spec.idporten.requestAuthentication
+<sup><sup>[↩ Parent](#applicationspecidporten)</sup></sup>
+
+
+
+RequestAuthentication specifies how incoming JWTs should be validated.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>enabled</b></td>
+        <td>boolean</td>
+        <td>
+          Whether to enable JWT validation.
+If enabled, incoming JWTs will be validated against the issuer specified in the app registration and the generated audience.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>forwardJwt</b></td>
+        <td>boolean</td>
+        <td>
+          If set to `true`, the original token will be kept for the upstream request. Defaults to `true`.<br/>
+          <br/>
+            <i>Default</i>: true<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>ignorePaths</b></td>
+        <td>[]string</td>
+        <td>
+          IgnorePaths specifies paths that do not require an authenticated JWT.
+
+The specified paths must be a valid URI path. It has to start with '/' and cannot end with '/'.
+The paths can also contain the wildcard operator '*', but only at the end.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#applicationspecidportenrequestauthenticationoutputclaimtoheadersindex">outputClaimToHeaders</a></b></td>
+        <td>[]object</td>
+        <td>
+          This field specifies a list of operations to copy the claim to HTTP headers on a successfully verified token.
+The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>paths</b></td>
+        <td>[]string</td>
+        <td>
+          Paths specifies paths that require an authenticated JWT.
+
+The specified paths must be a valid URI path. It has to start with '/' and cannot end with '/'.
+The paths can also contain the wildcard operator '*', but only at the end.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>secretName</b></td>
+        <td>string</td>
+        <td>
+          The name of the Kubernetes Secret containing OAuth2 credentials.
+
+If omitted, the associated client registration in the application manifest is used for JWT validation.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>tokenLocation</b></td>
+        <td>enum</td>
+        <td>
+          Where to find the JWT in the incoming request
+
+An enum value of `header` means that the JWT is present in the `Authorization` header as a `Bearer` token.
+An enum value of `cookie` means that the JWT is present as a cookie called `BearerToken`.
+
+If omitted, its default value depends on the provider type:
+  Defaults to "cookie" for providers supporting user login (e.g. IDPorten).
+  Defaults to "header" for providers not supporting user login (e.g. Maskinporten).<br/>
+          <br/>
+            <i>Enum</i>: header, cookie<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.idporten.requestAuthentication.outputClaimToHeaders[index]
+<sup><sup>[↩ Parent](#applicationspecidportenrequestauthentication)</sup></sup>
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>claim</b></td>
+        <td>string</td>
+        <td>
+          The claim to be copied.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>header</b></td>
+        <td>string</td>
+        <td>
+          The name of the HTTP header for which the specified claim will be copied to.<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
 ### Application.spec.istioSettings
 <sup><sup>[↩ Parent](#applicationspec)</sup></sup>
 
@@ -1491,12 +1642,70 @@ By default, tracing is enabled with a random sampling percentage of 10%.
         </tr>
     </thead>
     <tbody><tr>
+        <td><b><a href="#applicationspecistiosettingsretries">retries</a></b></td>
+        <td>object</td>
+        <td>
+          Retries is configurable automatic retries for requests towards the application.
+By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled,5xx" will be retried.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b><a href="#applicationspecistiosettingstelemetry">telemetry</a></b></td>
         <td>object</td>
         <td>
           Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.<br/>
           <br/>
             <i>Default</i>: map[tracing:[map[randomSamplingPercentage:10]]]<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.istioSettings.retries
+<sup><sup>[↩ Parent](#applicationspecistiosettings)</sup></sup>
+
+
+
+Retries is configurable automatic retries for requests towards the application.
+By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled,5xx" will be retried.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>attempts</b></td>
+        <td>integer</td>
+        <td>
+          Attempts is the number of retries to be allowed for a given request before giving up. The interval between retries will be determined automatically (25ms+).
+Default is 2<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Minimum</i>: 1<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>perTryTimeout</b></td>
+        <td>string</td>
+        <td>
+          PerTryTimeout is the timeout per attempt for a given request, including the initial call and any retries. Format: 1h/1m/1s/1ms. MUST be >=1ms.
+Default: no timeout<br/>
+          <br/>
+            <i>Format</i>: duration<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>retryOnHttpResponseCodes</b></td>
+        <td>[]int or string</td>
+        <td>
+          RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is [503].
+You may also use 5xx and retriable-4xx (only 409).<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -1688,12 +1897,143 @@ Meant to be a human-readable name for separating clients in the portal<br/>
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b><a href="#applicationspecmaskinportenrequestauthentication">requestAuthentication</a></b></td>
+        <td>object</td>
+        <td>
+          RequestAuthentication specifies how incoming JWTs should be validated.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b><a href="#applicationspecmaskinportenscopes">scopes</a></b></td>
         <td>object</td>
         <td>
           Schema to configure Maskinporten clients with consumed scopes and/or exposed scopes.<br/>
         </td>
         <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.maskinporten.requestAuthentication
+<sup><sup>[↩ Parent](#applicationspecmaskinporten)</sup></sup>
+
+
+
+RequestAuthentication specifies how incoming JWTs should be validated.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>enabled</b></td>
+        <td>boolean</td>
+        <td>
+          Whether to enable JWT validation.
+If enabled, incoming JWTs will be validated against the issuer specified in the app registration and the generated audience.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>forwardJwt</b></td>
+        <td>boolean</td>
+        <td>
+          If set to `true`, the original token will be kept for the upstream request. Defaults to `true`.<br/>
+          <br/>
+            <i>Default</i>: true<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>ignorePaths</b></td>
+        <td>[]string</td>
+        <td>
+          IgnorePaths specifies paths that do not require an authenticated JWT.
+
+The specified paths must be a valid URI path. It has to start with '/' and cannot end with '/'.
+The paths can also contain the wildcard operator '*', but only at the end.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#applicationspecmaskinportenrequestauthenticationoutputclaimtoheadersindex">outputClaimToHeaders</a></b></td>
+        <td>[]object</td>
+        <td>
+          This field specifies a list of operations to copy the claim to HTTP headers on a successfully verified token.
+The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>paths</b></td>
+        <td>[]string</td>
+        <td>
+          Paths specifies paths that require an authenticated JWT.
+
+The specified paths must be a valid URI path. It has to start with '/' and cannot end with '/'.
+The paths can also contain the wildcard operator '*', but only at the end.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>secretName</b></td>
+        <td>string</td>
+        <td>
+          The name of the Kubernetes Secret containing OAuth2 credentials.
+
+If omitted, the associated client registration in the application manifest is used for JWT validation.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>tokenLocation</b></td>
+        <td>enum</td>
+        <td>
+          Where to find the JWT in the incoming request
+
+An enum value of `header` means that the JWT is present in the `Authorization` header as a `Bearer` token.
+An enum value of `cookie` means that the JWT is present as a cookie called `BearerToken`.
+
+If omitted, its default value depends on the provider type:
+  Defaults to "cookie" for providers supporting user login (e.g. IDPorten).
+  Defaults to "header" for providers not supporting user login (e.g. Maskinporten).<br/>
+          <br/>
+            <i>Enum</i>: header, cookie<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.maskinporten.requestAuthentication.outputClaimToHeaders[index]
+<sup><sup>[↩ Parent](#applicationspecmaskinportenrequestauthentication)</sup></sup>
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>claim</b></td>
+        <td>string</td>
+        <td>
+          The claim to be copied.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>header</b></td>
+        <td>string</td>
+        <td>
+          The name of the HTTP header for which the specified claim will be copied to.<br/>
+        </td>
+        <td>true</td>
       </tr></tbody>
 </table>
 
@@ -3369,7 +3709,7 @@ Describes a rule for allowing your Application to route traffic to external appl
         <td><b>host</b></td>
         <td>string</td>
         <td>
-          <br/>
+          The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3430,9 +3770,9 @@ A custom port describing an external host
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
-          The protocol to use for communication with the host. Only HTTP, HTTPS and TCP are supported.<br/>
+          The protocol to use for communication with the host. Supported protocols are: HTTP, HTTPS, TCP and TLS.<br/>
           <br/>
-            <i>Enum</i>: HTTP, HTTPS, TCP<br/>
+            <i>Enum</i>: HTTP, HTTPS, TCP, TLS<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -3926,6 +4266,19 @@ NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b>defaultMode</b></td>
+        <td>integer</td>
+        <td>
+          defaultMode is optional: mode bits used to set permissions on created files by default.
+Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511.
+YAML accepts both octal and decimal values, JSON requires decimal values for mode bits.
+Defaults to 0644.
+Directories within the path are not affected by this setting.
+This might be in conflict with other options that affect the file
+mode, like fsGroup, and the result can be other mode bits set.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>emptyDir</b></td>
         <td>string</td>
         <td>
@@ -4065,12 +4418,19 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
         </td>
         <td>true</td>
       </tr><tr>
+        <td><b>publicIP</b></td>
+        <td>boolean</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Default</i>: false<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b>version</b></td>
         <td>string</td>
         <td>
           Image version for the CloudSQL proxy sidecar.<br/>
-          <br/>
-            <i>Default</i>: 2.8.0<br/>
         </td>
         <td>false</td>
       </tr></tbody>
