@@ -1,4 +1,4 @@
-# 🔐 Tilgangsstyring i SKIP
+# 🔐 Tilgangsstyring på SKIP
 
 SKIP tilbyr innebygd støtte for tilgangsstyring gjennom tre identitetstilbydere: [Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/fundamentals/whatis) (tildligere kalt Azure Active Directory), [ID-porten](https://www.digdir.no/felleslosninger/id-porten/864) og [Maskinporten](https://www.digdir.no/felleslosninger/maskinporten/869).
 
