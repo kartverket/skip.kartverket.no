@@ -6,7 +6,7 @@ Denne siden er under utarbeidelse og er et samarbeid mellom utvikling og sikkerh
 
 For å eksponere en applikasjon som kjører på SKIP mot internett må man:
 
-- Opprette en DNS-record som ikke er under statkart.no-domenet, f.eks. `applikasjonX.kartverket.no` . Det gjøres ved å opprette en ticket i [PureService](https://kartverket.pureservice.com/) og be om at dette domenet skal peke mot SKIP-lastbalansereren (lb01.kartverket.no)
+- Opprette en DNS-record som ikke er under statkart.no-domenet, f.eks. `applikasjonX.kartverket.no` . Det gjøres ved å opprette en ticket i [PureService](https://kartverket.pureservice.com/) og be om at dette domenet skal ha et CNAME som peker mot SKIP-lastbalansereren (atkv3-prod.kartverket.cloud for on-prem og atgcp1-prod.kartverket.cloud for sky)
 - Legge til det nye domenenavnet under `ingresses` i [Skiperator-manifestet](https://github.com/kartverket/skiperator?tab=readme-ov-file#application-reference) eller `hostname` for [Routing-manifestet](https://github.com/kartverket/skiperator?tab=readme-ov-file#routing-reference) , slik at applikasjonen registrerer seg mot ekstern ingress gateway
 
 Før dette kan gjøres må man gå igjennom denne sjekklisten:
