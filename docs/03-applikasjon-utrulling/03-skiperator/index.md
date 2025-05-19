@@ -1,19 +1,15 @@
 # 🤖 Skiperator
 
-Skiperator is an operator intended to make the setup of applications simple from the users' point of view.
-You can look at it as a replacement of Helm, but with a more Kubernetes-native approach.
-Skiperator is developed by SKIP for the Kubernetes platform and is based on the Operator SDK, which is a framework that uses the controller-runtime library to make writing operators easier.
+Skiperator er en operator som er ment å gjøre oppsettet av applikasjoner enkelt fra brukernes synspunkt. Du kan se på det som en erstatning for Helm, men med en mer Kubernetes-native tilnærming. Skiperator er utviklet av SKIP for Kubernetes-plattformen og er basert på Operator SDK, som er et rammeverk som bruker controller-runtime-biblioteket for å gjøre det enklere å skrive operatorer.
 
-The operator is designed to be used by application developers to deploy their applications and jobs into a Kubernetes cluster.
-It will create all the necessary resources for the application to run, such as deployments, services, and ingress resources,
-and also handle security aspects like setting up network policies and service accounts so you as a developer don't have to worry about it.
+Operatoren er designet for applikasjonsutviklere for å distribuere applikasjoner og jobber i en Kubernetes. Den vil opprette alle nødvendige ressurser for at applikasjonen skal kunne kjøre, slik som deployment, services og ingress-ressurser, og også håndtere sikkerhetsaspekter som å sette opp nettverkspolicyer og servicekontoer slik at du som utvikler ikke trenger å bekymre deg for det.
 
-Logs and metrics will be automatically available on [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud)
+Logger og metrikker vil også automatisk tilgjengeliggjøres på [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud)
 
-Skiperator offers three CRDs (Custom Resource Definitions) to make it easy to deploy applications and jobs into a Kubernetes cluster:
+Skiperator har tre CRDs (Custom Resource Definitions) for å gjøre det lettere å deploye en applikasjon, en jobb eller dirigere trafikk:
 
-- `Application` - for deploying applications
-- `SKIPJob` - for running jobs and cron jobs
-- `Routing` - for setting up routing rules, for example frontend and backend services under the same domain
+- `Application` - Deployment av applikasjoner og medhørende ressurser
+- `SKIPJob` - For å opprette kubernetes-jobber
+- `Routing` - For å kunne route trafikk til samme domene/sub-domene til forskjellige applikasjoner
 
-To get started check out the [Requirements](01-requirements.md) and [Getting started](02-get-started.md) pages.
+For å komme i gang: [Requirements](01-requirements.md) og [Getting started](02-get-started.md) pages.

@@ -1,8 +1,8 @@
 # Getting started
 
-This is a quick intro on how to configure a simple application, SKIPJob and Routing using Skiperator.
-Before you start here you should have gone through the [Requirements](01-requirements.md) page.
+Dette er en rask intro til konfigurasjon av en enkel Application, SKIPJob og Routing med skiperator. Før du begynner bør du ha vært igjennom [Krav](01-requirements.md) siden.
 
+Dette er bare eksempel, og de fleste team bruker [templates]() for å gjøre det lettere
 These are just simple examples. Teams usually use libsonnet to generate the yaml files for the CRDs.
 For more detailed information on how to configure the CRDs see the [configuring](03-configuring.md) for more common use cases and [API docs](04-api-docs.md) for complete documentation.
 

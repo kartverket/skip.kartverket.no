@@ -1,29 +1,26 @@
-# Requirements
+# Krav
 
-In order to deploy your applications and jobs to SKIP, you and your team need to have some prerequisites in place.
+For å deploye applikasjonene og jobbene dine til SKIP, må du og teamet ditt ha noen forutsetninger på plass.
 
-## Application and job requirements
+## Applikasjon og jobb
 
-First of all your applications and jobs need to be containerized. This means that your application or job needs to be packaged in a linux container image that can be run in a Kubernetes cluster.
-In SKIP we recommend to use the [scratch](https://hub.docker.com/_/scratch) image as a base image for your application or job. This is a minimal image that only contains the necessary files to run your application or job.
+Først og fremst må applikasjonene og jobbene dine være container-baserte. Dette betyr at applikasjonen eller jobben din må være pakket i et Linux-container image som kan kjøres i Kubernetes. I SKIP anbefaler vi å bruke [scratch](https://hub.docker.com/_/scratch) som base for applikasjonen eller jobben din. Dette er et minimalt image som kun inneholder de nødvendige filene for å kjøre applikasjonen eller jobben din.
 
-Next the image needs to be hosted in a container registry that is accessible from the Kubernetes cluster.
-In SKIP we use [github](../07-github/index.md) as our container registry. It doesn't matter if the image is publicly available or private, as long as the repository is under the Kartverket organization.
+Deretter må bildet være hostet i et containerregister som er tilgjengelig fra Kubernetes. I SKIP bruker vi [github](../07-github/index.md) som vårt containerregister. Det spiller ingen rolle om bildet er offentlig tilgjengelig eller privat, så lenge repoet er under Kartverket-organisasjonen.
 
-## CI CD requirements
+## CI CD
 
-In order to deploy your application you need to have set up a CI/CD pipeline that builds and pushes your container image to the container registry.
-As previously mentioned, in SKIP we use github as the repository. You can read more about how to set up a CI/CD pipeline in the [github actions](../08-github-actions/index.md) documentation.
+For å deployere applikasjonen din må du ha satt opp en CI/CD-pipeline som bygger og pusher container image til containerregisteret. Som tidligere nevnt, bruker vi github til dette i SKIP. Du kan lese mer om hvordan du setter opp en CI/CD-pipeline i [github actions](../08-github-actions/index.md) dokumentasjonen.
 
-We also need to set up Argo CD for deployment of the application. You can read more about how to set up Argo CD in the [Argo CD](../09-argo-cd/index.md) documentation.
+Vi må også sette opp [Argo CD](../09-argo-cd/index.md)  for distribusjon av applikasjonen. Du kan lese mer om hvordan du setter opp Argo CD i Argo CD-dokumentasjonen.
 
-## Summary
+## Oppsummering
 
-So to summarize, in order to use Skiperator and run your applications in SKIP you need to have the following in place:
+For å bruke Skiperator og kjøre en applikasjon må følgende være på plass:
 
-- Your application or job needs to be containerized
-- The container image needs to be hosted in a container registry that is accessible from the Kubernetes cluster (github)
-- A CI/CD pipeline that builds and pushes the container image to the container registry
-- Argo CD set up for deployment of the application from a `team-apps` repository
+- Applikasjonen eller jobben må være pakket i en konatiner.
+- Containerimage må være hostet i et register som kan nås fra kubernetes clusteret til SKIP (vi bruker github).
+- En CI/CD løype som bygger og pusher container image til nevnte containerregistry
+- Et `team-apps`repo i github som er koblet til Argo CD for å deployere applikasjonskontainer.
 
-Now that you have the prerequisites in place you can move on to the [Getting started](02-get-started) page to learn how to deploy your application or job to SKIP.
+Når disse er på plass kan du gå videre til ["kom i gang"](02-get-started) siden for å lære hvordan man deployerer en applikasjon på SKIP.
