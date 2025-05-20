@@ -601,7 +601,7 @@ Describes a rule for allowing your Application to route traffic to external appl
         <td><b>host</b></td>
         <td>string</td>
         <td>
-          <br/>
+          The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -1642,12 +1642,70 @@ By default, tracing is enabled with a random sampling percentage of 10%.
         </tr>
     </thead>
     <tbody><tr>
+        <td><b><a href="#applicationspecistiosettingsretries">retries</a></b></td>
+        <td>object</td>
+        <td>
+          Retries is configurable automatic retries for requests towards the application.
+By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled,5xx" will be retried.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b><a href="#applicationspecistiosettingstelemetry">telemetry</a></b></td>
         <td>object</td>
         <td>
           Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.<br/>
           <br/>
             <i>Default</i>: map[tracing:[map[randomSamplingPercentage:10]]]<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### Application.spec.istioSettings.retries
+<sup><sup>[↩ Parent](#applicationspecistiosettings)</sup></sup>
+
+
+
+Retries is configurable automatic retries for requests towards the application.
+By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled,5xx" will be retried.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>attempts</b></td>
+        <td>integer</td>
+        <td>
+          Attempts is the number of retries to be allowed for a given request before giving up. The interval between retries will be determined automatically (25ms+).
+Default is 2<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Minimum</i>: 1<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>perTryTimeout</b></td>
+        <td>string</td>
+        <td>
+          PerTryTimeout is the timeout per attempt for a given request, including the initial call and any retries. Format: 1h/1m/1s/1ms. MUST be >=1ms.
+Default: no timeout<br/>
+          <br/>
+            <i>Format</i>: duration<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>retryOnHttpResponseCodes</b></td>
+        <td>[]int or string</td>
+        <td>
+          RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is [503].
+You may also use 5xx and retriable-4xx (only 409).<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -3651,7 +3709,7 @@ Describes a rule for allowing your Application to route traffic to external appl
         <td><b>host</b></td>
         <td>string</td>
         <td>
-          <br/>
+          The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
       </tr><tr>
