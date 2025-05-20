@@ -150,6 +150,14 @@ Skiperator vil nå:
 - 'mounte' sertifikatene inn i filsystemet til poden, slik applikasjonen kan bruke de til å koble til databasen
 - laste inn passord hemmeligheten som en env variabel inn i poden, slik applikasjonen kan koble til databasen
 
+### Bruke CloudSQL fra Java applikasjoner
+
+Skal du bruke CloudSQL fra Java applikasjoner må du lage til ExternalSecrets og konfigurere skiperator som ovenfor, 
+men bruk pk8 nøkkel istedenfor vanlig pem nøkkel. 
+Det skal være nok å konfigurere en connection string som ser noe slik ut `postgresql://<privat-ip>:5432/<database-navn>?sslmode=require&sslrootcert=/app/db-certs/server.crt&sslcert=/app/db-certs/client.crt&sslkey=/app/db-certs/client.pk8`
+
+Alternativt kan man også bruke en [Cloud Sql Auth Proxy connector](https://cloud.google.com/sql/docs/postgres/connect-auth-proxy#languages), men da vil man få litt dårligere ytelse.
+Bruker man en connector så slipper man å bruke certs, men man må åpne for port 3307 mot databasen i access policies i skiperator manifestet.
 
 ## Monitorering og alarmering
 > Fungerer bare dersom dere bruker høyere versjon enn 0.9.1 av [cloud_sql](https://github.com/kartverket/terraform-modules/wiki/cloud_sql) modulen.
