@@ -10,7 +10,8 @@ Dokumentasjon for hvordan modulene brukes finnes på wiki-siden til [terraform-m
 Spesielt guiden for [hvordan bruke terraform-modules repoet](https://github.com/kartverket/terraform-modules/wiki/Hvordan-bruke-dette-repoet) er relevant.
 
 ### cloud_sql modulen
-Denne er ganske rett fram å bruke, se github wikien som er linket over for mer valg. 
+> For mer utfyllende dokumentasjon se [cloud_sql wiki](https://github.com/kartverket/terraform-modules/tree/main/cloud_sql)
+
 ```hcl
 module "cloudsql_test" {
   source        = "git@github.com:kartverket/terraform-modules.git/?ref=cloud_sql/v0.10.0"
@@ -21,20 +22,20 @@ module "cloudsql_test" {
 ```
 
 Du kan koble deg til på denne måten: 
-1. JIT deg til cloudsql.Admin
+1. JIT deg til cloudsql.admin
 2. Last ned [cloudsql-proxy](https://cloud.google.com/sql/docs/postgres/connect-instance-auth-proxy#install-proxy)
 3. `gcloud auth application-default login`
 4. `./cloud-sql-proxy --private-ip <connection-name> --auto-iam-authn` -- connection name finner du på sql instansen i GCP
 5. `psql -d admin -h localhost -U admin` eller fra applikasjon
 
-Man må være på Kartverkets nettverk for å få tilgang, selv med cloud sql proxy. Man kan ikke koble til fra egen klient uten proxy.
+Du må være på Kartverkets nettverk for å få tilgang, selv med cloud sql proxy. Man kan ikke koble til fra egen klient uten proxy.
 Du trenger ikke å bruke SSL sertifikater når du kobler til via proxy.
 
 ### cloud_sql_config modulen og konfigurering av brukere
 > For mer utfyllende dokumentasjon se [cloud_sql_config wiki](https://github.com/kartverket/terraform-modules/wiki/cloud_sql_config)
 
 Denne modulen er laget for konfigurasjon av postgres instanser. Vi har laget denne for å gjøre konfigurering av databaser enklest mulig for dere,
-og for å unngå "clickops".   
+og for å unngå "click-ops".   
 Det er noen ting dere bør tenke over før dere tar denne i bruk:
 1. Den burde bare brukes på en ny instans. Å importere eksisterende databaser, brukere og skjemaer er noe vi fraråder
 2. Feil bruk av denne modulen kan slette brukere, secrets og hele databasen inkludert all data. Sjekk alltid PLAN før du applyer.
