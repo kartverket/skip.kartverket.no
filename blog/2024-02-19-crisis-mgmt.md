@@ -3,11 +3,7 @@ title: Crisis Management Exercises
 description: >
     Crisis management and disaster recovery exercises are a great way to learn and to refine your processes and documentation! You should do it too!
 slug: crisis-management-exercises
-authors:
-  - name: Thomas Berg
-    title: Team Lead and Platform Developer
-    url: https://github.com/berg-thom
-    image_url: https://github.com/berg-thom.png
+authors: [thomasberg]
 tags: [crisis-management, disaster-recovery, exercises]
 image: /img/crisis_3.jpeg
 hide_table_of_contents: false
