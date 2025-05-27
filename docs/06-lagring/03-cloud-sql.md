@@ -31,6 +31,8 @@ Man må være på Kartverkets nettverk for å få tilgang, selv med cloud sql pr
 Du trenger ikke å bruke SSL sertifikater når du kobler til via proxy.
 
 ### cloud_sql_config modulen og konfigurering av brukere
+> For mer utfyllende dokumentasjon se [cloud_sql_config wiki](https://github.com/kartverket/terraform-modules/wiki/cloud_sql_config)
+
 Denne modulen er laget for konfigurasjon av postgres instanser. Vi har laget denne for å gjøre konfigurering av databaser enklest mulig for dere,
 og for å unngå "clickops".   
 Det er noen ting dere bør tenke over før dere tar denne i bruk:
@@ -40,6 +42,55 @@ Det er noen ting dere bør tenke over før dere tar denne i bruk:
 
 Eksempel config: 
 ```hcl
+module "cloudsql_config" {
+  source            = "git@github.com:kartverket/terraform-modules.git/?ref=cloud_sql_config/v0.7.0"
+  gcp_instance_name = module.cloudsql_test.cloud_sql_instance_name
+  gcp_project_id    = module.cloudsql_test.gcp_project_id
+  env               = "prod"
+  databases = {
+    "backstage" = {
+      name            = "backstage"
+      owner           = "backstage"
+      extensions      = ["pgcrypto", "postgis"]
+      prevent_destroy = true
+      # Denne variabelen må IKKE endres uten at dere er klare til å migrere state manuelt.
+      schemas = [
+        {
+          name = "backstage"
+          migration_user = {
+            name = "backstage_migrater" # migration_user blir eier av skjemaet som opprettes
+          }
+          application_user = {
+            name = "backstage_app" # application user får CRUD privilegier
+          }
+          misc_users = [
+            {
+              name       = "readonly"
+              privileges = ["SELECT"]
+            }
+          ]
+        },
+        {
+          name         = "opencost"
+          unified_user = true
+          migration_user = {
+            name = "opencost_migrater" # ignoreres, fordi vi har unified_user = true, men den må settes likevel
+          }
+          application_user = {
+            name       = "opencost_app"
+            privileges = ["SELECT", "UPDATE"] # ignoreres, app user blir owner av skjemaet fordi unified_user er true
+          }
+          misc_users = [
+            {
+              name       = "readonly"
+              privileges = ["SELECT"]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
 ```
 
 For hver bruker så vil modulen generere opp et klient sertifikat og en privatnøkkel, disse legges i GSM.
