@@ -6,5 +6,5 @@ Google-produkter selv om applikasjonen kjører på et on-premise cluster. Man ka
 
 For å kunne logge på GCP med Kartverket-brukeren må brukeren være medlem i en `AAD - TF - TEAM -` gruppe i EntraID.
 Dette er beskrevet i [Legge til eller fjerne personer fra et team](./05-add-remove-team-member.md)
-Sjekk [onboarding-dokumentasjonen](https://skip.kartverket.no/docs/generelt/onboarding-new-teams#under-onboarding) om du
+Sjekk [onboarding-dokumentasjonen](./onboarding-new-teams#under-onboarding) om du
 ikke allerede har gjort dette. Har du nettopp blitt onboardet kan det ta opptil en time før gruppen er synket inn i GCP.
