@@ -28,4 +28,4 @@ accessPolicy:
 
 ## Database i sky
 
-Se [Cloud SQL for PostgreSQL](../05-gcp/04-cloud-sql.md) for mer informasjon om hvordan sette opp og ta bruk Cloud SQL for PostgreSQL.
+Se [Cloud SQL for PostgreSQL](./03-cloud-sql.md) for mer informasjon om hvordan sette opp og ta bruk Cloud SQL for PostgreSQL.
