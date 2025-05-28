@@ -13,7 +13,7 @@ For å kunne eksponere metrikker fra applikasjonen må du gjøre følgende:
 
 * Eksponer metrikker på et eget endepunkt, f.eks. `/metrics`. Det beste her er også å eksponere metrikker på en egen port for å unngå at endepunktet uheldigvis eksponeres eksternt. Om du ikke kan gjøre dette, ta kontakt med SKIP for å sammen sørge for at data ikke eksponeres eksternt.
 
-*  Endre `Skiperator`-manifestet ved å legge til en ekstra port og tillate innhenting av metrikker;
+* Endre `Skiperator`-manifestet ved å legge til en ekstra port og tillate innhenting av metrikker;
 
     ```yaml
     apiVersion: skiperator.kartverket.no/v1alpha1
@@ -54,14 +54,12 @@ Se også:
 
 ## Lag spørringer i Explore
 
-[Explore](https://monitoring.kartverket.cloud/explore) lar deg videreforedle spørringer, eksperimentere og grave raskt. 
+[Explore](https://monitoring.kartverket.cloud/explore) lar deg videreforedle spørringer, eksperimentere og grave raskt.
 
 ![Grafana Explore mode](./images/grafana-explore.png)
 
 Her kan du gjøre spørringer i split screen fra ulike datakilder, korrelere data fra både logger, metrikker og traces, samt legge ferdige spørringer som paneler i dashboards.
 
-
 Se også:
 
 * 📚 [Grafanas dokumentasjon](https://grafana.com/docs/grafana/latest/explore/get-started-with-explore/)
-

@@ -6,11 +6,7 @@ description: >
   service and security? Kartverket shares our experiences and introduces the
   apps repo architecture
 slug: introducing-apps-repositories
-authors:
-  - name: Eline Henriksen
-    title: Product Owner and Platform Developer
-    url: https://eliine.dev
-    image_url: https://github.com/eliihen.png
+authors: [elinehenriksen]
 tags: [kubernetes, argo-cd, gitops]
 image: /img/apps-repo-announcment.jpeg
 hide_table_of_contents: false

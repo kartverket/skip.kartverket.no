@@ -28,7 +28,7 @@ Før dette kan gjøres må man gå igjennom denne sjekklisten:
   - [Permissions Policy](https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/)
 - Når appen er eksponert skal sikkerhetsheaders testes med [https://securityheaders.com](https://securityheaders.com/) og [https://observatory.mozilla.org](https://observatory.mozilla.org/)
 - Monitorering og varsling er satt opp i [Grafana](https://monitoring.kartverket.cloud), og vaktlaget er onboardet disse alarmene
-  - [Metrics with Grafana](../07-observability/01-metrics-with-Grafana.md)
+  - [Metrics with Grafana](../07-observability/metrikker.md)
   - [Logs with Loki](../07-observability/05-logs-with-Loki.md)
   - [Alerting with Grafana](../07-observability/04-alerting-with-grafana.md)
 

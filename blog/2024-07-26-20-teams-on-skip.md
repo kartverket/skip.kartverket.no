@@ -7,11 +7,7 @@ description: >
   In this tech blog we are showcasing the the secrets to our success - the
   decisions that have had the biggest impact.
 slug: 20-teams-on-skip
-authors:
-  - name: Eline Henriksen
-    title: Product Owner and Platform Developer
-    url: https://eliine.dev
-    image_url: https://github.com/eliihen.png
+authors: [elinehenriksen]
 tags: [learnings, kubernetes]
 image: /img/20-teams-on-skip.jpeg
 hide_table_of_contents: false
