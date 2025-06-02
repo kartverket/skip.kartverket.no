@@ -1,4 +1,6 @@
-# Legge til eller fjerne personer fra et team
+# Konfigurering av Entra ID grupper
+
+## Legge til eller fjerne personer fra et team
 
 Det vil ofte forekomme tilfeller hvor personer går inn eller ut av et produktteam. Dette kan for eksempel være om man har fått en nyansatt som skal inn eller en konsulent som har
 skiftet over til et annet team. I disse tilfellene har man tradisjonelt vært avhengig av at dette håndteres som en bestilling og derfor er en tidkrevende prosess å gi nye
@@ -24,3 +26,7 @@ personen du ønsker å legge til. Etter dette bekreftes vil denne personen legge
  medlem for å tilgang til SKIPs tjenester.
 
 For å fjerne (offboarde) et teammedlem krysser du av i firkanten ved siden av bildet på brukeren og klikker **Remove**. Dette er også noe som kun team lead kan gjøre.
+
+## Endre team lead
+Endring av team lead kan kun gjøres i [entra-id-config repoet](github.com/kartverket/entra-id-config), dersom du prøver å endre på team lead eller owners i Entra ID portalen, så vil dette bli overskrevet.   
+For å endre team lead så må du finne teamet ditt i [org.yaml](https://github.com/kartverket/entra-id-config/blob/main/org.yaml), endre på `team_lead` variabelen, og lage en pull request.
