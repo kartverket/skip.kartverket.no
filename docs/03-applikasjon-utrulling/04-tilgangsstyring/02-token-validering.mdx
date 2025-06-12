@@ -43,13 +43,11 @@ innkommende request ha en gyldig JWT.
           Hvis du har en Skiperator-applikasjon med navn `some-application` vil den få labelen `app: some-application`.
         </Admonition>
 
-        ### 🧾Spesifikasjonen til `AuthPolicy`
+        ## 🧾Spesifikasjonen til `AuthPolicy`
 
         <details>
           <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon for `AuthPolicy`</summary>
 
-          <details>
-            <summary><strong>rules</strong> _([]object, required)_ – Regler som bestemmer hvordan innkommende forespørsler skal tillates eller avvises basert på JWT-validering.</summary>
             <p><strong>enabled</strong> _(boolean, required)_ – Angir om JWT-validering skal være aktivert. Hvis aktivert, vil innkommende JWT-er bli validert mot spesifisert utsteder og audience.</p>
             <p><strong>issuerURI</strong> _(string, required)_ – Forventet `iss`-claim i JWT. Må samsvare med den som ble brukt da tokenet ble utstedt.</p>
             <p><strong>jwksURI</strong> _(string, required)_ – URI for å hente JWKS (nøkkelsett brukt til å verifisere JWT-signatur).</p>
@@ -58,37 +56,64 @@ innkommende request ha en gyldig JWT.
             <p><strong>fromCookies</strong> _([]string, optional)_ – Lister hvilke cookies som skal undersøkes for JWT.</p>
 
             <details>
-              <summary><strong>outputClaimToHeaders</strong> _([]object, optional)_ – Definerer hvordan claims fra verifisert JWT skal kopieres til HTTP-headere. Støtter enkle og nøstede verdier av typen `string`, `int` eller `bool.</summary>
-              <p><strong>claim</strong> _(string, required)_ – Navn på claimet som skal hentes fra JWT.</p>
-              <p><strong>header</strong> _(string, required)_ – Navn på HTTP-headeren som skal inneholde claim-verdien.</p>
+                <summary><strong>outputClaimToHeaders</strong> _([]object, optional)_ – Definerer hvordan claims fra verifisert JWT skal kopieres til HTTP-headere. Støtter enkle og nøstede verdier av typen `string`, `int` eller `bool.</summary>
+                <p><strong>claim</strong> _(string, required)_ – Navn på claimet som skal hentes fra JWT.</p>
+                <p><strong>header</strong> _(string, required)_ – Navn på HTTP-headeren som skal inneholde claim-verdien.</p>
             </details>
 
             <p><strong>acceptedResources</strong> _([]string, optional)_ – Liste med ressursindikatorer som må finnes i JWT (`aud`). Følger <a href="https://datatracker.ietf.org/doc/html/rfc8707" target="_blank" rel="noopener noreferrer">RFC8707</a>. Må være gyldige URI-er.</p>
 
             <details>
-              <summary><strong>authRules</strong> _([]object, optional)_ – Regler for å tillate HTTP-forespørsler basert på påstander i JWT.</summary>
-              <p><strong>paths</strong> _([]string, required)_ – Stier regelen skal gjelde for. Må starte med `/`, ikke slutte med `/`, og kan avsluttes med `*` som wildcard-operator.</p>
-              <p><strong>methods</strong> _([]string, optional)_ – HTTP-metoder som regelen gjelder for. Hvis ikke angitt, tillates alle metoder. Tillatte metoder er `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `TRACE`, `CONNECT`.</p>
+                <summary><strong>authRules</strong> _([]object, optional)_ – Regler for å tillate HTTP-forespørsler basert på påstander i JWT.</summary>
+                <p><strong>paths</strong> _([]string, required)_ – Stier regelen skal gjelde for. Må starte med `/`, ikke slutte med `/`, og kan avsluttes med `*` som wildcard-operator.</p>
+                <p><strong>methods</strong> _([]string, optional)_ – HTTP-metoder som regelen gjelder for. Hvis ikke angitt, tillates alle metoder. Tillatte metoder er `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `TRACE`, `CONNECT`.</p>
 
-              <details>
-                <summary><strong>when</strong> _([]object, required)_ – Tilleggskrav basert på JWT-claims. Forespørselen tillates hvis minst ett av tilleggskravene er oppfylt.</summary>
-                <p><strong>claim</strong> _(string, required)_ – Navnet på JWT-claimet som skal kontrolleres.</p>
-                <p><strong>values</strong> _([]string, required)_ – Verdier som claimet må inneholde for å være gyldig. Tilleggskravet er møtt hvis claimet fra JWT inneholder én eller flere av disse verdiene (OR-logikk).</p>
-              </details>
+                <details>
+                    <summary><strong>when</strong> _([]object, required)_ – Tilleggskrav basert på JWT-claims. Forespørselen tillates hvis minst ett av tilleggskravene er oppfylt.</summary>
+                    <p><strong>claim</strong> _(string, required)_ – Navnet på JWT-claimet som skal kontrolleres.</p>
+                    <p><strong>values</strong> _([]string, required)_ – Verdier som claimet må inneholde for å være gyldig. Tilleggskravet er møtt hvis claimet fra JWT inneholder én eller flere av disse verdiene (OR-logikk).</p>
+                </details>
             </details>
 
             <details>
-              <summary><strong>ignoreAuthRules</strong> _([]object, optional)_ – Definerer hvilke forespørsler som ikke krever JWT-autentisering.</summary>
-              <p><strong>paths</strong> _([]string, required)_ – Stier regelen skal gjelde for. Må starte med `/`, ikke slutte med `/`, og kan avsluttes med `*` som wildcard-operator.</p>
-                            <p><strong>methods</strong> _([]string, optional)_ – HTTP-metoder som regelen gjelder for. Hvis ikke angitt, tillates alle metoder. Tillatte metoder er `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `TRACE`, `CONNECT`.</p>
+                <summary><strong>ignoreAuthRules</strong> _([]object, optional)_ – Definerer hvilke forespørsler som ikke krever JWT-autentisering.</summary>
+                <p><strong>paths</strong> _([]string, required)_ – Stier regelen skal gjelde for. Må starte med `/`, ikke slutte med `/`, og kan avsluttes med `*` som wildcard-operator.</p>
+                <p><strong>methods</strong> _([]string, optional)_ – HTTP-metoder som regelen gjelder for. Hvis ikke angitt, tillates alle metoder. Tillatte metoder er `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `TRACE`, `CONNECT`.</p>
             </details>
-          </details>
 
           <details>
             <summary><strong>selector</strong> _(object, required)_ – Bestemmer hvilke workloads policyen skal gjelde for.</summary>
             <p><strong>matchLabels</strong> _(map[string]string, optional)_ – Et sett med labels som brukes til å identifisere hvilke workloads policyen skal gjelde for. Gjelder bare innenfor samme namespace. Label-nøkler kan ikke være tomme eller inneholde wildcard-tegn.</p>
           </details>
         </details>
+
+        ## 🧠 Wildcards for URL-stier (_paths_)
+        Når man setter opp tilgangsstyring med Ztoperator, så kan man enten åpne opp tilgang eller autorisere tilgang mot endepunkter. Da spesifiserer man et sett med en eller flere URL-stier.
+        Istio, og dermed også Ztoperator, støtter bruken av **wildcards** i disse stiene, men er noe uklar i bruken av disse i deres dokumentasjon.
+
+        Ztoperator støtter bruken av _tre_ wildcard-operatorer: `*`, `{*}` og `{**}`, **der `*` er den _gamle_ wildcard-syntaksen, mens `{*}` og `{**}` er den _nye_ wildcard-syntaksen**.
+        Ztoperator har følgende validering av stier:
+
+        - En sti kan **ikke blande** gammel og ny wildcard-syntax.
+        - Wildcardet `*`, (dvs. gammel wildcard-syntaks), kan **kun** brukes som enten prefiks, suffiks eller alene. Wildcardet vil da **matche null eller flere sti-segmenter (deler av stien mellom `/`)**.
+        - Wildcardet `{*}`, (dvs. ny wildcard-syntaks), kan **kun brukes alene** i et sti-segment. Wildcardet vil da **matche ett sti-segment (deler av stien mellom `/`)**.
+        - Wildcardet `{**}`, (dvs. ny wildcard-syntaks), kan **kun brukes alene** i et sti-segment. Wildcardet vil da **matche null _eller_ flere sti-segmenter (deler av stien mellom `/`)**. Hvis `{**}` benyttes så **må** den være den siste wilcard-operatoren.
+
+        ### 📑 Eksempler på wildcards for URL-stier
+
+        | Sti              | Gyldig | Forklaring                                                             |
+        |-------------------|---------|-------------------------------------------------------------------------|
+        | `*` | ✅ | Matcher alle stier|
+        | `*/foo/bar`| ✅ | Matcher `/foo/bar`, `/api/foo/bar`, `/api/something/foo/bar`, `/api/something/else/foo/bar` |
+        | `/foo/bar*` | ✅ | Matcher `/foo/bar`, `/foo/bar/baz`, `/foo/bar/baz.html` |
+        | `/foo/{*}/` | ✅ | Matcher `/foo/bar`, men _ikke_ `/foo/bar/baz`. |
+        | `/foo/{**}/` | ✅ | Matcher `/foo/bar/`, `/foo/bar/baz.txt`, og `/foo//`, men ikke `/foo/bar`. |
+        | `/foo/{*}/bar/{**}` | ✅ | Matcher `/foo/buzz/bar/` og `/foo/buzz/bar/baz`. |
+        | `foo/*/bar` | ❌ | Kun lov å bruke wildcardet `*` som enten prefiks, suffiks eller alene |
+        | `/*/baz/{*}` | ❌ | Ikke lov å blande gammel og ny wildcard-syntaks. |
+        | `/**/baz/{*}` | ❌ | Wildcard-operatoren `**` er ikke lov å bruke, men må være omsluttet av krøllparenteser, i.e. `{**}` |
+        | `/{**}/foo/{*}` | ❌ | Ikke lov |
+        | `/foo/{*}.txt` | ❌ | is invalid since there are characters other than `{*}` in the path segment |
     </TabItem>
 </Tabs>
 
@@ -114,12 +139,11 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
               name: some-auth-policy
               namespace: some-namespace
             spec:
-              rules:
-                - enabled: true
-                  audience:
-                    - some-audience
-                  issuerURI: https://some-issuer.com
-                  jwksURI: https://some-jwks-uri.com
+              enabled: true
+              audience:
+                - some-audience
+              issuerURI: https://some-issuer.com
+              jwksURI: https://some-jwks-uri.com
               selector:
                 matchLabels:
                   app: some-application
@@ -192,69 +216,39 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
                   JWT for `POST`, `PUT` og `DELETE` mot `/api/cars/admin`.
                 </Admonition>
 
+          ```yaml
+          apiVersion: ztoperator.kartverket.no/v1alpha1
+          kind: AuthPolicy
+          metadata:
+            name: some-auth-policy
+            namespace: some-namespace
+          spec:
+            rules:
+              - enabled: true
+                audience:
+                  - some-audience
+                issuerURI: https://some-issuer.com
+                jwksURI: https://some-jwks-uri.com
+                ignoreAuthRules:
+                  - paths:
+                      - "/api/cars*"
+                      - "/api/cars/public"
+                authRules:
+                  - paths:
+                      - "/api/cars/admin"
+                    methods:
+                      - POST
+                      - PUT
+                      - DELETE
+                    when:
+                      - claim: "roles"
+                        values:
+                          - "admin"
+            selector:
+              matchLabels:
+                app: some-application
+          ```
             </TabItem>
       </Tabs>
-</details>
-
-<details>
-    <summary><strong>Eksempel 4: Token-validering og grovkornet autorisasjon med flere identitetstilbydere</strong></summary>
-
-    <Tabs groupId={"operator"}>
-        <TabItem value="skiperator" label="Skiperator">
-            🚧 **UNDER UTVIKLING** 🚧<br />
-            Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-        </TabItem>
-        <TabItem value="ztoperator" label="Ztoperator">
-
-            Følgende `AuthPolicy`-manifest konfigurerer token-validering og grovkornet autorisasjon inn til `some-application` for **to** identitetstilbydere: ID-porten og Maksinporten.
-            Ztoperator tolker de definerte reglene som følger:
-            - `/api/idporten/public` og `/api/maskinporten/public` er åpne endepunkt for alle metoder.
-            - `/api/idporten/secret` **må** ha en gyldig JWT signert av ID-porten med claimet `roles` har verdien `admin` for alle metoder.
-            - `/api/maskinporten/secret` **må** ha en gyldig JWT signert av Maskinporten med claimet `consumer` har verdien `123456789` for alle metoder.
-            - Resterende endepunkt krever gydlgi JWT signert av **enten ID-porten eller Maskinporten**.
-
-              ```yaml
-              apiVersion: ztoperator.kartverket.no/v1alpha1
-              kind: AuthPolicy
-              metadata:
-                name: some-auth-policy
-                namespace: some-namespace
-              spec:
-                rules:
-                  - enabled: true
-                    audience:
-                      - <DIN ID-PORTEN CLIENT-ID>
-                    issuerURI: https://idporten.no
-                    jwksURI: https://idporten.no/jwks.json
-                    ignoreAuthRules:
-                      - paths:
-                          - "/api/idporten/public"
-                    authRules:
-                      - paths:
-                          - "/api/idporten/secret"
-                        when:
-                          - claim: "roles"
-                            values: "admin"
-                  - enabled: true
-                    audience:
-                      - <DIN MASKINPORTEN CLIENT-ID>
-                    issuerURI: https://maskinporten.no/
-                    jwksURI: https://maskinporten.no/jwk
-                    ignoreAuthRules:
-                      - paths:
-                          - "/api/maskinporten/public"
-                    authRules:
-                      - paths:
-                          - "/api/maskinporten/secret"
-                        when:
-                          - claim: "consumer"
-                            values: "123456789"
-                selector:
-                  matchLabels:
-                    app: some-application
-              ```
-
-        </TabItem>
-    </Tabs>
 </details>
 
