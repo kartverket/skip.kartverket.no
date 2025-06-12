@@ -210,6 +210,12 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
                 Følgende `AuthPolicy`-manifest konfigurerer token-validering for alle endepunktene inn til `some-application`, **utenom** for endepunktene `/api/cars*` og `/api/cars/public` **for alle metoder**.
                 I tillegg spesifiserer den at `POST`, `PUT` og `DELETE` mot `/api/cars/admin` kun er lov hvis JWT-claimet `roles` eksisterer med verdien `admin`.
 
+                <Admonition type="warning" title="Legg merke til...">
+                  Stiene `/api/cars` og alle sub-stier er nå spesifisert som åpne, som **er i konflikt** med at `POST`, `PUT` og `DELETE` mot `/api/cars/admin`
+                  krever autorisert JWT (`roles: admin`). Her spiller prinsippet om **trygge standardinnstillinger** inn, og Ztoperator vil falle tilbake til å kreve autorisert
+                  JWT for `POST`, `PUT` og `DELETE` mot `/api/cars/admin`.
+                </Admonition>
+
           ```yaml
           apiVersion: ztoperator.kartverket.no/v1alpha1
           kind: AuthPolicy
@@ -242,13 +248,6 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
               matchLabels:
                 app: some-application
           ```
-
-                <Admonition type="warning" title="Legg merke til...">
-                  Stiene `/api/cars` og alle sub-stier er nå spesifisert som åpne, som **er i konflikt** med at `POST`, `PUT` og `DELETE` mot `/api/cars/admin`
-                  krever autorisert JWT (`roles: admin`). Her spiller prinsippet om **trygge standardinnstillinger** inn, og Ztoperator vil falle tilbake til å kreve autorisert
-                  JWT for `POST`, `PUT` og `DELETE` mot `/api/cars/admin`.
-                </Admonition>
-
             </TabItem>
       </Tabs>
 </details>
