@@ -1,7 +1,188 @@
-# 🔑 Auto-login
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
 
-## 🚧 Under utvikling 🚧
+# Auto-login
 
-Automatisert innlogging fra SKIP er for tiden under utvikling og er ikke klart helt ennå.
-Vi jobber hardt for å gjøre det tilgjengelig, og vi gleder oss til å vise deg hvordan du kan ta det i bruk så snart vi er klare!
-Følg med for oppdateringer.
+SKIP støtter automatisk provisjonering av ressurser i en applikasjons Istio-sidecar for å håndtere [OAuth 2.0 authorization code flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1).
+Dette gjør det mulig å konfigurere en innloggingsflyt rundt applikasjonen, og selv bestemme når denne flyten skal initieres og håndheves, uten å gjøre endringer inne i selve applikasjonskoden.
+Når funksjonen er aktivert, vil uautentiserte brukere som forsøker å nå applikasjonen automatisk bli omdirigert til en innloggingsflyt
+mot en valgt identitetsleverandør. Etter fullført og vellykket autentisering blir brukeren returnert til applikasjonen med gyldig tilgang.
+
+Det er også støtte for å definere eksplisitte login-endepunkt, som kan benyttes til å initiere en innloggingssløyfe
+manuelt. Dette gir større fleksibilitet i brukeropplevelsen og muliggjør tilpasset integrasjon med frontend-applikasjoner.
+
+Det finnes to måter å konfigurere denne funksjonaliteten på. Den ene er å bruke Ztoperator direkte ved å definere en `AuthPolicy`-ressurs,
+som gir full kontroll over autentiserings- og autorisasjonsregler inn mot én eller flere workloads. Alternativt kan man benytte Skiperator via `Application`-CRD-en. I dette tilfellet vil Skiperator automatisk
+generere nødvendig AuthPolicy-ressurs bak kulissene, noe som forenkler konfigurasjonen og integreres sømløst med øvrig SKIP-funksjonalitet, som for eksempel [klientregistrering](01-klientregistrering.mdx).
+
+<Tabs groupId='operator'>
+    <TabItem value='skiperator' label='Skiperator'>
+        🚧 **UNDER UTVIKLING** 🚧<br />
+        Støtte for å sette opp automatisk innlogging i Istio-sidecar via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+    </TabItem>
+    <TabItem value='ztoperator' label='Ztoperator'>
+        Ztoperator muliggjør automatisk innlogging ved å benytte [Envoy OAuth2-filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter).
+        Dette filteret inspiserer innkommende forespørsler og vurderer om brukeren er autentisert. Dersom forespørselen ikke er autentisert, vil brukeren automatisk bli omdirigert til innlogging hos den konfigurerte identitetsleverandøren.
+        Ztoperator utvider funksjonaliteten ved å gi mulighet for å spesifisere hvilke URL-stier som skal utløse innloggingsflyten.
+        For en mer detaljert beskrivelse av hvordan automatisk innlogging kan konfigureres, se [API-dokumentasjonen til Ztoperator](04-ztoperator/01-api-docs.mdx).
+
+        En forutsetning for å kunne sette opp automatisk innlogging med Ztoperator er at det eksisterer en Kubernetes hemmelighet i samme `namespace`. Hemmeligheten må inneholde klient-ID (client ID) og
+        klient-hemmelighet (client secret). Dette får man automatisk opprettet hvis man registrerer en klienten gjennom [Skiperator, Digdirator eller Azurerator](01-klientregistrering.mdx).
+        Eventuelt kan en bruke [External Secrets Operator](../09-argo-cd/04-hente-hemmeligheter-fra-hemmelighetsvelv.md) for å hente verdiene fra [Google Secret Manager](https://cloud.google.com/security/products/secret-manager?hl=en).
+
+        <Admonition type="warning" title="Merk...">
+            Digdirator oppretter **kun** en [private key JWT](https://oauth.net/private-key-jwt/) for å veksle inn autorisasjonskode mot access token / refresh token og **ikke** en client secret.
+            [Envoy OAuth2-filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter) støtter per nå **kun** client secret og ID-porten integrasjoner opprettet
+            med Digdirator vil derfor **ikke** være kompatibelt med automatisk innlogging med Ztoperator per nå.
+        </Admonition>
+    </TabItem>
+</Tabs>
+
+## 📖 Eksempler
+
+Under følger eksempler på hvordan å konfigurere automatisk innlogging på SKIP.
+
+Eksempel 1 konfigurerer automatisk innlogging for alle beskyttede endepunkt, noe som passer godt for typiske Software as a Service (SaaS)-løsninger.
+
+Eksempel 2 konfigurerer automatisk innlogging med en dedikert innloggingssti (`loginPath`).
+En kan da konfigurere beskyttede endepunkt under `authRules` med feltet `denyRedirect: true`. Ztoperator vil da ikke omdirigere til innlogging og heller returnere `401 Unauthorized`
+hvis en innkommende forespørsel ikke er autentisert. En frontend applikasjon kan da heller omdirigere brukeren til innloggingsstien for å få opprettet en innlogget sesjon.
+Dette er noe som passer godt for Single Page Applications (SPA).
+
+<details>
+    <summary><strong>Eksempel 1: Automatisk innlogging for alle beskyttede endepunkt</strong></summary>
+
+    <Tabs groupId={"operator"}>
+        <TabItem value="skiperator" label="Skiperator">
+            🚧 **UNDER UTVIKLING** 🚧<br />
+            Støtte for å sette opp automatisk innlogging via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+        </TabItem>
+        <TabItem value="ztoperator" label="Ztoperator">
+            Følgende `AuthPolicy` er konfigurert til å ikke sikre endepunktene `/public*` og `/assets*`, men sikre alt annet.
+            For å sette opp automatisk innlogging må Ztoperator ha tilgang til klient ID (client ID) og klient hemmelighet (client secret) tilhørende en klientregistrering.
+            For å oppnå dette må en referere til hvilken Kubernetes-hemmelighet de ligger i, samt hvilke data-keys de er mappet til.
+
+            Deretter må en spesifisere omdirigeringssti, utloggingssti og hvilke `scopes` som skal forespørres under innlogginssløyfen (authorization code flow).
+
+            <Admonition type="tip" title="Husk på at...">
+                Det er viktig at omdirigeringsstien en oppgir stemmer overens med omdirigeringsstien registrert hos identitetstilbyderen.
+                Den må da matche applikasjonens `ingress` + `omdirigeringssti`.
+            </Admonition>
+
+            ```yaml
+            apiVersion: ztoperator.kartverket.no/v1alpha1
+            kind: AuthPolicy
+            metadata:
+              name: some-auth-policy
+              namespace: some-namespace
+            spec:
+              enabled: true
+              ignoreAuthRules:
+                - paths:
+                    - /public*
+                    - /assets*
+              audience:
+                - some-audience
+              wellKnownURI: https://some-issuer.com/.well-known/openid-configuration
+              // diff-add-start
+              oAuthCredentials:
+                secretRef: oauth-secret
+                clientIDKey: CLIENT_ID_KEY
+                clientSecretKey: CLIENT_SECRET_SECRET
+              // diff-add-end
+              // diff-add-start
+              autoLogin:
+                enabled: true
+                logoutPath: /logout
+                redirectPath: /oauth2/callback
+                scopes:
+                  - offline_access
+                  - openid
+              // diff-add-end
+              selector:
+                matchLabels:
+                  app: some-application
+
+            ```
+        </TabItem>
+    </Tabs>
+
+</details>
+
+
+<details>
+    <summary><strong>Eksempel 2: Automatisk innlogging med dedikert innloggingssti (`loginPath`)</strong></summary>
+
+    <Tabs groupId={"operator"}>
+        <TabItem value="skiperator" label="Skiperator">
+            🚧 **UNDER UTVIKLING** 🚧<br />
+            Støtte for å sette opp automatisk innlogging via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+        </TabItem>
+        <TabItem value="ztoperator" label="Ztoperator">
+            Følgende `AuthPolicy` er konfigurert til å sikre endepunktene `/api*` (`/api` og alle dens understier).
+            Hvis dette hadde vært en applikasjon som servet frontend OG api-endepunkter under `/api*`, så vil såkalte AJAX-kall ikke kunne automatisk omdirigert brukeren inn på
+            en innloggingssløyfe. For å løse dette spesifiserer vi en dedikert innloggingssti (`loginPath`) og setter `denyRedirect: true` for `/api*`. På den måten
+            kan frontend-applikasjonen selv omdirigere brukeren til innloggingsendepunktet for å opprette en innlogget sesjon hvis den for eksemepel mottar 401 Unauthorized på uatentiserte kall mot `/api*`.
+
+            For å sette opp automatisk innlogging må Ztoperator ha tilgang til klient ID (client ID) og klient hemmelighet (client secret) tilhørende en klientregistrering.
+            For å oppnå dette må en referere til hvilken Kubernetes-hemmelighet de ligger i, samt hvilke data-keys de er mappet til.
+
+            Deretter må en spesifisere omdirigeringssti, utloggingssti og hvilke `scopes` som skal forespørres under innlogginssløyfen (authorization code flow).
+
+            <Admonition type="tip" title="Husk på at...">
+                Det er viktig at omdirigeringsstien en oppgir stemmer overens med omdirigeringsstien registrert hos identitetstilbyderen.
+                Den må da matche applikasjonens `ingress` + `omdirigeringssti`.
+            </Admonition>
+
+            <Admonition type="warning" title="Merk...">
+                Ved vellykket innlogging via konfigurert innloggingssti vil forespørselen mot innloggingsstien fortsette inn til den beskyttede applikasjonen.
+                Applikasjonen må selv da håndtere å omdirigere brukeren til ønsket sti etter vellykket innlogging.
+            </Admonition>
+
+            ```yaml
+            apiVersion: ztoperator.kartverket.no/v1alpha1
+            kind: AuthPolicy
+            metadata:
+              name: some-auth-policy
+              namespace: some-namespace
+            spec:
+              enabled: true
+              ignoreAuthRules:
+                - paths:
+                    - /*
+              authRules:
+                - paths:
+                    - /api*
+            // diff-add-start
+                  denyRedirect: true
+            // diff-add-end
+              audience:
+                - some-audience
+              wellKnownURI: https://some-issuer.com/.well-known/openid-configuration
+              // diff-add-start
+              oAuthCredentials:
+                secretRef: oauth-secret
+                clientIDKey: CLIENT_ID_KEY
+                clientSecretKey: CLIENT_SECRET_SECRET
+              // diff-add-end
+              // diff-add-start
+              autoLogin:
+                enabled: true
+                loginPath: /login
+                logoutPath: /logout
+                redirectPath: /oauth2/callback
+                scopes:
+                  - offline_access
+                  - openid
+              // diff-add-end
+              selector:
+                matchLabels:
+                  app: some-application
+
+            ```
+
+        </TabItem>
+    </Tabs>
+</details>
+
