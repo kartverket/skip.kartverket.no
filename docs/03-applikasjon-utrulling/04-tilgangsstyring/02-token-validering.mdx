@@ -49,17 +49,17 @@ innkommende request ha en gyldig JWT.
 
         | Sti              | Gyldig | Forklaring                                                             |
         |-------------------|---------|-------------------------------------------------------------------------|
-        | `*` | ✅ | Matcher alle stier|
-        | `*/foo/bar`| ✅ | Matcher `/foo/bar`, `/api/foo/bar`, `/api/something/foo/bar`, `/api/something/else/foo/bar` |
-        | `/foo/bar*` | ✅ | Matcher `/foo/bar`, `/foo/bar/baz`, `/foo/bar/baz.html` |
+        | `*` | ✅ | Matcher alle stier |
+        | `*/foo/bar`| ✅ | Matcher `/foo/bar`, `/api/foo/bar`, `/api/something/foo/bar`, `/api/something/else/foo/bar`. |
+        | `/foo/bar*` | ✅ | Matcher `/foo/bar`, `/foo/bar/baz`, `/foo/bar/baz.html`. |
         | `/foo/{*}/` | ✅ | Matcher `/foo/bar`, men _ikke_ `/foo/bar/baz`. |
         | `/foo/{**}/` | ✅ | Matcher `/foo/bar/`, `/foo/bar/baz.txt`, og `/foo//`, men ikke `/foo/bar`. |
         | `/foo/{*}/bar/{**}` | ✅ | Matcher `/foo/buzz/bar/` og `/foo/buzz/bar/baz`. |
-        | `foo/*/bar` | ❌ | Kun lov å bruke wildcardet `*` som enten prefiks, suffiks eller alene |
+        | `foo/*/bar` | ❌ | Kun lov å bruke wildcardet `*` som enten prefiks, suffiks eller alene. |
         | `/*/baz/{*}` | ❌ | Ikke lov å blande gammel og ny wildcard-syntaks. |
-        | `/**/baz/{*}` | ❌ | Wildcard-operatoren `**` er ikke lov å bruke, men må være omsluttet av krøllparenteser, i.e. `{**}` |
-        | `/{**}/foo/{*}` | ❌ | Ikke lov |
-        | `/foo/{*}.txt` | ❌ | is invalid since there are characters other than `{*}` in the path segment |
+        | `/**/baz/{*}` | ❌ | Wildcard-operatoren `**` er ikke lov å bruke, den må være omsluttet av krøllparenteser, i.e. `{**}`. |
+        | `/{**}/foo/{*}` | ❌ | Ikke lov: Hvis wildcard-operatoren `{**}` benyttes **må** den være den siste wildcard-operatoren. |
+        | `/foo/{*}.txt` | ❌ | Wildcard-operatoren `{*}` er ikke lov å bruke sammen med andre etgn innenfore et sti-segment. |
     </TabItem>
 </Tabs>
 
