@@ -59,7 +59,7 @@ innkommende request ha en gyldig JWT.
         | `/*/baz/{*}` | ❌ | Ikke lov å blande gammel og ny wildcard-syntaks. |
         | `/**/baz/{*}` | ❌ | Wildcard-operatoren `**` er ikke lov å bruke, den må være omsluttet av krøllparenteser, i.e. `{**}`. |
         | `/{**}/foo/{*}` | ❌ | Ikke lov: Hvis wildcard-operatoren `{**}` benyttes **må** den være den siste wildcard-operatoren. |
-        | `/foo/{*}.txt` | ❌ | Wildcard-operatoren `{*}` er ikke lov å bruke sammen med andre etgn innenfore et sti-segment. |
+        | `/foo/{*}.txt` | ❌ | Wildcard-operatoren `{*}` er ikke lov å bruke sammen med andre tegn innenfor et sti-segment. |
     </TabItem>
 </Tabs>
 
