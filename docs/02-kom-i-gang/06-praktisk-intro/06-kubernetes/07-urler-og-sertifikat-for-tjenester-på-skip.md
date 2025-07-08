@@ -44,25 +44,6 @@ http://<appnavn>.<namespacenavn>:port
 
 Merk at å snakke med en annen tjeneste på denne måten krever at du har åpnet opp for at trafikk kan flyte mellom disse tjenestene. I utgangspunktet blir all trafikk blokkert av sikkerhetshensyn. Å åpne opp gjøres ved å spesifisere `spec.accessPolicy.outbound.rules` i applikasjonen som skal sende spørringen og `spec.accessPolicy.inbound.rules` i applikasjonen som skal motta spørringene.
 
-Dersom du har samme tjeneste i sky og ønsker å presisere at du skal gå mot samme cluster må man legge på dette i URL. Hvis ikke blir den “round robined” mellom remote og lokal. Eksempel:
-
-```
-http://<appnavn>.<namespacenavn>.svc.cluster.local:port
-```
-
-### Mesh-intern
-
-Dersom du har behov for å sende en spørring til en annen applikasjon som ikke ligger på samme cluster, men er en del av samme service mesh (for eksempel fra atkv3-prod til atgcp1-prod) så kan dette rutes på nesten samme måte som cluster-intern trafikk.
-
-Merk at man her bruker http og ikke https. Trafikken vil allikevel krypteres av service meshet så trafikken vil gå over https mellom tjenestene, men fra ditt perspektiv skal du bruke http og trenger ikke tenke på sertfikater.
-
-For å sende trafikk til et annet cluster over service meshet sender du en spørring i følgende format:
-
-```
-http://<appnavn>.<namespacenavn>.svc.cluster.<cluster>:port
-```
-
-> TODO: Hvordan blir networkpolicies for Skiperator apper på mesh?
 
 ## Tjenester eksponert på internett
 
