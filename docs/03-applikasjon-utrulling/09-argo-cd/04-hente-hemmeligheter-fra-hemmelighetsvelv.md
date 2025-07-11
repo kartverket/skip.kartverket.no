@@ -37,7 +37,6 @@ For at det skal være lov å hente ut secrets må i tillegg følgende gjøres:
 1. Man må gå inn på secreten som skal eksponeres til ESO og gi rollen `roles/secretmanager.secretAccessor` til servicekontoen:
 
     - Dev - `eso-secret-accessor@skip-dev-7d22.iam.gserviceaccount.com`
-    - Test - `eso-secret-accessor@skip-test-b6e5.iam.gserviceaccount.com`
     - Prod - `eso-secret-accessor@skip-prod-bda1.iam.gserviceaccount.com`
 
 2. Namespacene dere oppretter må allowlistes for å kunne hente ut fra prosjektene deres, kontakt SKIP så setter vi `skip.kartverket.no/gcpProject` på prosjektene deres og synkroniserer Argo på nytt
