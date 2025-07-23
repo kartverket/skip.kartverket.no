@@ -115,15 +115,24 @@ For å hente ut disse så må du lage to `ExternalSecret`, en for sertifikater o
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: minapp-hemmligheter
+  name: my-app-db-client-password # Denne brukes for å hente ut password fra json secreten i gsm.
+  namespace: my-app-namespace
 spec:
+  refreshInterval: 1h
   secretStoreRef:
-    kind: SecretStore
     name: gsm
+    kind: SecretStore
+  target:
+    name: my-app-db-user-password # Navnet på Kubernetes Secret som opprettes
+    creationPolicy: Owner
   data:
-    - secretKey: db_password
-      remoteRef:
-        key: cloudsql-<instansnavn>-<bruker>-password
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: cloudsql-myinstance-myuser # Navnet på GSM secret
+        metadataPolicy: None
+        property: password
+      secretKey: password
 
 --- 
 
@@ -241,3 +250,22 @@ Google Cloud SQL har innebygd failover, og det betyr at dersom primærinstansen 
 Dette må konfigureres i terraform, ved bruk av `availability_type` [variabelen](https://github.com/kartverket/terraform-modules/wiki/cloud_sql#input_availability_type), default på denne er `ZONAL` som betyr at du ikke får en secondary instans.
 I produksjon er det anbefalt å ha en secondary instans, og da må `availability_type` settes til `REGIONAL` i terraform.
 Les mer her: [Google sin dokumentasjon](https://cloud.google.com/sql/docs/postgres/high-availability)
+
+## Viktig å huske på
+
+### Max connections
+
+I enkelte situasjoner kan hele CloudSQL-instansen bli utilgjengelig, og man vil motta følgende feilmelding:  
+`HTTPError 409: Operation failed because another operation was already in progress. Try your request after the current operation is complete.`
+
+Basert på erfaring skyldes dette som regel at det er åpnet for mange samtidige connections mot databasen.  
+For eksempel, dersom `max_connections`-variabelen i Terraform-modulen er satt til `100`, og man har to applikasjoner som hver bruker `30` connections og kjører med to replikas, vil det totalt bli `120` connections – i tillegg til noen system-connections (typisk 2–3).
+
+I slike tilfeller kan instansen bli utilgjengelig: man kan verken restarte den eller gjøre konfigurasjonsendringer.
+
+**Løsning:**  
+Skaler ned alle applikasjoner (sett `replicas` til `0`), og vent opptil én time. Når connections er frigjort, kan man justere `max_connections`-verdien.
+
+**Anbefaling:**  
+Implementer *connection pooling* i applikasjonene. Hver enkelt connection øker belastningen på databaseinstansen, og unødvendig høyt antall tilkoblinger er både ineffektivt og kostbart.  
+Legg også til [denne alarmmodulen i grafana-alerts](https://github.com/kartverket/grafana-alerts/tree/main/modules/cloud_sql_alerts), da får dere alarmer når connections nærmer seg maks.
