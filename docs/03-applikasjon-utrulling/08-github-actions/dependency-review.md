@@ -31,7 +31,23 @@ jobs:
           comment-summary-in-pr: always
           fail-on-severity: moderate
 ```
-
 Team kan selv konfigurere hvordan dependency review skal fungere. For flere innstillinger, se [GitHubs egen dokumentasjon](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/customizing-your-dependency-review-action-configuration).
 
 For bruk sammen med dependency sumbission API-et, se [GitHub egne anbefalinger for bruk av dependency submission og dependency review sammen](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#using-github-actions-to-access-the-dependency-submission-api-and-the-dependency-review-api).
+
+## Internal actions
+Vi har noen internal actions i Kartverket, som ikke vil fungere med Dependency Review, siden repoene ikke er public.
+Det kan dere løse med å legge actionen inn i allowlisten til dependency review slik:
+
+```
+  - name: Perform dependency review
+    uses: actions/dependency-review-action@v4
+    if: github.event_name == 'pull_request'
+    with:
+      comment-summary-in-pr: always
+      fail-on-severity: moderate
+      allow-dependencies-licenses: |
+        pkg:github/kartverket/repo-navn
+        pkg:github/kartverket/en-annen-action
+```
+Interne repoer blir kontinuerlig oppdatert av dependabot, og med Github Advanced Security så får vi varsler dersom actionen skulle være sårbar, det burde derfor ikke være noe problem å allowliste disse.
