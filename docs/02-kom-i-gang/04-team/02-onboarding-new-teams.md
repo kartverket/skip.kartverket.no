@@ -14,35 +14,6 @@ direkte i dette dokumentet.
 Produktteamet trenger ikke å opprette et GCP-prosjekt selv!
 :::
 
-## SKIP-teamets oppgaver
-
-### Før onboarding
-
-- Invitere en representant fra produktteamet til plattformlauget
-- Dedikere et SKIP-teammedlem som kontaktpunkt for migreringsprosessen (TAM) (Kun for migreringsprosessen, etter dette starter en vanlig supportflyt)*
-- Invitere til et møte for å avklare forventninger mellom SKIP og produktteamet
-- Invitere til gjennomgang av applikasjoner
-- Bli enige om frekvensen av onboarding standups med produktteamet og invitere til disse
-- Sørge for at en prosess rundt risikovurdering (“ROS-analyse”) startes. Denne vurderingen må være klar i tide til produksjon
-- Opprette en kanal på Slack for samarbeid under onboarding
-- Invitere til #gen-skip, #gen-argo og andre relevante felleskanaler for bruk av SKIP
-- Invitere til GCP- og Kubernetes-kurs hvis produktteamet ønsker det
-- Gi en introduksjon til ArgoCD og beste praksis for dette verktøyet
-
-### Under onboarding
-
-- Invitere til et kickoff-møte hvor kontaktpunkter, ansvarsfordeling, support, veikart og andre relevante saker diskuteres.
-- GitHub, gitt at teamet ikke har brukt dette før
-- Opprette grupper ved å legge dem til entra-id-config
-- Teamet må merkes med security i admin.google.com.
-- Teamet må legges til IAM-repositoriet
-- Workflow i IAM-repositoriet må kjøres av et SKIP-medlem med tilgang til dette.
-- Teamene synkroniseres fra AD til IAM
-- Hvis teamet krever Terraform:
-  - Service account for Terraform settes opp med [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) og gis tilganger til kubernetes namespace via [WIF](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation).
-  - Terraform state migreres/settes opp
-  - Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../../03-applikasjon-utrulling/09-argo-cd/01-komme-i-gang-med-argocd.md)
-
 ## Produkt-team oppgaver
 
 Produktteamet har ansvaret for å fordele disse oppgavene internt.
@@ -62,3 +33,32 @@ Produktteamet har ansvaret for å fordele disse oppgavene internt.
 - Sørge for at alle teammedlemmer inviteres til møter og Slack-grupper under onboarding-prosessen
 - Lese og forstå SKIP-dokumentasjonen
 - Gjøre forventet/påkrevd go-live-dato kjent for SKIP
+
+
+## SKIP-teamets oppgaver
+
+### Før onboarding
+
+- Invitere en representant fra produktteamet til plattformlauget
+- Dedikere et SKIP-teammedlem som kontaktpunkt for migreringsprosessen (TAM) (Kun for migreringsprosessen, etter dette starter en vanlig supportflyt)*
+- Invitere til et møte for å avklare forventninger mellom SKIP og produktteamet
+- Invitere til gjennomgang av applikasjoner
+- Bli enige om frekvensen av onboarding standups med produktteamet og invitere til disse
+- Sørge for at en prosess rundt risikovurdering (“ROS-analyse”) startes. Denne vurderingen må være klar i tide til produksjon
+- Opprette en kanal på Slack for samarbeid under onboarding
+- Invitere til #gen-skip, #gen-argo og andre relevante felleskanaler for bruk av SKIP
+- Invitere til GCP- og Kubernetes-kurs hvis produktteamet ønsker det
+- Gi en introduksjon til ArgoCD og beste praksis for dette verktøyet
+
+### Under onboarding
+
+- Invitere til et kickoff-møte hvor kontaktpunkter, ansvarsfordeling, support, veikart og andre relevante saker diskuteres.
+- GitHub, om de ikke er med i kartverket org må pureservice legge de til
+- Opprette grupper ved å legge dem til [entra-id-config](https://github.com/kartverket/entra-id-config/blob/main/org.yaml) (gruppe synces fra Entra ID til GCP hver time)
+- Teamet må merkes med security i admin.google.com ([workflow](https://github.com/kartverket/skip-core-infrastructure/actions/workflows/security-groups.yaml) kjøres hver dag kl. 8 UTC)
+- Opprett produkt/prosjekt i [skip-core-infra](https://github.com/kartverket/skip-core-infrastructure/blob/main/dynamic/env/teams/modules.tf)
+- Workflow for å tf apply i skip-core-infra må kjøres av et SKIP-medlem med tilgang til dette.
+- Teamene synkroniseres fra AD til IAM (Entra ID til GCP)
+- Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../../03-applikasjon-utrulling/09-argo-cd/01-komme-i-gang-med-argocd.md)
+- Hvis teamet krever Terraform:
+  - Service account for Terraform settes opp med [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) og gis tilganger til kubernetes namespace via [WIF](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation).
