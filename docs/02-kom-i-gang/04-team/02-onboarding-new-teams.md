@@ -23,6 +23,7 @@ Produktteamet har ansvaret for å fordele disse oppgavene internt.
 - Hvis ArgoCD skal brukes: Opprette nytt Apps-repo i GitHub basert på denne [SKIP malen](https://github.com/kartverket/apps-template)
 - Sørge for at applikasjonen har en [IP og/eller DPIA](https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338711/Mal+for+IP+-+DPIA+og+ROS.+KOPIER+SIDENE+TIL+ET+EGET+OMR+DE.)
 - Tilpasse applikasjonen for å tilfredsstille SKIPs sikkerhetskrav
+- Sørge for at utviklerne på teamet har tilgang på GitHub (se [Tilgang til GitHub](../06-praktisk-intro/01-github/01-tilgang-til-github.md))
 - Lese, forstå og følge GitHub-sikkerhetskravene: [Sikkerhet på GitHub](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/308216163/Sikkerhet+p+GitHub)
 - Fullføre ROS-analyse
 - Forberede informasjon til SKIP-teamet
@@ -53,12 +54,10 @@ Produktteamet har ansvaret for å fordele disse oppgavene internt.
 ### Under onboarding
 
 - Invitere til et kickoff-møte hvor kontaktpunkter, ansvarsfordeling, support, veikart og andre relevante saker diskuteres.
-- GitHub, om de ikke er med i kartverket org må pureservice legge de til
 - Opprette grupper ved å legge dem til [entra-id-config](https://github.com/kartverket/entra-id-config/blob/main/org.yaml) (gruppe synces fra Entra ID til GCP hver time)
 - Teamet må merkes med security i admin.google.com ([workflow](https://github.com/kartverket/skip-core-infrastructure/actions/workflows/security-groups.yaml) kjøres hver dag kl. 8 UTC)
 - Opprett produkt/prosjekt i [skip-core-infra](https://github.com/kartverket/skip-core-infrastructure/blob/main/dynamic/env/teams/modules.tf)
-- Workflow for å tf apply i skip-core-infra må kjøres av et SKIP-medlem med tilgang til dette.
-- Teamene synkroniseres fra AD til IAM (Entra ID til GCP)
+- Workflow for å kjøre terraform apply i skip-core-infra må kjøres av et SKIP-medlem med tilgang.
 - Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../../03-applikasjon-utrulling/09-argo-cd/01-komme-i-gang-med-argocd.md)
 - Hvis teamet krever Terraform:
   - Service account for Terraform settes opp med [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) og gis tilganger til kubernetes namespace via [WIF](https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation).
