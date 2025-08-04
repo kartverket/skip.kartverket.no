@@ -14,8 +14,8 @@
 
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.5c884a55.css">
-<script src="/assets/js/runtime~main.5241c1c0.js" defer="defer"></script>
-<script src="/assets/js/main.18f6968e.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.f895d9b6.js" defer="defer"></script>
+<script src="/assets/js/main.b7673306.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -28,6 +28,29 @@ produktteamet er beskrevet her.</p>
 <p>Vi setter stor pris på om du rapporterer eventuelle mangler og/eller manglende informasjon i denne veiledningen til SKIP-teamet, enten ved å kontakte oss eller ved å kommentere
 direkte i dette dokumentet.</p>
 <div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>Produktteamet trenger ikke å opprette et GCP-prosjekt selv!</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="produkt-team-oppgaver">Produkt-team oppgaver<a href="#produkt-team-oppgaver" class="hash-link" aria-label="Direct link to Produkt-team oppgaver" title="Direct link to Produkt-team oppgaver">​</a></h2>
+<p>Produktteamet har ansvaret for å fordele disse oppgavene internt.</p>
+<ul>
+<li>Informere SKIP om hvem som er teamleder slik at de kan administrere AD-gruppen</li>
+<li>Vurdere hvilke teammedlemmer som trenger ekstra Kubernetes/GCP-kurs</li>
+<li>Hvis ArgoCD skal brukes: Opprette nytt Apps-repo i GitHub basert på denne <a href="https://github.com/kartverket/apps-template" target="_blank" rel="noopener noreferrer">SKIP malen</a></li>
+<li>Sørge for at applikasjonen har en <a href="https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338711/Mal+for+IP+-+DPIA+og+ROS.+KOPIER+SIDENE+TIL+ET+EGET+OMR+DE." target="_blank" rel="noopener noreferrer">IP og/eller DPIA</a></li>
+<li>Tilpasse applikasjonen for å tilfredsstille SKIPs sikkerhetskrav</li>
+<li>Sørge for at utviklerne på teamet har tilgang på GitHub (se <a href="/docs/kom-i-gang/praktisk-intro/github/tilgang-til-github">Tilgang til GitHub</a>)</li>
+<li>Lese, forstå og følge GitHub-sikkerhetskravene: <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/308216163/Sikkerhet+p+GitHub" target="_blank" rel="noopener noreferrer">Sikkerhet på GitHub</a></li>
+<li>Fullføre ROS-analyse</li>
+<li>Forberede informasjon til SKIP-teamet<!-- -->
+<ul>
+<li>Tekniske forventninger</li>
+<li>Tjenestedesign/arkitektur</li>
+<li>Utenforliggende avhengiheter</li>
+</ul>
+</li>
+<li>Ta ansvar for egne krav og kommunisere disse tydelig og konsist til SKIP</li>
+<li>Sørge for at alle teammedlemmer inviteres til møter og Slack-grupper under onboarding-prosessen</li>
+<li>Lese og forstå SKIP-dokumentasjonen</li>
+<li>Gjøre forventet/påkrevd go-live-dato kjent for SKIP</li>
+</ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="skip-teamets-oppgaver">SKIP-teamets oppgaver<a href="#skip-teamets-oppgaver" class="hash-link" aria-label="Direct link to SKIP-teamets oppgaver" title="Direct link to SKIP-teamets oppgaver">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="før-onboarding">Før onboarding<a href="#før-onboarding" class="hash-link" aria-label="Direct link to Før onboarding" title="Direct link to Før onboarding">​</a></h3>
 <ul>
@@ -45,41 +68,16 @@ direkte i dette dokumentet.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="under-onboarding">Under onboarding<a href="#under-onboarding" class="hash-link" aria-label="Direct link to Under onboarding" title="Direct link to Under onboarding">​</a></h3>
 <ul>
 <li>Invitere til et kickoff-møte hvor kontaktpunkter, ansvarsfordeling, support, veikart og andre relevante saker diskuteres.</li>
-<li>GitHub, gitt at teamet ikke har brukt dette før</li>
-<li>Opprette grupper ved å legge dem til entra-id-config</li>
-<li>Teamet må merkes med security i admin.google.com.</li>
-<li>Teamet må legges til IAM-repositoriet</li>
-<li>Workflow i IAM-repositoriet må kjøres av et SKIP-medlem med tilgang til dette.</li>
-<li>Teamene synkroniseres fra AD til IAM</li>
+<li>Opprette grupper ved å legge dem til <a href="https://github.com/kartverket/entra-id-config/blob/main/org.yaml" target="_blank" rel="noopener noreferrer">entra-id-config</a> (gruppe synces fra Entra ID til GCP hver time)</li>
+<li>Teamet må merkes med security i admin.google.com (<a href="https://github.com/kartverket/skip-core-infrastructure/actions/workflows/security-groups.yaml" target="_blank" rel="noopener noreferrer">workflow</a> kjøres hver dag kl. 8 UTC)</li>
+<li>Opprett produkt/prosjekt i <a href="https://github.com/kartverket/skip-core-infrastructure/blob/main/dynamic/env/teams/modules.tf" target="_blank" rel="noopener noreferrer">skip-core-infra</a></li>
+<li>Workflow for å kjøre terraform apply i skip-core-infra må kjøres av et SKIP-medlem med tilgang.</li>
+<li>Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD <a href="/docs/applikasjon-utrulling/argo-cd/komme-i-gang-med-argocd">Komme i gang med Argo CD</a></li>
 <li>Hvis teamet krever Terraform:<!-- -->
 <ul>
 <li>Service account for Terraform settes opp med <a href="https://github.com/kartverket/gcp-service-accounts" target="_blank" rel="noopener noreferrer">gcp-service-accounts</a> og gis tilganger til kubernetes namespace via <a href="https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/320570259/Workload+Identity+Federation" target="_blank" rel="noopener noreferrer">WIF</a>.</li>
-<li>Terraform state migreres/settes opp</li>
-<li>Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD <a href="/docs/applikasjon-utrulling/argo-cd/komme-i-gang-med-argocd">Komme i gang med Argo CD</a></li>
 </ul>
 </li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="produkt-team-oppgaver">Produkt-team oppgaver<a href="#produkt-team-oppgaver" class="hash-link" aria-label="Direct link to Produkt-team oppgaver" title="Direct link to Produkt-team oppgaver">​</a></h2>
-<p>Produktteamet har ansvaret for å fordele disse oppgavene internt.</p>
-<ul>
-<li>Informere SKIP om hvem som er teamleder slik at de kan administrere AD-gruppen</li>
-<li>Vurdere hvilke teammedlemmer som trenger ekstra Kubernetes/GCP-kurs</li>
-<li>Hvis ArgoCD skal brukes: Opprette nytt Apps-repo i GitHub basert på denne <a href="https://github.com/kartverket/apps-template" target="_blank" rel="noopener noreferrer">SKIP malen</a></li>
-<li>Sørge for at applikasjonen har en <a href="https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338711/Mal+for+IP+-+DPIA+og+ROS.+KOPIER+SIDENE+TIL+ET+EGET+OMR+DE." target="_blank" rel="noopener noreferrer">IP og/eller DPIA</a></li>
-<li>Tilpasse applikasjonen for å tilfredsstille SKIPs sikkerhetskrav</li>
-<li>Lese, forstå og følge GitHub-sikkerhetskravene: <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/308216163/Sikkerhet+p+GitHub" target="_blank" rel="noopener noreferrer">Sikkerhet på GitHub</a></li>
-<li>Fullføre ROS-analyse</li>
-<li>Forberede informasjon til SKIP-teamet<!-- -->
-<ul>
-<li>Tekniske forventninger</li>
-<li>Tjenestedesign/arkitektur</li>
-<li>Utenforliggende avhengiheter</li>
-</ul>
-</li>
-<li>Ta ansvar for egne krav og kommunisere disse tydelig og konsist til SKIP</li>
-<li>Sørge for at alle teammedlemmer inviteres til møter og Slack-grupper under onboarding-prosessen</li>
-<li>Lese og forstå SKIP-dokumentasjonen</li>
-<li>Gjøre forventet/påkrevd go-live-dato kjent for SKIP</li>
-</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/kartverket/skip-docs/edit/main/docs/02-kom-i-gang/04-team/02-onboarding-new-teams.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/kom-i-gang/team"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">🫂 Team på SKIP</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/kom-i-gang/team/add-remove-team-member"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Konfigurering av Entra ID grupper</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#skip-teamets-oppgaver" class="table-of-contents__link toc-highlight">SKIP-teamets oppgaver</a><ul><li><a href="#før-onboarding" class="table-of-contents__link toc-highlight">Før onboarding</a></li><li><a href="#under-onboarding" class="table-of-contents__link toc-highlight">Under onboarding</a></li></ul></li><li><a href="#produkt-team-oppgaver" class="table-of-contents__link toc-highlight">Produkt-team oppgaver</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Lenker</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://uustatus.no/nb/erklaringer/publisert/7148395f-f0cf-4019-9c45-3b83d79fd544" target="_blank" rel="noopener noreferrer" class="footer__link-item">Tilgjengelighetserklæring<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Statens Kartverk</div></div></div></footer></div>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/kartverket/skip-docs/edit/main/docs/02-kom-i-gang/04-team/02-onboarding-new-teams.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/kom-i-gang/team"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">🫂 Team på SKIP</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/kom-i-gang/team/add-remove-team-member"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Konfigurering av Entra ID grupper</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#produkt-team-oppgaver" class="table-of-contents__link toc-highlight">Produkt-team oppgaver</a></li><li><a href="#skip-teamets-oppgaver" class="table-of-contents__link toc-highlight">SKIP-teamets oppgaver</a><ul><li><a href="#før-onboarding" class="table-of-contents__link toc-highlight">Før onboarding</a></li><li><a href="#under-onboarding" class="table-of-contents__link toc-highlight">Under onboarding</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Lenker</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://uustatus.no/nb/erklaringer/publisert/7148395f-f0cf-4019-9c45-3b83d79fd544" target="_blank" rel="noopener noreferrer" class="footer__link-item">Tilgjengelighetserklæring<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Statens Kartverk</div></div></div></footer></div>
 </body>
 </html>
