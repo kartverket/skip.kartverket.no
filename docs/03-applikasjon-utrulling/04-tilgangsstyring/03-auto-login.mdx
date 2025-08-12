@@ -25,7 +25,8 @@ generere nødvendig AuthPolicy-ressurs bak kulissene, noe som forenkler konfigur
         Ztoperator muliggjør automatisk innlogging ved å benytte [Envoy OAuth2-filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter).
         Dette filteret inspiserer innkommende forespørsler og vurderer om brukeren er autentisert. Dersom forespørselen ikke er autentisert, vil brukeren automatisk bli omdirigert til innlogging hos den konfigurerte identitetsleverandøren.
         Ztoperator utvider funksjonaliteten ved å gi mulighet for å spesifisere hvilke URL-stier som skal utløse innloggingsflyten.
-        For en mer detaljert beskrivelse av hvordan automatisk innlogging kan konfigureres, se [API-dokumentasjonen til Ztoperator](04-ztoperator/01-api-docs.mdx).
+        For en mer detaljert beskrivelse av hvordan automatisk innlogging kan konfigureres, se [API-dokumentasjonen til Ztoperator](04-ztoperator/02-api-docs.mdx).
+        Les mer om hvordan du kan [teste din `AuthPolicy`](04-ztoperator/01-test-authpolicy.mdx) for å validere at en `AuthPolicy` fungerer som forventet.
 
         En forutsetning for å kunne sette opp automatisk innlogging med Ztoperator er at det eksisterer en Kubernetes hemmelighet i samme `namespace`. Hemmeligheten må inneholde klient-ID (client ID) og
         klient-hemmelighet (client secret). Dette får man automatisk opprettet hvis man registrerer en klienten gjennom [Skiperator, Digdirator eller Azurerator](01-klientregistrering.mdx).

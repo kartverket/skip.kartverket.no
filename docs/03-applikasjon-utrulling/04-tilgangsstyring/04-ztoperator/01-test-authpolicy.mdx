@@ -1,0 +1,146 @@
+import Admonition from '@theme/Admonition';
+
+# Test din AuthPolicy
+
+Ztoperator følger en deklarativ tilnærming, der tilgangsstyringen flyttes ut av applikasjonskoden og inn i teamets infrastrukturkode (IaC) – typisk i et [apps-repo](../../09-argo-cd/02-hva-er-et-apps-repo.md).
+Denne tilnærmingen gir mange fordeler, men kan gjøre det mer utfordrende å teste tilgangsstyringen i integrasjonstester.
+For å håndtere dette kan du bruke GitHub Actionen [`test-authpolicy-action`](https://github.com/kartverket/test-authpolicy-action),
+som lar deg verifisere at en `AuthPolicy` du har definert for å styre tilgangen til applikasjonen faktisk fungerer som forventet.
+
+## 📖 Eksempel
+
+For å illustrere hvordan `test-authpolicy-action` fungerer, ser vi på et konkret eksempel.
+
+### 🔐 `AuthPolicy`
+
+Følgende `AuthPolicy` tillater uautentiserte forespørsler til URL-stien `/public` og alle under-stier.
+Samtidig sikrer den at kun autentiserte forespørsler med claimet `role: admin` får tilgang til `/admin` og alle under-stier.
+Alle andre forespørsler som ikke omfattes av `ignoreAuthRules` eller `authRules` må være autentisert.
+
+```yaml
+apiVersion: ztoperator.kartverket.no/v1alpha1
+kind: AuthPolicy
+metadata:
+  name: auth-policy
+spec:
+  enabled: true
+  ignoreAuthRules:
+    - paths:
+        - /public*
+  authRules:
+    - paths:
+        - /admin*
+      when:
+        - claim: role
+          values:
+            - admin
+      denyRedirect: true
+  audience: some-audience
+  oAuthCredentials:
+    secretRef: oauth-secret
+    clientIDKey: CLIENT_ID_KEY
+    clientSecretKey: CLIENT_SECRET_SECRET
+  autoLogin:
+    enabled: true
+    loginPath: /login
+    logoutPath: /logout
+    redirectPath: /oauth2/callback
+    scopes:
+      - offline_access
+      - openid
+  wellKnownURI: https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration
+  selector:
+    matchLabels:
+      app: application
+```
+
+### 🚀 `test-authpolicy-action`
+
+Du kan teste nevnte `AuthPolicy` direkte i repoet der den er definert (typisk et [apps-repo](../../09-argo-cd/02-hva-er-et-apps-repo.md)) ved å inkludere den i en GitHub Workflow-jobb.
+Før `test-authpolicy-action` kjøres, **må** [`setup-skip-action`](https://github.com/kartverket/setup-skip-action) være kjørt for å sette opp det nødvendige miljøet som kreves for å gjennomføre testene.
+
+```yaml
+name: Test AuthPolicy
+runs-on: ubuntu-latest
+steps:
+  - name: Checkout repo
+    uses: actions/checkout@v3
+# diff-add-start
+
+  # 🚨 Må kjøres først 🚨
+  - name: Setup SKIP
+    uses: kartverket/setup-skip-action@v0.0.1
+
+  - name: Test AuthPolicy
+    uses: kartverket/test-authpolicy-action@v0.0.1
+    with:
+      test: test.yaml
+      authpolicy: authpolicy.yaml
+# diff-add-end
+```
+
+### 🧪 Test-fil
+
+`test-authpolicy-action` har to input: filstien til `AuthPolicy`-ressursen som skal testes, og filstien til en _testfil_ som beskriver selve testene.
+Testfilen må følge JSON-skjemaet definert [her](https://kartverket.github.io/test-authpolicy-action/v0.0.1/schema.json).
+
+Testfilen består av et navn (`name`) og en samling forespørsler (`requests`). Hver forespørsel definerer:
+- Én eller flere URL-stier.
+- Én eller flere HTTP-metoder.
+- En forventet respons (`expected_response`).
+
+I tillegg kan du angi det boolske feltet `auth` for at forespørselen skal autentiseres, dvs. at en gyldig JWT legges ved i headeren `Authorization: Bearer <JWT>`.
+Du kan også oppgi en liste med `claims` som skal inkluderes i JWT-en.
+
+Følgende er et eksempel på en test-fil som kan brukes til å teste `AuthPolicy`-ressursen ovenfor. Test-filen vil oversettes til HTTP-forespørsler i en [hurl-fil](https://hurl.dev/),
+og en [hurl-test](https://hurl.dev/docs/running-tests.html) blir kjørt og evaluerer forespørslene.
+
+<Admonition type="tip" title="Visste du at...">
+    Hvis `test-authpolicy-action` kjøres i en pull request så vil den legge ved resultatet av hurl-testen som en kommentar. Den vil der vise hurl-testen som ble opprettet på
+    bakgrunn av test-filen. Hvis testen feiler vil den i tillegg vise hvilken HTTP-forespørsel i hurl-filen som feilet, og peke på hvilken forespørsel i testen denne stammer fra.
+</Admonition>
+
+```yaml
+name: Test AuthPolicy
+requests:
+  # Verifiser at stien /public og alle under-stier er åpne
+  - paths:
+      - /public
+      - /public123
+    expected_response: allowed
+
+  # Verifiser at stien /admin og alle under-stier blir blokkert uten gyldig JWT
+  - paths:
+      - /admin
+      - /admin123
+    expected_response: denied
+
+  # Verifiser at stien /admin og alle under-stier ikke slipper gjennom med kun autentisert JWT (krever også claimet role: admin)
+  - paths:
+      - /admin
+      - /admin123
+    auth: true
+    expected_response: denied
+
+  # Verifiser at stien /admin og alle under-stier er åpne når autentisert JWT med claimet role: admin legges ved
+  - paths:
+      - /admin
+      - /admin123
+    auth: true
+    claims:
+      - claim: role
+        values:
+          - admin
+    expected_response: allowed
+
+  # Verifiser at stier som ikke er nevnt i AuthPolicy-ressursen ikke er åpne og omdirigerer til innlogging
+  - paths:
+      - /something
+    expected_response: login_redirect
+
+  # Verifiser at stier som ikke er nevnt i AuthPolicy-ressursen krever autentisert JWT
+  - paths:
+      - /something
+    auth: true
+    expected_response: allowed
+```
