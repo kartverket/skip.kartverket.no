@@ -14,7 +14,7 @@ const darkCodeTheme = themes.dracula;
     organizationName: 'kartverket',
     trailingSlash: false,
     onBrokenLinks: "warn",
-    onBrokenMarkdownLinks: "warn",
+    onBrokenMarkdownLinks: "throw",
     favicon: "img/favicon/favicon.ico",
 
     markdown: {
