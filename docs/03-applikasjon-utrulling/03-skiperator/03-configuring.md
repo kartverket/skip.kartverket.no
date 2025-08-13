@@ -28,7 +28,7 @@ spec:
 This sets up an ingress to your application that can be reached from Kartverkets internal network. The `redirectToHTTPS` field is optional and will redirect all incoming traffic to HTTPS.
 To make it publicly available you can remove the `-intern` part of the domain name.
 
-If you want, or already have a different domain name for your application then we most likely need to set up a CNAME record in DNS. You can read more about domain names [here](../06-kubernetes/07-urler-og-sertifikat-for-tjenester-på-skip.md).
+If you want, or already have a different domain name for your application then we most likely need to set up a CNAME record in DNS. You can read more about domain names [here](../../02-kom-i-gang/06-praktisk-intro/06-kubernetes/07-urler-og-sertifikat-for-tjenester-på-skip.md).
 
 ### Access policy
 

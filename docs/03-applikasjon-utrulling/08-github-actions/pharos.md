@@ -4,7 +4,7 @@
 
 Det er anbefalt å skanne images minst en gang i døgnet og ved bygging av images fra hovedbranchen.
 
-For å få Pharos-oppdateringer automatisk er det anbefalt å sette opp [Dependabot](../07-github/06-dependabot.md).
+For å få Pharos-oppdateringer automatisk er det anbefalt å sette opp [Dependabot](../../02-kom-i-gang/06-praktisk-intro/01-github/06-dependabot.md).
 
 ## Eksempler
 
