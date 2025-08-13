@@ -26,4 +26,4 @@ So to summarize, in order to use Skiperator and run your applications in SKIP yo
 - A CI/CD pipeline that builds and pushes the container image to the container registry
 - Argo CD set up for deployment of the application from a `team-apps` repository
 
-Now that you have the prerequisites in place you can move on to the [Getting started](02-get-started) page to learn how to deploy your application or job to SKIP.
+Now that you have the prerequisites in place you can move on to the [Getting started](../../02-kom-i-gang/index.md) page to learn how to deploy your application or job to SKIP.

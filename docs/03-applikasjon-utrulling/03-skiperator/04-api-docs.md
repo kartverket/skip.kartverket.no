@@ -223,7 +223,7 @@ E.g. "foo.atkv3-dev.kartverket-intern.cloud+env-wildcard-cert"<br/>
 interval for tracing is the only supported option.
 By default, tracing is enabled with a random sampling percentage of 10%.<br/>
           <br/>
-            <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
+            <i>Default</i>: map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -3303,7 +3303,7 @@ Once set, you may not change Container without deleting your current SKIPJob<br/
 interval for tracing is the only supported option.
 By default, tracing is enabled with a random sampling percentage of 10%.<br/>
           <br/>
-            <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
+            <i>Default</i>: map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]<br/>
         </td>
         <td>false</td>
       </tr><tr>

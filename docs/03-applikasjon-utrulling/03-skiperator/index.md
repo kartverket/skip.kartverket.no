@@ -16,4 +16,4 @@ Skiperator offers three CRDs (Custom Resource Definitions) to make it easy to de
 - `SKIPJob` - for running jobs and cron jobs
 - `Routing` - for setting up routing rules, for example frontend and backend services under the same domain
 
-To get started check out the [Requirements](01-requirements.md) and [Getting started](02-get-started.md) pages.
+To get started check out the [Requirements](01-requirements.md) and [Getting started](../../02-kom-i-gang/index.md) pages.
