@@ -14,8 +14,8 @@
 
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.5c884a55.css">
-<script src="/assets/js/runtime~main.dfdd69dd.js" defer="defer"></script>
-<script src="/assets/js/main.4ab0aa7b.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.f21cf92c.js" defer="defer"></script>
+<script src="/assets/js/main.0db22d37.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -25,7 +25,7 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="minstekrav-for-sikkerhet">Minstekrav for sikkerhet<a href="#minstekrav-for-sikkerhet" class="hash-link" aria-label="Direct link to Minstekrav for sikkerhet" title="Direct link to Minstekrav for sikkerhet">​</a></h2>
 <p>I Kubernetes bruker vi Pod Security Standards for å sikre at alle pods som kjører i clusteret vårt er sikre. Dette er en standard som er satt av CNCF, og som vi følger for å sikre at vi ikke har noen åpenbare sikkerhetshull i Kubernetes-clusteret vårt. Alle workloads skal følge PSS nivå &quot;restricted&quot;, som er et nivå som følger dagens best practices for sikring av containere. Applikasjoner som kjører som Skiperator Applications følger allerede denne standarden. Les mer om <a href="https://kubernetes.io/docs/concepts/security/pod-security-standards" target="_blank" rel="noopener noreferrer">Pod Security Standards her</a>.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="namespaces-som-avgrensning-mellom-teams">Namespaces som avgrensning mellom teams<a href="#namespaces-som-avgrensning-mellom-teams" class="hash-link" aria-label="Direct link to Namespaces som avgrensning mellom teams" title="Direct link to Namespaces som avgrensning mellom teams">​</a></h2>
-<p>Hvert team kan lage så mange Namespaces som de har behov for. Dette er for å kunne skille på ressurser og tilganger mellom forskjellige applikasjoner og team. Dette er også for å kunne gi teamene mulighet til å eksperimentere og teste ting uten at det påvirker andre team. Les mer om dette på <a href="/docs/kom-i-gang/praktisk-intro/argo-cd">Argo CD</a>.</p>
+<p>Hvert team kan lage så mange Namespaces som de har behov for. Dette er for å kunne skille på ressurser og tilganger mellom forskjellige applikasjoner og team. Dette er også for å kunne gi teamene mulighet til å eksperimentere og teste ting uten at det påvirker andre team. Les mer om dette på <a href="/docs/applikasjon-utrulling/argo-cd/komme-i-gang-med-argocd">Argo CD</a>.</p>
 <p>Kommunikasjon mellom tjenester internt i ett namespace er helt lukket (“default deny”-policy), og det er opp til teamet selv å sørge for å åpne for kommunikasjon mellom tjenester. Les mer om dette på <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a>.</p>
 <p>Informasjon om kommunikasjon mot tjenester som ligger i andre namespaces finnes her: <a href="https://kartverket.atlassian.net/wiki/spaces/SKIP/pages/305956270/Anthos+Service+Mesh+Brukerdokumentasjon" target="_blank" rel="noopener noreferrer">Anthos Service Mesh Brukerdokumentasjon</a></p>
 <ul>
