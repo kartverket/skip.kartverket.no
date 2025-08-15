@@ -14,8 +14,8 @@
 
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.5c884a55.css">
-<script src="/assets/js/runtime~main.f21cf92c.js" defer="defer"></script>
-<script src="/assets/js/main.0db22d37.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.003e2c2c.js" defer="defer"></script>
+<script src="/assets/js/main.3c5b5707.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -49,7 +49,12 @@
 <p>Codeowners definert i koderepo <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/561348667/CODEOWNERS" target="_blank" rel="noopener noreferrer">CODEOWNERS</a></p>
 </li>
 <li>
-<p>Gjennomført initiell penetrasjonstesting (hvem og hvordan?) eller manuell avsjekk med SKIP rundt konfigurasjon</p>
+<p>Gjennomfør en sikkerhetssjekk</p>
+<ul>
+<li>Se over hvilke endepunkter som er eksponert og at debug endepunkter og liknende interne endepunkter ikke er eksponert</li>
+<li>Sørg for at alle endepunkter som krever autentisering faktisk krever det</li>
+<li>Vi anbefaler i tillegg å bruke <a href="https://www.zaproxy.org/" target="_blank" rel="noopener noreferrer">OWASP ZAP</a> for å kjøre en scan</li>
+</ul>
 </li>
 <li>
 <p>Følgende headere blir sendt på alle kall:</p>
