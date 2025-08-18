@@ -17,7 +17,10 @@ Før dette kan gjøres må man gå igjennom denne sjekklisten:
 - Det er gjort IP (Innledende Personvernsvurdering) og eventuelt DPIA. Kopier malen [IP, DPIA og ROS-analyse for [det som vurderes]](https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338719/IP+DPIA+og+ROS-analyse+for+det+som+vurderes+.+IKKE+SKRIV+INN+I+MALEN+men+kopier+sidene.) til deres område og fyll ut informasjonen der.
 - ROS-analyse gjennomført og godkjent av risikoeier/systemeier
 - Codeowners definert i koderepo [CODEOWNERS](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/561348667/CODEOWNERS)
-- Gjennomført initiell penetrasjonstesting (hvem og hvordan?) eller manuell avsjekk med SKIP rundt konfigurasjon
+- Gjennomfør en sikkerhetssjekk
+  - Se over hvilke endepunkter som er eksponert og at debug endepunkter og liknende interne endepunkter ikke er eksponert
+  - Sørg for at alle endepunkter som krever autentisering faktisk krever det
+  - Vi anbefaler i tillegg å bruke [OWASP ZAP](https://www.zaproxy.org/) for å kjøre en scan
 
 - Følgende headere blir sendt på alle kall:
   - [HTTP Strict Transport Security](https://scotthelme.co.uk/hsts-the-missing-link-in-tls/)
