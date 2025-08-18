@@ -14,8 +14,8 @@
 
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.5c884a55.css">
-<script src="/assets/js/runtime~main.003e2c2c.js" defer="defer"></script>
-<script src="/assets/js/main.3c5b5707.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.2aea118e.js" defer="defer"></script>
+<script src="/assets/js/main.1cc74034.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -35,7 +35,8 @@ generere nødvendig AuthPolicy-ressurs bak kulissene, noe som forenkler konfigur
 Støtte for å sette opp automatisk innlogging i Istio-sidecar via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.</p></div><div role="tabpanel" class="tabItem_Ymn6" hidden=""><p>Ztoperator muliggjør automatisk innlogging ved å benytte <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter" target="_blank" rel="noopener noreferrer">Envoy OAuth2-filter</a>.
 Dette filteret inspiserer innkommende forespørsler og vurderer om brukeren er autentisert. Dersom forespørselen ikke er autentisert, vil brukeren automatisk bli omdirigert til innlogging hos den konfigurerte identitetsleverandøren.
 Ztoperator utvider funksjonaliteten ved å gi mulighet for å spesifisere hvilke URL-stier som skal utløse innloggingsflyten.
-For en mer detaljert beskrivelse av hvordan automatisk innlogging kan konfigureres, se <a href="/docs/applikasjon-utrulling/tilgangsstyring/ztoperator/api-docs">API-dokumentasjonen til Ztoperator</a>.</p><p>En forutsetning for å kunne sette opp automatisk innlogging med Ztoperator er at det eksisterer en Kubernetes hemmelighet i samme <code>namespace</code>. Hemmeligheten må inneholde klient-ID (client ID) og
+For en mer detaljert beskrivelse av hvordan automatisk innlogging kan konfigureres, se <a href="/docs/applikasjon-utrulling/tilgangsstyring/ztoperator/api-docs">API-dokumentasjonen til Ztoperator</a>.
+Les mer om hvordan du kan <a href="/docs/applikasjon-utrulling/tilgangsstyring/ztoperator/test-authpolicy">teste din <code>AuthPolicy</code></a> for å validere at en <code>AuthPolicy</code> fungerer som forventet.</p><p>En forutsetning for å kunne sette opp automatisk innlogging med Ztoperator er at det eksisterer en Kubernetes hemmelighet i samme <code>namespace</code>. Hemmeligheten må inneholde klient-ID (client ID) og
 klient-hemmelighet (client secret). Dette får man automatisk opprettet hvis man registrerer en klienten gjennom <a href="/docs/applikasjon-utrulling/tilgangsstyring/klientregistrering">Skiperator, Digdirator eller Azurerator</a>.
 Eventuelt kan en bruke <a href="/docs/applikasjon-utrulling/argo-cd/hente-hemmeligheter-fra-hemmelighetsvelv">External Secrets Operator</a> for å hente verdiene fra <a href="https://cloud.google.com/security/products/secret-manager?hl=en" target="_blank" rel="noopener noreferrer">Google Secret Manager</a>.</p><div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>Merk...</div><div class="admonitionContent_BuS1"><p>Digdirator oppretter <strong>kun</strong> en <a href="https://oauth.net/private-key-jwt/" target="_blank" rel="noopener noreferrer">private key JWT</a> for å veksle inn autorisasjonskode mot access token / refresh token og <strong>ikke</strong> en client secret.
 <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter" target="_blank" rel="noopener noreferrer">Envoy OAuth2-filter</a> støtter per nå <strong>kun</strong> client secret og ID-porten integrasjoner opprettet
