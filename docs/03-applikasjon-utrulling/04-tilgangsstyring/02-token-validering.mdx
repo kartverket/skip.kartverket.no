@@ -16,10 +16,6 @@ innkommende request ha en gyldig JWT.
 - **Trygge standardinnstillinger**: Hvis man ved en feil spesifiserer et endepunkt som både åpent og autorisert, vil forespørselen som standard kreve et gyldig og autorisert JWT.
 
 <Tabs groupId={"operator"}>
-    <TabItem value="skiperator" label="Skiperator">
-        🚧 **UNDER UTVIKLING** 🚧<br />
-        Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-    </TabItem>
     <TabItem value="ztoperator" label="Ztoperator">
         Ztoperator introduserer CRD-en `AuthPolicy`, som har i oppgave å sette opp token-validering og grovkornet autorisasjon.
         `AuthPolicy` har som hovedoppgave å opprette Istio-ressursene `RequestAuthentication` og `AuthorizationPolicy`
@@ -61,6 +57,10 @@ innkommende request ha en gyldig JWT.
         | `/{**}/foo/{*}` | ❌ | Ikke lov: Hvis wildcard-operatoren `{**}` benyttes **må** den være den siste wildcard-operatoren. |
         | `/foo/{*}.txt` | ❌ | Wildcard-operatoren `{*}` er ikke lov å bruke sammen med andre tegn innenfor et sti-segment. |
     </TabItem>
+    <TabItem value="skiperator" label="Skiperator">
+        🚧 **UNDER UTVIKLING** 🚧<br />
+        Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+    </TabItem>
 </Tabs>
 
 ## 📖 Eksempler
@@ -71,10 +71,6 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
   <summary><strong>Eksempel 1: Token-validering for _alle_ endepunkt</strong></summary>
 
     <Tabs groupId={"operator"}>
-        <TabItem value="skiperator" label="Skiperator">
-            🚧 **UNDER UTVIKLING** 🚧<br />
-            Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-        </TabItem>
         <TabItem value="ztoperator" label="Ztoperator">
             Følgende `AuthPolicy`-manifest konfigurerer token-validering for alle endepunktene inn til workloads med labelen `app: some-application` i namespacet `some-namespace`.
 
@@ -94,6 +90,10 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
                   app: some-application
             ```
         </TabItem>
+        <TabItem value="skiperator" label="Skiperator">
+            🚧 **UNDER UTVIKLING** 🚧<br />
+            Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+        </TabItem>
     </Tabs>
 </details>
 
@@ -101,10 +101,6 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
   <summary><strong>Eksempel 2: Legg til åpne endepunkt</strong></summary>
 
   <Tabs groupId={"operator"}>
-          <TabItem value="skiperator" label="Skiperator">
-              🚧 **UNDER UTVIKLING** 🚧<br />
-              Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-          </TabItem>
           <TabItem value="ztoperator" label="Ztoperator">
             Følgende `AuthPolicy`-manifest konfigurerer token-validering for alle endepunktene inn til `some-application`, **utenom** for `GET` til `/api/cars` og `/api/cars/public*`.
 
@@ -136,6 +132,10 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
           ```
 
         </TabItem>
+          <TabItem value="skiperator" label="Skiperator">
+              🚧 **UNDER UTVIKLING** 🚧<br />
+              Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+          </TabItem>
   </Tabs>
 
 </details>
@@ -145,10 +145,6 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
   <summary><strong>Eksempel 3: Legg til autoriserte endepunkt</strong></summary>
 
       <Tabs groupId={"operator"}>
-              <TabItem value="skiperator" label="Skiperator">
-                  🚧 **UNDER UTVIKLING** 🚧<br />
-                  Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-              </TabItem>
               <TabItem value="ztoperator" label="Ztoperator">
                 Følgende `AuthPolicy`-manifest konfigurerer token-validering for alle endepunktene inn til `some-application`, **utenom** for endepunktene `/api/cars*` og `/api/cars/public` **for alle metoder**.
                 I tillegg spesifiserer den at `POST`, `PUT` og `DELETE` mot `/api/cars/admin` kun er lov hvis JWT-claimet `roles` eksisterer med verdien `admin`.
@@ -191,5 +187,9 @@ Under følger en rekke eksempler på hvordan å konfigurere token-validering og 
           ```
 
             </TabItem>
+              <TabItem value="skiperator" label="Skiperator">
+                  🚧 **UNDER UTVIKLING** 🚧<br />
+                  Støtte for å sette opp token-validering og grovkornet autorisasjon via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+              </TabItem>
       </Tabs>
 </details>

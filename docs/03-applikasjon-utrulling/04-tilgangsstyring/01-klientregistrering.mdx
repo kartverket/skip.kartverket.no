@@ -22,87 +22,6 @@ Alternativt kan man bruke CRD-ene fra [Digdirator](https://github.com/nais/digdi
 
 
 <Tabs queryString={"operator"}>
-    <TabItem value="skiperator" label="Skiperator">
-
-        Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten** og **Maskinporten**.
-        Det jobbes også med et forenklet API for å registrere klienter mot **Entra ID**, men dette er ikke helt klart ennå.
-
-        Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert som miljøvariabler i deploymenten til applikasjonen.
-        Dette gjør at applikasjonen enkelt kan få tilgang til hemmelighetene i et kjøretidsmiljø.
-
-        <Tabs queryString={"idp"}>
-            <TabItem value="entraid" label="Entra ID">
-               ### 🚧 UNDER UTVIKLING 🚧
-               Opprettelse av app-registrering i Entra ID via spesifikasjonen til `Application` jobbes med, men er ikke klart helt ennå.
-            </TabItem>
-            <TabItem value="idporten" label="ID-porten">
-                [Skiperator](../03-skiperator/index.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
-                via spesifikasjonen til `Application`.
-
-                Eksempelet under setter opp en integrasjon mot ID-porten med følgende konfigurasjon.
-                - Integrasjonstypen settes til `api_klient`.
-                - Redirect path settes til `/oauth/callback`.
-                - Scopene `openid` og `profile` settes.
-
-                Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
-```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
-kind: Application
-metadata:
-  name: application
-  namespace: tilgangsstyring-main
-spec:
-  image: image
-  port: 8080
-// diff-add-start
-  idporten:
-    enabled: true
-    integrationType: "api_klient"
-    redirectPath: "/oauth/callback"
-    scopes:
-      - "openid"
-      - "profile"
-// diff-add-end
-```
-            </TabItem>
-            <TabItem value="maskinporten" label="Maskinporten">
-                [Skiperator](../03-skiperator/index.md) tilbyr støtte for å sette opp en klientintegrasjon mot Maskinporten
-                via spesifikasjonen til `Application`.
-
-                Eksempelet under setter opp en integrasjon mot Maskinporten med følgende konfigurasjon.
-                - Scopet `innsyn` opprettes og organisasjonene HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS
-                settes som godkjente konsumenter av dette scopet.
-
-                Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
-
-
-```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
-kind: Application
-metadata:
-  name: application
-  namespace: tilgangsstyring-main
-spec:
-  image: image
-  port: 8080
-// diff-add-start
-  maskinporten:
-    enabled: true
-    scopes:
-      exposes:
-      - name: "innsyn"
-        enabled: true
-        product: "Produktområde"
-        consumers:
-        - name: HUSLØS HURTIG TIGER AS
-          orgno: "987654321"
-        - name: KOSTBAR LEKKER APE AS
-          orgno: "123456789"
-// diff-add-end
-```
-            </TabItem>
-        </Tabs>
-    </TabItem>
     <TabItem value="native" label="Digdirator / Azurerator">
 
         Hvis en ønsker å opprette en klientintegrasjon uten å knytte den til en Skiperator-applikasjon, kan man benytte seg av CRD-ene som Digdirator og Azurerator introduserer direkte.
@@ -171,6 +90,7 @@ metadata:
   namespace: tilgangsstyring-main
 spec:
   allowAllUsers: false
+  secretName: entraid-secret
   claims:
     groups:
       - id: 2720e397-081d-4d9b-852e-0d81f45a304f
@@ -300,6 +220,87 @@ spec:
       - name: KOSTBAR LEKKER APE AS
         orgno: "123456789"
   secretName: maskinporten-secret
+```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="skiperator" label="Skiperator">
+
+        Skiperator tilbyr et forenklet API i CRD-en `Application` for å registrere klienter mot **ID-porten** og **Maskinporten**.
+        Det jobbes også med et forenklet API for å registrere klienter mot **Entra ID**, men dette er ikke helt klart ennå.
+
+        Fordelen med å benytte Skiperator for klientregistrering er at hemmelighetene som Digdirator oppretter blir automatisk injisert som miljøvariabler i deploymenten til applikasjonen.
+        Dette gjør at applikasjonen enkelt kan få tilgang til hemmelighetene i et kjøretidsmiljø.
+
+        <Tabs queryString={"idp"}>
+            <TabItem value="entraid" label="Entra ID">
+               ### 🚧 UNDER UTVIKLING 🚧
+               Opprettelse av app-registrering i Entra ID via spesifikasjonen til `Application` jobbes med, men er ikke klart helt ennå.
+            </TabItem>
+            <TabItem value="idporten" label="ID-porten">
+                [Skiperator](../03-skiperator/index.md) tilbyr støtte for å sette opp en klientintegrasjon mot ID-porten
+                via spesifikasjonen til `Application`.
+
+                Eksempelet under setter opp en integrasjon mot ID-porten med følgende konfigurasjon.
+                - Integrasjonstypen settes til `api_klient`.
+                - Redirect path settes til `/oauth/callback`.
+                - Scopene `openid` og `profile` settes.
+
+                Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+// diff-add-start
+  idporten:
+    enabled: true
+    integrationType: "api_klient"
+    redirectPath: "/oauth/callback"
+    scopes:
+      - "openid"
+      - "profile"
+// diff-add-end
+```
+            </TabItem>
+            <TabItem value="maskinporten" label="Maskinporten">
+                [Skiperator](../03-skiperator/index.md) tilbyr støtte for å sette opp en klientintegrasjon mot Maskinporten
+                via spesifikasjonen til `Application`.
+
+                Eksempelet under setter opp en integrasjon mot Maskinporten med følgende konfigurasjon.
+                - Scopet `innsyn` opprettes og organisasjonene HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS
+                settes som godkjente konsumenter av dette scopet.
+
+                Resten av feltene som støttes kan du finne i Skiperator sin [API-dokumentasjon](../03-skiperator/04-api-docs.md).
+
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: application
+  namespace: tilgangsstyring-main
+spec:
+  image: image
+  port: 8080
+// diff-add-start
+  maskinporten:
+    enabled: true
+    scopes:
+      exposes:
+      - name: "innsyn"
+        enabled: true
+        product: "Produktområde"
+        consumers:
+        - name: HUSLØS HURTIG TIGER AS
+          orgno: "987654321"
+        - name: KOSTBAR LEKKER APE AS
+          orgno: "123456789"
+// diff-add-end
 ```
             </TabItem>
         </Tabs>
