@@ -17,10 +17,6 @@ som gir full kontroll over autentiserings- og autorisasjonsregler inn mot én el
 generere nødvendig AuthPolicy-ressurs bak kulissene, noe som forenkler konfigurasjonen og integreres sømløst med øvrig SKIP-funksjonalitet, som for eksempel [klientregistrering](01-klientregistrering.mdx).
 
 <Tabs groupId='operator'>
-    <TabItem value='skiperator' label='Skiperator'>
-        🚧 **UNDER UTVIKLING** 🚧<br />
-        Støtte for å sette opp automatisk innlogging i Istio-sidecar via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-    </TabItem>
     <TabItem value='ztoperator' label='Ztoperator'>
         Ztoperator muliggjør automatisk innlogging ved å benytte [Envoy OAuth2-filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter).
         Dette filteret inspiserer innkommende forespørsler og vurderer om brukeren er autentisert. Dersom forespørselen ikke er autentisert, vil brukeren automatisk bli omdirigert til innlogging hos den konfigurerte identitetsleverandøren.
@@ -43,6 +39,10 @@ generere nødvendig AuthPolicy-ressurs bak kulissene, noe som forenkler konfigur
             med Digdirator vil derfor **ikke** være kompatibelt med automatisk innlogging med Ztoperator per nå.
         </Admonition>
     </TabItem>
+    <TabItem value='skiperator' label='Skiperator'>
+        🚧 **UNDER UTVIKLING** 🚧<br />
+        Støtte for å sette opp automatisk innlogging i Istio-sidecar via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+    </TabItem>
 </Tabs>
 
 ## 📖 Eksempler
@@ -60,10 +60,6 @@ Dette er noe som passer godt for Single Page Applications (SPA).
     <summary><strong>Eksempel 1: Automatisk innlogging for alle beskyttede endepunkt</strong></summary>
 
     <Tabs groupId={"operator"}>
-        <TabItem value="skiperator" label="Skiperator">
-            🚧 **UNDER UTVIKLING** 🚧<br />
-            Støtte for å sette opp automatisk innlogging via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-        </TabItem>
         <TabItem value="ztoperator" label="Ztoperator">
             Følgende `AuthPolicy` er konfigurert til å ikke sikre endepunktene `/public*` og `/assets*`, men sikre alt annet.
             For å sette opp automatisk innlogging må Ztoperator ha tilgang til klient ID (client ID) og klient hemmelighet (client secret) tilhørende en klientregistrering.
@@ -112,6 +108,10 @@ Dette er noe som passer godt for Single Page Applications (SPA).
 
             ```
         </TabItem>
+        <TabItem value="skiperator" label="Skiperator">
+            🚧 **UNDER UTVIKLING** 🚧<br />
+            Støtte for å sette opp automatisk innlogging via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
+        </TabItem>
     </Tabs>
 
 </details>
@@ -121,10 +121,6 @@ Dette er noe som passer godt for Single Page Applications (SPA).
     <summary><strong>Eksempel 2: Automatisk innlogging med dedikert innloggingssti (`loginPath`)</strong></summary>
 
     <Tabs groupId={"operator"}>
-        <TabItem value="skiperator" label="Skiperator">
-            🚧 **UNDER UTVIKLING** 🚧<br />
-            Støtte for å sette opp automatisk innlogging via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
-        </TabItem>
         <TabItem value="ztoperator" label="Ztoperator">
             Følgende `AuthPolicy` er konfigurert til å sikre endepunktene `/api*` (`/api` og alle dens understier).
             Hvis dette hadde vært en applikasjon som servet frontend OG api-endepunkter under `/api*`, så vil såkalte AJAX-kall ikke kunne automatisk omdirigert brukeren inn på
@@ -188,6 +184,10 @@ Dette er noe som passer godt for Single Page Applications (SPA).
 
             ```
 
+        </TabItem>
+        <TabItem value="skiperator" label="Skiperator">
+            🚧 **UNDER UTVIKLING** 🚧<br />
+            Støtte for å sette opp automatisk innlogging via Skiperator-manifestet er under utvikling og er foreløpig ikke tilgjengelig.
         </TabItem>
     </Tabs>
 </details>
