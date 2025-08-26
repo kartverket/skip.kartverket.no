@@ -1702,9 +1702,9 @@ Default: no timeout<br/>
         <td>false</td>
       </tr><tr>
         <td><b>retryOnHttpResponseCodes</b></td>
-        <td>[]int or string</td>
+        <td>[]string or int</td>
         <td>
-          RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is [503].
+          RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is ['503'].
 You may also use 5xx and retriable-4xx (only 409).<br/>
         </td>
         <td>false</td>
