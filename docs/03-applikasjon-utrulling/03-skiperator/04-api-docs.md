@@ -1646,7 +1646,7 @@ By default, tracing is enabled with a random sampling percentage of 10%.
         <td>object</td>
         <td>
           Retries is configurable automatic retries for requests towards the application.
-By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled,5xx" will be retried.<br/>
+By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled" will be retried.<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1668,7 +1668,7 @@ By default requests falling under: "connect-failure,refused-stream,unavailable,c
 
 
 Retries is configurable automatic retries for requests towards the application.
-By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled,5xx" will be retried.
+By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled" will be retried.
 
 <table>
     <thead>
@@ -1705,7 +1705,8 @@ Default: no timeout<br/>
         <td>[]int or string</td>
         <td>
           RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is [503].
-You may also use 5xx and retriable-4xx (only 409).<br/>
+You may also use 5xx and retriable-4xx (only 409).
+mixed types are allowed such as [503, "retriable-4xx"]<br/>
         </td>
         <td>false</td>
       </tr></tbody>
