@@ -143,7 +143,7 @@ policy {
 }
 ```
 
-## 24/4 alerting
+## 24/7 alerting
 
 Once you have configured a set of alerts, you might want them to be monitored 24/7. Kartverket provides a solution for this in the form of “Vaktlaget”. Vaktlaget is a team consisting of various people in IT-drift that have a special agreement that allows them to be notified and follow up when an alert fires outside of normal working hours.
 
