@@ -28,5 +28,5 @@ personen du ønsker å legge til. Etter dette bekreftes vil denne personen legge
 For å fjerne (offboarde) et teammedlem krysser du av i firkanten ved siden av bildet på brukeren og klikker **Remove**. Dette er også noe som kun team lead kan gjøre.
 
 ## Endre team lead
-Endring av team lead kan kun gjøres i [entra-id-config repoet](github.com/kartverket/entra-id-config), dersom du prøver å endre på team lead eller owners i Entra ID portalen, så vil dette bli overskrevet.   
+Endring av team lead kan kun gjøres i [entra-id-config repoet](https://github.com/kartverket/entra-id-config), dersom du prøver å endre på team lead eller owners i Entra ID portalen, så vil dette bli overskrevet.   
 For å endre team lead så må du finne teamet ditt i [org.yaml](https://github.com/kartverket/entra-id-config/blob/main/org.yaml), endre på `team_lead` variabelen, og lage en pull request.
