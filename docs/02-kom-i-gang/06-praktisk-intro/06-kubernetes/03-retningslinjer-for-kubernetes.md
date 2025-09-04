@@ -5,7 +5,7 @@ I Kubernetes bruker vi Pod Security Standards for å sikre at alle pods som kjø
 
 ## Namespaces som avgrensning mellom teams
 
-Hvert team kan lage så mange Namespaces som de har behov for. Dette er for å kunne skille på ressurser og tilganger mellom forskjellige applikasjoner og team. Dette er også for å kunne gi teamene mulighet til å eksperimentere og teste ting uten at det påvirker andre team. Les mer om dette på [Argo CD](../argo-cd).
+Hvert team kan lage så mange Namespaces som de har behov for. Dette er for å kunne skille på ressurser og tilganger mellom forskjellige applikasjoner og team. Dette er også for å kunne gi teamene mulighet til å eksperimentere og teste ting uten at det påvirker andre team. Les mer om dette på [Argo CD](../../../03-applikasjon-utrulling/09-argo-cd/01-komme-i-gang-med-argocd.md).
 
 Kommunikasjon mellom tjenester internt i ett namespace er helt lukket (“default deny”-policy), og det er opp til teamet selv å sørge for å åpne for kommunikasjon mellom tjenester. Les mer om dette på [Skiperator](https://github.com/kartverket/skiperator).
 

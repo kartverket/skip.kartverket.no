@@ -24,7 +24,7 @@ innkommende request ha en gyldig JWT.
         Ztoperator introduserer CRD-en `AuthPolicy`, som har i oppgave å sette opp token-validering og grovkornet autorisasjon.
         `AuthPolicy` har som hovedoppgave å opprette Istio-ressursene `RequestAuthentication` og `AuthorizationPolicy`
         på en måte som følger brukerens definerte *regler*, samtidig som de to prinsippene nevnt ovenfor ivaretas. API-dokumentasjonen til Ztoperator finner
-        du [her](04-ztoperator/01-api-docs.mdx).
+        du [her](04-ztoperator/02-api-docs.mdx). Hvordan du tester og verifiserer at en `AuthPolicy` fungerer som forventet kan du lese mer om [her](04-ztoperator/01-test-authpolicy.mdx).
 
         Hvilken workload reglene definert i en `AuthPolicy` skal gjelde for spesifiseres ved å referere til *labels*.
 

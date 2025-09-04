@@ -62,4 +62,4 @@ spec:
     serviceAccount: 'name-of-service-account-in-kubernetes' #eks 'dsa-backend', typically same name as your Application
 ```
 
-Se [Provisjonere infrastruktur med Crossplane](../09-argo-cd/05-provisjonere-infrastruktur-med-crossplane.md) om du ikke har brukt Crossplane tidligere.
+Se [Provisjonere infrastruktur med Crossplane](../../../03-applikasjon-utrulling/09-argo-cd/05-provisjonere-infrastruktur-med-crossplane.md) om du ikke har brukt Crossplane tidligere.

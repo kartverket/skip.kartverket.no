@@ -13,7 +13,7 @@ const FeatureList = [
         for autonomi og moderne utviklingsmønstre som containers, hybridsky,
         mikrotjenester og sky-native tankegang.
         <br />
-        <Link className={styles.link} to="/docs/tech">
+        <Link className={styles.link} to="/docs/kom-i-gang/tech">
           Les om teknologien bak SKIP
         </Link>
       </>
@@ -28,8 +28,8 @@ const FeatureList = [
         practices og sikkerhet i arbeidsflyten. Dette fører til en sikrere,
         enklere og mer standardisert utvikling- og driftsopplevelse for alle.
         <br />
-        <Link className={styles.link} to="/docs/security">
-          DevSecOps & Best Practices
+        <Link className={styles.link} to="/docs/kom-i-gang/praktisk-intro/security">
+          Les mer om sikkerhet sikkerthet
         </Link>
       </>
     ),
@@ -44,8 +44,8 @@ const FeatureList = [
         I tillegg sørger den for at applikasjonene restartes ved ustabilitet og
         gir deg data og metrikker til å overvåke tjenesten din.
         <br />
-        <Link className={styles.link} to="/docs/metrics">
-          Metrikker og varsling
+        <Link className={styles.link} to="/docs/observability">
+          Les mer om observabilitet
         </Link>
       </>
     ),
