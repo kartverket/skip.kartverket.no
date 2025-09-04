@@ -13,8 +13,9 @@ const darkCodeTheme = themes.dracula;
     projectName: 'skip-docs',
     organizationName: 'kartverket',
     trailingSlash: false,
-    onBrokenLinks: "warn",
-    onBrokenMarkdownLinks: "warn",
+    onBrokenLinks: "throw",
+    onBrokenMarkdownLinks: "throw",
+    onBrokenAnchors: "warn", // TODO: throw
     favicon: "img/favicon/favicon.ico",
 
     markdown: {

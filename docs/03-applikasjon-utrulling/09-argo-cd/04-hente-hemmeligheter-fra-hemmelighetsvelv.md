@@ -6,7 +6,7 @@ De aller fleste applikasjoner har hemmeligheter den trenger å få tilgang til. 
 External Secrets Operator (ESO) er en operator som kjører i clusteret og har evnen til å hente hemmeligheter fra hvelv som Vault og Google Secret Manager (GSM). Disse blir synkronisert fra hvelvet til kubernetes secrets som kan mountes inn i podder. Synkroniseringen beskrives som en “fra-til” konfigurasjon hvor man sier hvor hemmelighetene ligger og hvordan de skal se ut når de er synkronisert til Kubernetes.
 
 :::info
-Merk at External Secrets brukes til **deploy-time** uthenting av hemmeligheter. Hvis du har en applikasjon som kjører og skal bruke hemmeligheter **runtime** bør du ikke bruke External Secrets og heller bruke biblioteker som [https://spring.io/projects/spring-cloud-gcp](https://spring.io/projects/spring-cloud-gcp). Se [Oppsett og bruk av Secret Manager](/docs/gcp/oppsett-og-bruk-av-secret-manager).
+Merk at External Secrets brukes til **deploy-time** uthenting av hemmeligheter. Hvis du har en applikasjon som kjører og skal bruke hemmeligheter **runtime** bør du ikke bruke External Secrets og heller bruke biblioteker som [https://spring.io/projects/spring-cloud-gcp](https://spring.io/projects/spring-cloud-gcp). Se [Oppsett og bruk av Secret Manager](../03-oppsett-og-bruk-av-secret-manager.md).
 :::
 
 Mer om external secrets finnes på [https://external-secrets.io/v0.7.2/](https://external-secrets.io/v0.7.2/) .

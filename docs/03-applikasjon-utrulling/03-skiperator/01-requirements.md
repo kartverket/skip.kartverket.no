@@ -8,7 +8,7 @@ First of all your applications and jobs need to be containerized. This means tha
 In SKIP we recommend to use the [scratch](https://hub.docker.com/_/scratch) image as a base image for your application or job. This is a minimal image that only contains the necessary files to run your application or job.
 
 Next the image needs to be hosted in a container registry that is accessible from the Kubernetes cluster.
-In SKIP we use [github](../07-github/index.md) as our container registry. It doesn't matter if the image is publicly available or private, as long as the repository is under the Kartverket organization.
+In SKIP we use [github](../../02-kom-i-gang/06-praktisk-intro/01-github/index.md) as our container registry. It doesn't matter if the image is publicly available or private, as long as the repository is under the Kartverket organization.
 
 ## CI CD requirements
 
@@ -26,4 +26,4 @@ So to summarize, in order to use Skiperator and run your applications in SKIP yo
 - A CI/CD pipeline that builds and pushes the container image to the container registry
 - Argo CD set up for deployment of the application from a `team-apps` repository
 
-Now that you have the prerequisites in place you can move on to the [Getting started](02-get-started) page to learn how to deploy your application or job to SKIP.
+Now that you have the prerequisites in place you can move on to the [Getting started](../../02-kom-i-gang/index.md) page to learn how to deploy your application or job to SKIP.
