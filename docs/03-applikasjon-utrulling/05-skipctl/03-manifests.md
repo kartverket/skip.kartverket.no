@@ -43,7 +43,7 @@ skipctl manifests validate --path=env/atkv3-dev
 
 ### Render
 
-Rendrer skiperator-manifester til `stdout`, slik at du kan inspisere det endelige resultatet. Filer med syntaksfeil logges til `stderr`.
+Rendrer dine manifester til `stdout`, slik at du kan inspisere det endelige resultatet. Filer med syntaksfeil logges til `stderr`.
 
 **Støttede filformater**
 - .jsonnet
