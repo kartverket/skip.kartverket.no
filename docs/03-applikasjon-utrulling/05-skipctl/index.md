@@ -1,4 +1,4 @@
-# 🎮 Skip CTL
+# 🎮 skipctl
 
 **skipctl** (SKIP Control) er et kommandolinjeverktøy som hjelper deg med utvikling og testing mot SKIP.
 Verktøyet gir deg enkle kommandoer for å teste nettverksåpninger direkte fra terminalen,
