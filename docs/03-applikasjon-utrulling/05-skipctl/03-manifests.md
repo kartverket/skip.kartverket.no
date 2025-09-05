@@ -18,7 +18,7 @@ Formaterer skiperator-manifester direkte (in-place) for å sikre at de følger e
 skipctl manifests format --path=env/atkv3-dev
 ```
 
-### Validate K8s
+### Validere Kubernetes-manifestfiler
 
 Validerer dine manifester mot Skiperators egne skjema-definisjoner i tillegg til innebygde Kubernetes-typer og avhengigheter som finnes i SKIP-plattformen (eksempelvis External Secrets Operator og Istio som brukes implisitt).
 
