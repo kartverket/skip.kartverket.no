@@ -11,7 +11,7 @@ En API-server representerer et sted som kan kjøre tester fra sitt perspektiv. A
 ### Ping
 
 ```shell
-skipctl test ping --hostname=example.com --api-server=myApiServer
+skipctl test ping --hostname=kv-vm-0123.statkart.no --api-server=atkv3-dev
 ```
 
 ### Port probe
