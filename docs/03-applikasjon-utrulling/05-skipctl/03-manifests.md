@@ -6,7 +6,7 @@
 
 Alle kommandoene kjøres lokalt, og krever ikke tilgang til eksterne tjenester.
 
-### Format
+### Formattering av manifester
 
 Formaterer skiperator-manifester direkte (in-place) for å sikre at de følger en konsistent og lesbar struktur.
 
