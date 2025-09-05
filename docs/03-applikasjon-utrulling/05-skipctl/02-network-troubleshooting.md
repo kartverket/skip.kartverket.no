@@ -15,7 +15,7 @@ skipctl test ping --hostname=kv-vm-0123.statkart.no --api-server=atkv3-dev
 ```
 
 ### Port probe
-
+Sjekker om en server har en åpen port, dvs. at det er mulig å kommunisere med denne serveren fra miljøet som API-serveren lever i.
 ```shell
 skipctl test probe --hostname=kv-vm-0123.statkart.no --port=5432 --api-server=atkv3-dev
 ```
