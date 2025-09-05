@@ -17,5 +17,5 @@ skipctl test ping --hostname=kv-vm-0123.statkart.no --api-server=atkv3-dev
 ### Port probe
 
 ```shell
-skipctl test probe --hostname=example.com --port=1521 --api-server=myApiServer
+skipctl test probe --hostname=kv-vm-0123.statkart.no --port=5432 --api-server=atkv3-dev
 ```
