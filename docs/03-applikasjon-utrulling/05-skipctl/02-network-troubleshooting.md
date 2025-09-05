@@ -9,7 +9,7 @@ En API-server representerer et sted som kan kjøre tester fra sitt perspektiv. A
 > :exclamation: Før du kjører noen kommandoer, må du sørge for å være autentisert først (`gcloud auth application-default login`).
 
 ### Ping
-
+Sjekker om en server svarer på ping (ICMP), sett fra nettverksplasseringen til API-serveren.
 ```shell
 skipctl test ping --hostname=kv-vm-0123.statkart.no --api-server=atkv3-dev
 ```
