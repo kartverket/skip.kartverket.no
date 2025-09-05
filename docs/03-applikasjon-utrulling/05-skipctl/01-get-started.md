@@ -11,6 +11,6 @@ brew tap kartverket/taps && \
 brew install skipctl
 ```
 
-### Unix og Windows
+### Windows
 
 Last ned [siste versjon](https://github.com/kartverket/skipctl/releases) for ditt system her.
