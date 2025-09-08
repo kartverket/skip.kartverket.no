@@ -24,7 +24,7 @@
     "clsx": "^2.1.1",
     "docusaurus-lunr-search": "^3.6.0",
     "file-loader": "^6.2.0",
-    "posthog-js": "^1.261.0",
+    "posthog-js": "^1.261.8",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
