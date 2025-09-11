@@ -49,17 +49,25 @@ gcloud container hub memberships list
 
 Generer kubeconfig og sett som aktiv context:
 
+#### On-premise
 ```bash
 gcloud container hub memberships get-credentials atkv3-dev-user-cluster
 ```
+#### GCP
 
-Denne kommandoen oppretter en ny context som kan autentisere deg mot clusteret.
+```bash
+gcloud container gcloud container clusters get-credentials atgcp1-dev --region europe-north1 --project kubernetes-dev-94b9
+```
+
+Denne kommandoen oppretter en ny context som kan autentisere deg mot clusteret. 
+Kommandoen er forskjellig mellom on-prem og GCP fordi man ikke behøver å gå gjennom Connect gateway for å koble til skyclustre.
 
 **Context-format som opprettes:**
-- **For GCP**: `connectgateway_kubernetes-<env>-xxxx_global_<clusternavn>`
 - **For on-prem**: `connectgateway_kubernetes-<env>-xxxx_europe-north1_<clusternavn>`
+- **For GCP**: `gke_<prosjektnavn>_<regionnavn>_<clusternavn>`
 
-**Eksempel**: `connectgateway_kubernetes-dev-94b9_europe-north1_atkv3-dev-user-cluster`
+**Eksempel on-prem**: `connectgateway_kubernetes-dev-94b9_europe-north1_atkv3-dev-user-cluster`
+**Eksempel GCP**: `gke_kubernetes-dev-94b9_europe-north1_atgcp1-dev`
 
 ### 5. Bytte til riktig context
 
