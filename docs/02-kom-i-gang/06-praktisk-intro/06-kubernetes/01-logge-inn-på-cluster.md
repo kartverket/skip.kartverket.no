@@ -56,7 +56,7 @@ gcloud container hub memberships get-credentials atkv3-dev-user-cluster
 #### GCP
 
 ```bash
-gcloud container gcloud container clusters get-credentials atgcp1-dev --region europe-north1 --project kubernetes-dev-94b9
+gcloud container clusters get-credentials atgcp1-dev --region europe-north1 --project kubernetes-dev-94b9
 ```
 
 Denne kommandoen oppretter en ny context som kan autentisere deg mot clusteret. 
