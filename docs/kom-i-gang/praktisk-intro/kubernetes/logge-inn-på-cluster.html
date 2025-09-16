@@ -14,8 +14,8 @@
 
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.5c884a55.css">
-<script src="/assets/js/runtime~main.a6e47b8c.js" defer="defer"></script>
-<script src="/assets/js/main.f61da57e.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.ed7e11ae.js" defer="defer"></script>
+<script src="/assets/js/main.1962a1ac.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -45,14 +45,19 @@
 </ul>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="4-logg-inn-på-clusteret">4. Logg inn på clusteret<a href="#4-logg-inn-på-clusteret" class="hash-link" aria-label="Direct link to 4. Logg inn på clusteret" title="Direct link to 4. Logg inn på clusteret">​</a></h3>
 <p>Generer kubeconfig og sett som aktiv context:</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="on-premise">On-premise<a href="#on-premise" class="hash-link" aria-label="Direct link to On-premise" title="Direct link to On-premise">​</a></h4>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">gcloud container hub memberships get-credentials atkv3-dev-user-cluster</span><br></span></code></pre></div></div>
-<p>Denne kommandoen oppretter en ny context som kan autentisere deg mot clusteret.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="gcp">GCP<a href="#gcp" class="hash-link" aria-label="Direct link to GCP" title="Direct link to GCP">​</a></h4>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">gcloud container clusters get-credentials atgcp1-dev --region europe-north1 --project kubernetes-dev-94b9</span><br></span></code></pre></div></div>
+<p>Denne kommandoen oppretter en ny context som kan autentisere deg mot clusteret.
+Kommandoen er forskjellig mellom on-prem og GCP fordi man ikke behøver å gå gjennom Connect gateway for å koble til skyclustre.</p>
 <p><strong>Context-format som opprettes:</strong></p>
 <ul>
-<li><strong>For GCP</strong>: <code>connectgateway_kubernetes-&lt;env&gt;-xxxx_global_&lt;clusternavn&gt;</code></li>
 <li><strong>For on-prem</strong>: <code>connectgateway_kubernetes-&lt;env&gt;-xxxx_europe-north1_&lt;clusternavn&gt;</code></li>
+<li><strong>For GCP</strong>: <code>gke_&lt;prosjektnavn&gt;_&lt;regionnavn&gt;_&lt;clusternavn&gt;</code></li>
 </ul>
-<p><strong>Eksempel</strong>: <code>connectgateway_kubernetes-dev-94b9_europe-north1_atkv3-dev-user-cluster</code></p>
+<p><strong>Eksempel on-prem</strong>: <code>connectgateway_kubernetes-dev-94b9_europe-north1_atkv3-dev-user-cluster</code>
+<strong>Eksempel GCP</strong>: <code>gke_kubernetes-dev-94b9_europe-north1_atgcp1-dev</code></p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="5-bytte-til-riktig-context">5. Bytte til riktig context<a href="#5-bytte-til-riktig-context" class="hash-link" aria-label="Direct link to 5. Bytte til riktig context" title="Direct link to 5. Bytte til riktig context">​</a></h3>
 <p>Hvis du har <code>kubectx</code> installert:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">kubectx connectgateway_kubernetes-dev-94b9_europe-north1_atkv3-dev-user-cluster</span><br></span></code></pre></div></div>
