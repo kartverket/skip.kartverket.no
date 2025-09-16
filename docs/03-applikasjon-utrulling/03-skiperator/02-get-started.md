@@ -17,7 +17,7 @@ kind: Application
 metadata:
   name: myapp
 spec:
-  image: ghrc.io/kartverket/myapp:latest
+  image: ghcr.io/kartverket/myapp:latest
   port: 8080
   ingresses:
     - myapp.atkv3-dev.kartverket-intern.cloud
@@ -44,7 +44,7 @@ metadata:
   name: myjob
 spec:
   container:
-    image: ghrc.io/kartverket/myjob:latest
+    image: ghcr.io/kartverket/myjob:latest
     command:
       - "sleep 10"
     accessPolicy:
