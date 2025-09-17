@@ -41,15 +41,15 @@ For at det skal være lov å hente ut secrets må i tillegg følgende gjøres:
 
 2. Namespacene dere oppretter må allowlistes for å kunne hente ut fra prosjektene deres, kontakt SKIP så setter vi `skip.kartverket.no/gcpProject` på prosjektene deres og synkroniserer Argo på nytt
 
-### ExternalSecret
+## Synkronisering av hemmeligheter: ExternalSecret og PushSecret
 
-Når man har definert et hemmelighetshvelv med SecretStore kan man definere hvilke hemmeligheter som skal hentes ut. Dette gjøres med ExternalSecret-manifestet. ExternalSecret-manifestet vil referere til et SecretStore for å definere backenden og bruker autentiseringen derfra. ESO vil bruke dette manifestet til å hente ut de definerte feltene fra den gitte hemmeligheten og putte dem inn i en Kubernetes Secret i det formatet som blir spesifisert. Det betyr at man kan mappe om verdier fra et felt til et annet, for eksempel om man skal uppercase navnene når man bruke dem som miljøvariabler.
+External Secrets Operator (ESO) tilbyr to primære metoder for å håndtere hemmeligheter: **pull** og **push**. Den vanligste metoden er å hente (pull) hemmeligheter fra et eksternt hvelv som Google Secret Manager til Kubernetes, men i noen tilfeller er det også nyttig å kunne dytte (push) hemmeligheter fra Kubernetes til hvelvet.
 
-I eksempelet under vises hvordan man synker inn enkeltverdier til Kubernetes. Det er også mulig å synke alle nøklene i en secret som dokumentert i [All keys, One secret](https://external-secrets.io/v0.7.2/guides/all-keys-one-secret/) .
+### ExternalSecret (Pull)
 
-Det er også mulig å bruke templates som dokumentert i [Advanced Templating](https://external-secrets.io/v0.7.2/guides/templating/) .
+Når du har definert et hemmelighetshvelv med `SecretStore`, kan du definere hvilke hemmeligheter som skal hentes ut. Dette gjøres med `ExternalSecret`-manifestet, som refererer til et `SecretStore` for å vite hvilken backend og autentisering som skal brukes. ESO vil bruke dette manifestet til å hente de definerte feltene fra den gitte hemmeligheten og putte dem inn i en Kubernetes `Secret` i det formatet som blir spesifisert. Dette lar deg for eksempel mappe om navn på nøkler.
 
-Se [ExternalSecret](https://external-secrets.io/v0.7.2/api/spec/#external-secrets.io/v1beta1.ExternalSecret) for alle gyldige verdier.
+I eksempelet under hentes en hemmelighet fra Google Secret Manager og synkroniseres inn som en Kubernetes `Secret`.
 
 ```yaml
 apiVersion: external-secrets.io/v1beta1
@@ -57,28 +57,68 @@ kind: ExternalSecret
 metadata:
   name: dbpass
 spec:
-  # A list of the remote secrets to sync
-  data:
-  - remoteRef:
-      # The name of the secret in the GCP project
-      key: db-pass
-    # Will be written into the Kubernetes secret under this key
-    secretKey: DB_PASSWORD
-
-  # Refresh the secret every hour
-  refreshInterval: 1h
-
-  # Uses the gsm secret backend
+  # Refererer til SecretStore for autentisering mot Google Secret Manager
   secretStoreRef:
     kind: SecretStore
-    name: gsm
+    name: gsm-backend
 
-  # Creates a kubernetes secret named dbpass
+  # Definerer hvilke data som skal hentes
+  data:
+  - remoteRef:
+      # Navnet på hemmeligheten i Google Secret Manager
+      key: db-pass
+    # Nøkkelen som skal brukes i Kubernetes Secret
+    secretKey: DB_PASSWORD
+
+  # Spesifiserer navnet på Kubernetes Secret som skal opprettes
   target:
     name: dbpass
+
+  # Hvor ofte hemmeligheten skal synkroniseres
+  refreshInterval: 1h
 ```
 
-Se også [Get all keys from one GSM secret](https://external-secrets.io/v0.8.1/guides/all-keys-one-secret/)
+---
+
+### PushSecret (Push)
+
+I motsetning til `ExternalSecret` som *henter* hemmeligheter, lar `PushSecret` deg *dytte* hemmeligheter fra Kubernetes til et eksternt hvelv som Google Secret Manager. Dette er nyttig når en hemmelighet genereres inne i Kubernetes-klusteret – for eksempel et automatisk generert passord, en privat nøkkel eller et token – og du ønsker å lagre denne sikkert i et sentralt hvelv for gjenbruk, revisjon eller tilgang fra andre systemer.
+
+`PushSecret` fungerer ved å overvåke en Kubernetes `Secret`. Når denne `Secret`-en opprettes eller endres, vil ESO dytte dataene til den spesifiserte hemmeligheten i hvelvet.
+
+I eksempelet under vises hvordan man dytter en Kubernetes `Secret` kalt `my-app-secret` til Google Secret Manager.
+
+```yaml
+apiVersion: external-secrets.io/v1alpha1
+kind: PushSecret
+metadata:
+  annotations:
+  name: push-secret-navn
+  namespace: app-namespace
+
+spec:
+  # Dette er secreten som pushes til i gsm.
+  data:
+  - conversionStrategy: None
+    match:
+      remoteRef:
+        remoteKey: gsm-secret
+  # Hvor ofte ESO skal sjekke om hemmeligheten har endret seg
+  refreshInterval: 10m
+  # Refererer til SecretStore for autentisering
+  secretStoreRefs:
+  - kind: SecretStore
+    name: gsm
+  # Velger hvilken Kubernetes Secret som skal overvåkes og dyttes
+  selector:
+    secret:
+      name: kubernetes-secret
+```
+
+**Viktig:** For at `PushSecret` skal fungere, må Service Account-en som brukes av `SecretStore`-en ha skriverettigheter (f.eks. `secretmanager.secretVersionAdder`) til hemmelighetene i Google Secret Manager.
+
+---
+
 
 ### Mounting av hemmelighet
 
