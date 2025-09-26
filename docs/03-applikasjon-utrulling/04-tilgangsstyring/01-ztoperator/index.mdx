@@ -1,0 +1,14 @@
+import ZtoperatorLogo from './images/ztoperator-logo.png';
+
+# ⛔️ Ztoperator
+
+Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons endepunkter skal styres. Den gir støtte for å:
+- Definere hvilke endepunkter som skal være åpne.
+- Definere hvilke endepunkter som krever et gyldig OAuth 2.0-token.
+- Definere hvilke endepunkter som krever spesifikke claims.
+- Definere hvilke endepunkter som skal omdirigere brukeren til innlogging.
+
+Et fullstendig eksempel på hvordan man kan ta i bruk en `AuthPolicy` for å beskytte en applikasjon finner du under [Eksempeloppsett av Ztoperator](01-ztoperator-example.mdx). Hvilke felter som eksisterer og deres oppførsel er dokumentert i [Ztoperator API Reference](02-ztoperator-api-docs.mdx).
+Hvordan du kan teste og verifisere oppførselen til en `AuthPolicy` finner du under [Test din AuthPolicy](03-test-authpolicy.mdx).
+
+<img src={ZtoperatorLogo} style={{width: 300}} />
