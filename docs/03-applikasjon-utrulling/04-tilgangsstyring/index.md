@@ -1,17 +1,14 @@
 # 🔐 Tilgangsstyring på SKIP
 
-SKIP tilbyr innebygd støtte for tilgangsstyring og støtter tre hovedoperasjoner:
+Tilgangsstyring handler om å sørge for at bare autoriserte brukere og systemer får riktig tilgang til riktige ressurser i en applikasjon.
+På SKIP er tilgangsstyring innebygd gjennom Kubernetes-operatoren [Ztoperator](https://github.com/kartverket/ztoperator), som forenkler sikring av applikasjoner ved hjelp av OAuth 2.0 tokens.
+Operatoren kan også automatisk omdirigere uautentiserte brukere til en innloggingsflyt, slik at applikasjonen kun er tilgjengelig for de som faktisk har tilgang.
 
-- [**Klientregistrering**](01-klientregistrering.mdx): Enkel registrering og vedlikehold av klienter mot ulike identitetstilbydere.
-- [**Token-validering og grovkornet autorisasjon**](02-token-validering.mdx): Sikre og effektive mekanismer for validering av tokens og grovkornet autorisasjon.
-- [**Automatisert innlogging**](03-auto-login.mdx): Automatisert innlogging gjennom OAuth 2.0 authorization code flow.
+## 🧩 Forutsetninger
 
-SKIP tilbyr Kubernetes-operatoren [Ztoperator](https://github.com/kartverket/ztoperator) for å tilgangsstyre trafikk inn mot applikasjoner.
-Du kan lese mer om Ztoperator [her](04-ztoperator/index.md).
+- Du må ha registrert en klient hos en OAuth 2.0-identitetstilbyder.
+- Du må vite hvilket *well-known endepunkt*, *audience* og eventuelle *claims* som gjelder for applikasjonen din.
+- Den beskyttede applikasjonen **må** kjøre på SKIP.
 
-## Valg av identitetstilbyder
-Før du konfigurerer klientregistrering, token-validering eller innlogging, bør du vurdere hvilken identitetstilbyder som best passer til behovene i din applikasjon.
-
-- **Microsoft Entra ID**: Brukes når applikasjonen er ment for internt bruk i Kartverket, og brukerne er ansatte i Kartverket. Dette gjelder enten hvis man skal tilby et API for andre interne tjenester eller ansatte i Kartverket, eller hvis man ønsker å konsumere et API som er beskyttet med Entra ID.
-- **ID-porten**: Egnet for borgertjenester som skal brukes av Ola og Kari Nordmann.
-- **Maskinporten**: Benyttes når applikasjonen tilbyr et API for andre offentlige virksomheter eller når man ønsker å konsumere andre API-er som benytter seg av Maskinporten.
+Før du kan bruke Ztoperator til å beskytte tjenesten din, må du registrere en klient hos en relevant identitetstilbyder.
+Dette er nødvendig for å instruere Ztoperator i hvem som skal slippes inn og hvem som skal blokkeres. Denne "oversikten" får man ved å opprette en klientregistrering hos en OAuth 2.0-identitetstilbyder og knytte den til Ztoperator.
