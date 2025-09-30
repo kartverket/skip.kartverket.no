@@ -1,7 +1,7 @@
 # Permissions for argokit to create PRs in skip.kartverket.no
 
 issuer: https://token.actions.githubusercontent.com
-subject: "repo:kartverket/argokit:ref:refs/heads/updated-documentation"
+subject_pattern: repo:kartverket/argokit:ref:refs/heads/(main|updated-documentation)
 
 permissions:
   contents: write
