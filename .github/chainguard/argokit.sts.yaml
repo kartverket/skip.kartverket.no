@@ -5,3 +5,4 @@ subject: repo:kartverket\/argokit:ref:refs/heads/main
 
 permissions:
   contents: write
+  pull-requests: write
