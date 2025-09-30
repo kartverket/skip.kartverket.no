@@ -1,23 +1,23 @@
-# ArgoKit
+# Argokit V1
 
 <div style={{ margin: '0 auto 2rem auto', maxWidth: '300px' }}>
     <img src="https://github.com/kartverket/argokit/raw/main/logo.png" alt="ArgoKit Logo" width="100%" />
 </div>
 
-ArgoKit er et sett med gjenbrukbare jsonnet templates som gjør det enklere å rulle ut ArgoCD-applikasjoner på SKIP. 
-Hvis du har spørsmål, ta kontakt med [#gen-argocd](https://kartverketgroup.slack.com/archives/C04KH6A4FNW) kanalen på Slack. 
+ArgoKit er et sett med gjenbrukbare jsonnet templates som gjør det enklere å rulle ut ArgoCD-applikasjoner på SKIP.
+Hvis du har spørsmål, ta kontakt med [#gen-argocd](https://kartverketgroup.slack.com/archives/C04KH6A4FNW) kanalen på Slack.
 Du finner koden [her](https://github.com/kartverket/argokit).
 
 ## Installasjon
 
-Forutsatt at du har fulgt [Komme i gang](./01-komme-i-gang-med-argocd.md)-guiden, kan du bruke ArgoKit i ditt apps-repo. 
+Forutsatt at du har fulgt [Komme i gang](../01-komme-i-gang-med-argocd.md)-guiden, kan du bruke ArgoKit i ditt apps-repo.
 Første steg er å inkludere ArgoKit-biblioteket ved å kjøre følgende kommando:
 
 ```bash
 $ git submodule add https://github.com/kartverket/argokit.git
 ```
 
-Alternativt kan du bruke jsonnet-bundler hvis du foretrekker å bruke en package manager fremfor submoduler. 
+Alternativt kan du bruke jsonnet-bundler hvis du foretrekker å bruke en package manager fremfor submoduler.
 For å gjøre dette, installer CLI-en ved å følge instruksjonene i [jsonnet-bundler](https://github.com/jsonnet-bundler/jsonnet-bundler) repoet og kjør følgende kommando:
 
 ```bash
@@ -26,7 +26,7 @@ $ jb install https://github.com/kartverket/argokit@main
 
 ### Automatiske versjonsoppdateringer
 
-Det anbefales sterkt å bruke dependabot for å automatisk oppdatere ArgoKit-versjonen når en ny versjon blir utgitt. 
+Det anbefales sterkt å bruke dependabot for å automatisk oppdatere ArgoKit-versjonen når en ny versjon blir utgitt.
 For å gjøre dette, legg til følgende i din `.github/dependabot.yml` fil:
 
 ```yaml
@@ -42,9 +42,9 @@ Med denne konfigurasjonen vil dependabot sjekke én gang om dagen om det finnes 
 
 ## Bruk med jsonnet
 
-For grunnleggende informasjon om jsonnet, se [Gjenbruke konfigurasjon](./02-hva-er-et-apps-repo.md#gjenbruke-konfigurasjon).
+For grunnleggende informasjon om jsonnet, se [Gjenbruke konfigurasjon](../02-hva-er-et-apps-repo.md#gjenbruke-konfigurasjon).
 
-Hvis du bruker jsonnet i ditt apps-repo, kan du bruke ArgoKit-biblioteket til å rulle ut ArgoCD-applikasjoner ved å inkludere `argokit.libsonnet`-filen i din jsonnet-fil og kalle `argokit.Application`-funksjonen. 
+Hvis du bruker jsonnet i ditt apps-repo, kan du bruke ArgoKit-biblioteket til å rulle ut ArgoCD-applikasjoner ved å inkludere `argokit.libsonnet`-filen i din jsonnet-fil og kalle `argokit.Application`-funksjonen.
 For eksempel, for å rulle ut en applikasjon, kan du bruke følgende jsonnet-fil:
 
 ```jsonnet
