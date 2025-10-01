@@ -9,7 +9,8 @@ Vi lenker til Pluralsight-kurs der det er relevant, men vær oppmerksom på at i
 I noen tilfeller har vi allerede god brukerinformasjon i dokumentasjonen, mens andre ganger vil det være nødvendig å konsultere offisiell dokumentasjon. Vi oppfordrer deg til å finne egne ressurser for å supplere kunnskapen. Hvis du finner noe ekstra relevant, kan du gjerne gi beskjed til SKIP-teamet så vi kan legge inn lenke her.
 
 :::info
-Tidligere hadde Kartverket lisenser til Pluralsight på rotasjon, men det er nå slutt på dette. Du kan fortsatt bruke Pluralsight, men du må nå kjøpe lisenser selv og utgiftsføre dem.
+Tidligere hadde Kartverket lisenser til Pluralsight på rotasjon, men dette er det nå slutt på. 
+Du kan fortsatt bruke Pluralsight, men du må nå kjøpe lisens selv og utgiftsføre den etter avklaring med leder.
 :::
 
 
@@ -18,7 +19,7 @@ Tidligere hadde Kartverket lisenser til Pluralsight på rotasjon, men det er nå
 For å komme i gang med utvikling i SKIP-plattformen er det viktig å ha grunnleggende forståelse for følgende temaer:
 
 ### Kubernetes og orkestrering
-- [Kubernetes](./06-praktisk-intro/06-kubernetes/index.md) - Container-orkestrering og deployment ([Pluralsight](https://app.pluralsight.com/paths/certificate/certified-kubernetes-administrator) | [Offisiell Intro](https://kubernetes.io/docs/tutorials/kubernetes-basics/))
+- [Kubernetes](./06-praktisk-intro/06-kubernetes/index.md) - Container-orkestrering og deployment ([Pluralsight](https://app.pluralsight.com/paths/certificate/certified-kubernetes-application-developer-ckad-2023) | [Offisiell Intro](https://kubernetes.io/docs/tutorials/kubernetes-basics/))
 - [Argo CD](../03-applikasjon-utrulling/09-argo-cd/index.md) - GitOps og continuous delivery ([Pluralsight](https://app.pluralsight.com/library/courses/argo-cd-getting-started/table-of-contents) | [Offisiell Intro](https://argo-cd.readthedocs.io/en/stable/))
 - [Skiperator](../03-applikasjon-utrulling/03-skiperator/index.md) - Vår egen Kubernetes-operator
 
