@@ -2,7 +2,7 @@
 
 Packages:
 
-- [skiperator.kartverket.no/v1alpha1](#skiperatorkartverketnov1alpha1)
+- skiperator.kartverket.no/v1alpha1
 
 # skiperator.kartverket.no/v1alpha1
 
@@ -18,7 +18,6 @@ Resource Types:
 
 
 ## Application
-<sup><sup>[↩ Parent](#skiperatorkartverketnov1alpha1 )</sup></sup>
 
 
 
@@ -52,7 +51,7 @@ This allows product teams to avoid the need to set up networking on the cluster,
       <td>true</td>
       </tr>
       <tr>
-      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#objectmeta-v1-meta">metadata</a></b></td>
+      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#objectmeta-v1-meta">metadata</a></b></td>
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
@@ -128,7 +127,7 @@ for example so Instana or other APM tools can reach it<br/>
           Protocol that the application speaks.<br/>
           <br/>
             <i>Enum</i>: http, tcp, udp<br/>
-            <i>Default</i>: http<br/>
+            <i>Default</i>: `http`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -152,7 +151,7 @@ or running third-party containers where you don't have control over the Dockerfi
         <td>
           Whether to enable automatic Pod Disruption Budget creation for this application.<br/>
           <br/>
-            <i>Default</i>: true<br/>
+            <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -223,7 +222,7 @@ E.g. "foo.atkv3-dev.kartverket-intern.cloud+env-wildcard-cert"<br/>
 interval for tracing is the only supported option.
 By default, tracing is enabled with a random sampling percentage of 10%.<br/>
           <br/>
-            <i>Default</i>: map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]<br/>
+            <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -273,7 +272,7 @@ Most workloads should not have to specify this field. If you think you
 do, please consult with SKIP beforehand.<br/>
           <br/>
             <i>Enum</i>: low, medium, high<br/>
-            <i>Default</i>: medium<br/>
+            <i>Default</i>: `medium`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -300,7 +299,7 @@ Readiness is optional, but when provided, path and port are required<br/>
           Controls whether the application will automatically redirect all HTTP calls to HTTPS via the istio VirtualService.
 This redirect does not happen on the route /.well-known/acme-challenge/, as the ACME challenge can only be done on port 80.<br/>
           <br/>
-            <i>Default</i>: true<br/>
+            <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -842,7 +841,7 @@ Used for allow listing certain default blocked endpoints, such as /actuator/ end
           Allows all endpoints by not creating an AuthorizationPolicy, and ignores the content of AllowList.
 If field is false, the contents of AllowList will be used instead if AllowList is set.<br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -999,7 +998,7 @@ allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
 More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
-            <i>Default</i>: <br/>
+            <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1101,7 +1100,7 @@ the environment variable will not be set in the Pod's containers.
 If optional is set to false and the specified key does not exist,
 an error will be returned during Pod creation.<br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -1183,7 +1182,7 @@ allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
 More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
-            <i>Default</i>: <br/>
+            <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1421,7 +1420,7 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
         <td>
           <br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1598,7 +1597,7 @@ If enabled, incoming JWTs will be validated against the issuer specified in the 
         <td>
           If set to `true`, the original token will be kept for the upstream request. Defaults to `true`.<br/>
           <br/>
-            <i>Default</i>: true<br/>
+            <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1724,7 +1723,7 @@ By default requests falling under: "connect-failure,refused-stream,unavailable,c
         <td>
           Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.<br/>
           <br/>
-            <i>Default</i>: map[tracing:[map[randomSamplingPercentage:10]]]<br/>
+            <i>Default</i>: `map[tracing:[map[randomSamplingPercentage:10]]]`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -1771,11 +1770,13 @@ Default: no timeout<br/>
         <td>false</td>
       </tr><tr>
         <td><b>retryOnHttpResponseCodes</b></td>
-        <td>[]int or string</td>
+        <td>[]enum</td>
         <td>
           RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is [503].
 You may also use 5xx and retriable-4xx (only 409).
 mixed types are allowed such as [503, "retriable-4xx"]<br/>
+          <br/>
+            <i>Enum</i>: 500, 500, 501, 501, 502, 502, 503, 503, 504, 504, 505, 505, 506, 506, 507, 507, 508, 508, 510, 510, 511, 511, 409, 409, retriable-4xx, 5xx<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -1804,7 +1805,7 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
         <td>
           Tracing is a list of tracing configurations for the telemetry resource. Normally only one tracing configuration is needed.<br/>
           <br/>
-            <i>Default</i>: [map[randomSamplingPercentage:10]]<br/>
+            <i>Default</i>: `[map[randomSamplingPercentage:10]]`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -1834,7 +1835,7 @@ Tracing contains relevant settings for tracing in the telemetry configuration
           RandomSamplingPercentage is the percentage of requests that should be sampled for tracing, specified by a whole number between 0-100.
 Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
           <br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
             <i>Minimum</i>: 0<br/>
             <i>Maximum</i>: 100<br/>
         </td>
@@ -1885,7 +1886,7 @@ See Probe for structure definition.
 having succeeded. Defaults to 3. Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 3<br/>
+            <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1896,7 +1897,7 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
 are slow to start.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 0<br/>
+            <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1906,7 +1907,7 @@ are slow to start.<br/>
           Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1917,7 +1918,7 @@ are slow to start.<br/>
 Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -1928,7 +1929,7 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
 Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -2014,7 +2015,7 @@ If enabled, incoming JWTs will be validated against the issuer specified in the 
         <td>
           If set to `true`, the original token will be kept for the upstream request. Defaults to `true`.<br/>
           <br/>
-            <i>Default</i>: true<br/>
+            <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2343,7 +2344,7 @@ things like annotations on the Pod to change the behaviour of sidecars, and set 
           DisablePodSpreadTopologyConstraints specifies whether to disable the addition of Pod Topology Spread Constraints to
 a given pod.<br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2354,7 +2355,7 @@ a given pod.<br/>
 30 seconds to terminate, you should increase TerminationGracePeriodSeconds.<br/>
           <br/>
             <i>Format</i>: int64<br/>
-            <i>Default</i>: 30<br/>
+            <i>Default</i>: `30`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -2391,7 +2392,7 @@ Optional settings for how Prometheus compatible metrics should be scraped.
           Setting AllowAllMetrics to true will ensure all exposed metrics are scraped. Otherwise, a list of predefined
 metrics will be dropped by default. See util/constants.go for the default list.<br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2400,7 +2401,7 @@ metrics will be dropped by default. See util/constants.go for the default list.<
         <td>
           The HTTP path where Prometheus compatible metrics exists<br/>
           <br/>
-            <i>Default</i>: /metrics<br/>
+            <i>Default</i>: `/metrics`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2411,7 +2412,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Default</i>: 60s<br/>
+            <i>Validations</i>:<li>self == '' || self.matches('^([0-9]+[sm])+$'): </li><li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
+            <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -2459,7 +2461,7 @@ Readiness is optional, but when provided, path and port are required
 having succeeded. Defaults to 3. Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 3<br/>
+            <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2470,7 +2472,7 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
 are slow to start.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 0<br/>
+            <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2480,7 +2482,7 @@ are slow to start.<br/>
           Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2491,7 +2493,7 @@ are slow to start.<br/>
 Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2502,7 +2504,7 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
 Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -2595,7 +2597,7 @@ Startup is optional, but when provided, path and port are required
 having succeeded. Defaults to 3. Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 3<br/>
+            <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2606,7 +2608,7 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
 are slow to start.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 0<br/>
+            <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2616,7 +2618,7 @@ are slow to start.<br/>
           Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2627,7 +2629,7 @@ are slow to start.<br/>
 Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -2638,7 +2640,7 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
 Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -2674,7 +2676,7 @@ Valid values are: RollingUpdate, Recreate. Default is RollingUpdate
           Valid values are: RollingUpdate, Recreate. Default is RollingUpdate<br/>
           <br/>
             <i>Enum</i>: RollingUpdate, Recreate<br/>
-            <i>Default</i>: RollingUpdate<br/>
+            <i>Default</i>: `RollingUpdate`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -2830,7 +2832,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2839,7 +2841,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: Synced<br/>
+            <i>Default</i>: `Synced`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2848,7 +2850,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -2877,7 +2879,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2886,7 +2888,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: Synced<br/>
+            <i>Default</i>: `Synced`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2895,14 +2897,13 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
 </table>
 
 ## Routing
-<sup><sup>[↩ Parent](#skiperatorkartverketnov1alpha1 )</sup></sup>
 
 
 
@@ -2933,7 +2934,7 @@ Status
       <td>true</td>
       </tr>
       <tr>
-      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#objectmeta-v1-meta">metadata</a></b></td>
+      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#objectmeta-v1-meta">metadata</a></b></td>
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
@@ -2993,7 +2994,7 @@ A status field shown on a Skiperator resource which contains information regardi
         <td>
           <br/>
           <br/>
-            <i>Default</i>: true<br/>
+            <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -3045,7 +3046,7 @@ A status field shown on a Skiperator resource which contains information regardi
         <td>
           <br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -3201,7 +3202,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3210,7 +3211,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: Synced<br/>
+            <i>Default</i>: `Synced`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3219,7 +3220,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -3248,7 +3249,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3257,7 +3258,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: Synced<br/>
+            <i>Default</i>: `Synced`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3266,14 +3267,13 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
 </table>
 
 ## SKIPJob
-<sup><sup>[↩ Parent](#skiperatorkartverketnov1alpha1 )</sup></sup>
 
 
 
@@ -3304,7 +3304,7 @@ SKIPJob is the Schema for the skipjobs API
       <td>true</td>
       </tr>
       <tr>
-      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#objectmeta-v1-meta">metadata</a></b></td>
+      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#objectmeta-v1-meta">metadata</a></b></td>
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
@@ -3316,6 +3316,8 @@ SKIPJob is the Schema for the skipjobs API
 
 A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.
 The Container field of a SKIPJob is only mutable if the Cron field is set. If unset, you must delete your SKIPJob to change container settings.<br/>
+          <br/>
+            <i>Validations</i>:<li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li><li>((!has(self.cron) && (oldSelf.container == self.container)) || has(self.cron)): The field Container is immutable for one-off jobs. Please delete your SKIPJob to change the containers settings.</li>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3373,7 +3375,7 @@ Once set, you may not change Container without deleting your current SKIPJob<br/
 interval for tracing is the only supported option.
 By default, tracing is enabled with a random sampling percentage of 10%.<br/>
           <br/>
-            <i>Default</i>: map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]<br/>
+            <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -3499,7 +3501,7 @@ Type configuration for all types of Kubernetes probes.<br/>
           <br/>
           <br/>
             <i>Enum</i>: low, medium, high<br/>
-            <i>Default</i>: medium<br/>
+            <i>Default</i>: `medium`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -3531,7 +3533,7 @@ If none of the following policies is specified, the default one
 is RestartPolicyAlways.<br/>
           <br/>
             <i>Enum</i>: OnFailure, Never<br/>
-            <i>Default</i>: Never<br/>
+            <i>Default</i>: `Never`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4138,7 +4140,7 @@ allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
 More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
-            <i>Default</i>: <br/>
+            <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4240,7 +4242,7 @@ the environment variable will not be set in the Pod's containers.
 If optional is set to false and the specified key does not exist,
 an error will be returned during Pod creation.<br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -4322,7 +4324,7 @@ allowed to be empty. Instances of this type with an empty value here are
 almost certainly wrong.
 More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
           <br/>
-            <i>Default</i>: <br/>
+            <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4562,7 +4564,7 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
         <td>
           <br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4616,7 +4618,7 @@ Type configuration for all types of Kubernetes probes.
 having succeeded. Defaults to 3. Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 3<br/>
+            <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4627,7 +4629,7 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
 are slow to start.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 0<br/>
+            <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4637,7 +4639,7 @@ are slow to start.<br/>
           Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4648,7 +4650,7 @@ are slow to start.<br/>
 Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4659,7 +4661,7 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
 Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -4696,7 +4698,7 @@ PodSettings
           DisablePodSpreadTopologyConstraints specifies whether to disable the addition of Pod Topology Spread Constraints to
 a given pod.<br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4707,7 +4709,7 @@ a given pod.<br/>
 30 seconds to terminate, you should increase TerminationGracePeriodSeconds.<br/>
           <br/>
             <i>Format</i>: int64<br/>
-            <i>Default</i>: 30<br/>
+            <i>Default</i>: `30`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -4754,7 +4756,7 @@ Type configuration for all types of Kubernetes probes.
 having succeeded. Defaults to 3. Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 3<br/>
+            <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4765,7 +4767,7 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
 are slow to start.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 0<br/>
+            <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4775,7 +4777,7 @@ are slow to start.<br/>
           Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4786,7 +4788,7 @@ are slow to start.<br/>
 Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4797,7 +4799,7 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
 Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -4888,7 +4890,7 @@ Type configuration for all types of Kubernetes probes.
 having succeeded. Defaults to 3. Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 3<br/>
+            <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4899,7 +4901,7 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
 are slow to start.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 0<br/>
+            <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4909,7 +4911,7 @@ are slow to start.<br/>
           Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4920,7 +4922,7 @@ are slow to start.<br/>
 Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -4931,7 +4933,7 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
 Minimum value is 1<br/>
           <br/>
             <i>Format</i>: int32<br/>
-            <i>Default</i>: 1<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -4971,7 +4973,7 @@ Allow will allow concurrent jobs. Forbid will not allow this, and instead skip t
 Replace will replace the current active Job with the newer scheduled Job.<br/>
           <br/>
             <i>Enum</i>: Allow, Forbid, Replace<br/>
-            <i>Default</i>: Allow<br/>
+            <i>Default</i>: `Allow`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -5030,7 +5032,7 @@ By default, tracing is enabled with a random sampling percentage of 10%.
         <td>
           Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.<br/>
           <br/>
-            <i>Default</i>: map[tracing:[map[randomSamplingPercentage:10]]]<br/>
+            <i>Default</i>: `map[tracing:[map[randomSamplingPercentage:10]]]`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -5059,7 +5061,7 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
         <td>
           Tracing is a list of tracing configurations for the telemetry resource. Normally only one tracing configuration is needed.<br/>
           <br/>
-            <i>Default</i>: [map[randomSamplingPercentage:10]]<br/>
+            <i>Default</i>: `[map[randomSamplingPercentage:10]]`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -5089,7 +5091,7 @@ Tracing contains relevant settings for tracing in the telemetry configuration
           RandomSamplingPercentage is the percentage of requests that should be sampled for tracing, specified by a whole number between 0-100.
 Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
           <br/>
-            <i>Default</i>: 10<br/>
+            <i>Default</i>: `10`<br/>
             <i>Minimum</i>: 0<br/>
             <i>Maximum</i>: 100<br/>
         </td>
@@ -5186,7 +5188,7 @@ a podmonitoring object is created.
           Setting AllowAllMetrics to true will ensure all exposed metrics are scraped. Otherwise, a list of predefined
 metrics will be dropped by default. See util/constants.go for the default list.<br/>
           <br/>
-            <i>Default</i>: false<br/>
+            <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -5195,7 +5197,7 @@ metrics will be dropped by default. See util/constants.go for the default list.<
         <td>
           The HTTP path where Prometheus compatible metrics exists<br/>
           <br/>
-            <i>Default</i>: /metrics<br/>
+            <i>Default</i>: `/metrics`<br/>
         </td>
         <td>false</td>
       </tr><tr>
@@ -5206,7 +5208,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Default</i>: 60s<br/>
+            <i>Validations</i>:<li>self == '' || self.matches('^([0-9]+[sm])+$'): </li><li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
+            <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
       </tr></tbody>
@@ -5362,7 +5365,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5371,7 +5374,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: Synced<br/>
+            <i>Default</i>: `Synced`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5380,7 +5383,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -5409,7 +5412,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5418,7 +5421,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: Synced<br/>
+            <i>Default</i>: `Synced`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5427,7 +5430,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: hello<br/>
+            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
