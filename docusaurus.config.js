@@ -14,12 +14,15 @@ const darkCodeTheme = themes.dracula;
     organizationName: 'kartverket',
     trailingSlash: false,
     onBrokenLinks: "throw",
-    onBrokenMarkdownLinks: "throw",
-    onBrokenAnchors: "warn", // TODO: throw
+    onBrokenAnchors: "throw",
     favicon: "img/favicon/favicon.ico",
 
     markdown: {
         mermaid: true,
+        hooks: {
+          onBrokenMarkdownLinks: "throw",
+          onBrokenMarkdownImages: "throw",
+        },
     },
 
     themes: ['@docusaurus/theme-mermaid'],
