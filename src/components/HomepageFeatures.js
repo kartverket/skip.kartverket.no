@@ -29,7 +29,7 @@ const FeatureList = [
         enklere og mer standardisert utvikling- og driftsopplevelse for alle.
         <br />
         <Link className={styles.link} to="/docs/kom-i-gang/praktisk-intro/security">
-          Les mer om sikkerhet sikkerthet
+          Les mer om sikkerhet
         </Link>
       </>
     ),
