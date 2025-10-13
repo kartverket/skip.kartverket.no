@@ -9,7 +9,7 @@ _Verktøyet for å rulle ut applikasjoner på en enkel og smidig måte_
 
 Velkommen til ArgoKit! Her får du en introduksjon til hva ArgoKit er, og hvorfor det er nyttig ved utrulling av applikasjoner. Du bør helst allerede ha lest om utrulling til SKIP ved hjelp av Skiperator og Argo CD. Hvis ikke anbefales følgende ressurser først:
 
-- [Argo CD-dokumentasjon](https://github.com/kartverket/skip.kartverket.no/tree/main/docs/03-applikasjon-utrulling/09-argo-cd)
+- [Argo CD-dokumentasjon](../09-argo-cd/index.md)
 - [Skiperator](https://skip.kartverket.no/docs/applikasjon-utrulling/skiperator)
 - [SKIP – kom i gang](https://skip.kartverket.no/docs/kom-i-gang)
 
@@ -107,7 +107,7 @@ Begge disse eksemplene rendrer ut samme JSON-manifest som er godkjent av Skipera
 
 | **Tema** | **Side** | **Informasjon** |
 |----------|----------|-----------------|
-| ArgoKit V1 API  | [ArgoKit/ArgoKit V1](https://github.com/kartverket/skip.kartverket.no/blob/main/docs/03-applikasjon-utrulling/09-argo-cd/08-argokit/02-argokit-v1.md) | Informasjon om ArgoKit V1 sine templates|
-| ArgoKit V2 API | [ArgoKit/ArgoKit V2](https://github.com/kartverket/skip.kartverket.no/blob/main/docs/03-applikasjon-utrulling/09-argo-cd/08-argokit/03-argokit-v1.md) | Informasjon om ArgoKit V2 sine templates|
-| ArgoKit AppAndObjects konsepter| [ArgoKit/AppAndObjects](https://github.com/kartverket/skip.kartverket.no/blob/main/docs/03-applikasjon-utrulling/09-argo-cd/08-argokit/04-appAndObjects.md) | Informasjon om ArgoKit sin appAndObjects bruk|
-| Komme i gang med ArgoKit | [ArgoKit/komme-i-gang](https://github.com/kartverket/skip.kartverket.no/blob/main/docs/03-applikasjon-utrulling/09-argo-cd/08-argokit/04-appAndObjects.md) | Hvordan komme i gang med ArgoKit, mend vanlige eksempler og bruk|
+| ArgoKit V1 API  | [ArgoKit/ArgoKit V1](./02-argokit-v1.md) | Informasjon om ArgoKit V1 sine templates|
+| ArgoKit V2 API | [ArgoKit/ArgoKit V2](./03-argokit-v2.md) | Informasjon om ArgoKit V2 sine templates|
+<!--| ArgoKit AppAndObjects konsepter| [ArgoKit/AppAndObjects](https://github.com/kartverket/skip.kartverket.no/blob/main/docs/03-applikasjon-utrulling/10-argokit/04-appAndObjects.md) | Informasjon om ArgoKit sin appAndObjects bruk|
+| Komme i gang med ArgoKit | [ArgoKit/komme-i-gang](https://github.com/kartverket/skip.kartverket.no/blob/main/docs/03-applikasjon-utrulling/10-argokit/04-appAndObjects.md) | Hvordan komme i gang med ArgoKit, mend vanlige eksempler og bruk|-->
