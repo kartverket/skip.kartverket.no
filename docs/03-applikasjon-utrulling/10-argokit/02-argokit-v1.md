@@ -10,7 +10,7 @@ Du finner koden [her](https://github.com/kartverket/argokit).
 
 ## Installasjon
 
-Forutsatt at du har fulgt [Komme i gang](../01-komme-i-gang-med-argocd.md)-guiden, kan du bruke ArgoKit i ditt apps-repo.
+Forutsatt at du har fulgt [Komme i gang](../09-argo-cd/01-komme-i-gang-med-argocd.md)-guiden, kan du bruke ArgoKit i ditt apps-repo.
 Første steg er å inkludere ArgoKit-biblioteket ved å kjøre følgende kommando:
 
 ```bash
@@ -42,7 +42,7 @@ Med denne konfigurasjonen vil dependabot sjekke én gang om dagen om det finnes 
 
 ## Bruk med jsonnet
 
-For grunnleggende informasjon om jsonnet, se [Gjenbruke konfigurasjon](../02-hva-er-et-apps-repo.md#gjenbruke-konfigurasjon).
+For grunnleggende informasjon om jsonnet, se [Gjenbruke konfigurasjon](../09-argo-cd/02-hva-er-et-apps-repo.md#gjenbruke-konfigurasjon).
 
 Hvis du bruker jsonnet i ditt apps-repo, kan du bruke ArgoKit-biblioteket til å rulle ut ArgoCD-applikasjoner ved å inkludere `argokit.libsonnet`-filen i din jsonnet-fil og kalle `argokit.Application`-funksjonen.
 For eksempel, for å rulle ut en applikasjon, kan du bruke følgende jsonnet-fil:
