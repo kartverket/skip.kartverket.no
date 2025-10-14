@@ -1,12 +1,12 @@
-# AppAndObjects
+# AppAndObjects Konseptet
 
 ## Introduksjon
--     AppAndObjects er et abstraksjonslag i argokit over applikasjonsobjektet som lar deg legge til ekstra ressurser samtidig som du manipulerer applikasjonen.
+-     AppAndObjects er et abstraksjonslag i ArgoKit over applikasjonsobjektet som lar deg legge til ekstra ressurser samtidig som du manipulerer applikasjonen.
 -     Samler applikasjon og relaterte ressurser i ett wrapper-objekt som renderes til en Kubernetes List.
 -     Denne siden forklarer hva AppAndObjects er, hvorfor det finnes, hvordan det fungerer på et overordnet nivå, og når du bør bruke det.
 
 ## Kontekst
-Om du har sett på argokit-koden eller kikket i noen app-repoer i Kartverket, har du kanskje kommet over dette konseptet.
+Om du har sett på ArgoKit-koden eller kikket i noen app-repoer i Kartverket, har du kanskje kommet over dette konseptet.
 Kanskje har du googlet det og fått nøyaktig 0 treff. Så hva er egentlig AppAndObjects?
 
 ## Innhold
