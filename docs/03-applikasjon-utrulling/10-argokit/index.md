@@ -1,4 +1,4 @@
-# ArgoKit 🦑
+# 🦑 ArgoKit
 _Verktøyet for å rulle ut applikasjoner på en enkel og smidig måte_
 
 <div style={{ margin: '0 auto 2rem auto', maxWidth: '300px' }}>
