@@ -127,7 +127,7 @@ If you want to use predefined users instead of a schedule, then the users must a
 
 ### Notification policies
 
-You also have to configure notification policies to use your integration. Terraform doesn’t activate the contact point of the integration yet, so this has to be done manually before adding this to terraform(do this by navigating to your integration and activate the contact point). Add code [here.](https://github.com/kartverket/grafana-alerts/blob/main/atkv1-prod/policies.tf)
+You also have to configure notification policies to use your integration. Terraform doesn’t activate the contact point of the integration yet, so this has to be done manually before adding this to terraform(do this by navigating to your integration and activate the contact point). Add code [here.](https://github.com/kartverket/grafana-alerts/blob/main/atgcp1-prod/policies.tf)
 
 Example:
 
