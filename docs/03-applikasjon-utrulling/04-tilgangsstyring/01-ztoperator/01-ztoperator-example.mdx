@@ -174,12 +174,16 @@ I utgangspunktet er alle endepunkter mot `demo-app` _åpne_, noe som angis med `
 `spec.autoLogin` lar deg konfigurere innlogging mot identitetstilbyderen. Innlogging vil bli gjort automatisk hvis brukere aksesserer beskyttede endepunkt uten en sesjon (med mindre `spec.authRules[].denyRedirect` er satt til `true`). I tillegg konfigureres det en dedikert innloggingssti som brukere kan navigeres til for å starte en inlogget sesjon.
 
 - `spec.autoLogin.enabled` lar deg toggle om innlogging skal være aktivert eller ikke.
-- `spec.autoLogin.loginPath` spesifiserer hvilken sti man skal aksessere for å starte en innlogget sesjon. Etter vellykket innlogging vil en forespørsel sendes til den konfigurerte innloggingsstien i applikasjonen din, og det er da opp til deg å håndtere hva som skal skje.
-- `spec.autoLogin.logoutPath` spesifiserer hvilken sti man skal aksessere for å logge ut brukeren lokalt og opp mot den konfigurerte identitetstilbyderen ([RP-initiated logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)). Etter vellykket utlogging vil brukeren bli omdirigert til nettsiden sin rotsti (dvs. `https://<HOST>/`), 
-og det er derfor viktig at man spesifiserer samme rotsti som den konfigurerte [`post_logout_redirect_url`](https://openid.net/specs/openid-connect-rpinitiated-1_0.html) i klientregistreringen. For identitetstilbydere som tillater flere brukere per person, som Microsoft Entra ID, er det viktig å logge seg ut med samme bruker man brukte for å logge inn ettersom Ztoperator legger til `id_token_hint` i logout-forespørselen. 
+- `spec.autoLogin.loginPath` spesifiserer en dedikert sti man kan aksessere for å logge inn en bruker. Ztoperator tar seg av selve autentiseringen og kaller stien i applikasjonen din etterpå, så implementer denne stien for å sende brukeren videre slik du ønsker.
+- `spec.autoLogin.logoutPath` spesifiserer hvilken sti man skal aksessere for å logge ut brukeren lokalt og opp mot den konfigurerte identitetstilbyderen ([RP-initiated logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)). Etter vellykket utlogging vil brukeren bli omdirigert til rotstien til applikasjonen, dvs. `https://<INGRESS>/`.
+For identitetstilbydere som tillater flere brukere per person, som Microsoft Entra ID, er det viktig å logge seg ut med samme bruker man brukte for å logge inn. 
 Dette er ikke et problem for identitetstilbydere som ID-porten, som kun tillater én bruker per person.
 - `spec.autoLogin.redirectPath` spesifiserer omdirigeringssti brukt under _Authorization Code Flow_. Dette er en sti som du **ikke** tregner å håndtere i applikasjonskoden din, men den må samsvare med en av de konfigurerte omdirigeringsstiene i klientregistreringen din.
 - `spec.autoLogin.scopes` spesifiserer hvilke scopes som skal brukes i under _Authorization Code Flow_. I dette eksempelet er det spesifisert som `<CLIENT ID>/.default`, som er et scope Microsoft Entra ID tilbyr som implisitt inneholder alle tilgjengelige scopes for klientregistreringen.
+
+:::tip
+Ztoperator benytter seg av cookies for å lagre innlogget sesjon i nettleseren. Disse cookiene er HTTP-only og kan derfor ikke aksesseres av JavaScript i nettleseren. De er i tillegg kryptert og det er kun Ztoperator som kan dekryptere dem og sende dem trygt videre nedstrøms til den beskyttede applikasjonen.
+:::
 
 :::warning
 Ztoperator-`AuthPolicy` benytter seg av cookies for å lagre innlogget sesjon i nettleseren. [OIDC Single Logout (SLO)](https://docs.digdir.no/docs/idporten/oidc/oidc_func_sso.html#single-logout-slo) benytter seg av `iframe` for å logge brukeren ut av alle nettstedene som brukeren har en aktiv SSO-sesjon hos. Ettersom cookies som Ztoperator-`AuthPolicy` setter er HTTP-only så vil de ikke kunne aksesseres i en `iframe`, og SLO er derfor ikke støttet av Ztoperator-`AuthPolicy`.

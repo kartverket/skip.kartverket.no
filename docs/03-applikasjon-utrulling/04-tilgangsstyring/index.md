@@ -6,9 +6,12 @@ Operatoren kan også automatisk omdirigere uautentiserte brukere til en innloggi
 
 ## 🧩 Forutsetninger
 
-- Du må ha registrert en klient hos en OAuth 2.0-identitetstilbyder.
+Før du kan bruke Ztoperator til å beskytte tjenesten din må følgende være på plass:
+
+- Du må vite hvilken OAuth 2.0-identitetstilbyder som passer for din tjeneste og registrere en klient hos denne. Se [her](01-ztoperator/index.mdx) for en oversikt over hvilke identitetstilbydere som støttes av Ztoperator på SKIP.
 - Du må vite hvilket *well-known endepunkt*, *audience* og eventuelle *claims* som gjelder for applikasjonen din.
 - Den beskyttede applikasjonen **må** kjøre på SKIP.
 
-Før du kan bruke Ztoperator til å beskytte tjenesten din, må du registrere en klient hos en relevant identitetstilbyder.
-Dette er nødvendig for å instruere Ztoperator i hvem som skal slippes inn og hvem som skal blokkeres. Denne "oversikten" får man ved å opprette en klientregistrering hos en OAuth 2.0-identitetstilbyder og knytte den til Ztoperator.
+:::caution
+Ztoperator registrerer ikke en OIDC-klient for deg. Du må selv ha etablert en integrasjon mot valgt identitetstilbyder, og Ztoperator brukes kun til å beskrive hvordan appen skal beskyttes og håndtere eventuelle innloggingsflyter.
+:::
