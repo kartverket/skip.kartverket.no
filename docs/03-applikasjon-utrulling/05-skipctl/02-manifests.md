@@ -70,10 +70,6 @@ Validerer manifestfiler mot kjente Kubernetes-skjema, oppsummerer resultater og 
 | `skipctl manifest validate -p ./k8s` | Validerer alle manifester under ./k8s. |
 | `cat manifest.jsonnet \| skipctl manifest validate -` | Validerer manifest fra stdin. |
 
-**Flagg**
-| Flagg | Type | Standardverdi | Tillatte verdier | Effekt |
-|---|---|---|---|---|
-
 **Output (oppsummering)**
 | Felt | Beskrivelse |
 |---|---|
@@ -96,10 +92,6 @@ Renderer manifestfiler og skriver gyldig output til stdout. Feil går til stderr
 | `skipctl manifest render -p ./manifests` | Renderer alle manifester under ./manifests. |
 | `cat manifest.jsonnet \| skipctl manifest render -` | Leser manifest fra stdin og renderer til stdout. |
 
-**Flagg**
-| Flagg | Type | Standardverdi | Tillatte verdier | Effekt |
-|---|---|---|---|---|
-
 ---
 
 
@@ -113,7 +105,3 @@ Formaterer manifestfiler i stedet (“in place”) eller fra stdin til stdout.
 | `skipctl manifest format` | Formaterer alle manifester i nåværende katalog rekursivt. |
 | `skipctl manifest format -p ./k8s` | Formaterer alle manifester under ./k8s. |
 | `cat manifest.jsonnet \| skipctl manifest format -` | Leser fra stdin, skriver formatert til stdout. |
-
-**Flagg**
-| Flagg | Type | Standardverdi | Tillatte verdier | Effekt |
-|---|---|---|---|---|
