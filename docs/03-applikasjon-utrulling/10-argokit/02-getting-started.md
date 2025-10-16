@@ -1,37 +1,24 @@
-# Kom i gang med Argokit
+# Kom i gang med ArgoKit
 
-### Installer argokit i ditt apps reop
-Argokit installeres som en submodul i apps-repo slik:
-```shell
-git submodule add https://github.com/kartverket/argokit.git
-```
+### Installer ArgoKit i ditt apps reop
+Om du ikke har installert argokit enda, ser du hvordan [her](./01-installation-guide.md)!
 
-Dersom du har klonet et apps-repo med argokit allerede installert (med vanlig git clone),
-må du kjøre følgende kommando for å få argokit koden:
-```shell
-git submodule update --init --recursive
-```
 
-### Importer argokit
+### Importer ArgoKit V2
 Import path er relativ til hvord du befinner deg i koden.
 ```jsonnet
-local argokit = import '../argokit/jsonnet/argokit.libsonnet';
+local argokit = import '../argokit/v2/jsonnet/argokit.libsonnet';
 ```
 
 ### Definer en applikasjon
 
-Lag en ny skiperator applikasjon med argokit appAndObjects:
+Lag en ny skiperator applikasjon med ArgoKit appAndObjects:
 
 *Tips! Lag en ny variabel for application for å få kortere uttrykk.*
 ```jsonnet
 local application = argokit.appAndObjects.application;
 
-application.new('app-name') {
-  spec: {
-    port: 3000,
-    image: 'test-image'
-  }
-}
+application.new('app-name', 'test-image', 3000)
 ```
 
 🎉 Sånn! Der har du en minimal applikasjon som kan kjøres på skip!
@@ -46,26 +33,26 @@ så slipper du å lure. 😎
 ---
 ## Bygge spec-en
 ### Miljøvariabler
-Med argokit kan du legge til variabler med `withVariable` funksjonen
+Med ArgoKit kan du legge til variabler med `withVariable` funksjonen
 ```jsonnet
-application.new('app-name')
-+ application.withVariable('NAME', value)
+application.new('app-name', 'test-image', 3000)
++ application.withEnvironmentVariable('NAME', value)
 ```
 
 Du kan også legge til miljøvariabler fra secrets:
 ```jsonnet
-application.new('app-name')
-+ application.withVariableSecret('API_KEY', 'secretRef')
+application.new('app-name', 'test-image', 3000)
++ application.withEnvironmentVariablesFromSecret('API_KEY', 'secretRef')
 ```
 
 
 ### Access Policies
-Det finnes en rekke funksjoner for å sette access policies i argokit,
+Det finnes en rekke funksjoner for å sette access policies i ArgoKit,
 her kan vi sette tilgang ut til en postgres database og inn fra en
 annen skip app slik.
-Her finner du oversikt over disse funksjonene: // TODO link til referanse
+
 ```jsonnet
-application.new('app-name')
+application.new('app-name', 'test-image', 3000)
 + application.withOutboundPostgres(host='database-host.com', ip='10.0.0.1')
 + application.withInboundSkipApp(appname='other-app', namespace='other-namespace')
 ```
@@ -73,7 +60,7 @@ application.new('app-name')
 ### Ingress
 Konfigurering av ingress gjøres slik:
 ```jsonnet
-application.new('app-name')
+application.new('app-name', 'test-image', 3000)
 + application.forHostnames('public-api-url.com')
 ```
 
@@ -81,7 +68,7 @@ application.new('app-name')
 ### Replicas
 Replicas settes enkelt opp slik:
 ```jsonnet
-application.new('app-name')
+application.new('app-name', 'test-image', 3000)
 + application.withReplicas(initial=2, max=10)
 ```
 
@@ -98,7 +85,7 @@ local livenessProbe = application.probe(
 
 local readinessProbe = application.probe(path='/health', port=8080);
 
-application.new('app-name')
+application.new('app-name', 'test-image', 3000)
 + application.withLiveness(livenessProbe)
 + application.withStartup(livenessProbe)
 + application.withReadiness(readinessProbe)
@@ -112,7 +99,7 @@ Azure AD kan legges til slik, dette vil
 legge AzureAdApplication til som en kubernetes ressurss i manifestet
 ditt, i tillegg til å legge til access policies og en secret i applikasjonen din.
 ```jsonnet
-application.new('app-name')
+application.new('app-name', 'test-image', 3000)
 + application.withAzureAdApplication(
   name='app-name-ad',
   namespace='team-namespace',

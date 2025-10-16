@@ -1,12 +1,19 @@
-# AppAndObjects
+# AppAndObjects Konseptet
+
+## Motivasjon
+
+Når du skal skrive mer komplekse manifester for applikasjoner med ekstra ressursser (som ConfigMap, ExternalSecret eller AzureAdApplication),
+må du som regel legge til variabler, secrets, access policies eller annen konfigurasjon på applikasjonsobjektet ditt.
+Dette kan være vanskelig å koordinere, da ofte navn må stemme på tvers av flere ressursser, og du må huske på sette krevd koknfigurasjon.
+AppAndObjects løser dette ved at du kan legge til ekstra ressursser til din applikasjon og riktig konfigurasjon blir lagt til applikasjonsobjektet ditt automatisk.
 
 ## Introduksjon
--     AppAndObjects er et abstraksjonslag i argokit over applikasjonsobjektet som lar deg legge til ekstra ressurser samtidig som du manipulerer applikasjonen.
+-     AppAndObjects er et abstraksjonslag i ArgoKit over applikasjonsobjektet som lar deg legge til ekstra ressurser samtidig som du manipulerer applikasjonen.
 -     Samler applikasjon og relaterte ressurser i ett wrapper-objekt som renderes til en Kubernetes List.
 -     Denne siden forklarer hva AppAndObjects er, hvorfor det finnes, hvordan det fungerer på et overordnet nivå, og når du bør bruke det.
 
 ## Kontekst
-Om du har sett på argokit-koden eller kikket i noen app-repoer i Kartverket, har du kanskje kommet over dette konseptet.
+Om du har sett på ArgoKit-koden eller kikket i noen app-repoer i Kartverket, har du kanskje kommet over dette konseptet.
 Kanskje har du googlet det og fått nøyaktig 0 treff. Så hva er egentlig AppAndObjects?
 
 ## Innhold
