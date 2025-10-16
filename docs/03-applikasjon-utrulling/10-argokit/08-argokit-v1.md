@@ -1,5 +1,5 @@
-# V1 API Reference
-### ⚠️ this API is depricated ⚠️
+# ArgoKit v1 API Reference
+### ⚠️ dette api-et er deprikert ⚠️
 
 ---
 
