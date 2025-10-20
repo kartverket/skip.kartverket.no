@@ -14,8 +14,8 @@
 
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.a0214603.css">
-<script src="/assets/js/runtime~main.04919351.js" defer="defer"></script>
-<script src="/assets/js/main.8511f6bd.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.27967a34.js" defer="defer"></script>
+<script src="/assets/js/main.19e58dcf.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -28,24 +28,23 @@
 <p>Import path er relativ til hvord du befinner deg i koden.</p>
 <div class="language-jsonnet codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-jsonnet codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">local argokit = import &#x27;../argokit/v2/jsonnet/argokit.libsonnet&#x27;;</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="definer-en-applikasjon">Definer en applikasjon<a href="#definer-en-applikasjon" class="hash-link" aria-label="Direct link to Definer en applikasjon" title="Direct link to Definer en applikasjon" translate="no">​</a></h3>
-<p>Lag en ny skiperator applikasjon med ArgoKit appAndObjects:</p>
+<p>Lag en ny Skiperator-applikasjon med ArgoKit <code>appAndObjects</code>-abstraksjonen:</p>
 <p><em>Tips! Lag en ny variabel for application for å få kortere uttrykk.</em></p>
 <div class="language-jsonnet codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-jsonnet codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">local application = argokit.appAndObjects.application;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">application.new(&#x27;app-name&#x27;, &#x27;test-image&#x27;, 3000)</span><br></span></code></pre></div></div>
-<p>🎉 Sånn! Der har du en minimal applikasjon som kan kjøres på skip!</p>
+<p>🎉 Sånn! Der har du en minimal applikasjon som kan kjøres på SKIP!</p>
 <p>🤔 Lurer du på om manifestet ditt er gyldig? <a href="https://skip.kartverket.no/docs/applikasjon-utrulling/skipctl/get-started" target="_blank" rel="noopener noreferrer">Installer skipctl</a> og kjør:</p>
 <div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">skipctl manifests validate --path=&lt;ditt-manifest.jsonnet&gt;</span><br></span></code></pre></div></div>
 <p>så slipper du å lure. 😎</p>
 <hr>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="bygge-spec-en">Bygge spec-en<a href="#bygge-spec-en" class="hash-link" aria-label="Direct link to Bygge spec-en" title="Direct link to Bygge spec-en" translate="no">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="miljøvariabler">Miljøvariabler<a href="#miljøvariabler" class="hash-link" aria-label="Direct link to Miljøvariabler" title="Direct link to Miljøvariabler" translate="no">​</a></h3>
-<p>Med ArgoKit kan du legge til variabler med <code>withVariable</code> funksjonen</p>
+<p>Med ArgoKit kan du legge til variabler med <code>withEnvironmentVariable</code> funksjonen</p>
 <div class="language-jsonnet codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-jsonnet codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">application.new(&#x27;app-name&#x27;, &#x27;test-image&#x27;, 3000)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ application.withEnvironmentVariable(&#x27;NAME&#x27;, value)</span><br></span></code></pre></div></div>
 <p>Du kan også legge til miljøvariabler fra secrets:</p>
 <div class="language-jsonnet codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-jsonnet codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">application.new(&#x27;app-name&#x27;, &#x27;test-image&#x27;, 3000)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ application.withEnvironmentVariablesFromSecret(&#x27;API_KEY&#x27;, &#x27;secretRef&#x27;)</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="access-policies">Access Policies<a href="#access-policies" class="hash-link" aria-label="Direct link to Access Policies" title="Direct link to Access Policies" translate="no">​</a></h3>
 <p>Det finnes en rekke funksjoner for å sette access policies i ArgoKit,
-her kan vi sette tilgang ut til en postgres database og inn fra en
-annen skip app slik.</p>
+her kan vi sette opp tilgang til en Postgres-database fra en SKIP-app:</p>
 <div class="language-jsonnet codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-jsonnet codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">application.new(&#x27;app-name&#x27;, &#x27;test-image&#x27;, 3000)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ application.withOutboundPostgres(host=&#x27;database-host.com&#x27;, ip=&#x27;10.0.0.1&#x27;)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ application.withInboundSkipApp(appname=&#x27;other-app&#x27;, namespace=&#x27;other-namespace&#x27;)</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="ingress">Ingress<a href="#ingress" class="hash-link" aria-label="Direct link to Ingress" title="Direct link to Ingress" translate="no">​</a></h3>
 <p>Konfigurering av ingress gjøres slik:</p>
