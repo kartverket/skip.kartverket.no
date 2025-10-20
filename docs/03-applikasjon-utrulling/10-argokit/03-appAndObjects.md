@@ -12,10 +12,6 @@ AppAndObjects løser dette ved at du kan legge til ekstra ressursser til din app
 -     Samler applikasjon og relaterte ressurser i ett wrapper-objekt som renderes til en Kubernetes List.
 -     Denne siden forklarer hva AppAndObjects er, hvorfor det finnes, hvordan det fungerer på et overordnet nivå, og når du bør bruke det.
 
-## Kontekst
-Om du har sett på ArgoKit-koden eller kikket i noen app-repoer i Kartverket, har du kanskje kommet over dette konseptet.
-Kanskje har du googlet det og fått nøyaktig 0 treff. Så hva er egentlig AppAndObjects?
-
 ## Innhold
 I stedet for å jobbe direkte på ett objekt, jobber vi nå på et slags wrapper-objekt med to felter: application og objects. Derav navnet AppAndObjects.
 
