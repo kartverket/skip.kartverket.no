@@ -31,7 +31,7 @@ importantly we've learned a lot in our journey.</p>
 made that led us to building a successful platform. In this tech blog we are
 showcasing the secrets to our success - the decisions that have had the
 biggest impact.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="principles-matter">Principles matter<a href="https://skip.kartverket.no/blog/20-teams-on-skip#principles-matter" class="hash-link" aria-label="Direct link to Principles matter" title="Direct link to Principles matter" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="principles-matter">Principles matter<a href="https://skip.kartverket.no/blog/20-teams-on-skip#principles-matter" class="hash-link" aria-label="Direct link to Principles matter" title="Direct link to Principles matter" translate="no">​</a></h2>
 <p>When you set out to create something new, you have the privilege of setting
 some standards that encourage best practices. While this is possible to do for
 an existing system, in practice it will mean a lot of work to get to the
@@ -40,25 +40,25 @@ with a clean slate.</p>
 <p>For our platform, we decided on a set of principles that we wanted to follow.
 Some of these are:</p>
 <ul>
-<li><strong>Stateless</strong>: Our clusters are stateless, which means that we can easily
+<li class=""><strong>Stateless</strong>: Our clusters are stateless, which means that we can easily
 replace them if something goes wrong. All configuration is held in a GitOps
 repository and all state is held in external systems like managed databases,
 object storage, etc. This significantly reduces operational complexity and
 recovery time. If a cluster fails we can easily replace or revert it by
 applying the configuration from the GitOps repository without worrying about
 losing state, or doing time-consuming data recovery operations.</li>
-<li><strong>Ownership</strong>: For each application, there is a clear owner. This owner is
+<li class=""><strong>Ownership</strong>: For each application, there is a clear owner. This owner is
 responsible for the application and maintains and supports it.  This way we're
 able to avoid the "tragedy of the commons", where no one is responsible for
 an application. If an app has unclear or short-term ownership, you simply
 don't get to use the platform. We're not an orphanage.</li>
-<li><strong>Financing</strong>: You use the platform? You also need to pay for its continued
+<li class=""><strong>Financing</strong>: You use the platform? You also need to pay for its continued
 support and development. We're working towards a chargeback model where your
 department is billed for the resources they use as a way to ensure that the
 platform is sustainable. Until this is ready, we expose the costs of the
 resources used by each team and then negotiate with the departments on how to
 cover these costs, but this is time-consuming work.</li>
-<li><strong>Secure by default</strong>: We enforce security best practices by default. Examples
+<li class=""><strong>Secure by default</strong>: We enforce security best practices by default. Examples
 of this are zero trust networking with Network Policies, where no app can talk
 to another without explicitly allowing this. Some applications will need to opt
 out of some of these defaults, and they can do so by altering their
@@ -70,7 +70,7 @@ principles and are expected to follow them. This means that being able to use
 the modern platform is contingent on the teams being able to prioritize
 modernizing their applications and working in sustainable ways, which helps push
 for positive change.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="encourage-collaboration">Encourage collaboration<a href="https://skip.kartverket.no/blog/20-teams-on-skip#encourage-collaboration" class="hash-link" aria-label="Direct link to Encourage collaboration" title="Direct link to Encourage collaboration" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="encourage-collaboration">Encourage collaboration<a href="https://skip.kartverket.no/blog/20-teams-on-skip#encourage-collaboration" class="hash-link" aria-label="Direct link to Encourage collaboration" title="Direct link to Encourage collaboration" translate="no">​</a></h2>
 <p>It's easy for a product team to ask the platform team for help when they're
 stuck. We're always happy to help, but we also have a heavy workload of exciting
 things we're working on. Therefore it's much better when platform users can help
@@ -86,7 +86,7 @@ a channel where everyone can help each other out.</p>
 <p>And a final tip: As a platform developer, sometimes it's better to wait a little
 while before responding to questions in these channels to allow the community to
 help each other out before you jump in and help.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="make-time-for-innovation">Make time for innovation<a href="https://skip.kartverket.no/blog/20-teams-on-skip#make-time-for-innovation" class="hash-link" aria-label="Direct link to Make time for innovation" title="Direct link to Make time for innovation" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="make-time-for-innovation">Make time for innovation<a href="https://skip.kartverket.no/blog/20-teams-on-skip#make-time-for-innovation" class="hash-link" aria-label="Direct link to Make time for innovation" title="Direct link to Make time for innovation" translate="no">​</a></h2>
 <p>It's easy to get bogged down in the day-to-day work of keeping the platform
 running. This is why it's important to set aside time for innovation, this
 is something we take very seriously.</p>
@@ -119,12 +119,12 @@ video lessons, as this creates discussion and further ideas.</p>
 <p><img decoding="async" loading="lazy" alt="Demo time!" src="https://skip.kartverket.no/assets/images/show-and-tell-2b3a7d820d2d83410db38ba2e98bc45c.jpeg" width="2364" height="1330" class="img_ev3q"></p>
 <p>There's plenty of examples of features that are results of work done on these
 days. On-premise Web Application Firewall with Wasm, Grafana features, open
-source tools like <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> and
-<a href="https://github.com/kartverket/skyline" target="_blank" rel="noopener noreferrer">Skyline</a> as well as this very website!</p>
+source tools like <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer" class="">Skiperator</a> and
+<a href="https://github.com/kartverket/skyline" target="_blank" rel="noopener noreferrer" class="">Skyline</a> as well as this very website!</p>
 <p>No one has time to prioritize innovation, and we're no different. But we
 prioritize it anyway, because we know that it's important to keep improving and
 to keep learning.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="communication-is-key">Communication is key<a href="https://skip.kartverket.no/blog/20-teams-on-skip#communication-is-key" class="hash-link" aria-label="Direct link to Communication is key" title="Direct link to Communication is key" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="communication-is-key">Communication is key<a href="https://skip.kartverket.no/blog/20-teams-on-skip#communication-is-key" class="hash-link" aria-label="Direct link to Communication is key" title="Direct link to Communication is key" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="SKIPs kommunikasjonsstrategi" src="https://skip.kartverket.no/assets/images/communication-6c3f011dc5e4d434f5ac4d176aeaa455.png" width="980" height="865" class="img_ev3q"></p>
 <p>Unfortunately a lot of infrastructure teams don't prioritize communication very
 well. This is a mistake. Communication is key to building a successful platform.</p>
@@ -151,7 +151,7 @@ This can be done through a status page, a Slack channel, or postmortems. Again,
 we use a mix of these so that we can reach as many users as possible at the
 right time.</p>
 <p>Do these things and you will have happy users that feel informed.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="branding-is-important">Branding is important<a href="https://skip.kartverket.no/blog/20-teams-on-skip#branding-is-important" class="hash-link" aria-label="Direct link to Branding is important" title="Direct link to Branding is important" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="branding-is-important">Branding is important<a href="https://skip.kartverket.no/blog/20-teams-on-skip#branding-is-important" class="hash-link" aria-label="Direct link to Branding is important" title="Direct link to Branding is important" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="SKIP logo" src="https://skip.kartverket.no/assets/images/skip-brand-017598d9204f22b0562dfc8c2836f8b0.png" width="580" height="452" class="img_ev3q"></p>
 <p>Do you think Spotify would be as successful if it was called "Music Player"?
 Do you think Apple would be as successful if it was called "Computer Company"?
@@ -172,7 +172,7 @@ you should think deeply about, as it's something that will stick with you for a
 long time. After this you can think about a website, merchandise like stickers
 and t-shirts, and a mascot. These things are not necessary, but they can help
 build a sense of identity and community around your platform.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="using-the-cloud-is-a-long-journey">Using the cloud is a long journey<a href="https://skip.kartverket.no/blog/20-teams-on-skip#using-the-cloud-is-a-long-journey" class="hash-link" aria-label="Direct link to Using the cloud is a long journey" title="Direct link to Using the cloud is a long journey" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="using-the-cloud-is-a-long-journey">Using the cloud is a long journey<a href="https://skip.kartverket.no/blog/20-teams-on-skip#using-the-cloud-is-a-long-journey" class="hash-link" aria-label="Direct link to Using the cloud is a long journey" title="Direct link to Using the cloud is a long journey" translate="no">​</a></h2>
 <p>As a platform team, it's our responsibility to push for modern, user-friendly
 and secure solutions. This generally means using public cloud solutions like
 Google Cloud Platform. But for most organizations, pushing this narrative incurs
@@ -199,7 +199,7 @@ representatives of the platform team sit down with the lawyers and talk through
 the risks and how to mitigate them.  This is the only way you can combine the
 technical and legal aspects of this work. Working in silos and not talking to
 each other is a surefire way to fail.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="autonomy-and-platform-as-a-product">Autonomy and platform as a product<a href="https://skip.kartverket.no/blog/20-teams-on-skip#autonomy-and-platform-as-a-product" class="hash-link" aria-label="Direct link to Autonomy and platform as a product" title="Direct link to Autonomy and platform as a product" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="autonomy-and-platform-as-a-product">Autonomy and platform as a product<a href="https://skip.kartverket.no/blog/20-teams-on-skip#autonomy-and-platform-as-a-product" class="hash-link" aria-label="Direct link to Autonomy and platform as a product" title="Direct link to Autonomy and platform as a product" translate="no">​</a></h2>
 <p>Your platform is a product, and so you need to work as a product team. This
 means continuously improving your product, listening to your users, and building
 the features that they need.</p>
@@ -217,7 +217,7 @@ your users; sometimes requests don't align well with the actual needs. Just
 because someone asks loudly for something, doesn't mean it's the right fit for
 your platform. Saying yes to everything does not result in a good product. Dare
 to challenge assumptions and ask why.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="abstractions-save-time">Abstractions save time<a href="https://skip.kartverket.no/blog/20-teams-on-skip#abstractions-save-time" class="hash-link" aria-label="Direct link to Abstractions save time" title="Direct link to Abstractions save time" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="abstractions-save-time">Abstractions save time<a href="https://skip.kartverket.no/blog/20-teams-on-skip#abstractions-save-time" class="hash-link" aria-label="Direct link to Abstractions save time" title="Direct link to Abstractions save time" translate="no">​</a></h2>
 <p>It should go without saying that a platform team's job is to make tools that
 make product teams' jobs easier. But it really can't be said enough. The better
 the tooling you provide, the less you have to do support. This is a win-win for
@@ -225,7 +225,7 @@ everyone.</p>
 <p>When building tools, think about how you can abstract away complexity. This can
 be done in many ways, but we've had great success building an operator that
 abstracts away the complexity of managing applications on Kubernetes. The
-operator is called <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> and
+operator is called <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer" class="">Skiperator</a> and
 makes deploying applications on Kubernetes as easy as writing a configuration
 manifest.</p>
 <div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token key atrule" style="color:#00a4db">apiVersion</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> skiperator.kartverket.no/v1alpha1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">kind</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Application</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">metadata</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">namespace</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> sample</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> sample</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">two</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">spec</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">image</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> nginxinc/nginx</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">unprivileged</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">port</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">80</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">replicas</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">ingresses</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> foo.com</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> bar.com</span><br></span></code></pre></div></div>
@@ -237,7 +237,7 @@ like "I want to expose this service to the internet" or "I want to run this job
 every day at midnight". This simplifies the user experience of Kubernetes, which
 is a complex system, and makes it easier for users to get started.</p>
 <p>Work smarter not harder.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="build-forward--and-backwards-compatibility">Build forward- and backwards compatibility<a href="https://skip.kartverket.no/blog/20-teams-on-skip#build-forward--and-backwards-compatibility" class="hash-link" aria-label="Direct link to Build forward- and backwards compatibility" title="Direct link to Build forward- and backwards compatibility" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="build-forward--and-backwards-compatibility">Build forward- and backwards compatibility<a href="https://skip.kartverket.no/blog/20-teams-on-skip#build-forward--and-backwards-compatibility" class="hash-link" aria-label="Direct link to Build forward- and backwards compatibility" title="Direct link to Build forward- and backwards compatibility" translate="no">​</a></h2>
 <p>We've had multiple experiences where we've weighed our options and decided to
 make a breaking change. Just recently we asked our users to migrate their apps
 from one cluster to another in order to improve the architecture of the
@@ -261,7 +261,7 @@ possible from the existing configuration is a good thing.</p>
 <p>When building operators, don't change or remove fields that are in use. Use
 default values for new fields, and use lists of objects instead of raw values
 like lists of strings as they are easier to extend.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="documentation-is-key">Documentation is key<a href="https://skip.kartverket.no/blog/20-teams-on-skip#documentation-is-key" class="hash-link" aria-label="Direct link to Documentation is key" title="Direct link to Documentation is key" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="documentation-is-key">Documentation is key<a href="https://skip.kartverket.no/blog/20-teams-on-skip#documentation-is-key" class="hash-link" aria-label="Direct link to Documentation is key" title="Direct link to Documentation is key" translate="no">​</a></h2>
 <p>One thing we keep hearing from our users is the need for more and better
 documentation. This is understandable. When you're using a platform, you don't
 want to have to ask for help all the time - you want to be able to discover
@@ -287,7 +287,7 @@ documentation and reply with a link to the documentation page. This is a triple
 win, as you will now have more updated documentation, save time in the future by
 being able to refer to the improved docs instead of writing a lengthy response
 and the user will now know where to look for answers.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="learn-from-others">Learn from others<a href="https://skip.kartverket.no/blog/20-teams-on-skip#learn-from-others" class="hash-link" aria-label="Direct link to Learn from others" title="Direct link to Learn from others" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="learn-from-others">Learn from others<a href="https://skip.kartverket.no/blog/20-teams-on-skip#learn-from-others" class="hash-link" aria-label="Direct link to Learn from others" title="Direct link to Learn from others" translate="no">​</a></h2>
 <p>When building a platform you'll quickly learn that you don't have all the
 answers. You might discuss how to implement a feature with your team, but you
 might not have the experience to know what works well in this context. When you
@@ -298,7 +298,7 @@ public sector platform teams for advice and learn from their experiences. We can
 also share our experiences with others, which is usually interesting. Invest
 some time in building these relationships of mutual benefit.</p>
 <p><img decoding="async" loading="lazy" alt="Public PaaS presentation" src="https://skip.kartverket.no/assets/images/public-paas-c5adabedea2208a72bc881ee34d23662.png" width="384" height="512" class="img_ev3q"></p>
-<p>I also want to give special credit to Hans Kristian Flaatten and the <a href="https://offentlig-paas.no/" target="_blank" rel="noopener noreferrer">Public
+<p>I also want to give special credit to Hans Kristian Flaatten and the <a href="https://offentlig-paas.no/" target="_blank" rel="noopener noreferrer" class="">Public
 PaaS</a> network here. Having a shared forum to discuss
 platform issues is a strong asset and helps the Norwegian public sector get
 ahead and stay competitive.</p>
@@ -308,9 +308,9 @@ never hurts to ask. Teams generally want to help each other out, and it's
 usually possible to make a trade of some sort. I suggest to offer to give a talk
 on your experiences and ask if they can do the same. It's a win-win for both
 parties.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="https://skip.kartverket.no/blog/20-teams-on-skip#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="https://skip.kartverket.no/blog/20-teams-on-skip#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
 <p>You may think building a platform is mostly technology, and we've written a lot
-about technology in <a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">previous blog
+about technology in <a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">previous blog
 posts</a>. But it's important to
 remember that building a platform is also about building a community, and
 communities have expectations and needs that go beyond technology. This is a
@@ -343,18 +343,18 @@ security? That's what we'll discuss in this blog post.</p>
 <p>Kartverket has been using Argo CD and GitOps for several years, and we've built
 an architecture that solves our needs for scale and self-service. Here we'll
 share our learnings and discuss why our teams are so happy with our Argo setup.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="multi-tenancy-in-argo-cd">Multi-tenancy in Argo CD<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#multi-tenancy-in-argo-cd" class="hash-link" aria-label="Direct link to Multi-tenancy in Argo CD" title="Direct link to Multi-tenancy in Argo CD" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="multi-tenancy-in-argo-cd">Multi-tenancy in Argo CD<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#multi-tenancy-in-argo-cd" class="hash-link" aria-label="Direct link to Multi-tenancy in Argo CD" title="Direct link to Multi-tenancy in Argo CD" translate="no">​</a></h2>
 <p>So you've deployed Argo CD on your multi-tenant cluster and given your teams
 access to the user interface. Let's imagine we now have tens of teams and
 hundreds of applications in the Argo UI. When we start scaling out to more than
 a handful of users we get into some issues with scale. Examples of these issues
 can be:</p>
 <ul>
-<li>How do you organize your apps and projects?</li>
-<li>How do you make sure no two teams accidentally (or maliciously) use the same
+<li class="">How do you organize your apps and projects?</li>
+<li class="">How do you make sure no two teams accidentally (or maliciously) use the same
 namespace?</li>
-<li>How can we make sure teams clean up unused deployment resources?</li>
-<li>How do you seamlessly deploy to multiple clusters?</li>
+<li class="">How can we make sure teams clean up unused deployment resources?</li>
+<li class="">How do you seamlessly deploy to multiple clusters?</li>
 </ul>
 <p>As a platform team we often find ourselves thinking that everyone loves
 infrastructure and Kubernetes as much as we do. This is not the case! Most
@@ -373,10 +373,10 @@ to get your workloads running on Kubernetes. This is thanks to the consistent
 user experience and built-in best practices of the apps-repo architecture.
 But we're getting ahead of ourselves, first we need to talk about a few
 abstractions that make this possible.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-are-applicationsets">What are ApplicationSets?<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#what-are-applicationsets" class="hash-link" aria-label="Direct link to What are ApplicationSets?" title="Direct link to What are ApplicationSets?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-are-applicationsets">What are ApplicationSets?<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#what-are-applicationsets" class="hash-link" aria-label="Direct link to What are ApplicationSets?" title="Direct link to What are ApplicationSets?" translate="no">​</a></h2>
 <p>In Argo CD there's an advanced feature that allows for automating
 creation of Argo CD Applications called
-<a href="https://argo-cd.readthedocs.io/en/stable/user-guide/application-set/" target="_blank" rel="noopener noreferrer">ApplicationSets</a>.
+<a href="https://argo-cd.readthedocs.io/en/stable/user-guide/application-set/" target="_blank" rel="noopener noreferrer" class="">ApplicationSets</a>.
 Using an ApplicationSet we can essentially make a template that generates
 Argo CD applications based on files or folders in a Git repository, sort of like
 a <code>ReplicaSet</code> for <code>Pods</code>. Using ApplicationSets we can build in features and
@@ -391,12 +391,12 @@ files and sync them to the cluster. So in other words: <code>ApplicationSet</cod
 <code>Application</code> -&gt; <code>Deployments</code></p>
 <p>For this to work you need a Git repo containing manifest files. You could have
 the teams put these manifest files into their source code repositories, but this
-is <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#separating-config-vs-source-code-repositories" target="_blank" rel="noopener noreferrer">not considered best
+is <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#separating-config-vs-source-code-repositories" target="_blank" rel="noopener noreferrer" class="">not considered best
 practice</a>.
 Usually you would put your manifests into a separate repo so that changes to the
 manifests don't conflict with changes in the source code. At Kartverket we call
 this manifest repo an apps repo.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introducing-apps-repositories">Introducing apps repositories<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#introducing-apps-repositories" class="hash-link" aria-label="Direct link to Introducing apps repositories" title="Direct link to Introducing apps repositories" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="introducing-apps-repositories">Introducing apps repositories<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#introducing-apps-repositories" class="hash-link" aria-label="Direct link to Introducing apps repositories" title="Direct link to Introducing apps repositories" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="A cartoon character standing on a stage pointing to large letters saying &amp;quot;Apps repo&amp;quot;" src="https://skip.kartverket.no/assets/images/apps-repo-announcment-df699d967970c45b70163fe4b8643321.jpeg" width="1024" height="1024" class="img_ev3q"></p>
 <p>The apps repo is where the product teams put their manifests. It has a consistent
 structure and is designed to be read by an Argo CD ApplicationSet. It also has a
@@ -436,7 +436,7 @@ commit in the apps-repo. This also enables the flexibility to create it as a PR
 in the apps-repo, but for ephemeral namespaces, this is usually not necessary.</p>
 <p>For example:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">footeam-apps/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  env/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    foo-cluster/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      foo-main/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        app.yaml</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      foo-feature-123/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        app.yaml</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="automating-and-avoiding-duplication">Automating and avoiding duplication<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#automating-and-avoiding-duplication" class="hash-link" aria-label="Direct link to Automating and avoiding duplication" title="Direct link to Automating and avoiding duplication" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="automating-and-avoiding-duplication">Automating and avoiding duplication<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#automating-and-avoiding-duplication" class="hash-link" aria-label="Direct link to Automating and avoiding duplication" title="Direct link to Automating and avoiding duplication" translate="no">​</a></h2>
 <p>Depending on the complexity of the apps repo, the amount of products and branches
 and a subjective "ickyness" with duplicating files (can you spell DRY?), you have
 several options on how to automate creating new namespaces.</p>
@@ -451,24 +451,24 @@ following:</p>
 <p>This works for most simple apps. Our experience, however, is that as a team
 matures and gets more experienced with Kubernetes and Argo CD, they add more
 complexity and want more control. At this point most teams will migrate to using
-<a href="https://jsonnet.org/" target="_blank" rel="noopener noreferrer">jsonnet</a> to enable referencing and extending a reusable
+<a href="https://jsonnet.org/" target="_blank" rel="noopener noreferrer" class="">jsonnet</a> to enable referencing and extending a reusable
 library shared between multiple components. SKIP also provides some common
-manifests via <a href="https://github.com/kartverket/argokit" target="_blank" rel="noopener noreferrer">ArgoKit</a>, a jsonnet
+manifests via <a href="https://github.com/kartverket/argokit" target="_blank" rel="noopener noreferrer" class="">ArgoKit</a>, a jsonnet
 library.</p>
-<p><a href="https://kustomize.io/" target="_blank" rel="noopener noreferrer">Kustomize</a> is also a common choice, widely used by SKIP
+<p><a href="https://kustomize.io/" target="_blank" rel="noopener noreferrer" class="">Kustomize</a> is also a common choice, widely used by SKIP
 for our own infrastructure, but not really widespread with other teams.</p>
-<p>Despite Argo supporting <a href="https://helm.sh/" target="_blank" rel="noopener noreferrer">Helm</a> we mostly avoid using it to
+<p>Despite Argo supporting <a href="https://helm.sh/" target="_blank" rel="noopener noreferrer" class="">Helm</a> we mostly avoid using it to
 create reusable templates due to the complexity of templating YAML. Jsonnet is
 superior in this regard.</p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Fixing indentation errors in YAML templates in a Helm chart <a href="https://t.co/Dv2JUkCdiM">pic.twitter.com/Dv2JUkCdiM</a></p>— memenetes (@memenetes) <a href="https://twitter.com/memenetes/status/1600898397279502336?ref_src=twsrc%5Etfw">December 8, 2022</a></blockquote>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="security-considerations">Security considerations<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#security-considerations" class="hash-link" aria-label="Direct link to Security considerations" title="Direct link to Security considerations" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="security-considerations">Security considerations<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#security-considerations" class="hash-link" aria-label="Direct link to Security considerations" title="Direct link to Security considerations" translate="no">​</a></h2>
 <p>You may be wondering: "This seems great and all, but what about the security
 implications of allowing teams to create and edit namespaces in a multi-tenant
 cluster? That seems really dangerous!".</p>
 <p>First of all, I love you for thinking about security. We need more people like
 you. Second, Argo CD has some great features we can leverage to make this work
 without removing the self-service nature of the apps repo architecture.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="prefixes">Prefixes<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#prefixes" class="hash-link" aria-label="Direct link to Prefixes" title="Direct link to Prefixes" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="prefixes">Prefixes<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#prefixes" class="hash-link" aria-label="Direct link to Prefixes" title="Direct link to Prefixes" translate="no">​</a></h3>
 <p>In order to make this work we need to give each team a set of prefixes. A
 prefix will usually be the name of a product that a product team has
 responsibility for maintaining. The only important part is that it is unique
@@ -482,7 +482,7 @@ use another team's namespace.</p>
 <p>Since each product team has an apps repo with the ability to name their
 directories as they wish, how can we enforce this? This is where Argo CD's
 Projects come into play.</p>
-<p><a href="https://argo-cd.readthedocs.io/en/stable/user-guide/projects/" target="_blank" rel="noopener noreferrer">Argo CD Projects</a>
+<p><a href="https://argo-cd.readthedocs.io/en/stable/user-guide/projects/" target="_blank" rel="noopener noreferrer" class="">Argo CD Projects</a>
 provide a logical grouping of applications, which is useful when Argo CD is used
 by multiple teams. It also contains a field that allows allowlisting which
 clusters and namespaces are usable by a project.</p>
@@ -497,7 +497,7 @@ not been allocated.</p>
 <p>The crucial part here is that ApplicationSets and Projects are provisioned by the
 platform team, and therefore build in these security features. These resources
 must not be accessible to the teams, or an attacker can simply add exclusions.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="namespace-resources">Namespace resources<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#namespace-resources" class="hash-link" aria-label="Direct link to Namespace resources" title="Direct link to Namespace resources" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="namespace-resources">Namespace resources<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#namespace-resources" class="hash-link" aria-label="Direct link to Namespace resources" title="Direct link to Namespace resources" translate="no">​</a></h3>
 <p>Another way this could be abused is if a team is able to create Namespace
 resources in their apps repository. This should be denied using Argo and/or
 cluster policies.</p>
@@ -508,22 +508,22 @@ a namespace resource named <code>kube-system</code> into their <code>env/foo-clu
 directory. Argo CD would allow this, as the manifests are read into an Argo CD
 application. Then the attacker could delete the namespace and take down the
 cluster.</p>
-<p><a href="https://www.youtube.com/watch?v=8Zwftqf8g8w" target="_blank" rel="noopener noreferrer"><img decoding="async" loading="lazy" alt="A slide from KubeCon Europe 2024 showing why it&amp;#39;s a bad idea to let product teams create namespaces" src="https://skip.kartverket.no/assets/images/no-edit-namespaces-4fb442adfde71a267cbbb80031841c28.png" width="2560" height="1440" class="img_ev3q"></a></p>
+<p><a href="https://www.youtube.com/watch?v=8Zwftqf8g8w" target="_blank" rel="noopener noreferrer" class=""><img decoding="async" loading="lazy" alt="A slide from KubeCon Europe 2024 showing why it&amp;#39;s a bad idea to let product teams create namespaces" src="https://skip.kartverket.no/assets/images/no-edit-namespaces-4fb442adfde71a267cbbb80031841c28.png" width="2560" height="1440" class="img_ev3q"></a></p>
 <p>It's useful in this multi-tenancy scenario to think of namespaces as resources
 owned by the platform team and namespace-scoped resources as owned by the
-product teams. This is considered a best practice, and was reiterated at <a href="https://www.youtube.com/watch?v=8Zwftqf8g8w" target="_blank" rel="noopener noreferrer">KubeCon
+product teams. This is considered a best practice, and was reiterated at <a href="https://www.youtube.com/watch?v=8Zwftqf8g8w" target="_blank" rel="noopener noreferrer" class="">KubeCon
 Europe 2024 by Marco De Benedictis</a>.
 Allowing product teams to edit namespaces can open up a ton of attack vectors,
-like disabling <a href="https://kubernetes.io/docs/concepts/security/pod-security-admission" target="_blank" rel="noopener noreferrer">Pod Security
+like disabling <a href="https://kubernetes.io/docs/concepts/security/pod-security-admission" target="_blank" rel="noopener noreferrer" class="">Pod Security
 Admission</a>
 controllers, allowing an attacker to create privileged containers which can
 compromise the host node.</p>
 <p>Friends don't let friends edit namespaces!</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="self-service-customization">Self service customization<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#self-service-customization" class="hash-link" aria-label="Direct link to Self service customization" title="Direct link to Self service customization" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="self-service-customization">Self service customization<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#self-service-customization" class="hash-link" aria-label="Direct link to Self service customization" title="Direct link to Self service customization" translate="no">​</a></h2>
 <p>So we set up an ApplicationSet that configures best practices and secure
 defaults for product teams! Great! But now that team with experienced cloud
 engineers really wants to customize their Argo configuration. Maybe they want to
-configure that one app has <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/" target="_blank" rel="noopener noreferrer">auto
+configure that one app has <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/" target="_blank" rel="noopener noreferrer" class="">auto
 sync</a> on, but
 another app has it turned off. Maybe they want to disable self-healing for a
 short period to manually edit in the cluster. In any case, how can we let teams
@@ -549,7 +549,7 @@ option is user friendly, but in violation of GitOps principles where config
 lives in git and not in a database. If you run Argo stateless like we do this
 would also mean the changes disappear when the pod restarts.</p>
 <p>Because none of these options seemed to be the best, we created a better
-solution. By using a combination of generators and the new <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Template/#template-patch" target="_blank" rel="noopener noreferrer">template patch</a>
+solution. By using a combination of generators and the new <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Template/#template-patch" target="_blank" rel="noopener noreferrer" class="">template patch</a>
 feature in Argo CD 2.8 we can look through every directory in the apps repo
 for a configuration file called <code>config.json</code>.</p>
 <p>Let's look at an example <code>config.json</code> file. This example file is commited in
@@ -564,7 +564,7 @@ their apps repo</p>
 <p>Additionaly, since the platform team is in control of the template we can
 eliminate the ability to maliciously change the template by parsing the inputs
 in a secure way.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="example-applicationset">Example ApplicationSet<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#example-applicationset" class="hash-link" aria-label="Direct link to Example ApplicationSet" title="Direct link to Example ApplicationSet" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="example-applicationset">Example ApplicationSet<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#example-applicationset" class="hash-link" aria-label="Direct link to Example ApplicationSet" title="Direct link to Example ApplicationSet" translate="no">​</a></h3>
 <p>Let's look at how we can write an <code>ApplicationSet</code> that allows us to use
 <code>config.json</code> files.</p>
 <p>First, we need to configure the <code>ApplicationSet</code> to look through all directories,
@@ -603,11 +603,11 @@ or Helm.</p>
 <p>Keep in mind that we don't want users to inject maliciously formed patches, so
 we cast booleans to booleans.</p>
 <div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">templatePatch</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">|</span><span class="token scalar string" style="color:#e3116c"></span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">    spec:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      source:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">        directory:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      {{- if eq .tool "directory" }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          exclude: config.json</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      {{- end }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">    {{- if .autoSync }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      syncPolicy:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">        automated:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          allowEmpty: {{ .allowEmpty | toJson }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          prune: {{ .prune | toJson }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          selfHeal: {{ .selfHeal | toJson }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">    {{- end }}</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="complete-applicationset">Complete ApplicationSet<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#complete-applicationset" class="hash-link" aria-label="Direct link to Complete ApplicationSet" title="Direct link to Complete ApplicationSet" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="complete-applicationset">Complete ApplicationSet<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#complete-applicationset" class="hash-link" aria-label="Direct link to Complete ApplicationSet" title="Direct link to Complete ApplicationSet" translate="no">​</a></h2>
 <p>Here is a complete <code>ApplicationSet</code> containing all the features we've discussed
 so far.</p>
 <div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token key atrule" style="color:#00a4db">apiVersion</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> argoproj.io/v1alpha1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">kind</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> ApplicationSet</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">metadata</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> exampleteam</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">apps</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">namespace</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> argocd</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">spec</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">generators</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">merge</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">generators</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">matrix</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token key atrule" style="color:#00a4db">generators</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">git</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">directories</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">path</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> env/</span><span class="token important">*/*</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">repoURL</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://github.com/kartverket/exampleteam-apps.git'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">revision</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> HEAD</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">list</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">elements</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">allowEmpty</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">false</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">autoSync</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">key</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'{{ .path.basenameNormalized}}'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">prune</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">selfHeal</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">tool</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> directory</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">matrix</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token key atrule" style="color:#00a4db">generators</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">git</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">files</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">path</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> env/</span><span class="token important">*/*/config.json</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">repoURL</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> https</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">//github.com/kartverket/exampleteam</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">apps.git</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">revision</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> HEAD</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">list</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token key atrule" style="color:#00a4db">elements</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">allowEmpty</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">false</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">autoSync</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">key</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'{{ .path.basenameNormalized}}'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">prune</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">selfHeal</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                </span><span class="token key atrule" style="color:#00a4db">tool</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> directory</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">mergeKeys</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> key</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">goTemplate</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">goTemplateOptions</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> missingkey=error</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">template</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">metadata</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'{{.path.basenameNormalized}}'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">spec</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">destination</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">namespace</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'{{ index .path.segments 2 }}'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'{{ index .path.segments 1 }}'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">project</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> exampleteam</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">source</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">path</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'{{.path.path}}'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">repoURL</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'https://github.com/kartverket/exampleteam-apps.git'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">targetRevision</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> HEAD</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">syncPolicy</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">managedNamespaceMetadata</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token key atrule" style="color:#00a4db">labels</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            </span><span class="token key atrule" style="color:#00a4db">app.kubernetes.io/managed-by</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> argocd</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            </span><span class="token key atrule" style="color:#00a4db">pod-security.kubernetes.io/audit</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> restricted</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            </span><span class="token key atrule" style="color:#00a4db">team</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> exampleteam</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">syncOptions</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> CreateNamespace=true</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> ServerSideApply=true</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> PrunePropagationPolicy=background</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">templatePatch</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">|</span><span class="token scalar string" style="color:#e3116c"></span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">    spec:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      source:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">        directory:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      {{- if eq .tool "directory" }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          exclude: config.json</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      {{- end }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">    {{- if .autoSync }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">      syncPolicy:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">        automated:</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          allowEmpty: {{ .allowEmpty | toJson }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          prune: {{ .prune | toJson }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">          selfHeal: {{ .selfHeal | toJson }}</span><br></span><span class="token-line" style="color:#393A34"><span class="token scalar string" style="color:#e3116c">    {{- end }}</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="results">Results<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#results" class="hash-link" aria-label="Direct link to Results" title="Direct link to Results" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="results">Results<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#results" class="hash-link" aria-label="Direct link to Results" title="Direct link to Results" translate="no">​</a></h2>
 <p>With Argo CD and the apps repo architecture, we've seen some real improvements
 in our deploy system. Teams find it to be incredibly intuitive to just update a
 file in Git and have it be instantly reflected in Argo CD and Kubernetes,
@@ -627,7 +627,7 @@ a degree of customization that is not possible with the default <code>Applicatio
 template and was to us the last missing piece. It allows teams to change
 configuration without needing to know about the <code>ApplicationSet</code> abstraction,
 and it allows the platform team to enforce security and best practices.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="tradeoffs">Tradeoffs<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#tradeoffs" class="hash-link" aria-label="Direct link to Tradeoffs" title="Direct link to Tradeoffs" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tradeoffs">Tradeoffs<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#tradeoffs" class="hash-link" aria-label="Direct link to Tradeoffs" title="Direct link to Tradeoffs" translate="no">​</a></h3>
 <p>But of course, there are some drawbacks. Like always, it's tradeoffs all the
 way down.</p>
 <p>Since a product team uses an apps repo to organize their apps, moving apps
@@ -643,12 +643,12 @@ auto-sync for most mission critical applications in production.</p>
 be tricky to place into a repo. You could make an apps repo for a "pseudo-team"
 consisting of the teams that need access, but generally we find that it's better
 that all products have a clear singular main owner. This also prevents
-<a href="https://en.wikipedia.org/wiki/Diffusion_of_responsibility" target="_blank" rel="noopener noreferrer">diffusion of responsibility</a>.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="thank-you-for-reading">Thank you for reading!<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#thank-you-for-reading" class="hash-link" aria-label="Direct link to Thank you for reading!" title="Direct link to Thank you for reading!" translate="no">​</a></h2>
+<a href="https://en.wikipedia.org/wiki/Diffusion_of_responsibility" target="_blank" rel="noopener noreferrer" class="">diffusion of responsibility</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="thank-you-for-reading">Thank you for reading!<a href="https://skip.kartverket.no/blog/introducing-apps-repositories#thank-you-for-reading" class="hash-link" aria-label="Direct link to Thank you for reading!" title="Direct link to Thank you for reading!" translate="no">​</a></h2>
 <p>We hope you found this article helpful and informative. Getting into
 <code>ApplicationSets</code> can be a bit tricky, so we hope we managed to convey the most
 important parts in a clear and understandable way. Thanks for reading!</p>
-<p>We recently created a Mastodon account <a href="https://mastodon.social/@kv_plattform" target="_blank" rel="noopener noreferrer">@kv_plattform</a>!
+<p>We recently created a Mastodon account <a href="https://mastodon.social/@kv_plattform" target="_blank" rel="noopener noreferrer" class="">@kv_plattform</a>!
 If you want to contact us or discuss this article, feel free to reach out to us
 there.</p>]]></content>
         <author>
@@ -678,12 +678,12 @@ And as times change, so do applications, configurations, hardware, architecture 
 Have your plans been updated to take all these factors into account?</p>
 <p>Let us take you on a journey through a couple of SKIPs most recent crisis management exercises and explore what happened,
 how we handled it and what we learned from it.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="exercise-1-malicious-actor">Exercise 1: Malicious actor<a href="https://skip.kartverket.no/blog/crisis-management-exercises#exercise-1-malicious-actor" class="hash-link" aria-label="Direct link to Exercise 1: Malicious actor" title="Direct link to Exercise 1: Malicious actor" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-1-malicious-actor">Exercise 1: Malicious actor<a href="https://skip.kartverket.no/blog/crisis-management-exercises#exercise-1-malicious-actor" class="hash-link" aria-label="Direct link to Exercise 1: Malicious actor" title="Direct link to Exercise 1: Malicious actor" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration of malicious actor" src="https://skip.kartverket.no/assets/images/hacker3-a25537fa33206d3caf181c19e2fb9767.jpeg" width="1024" height="1024" class="img_ev3q"></p>
 <p>The first exercise scenario revolved around a malicious actor gaining privileged access to our production Kubernetes cluster, simulated in this case by our internal sandbox cluster.
 Admittedly, it was somewhat difficult to set up a realistic scenario without outright disabling some of our security tools,
 so in the end we simulated a hostile takeover of the user account belonging to the person responsible for planning and running the exercise.</p>
-<p>The first sign that something was amiss was an alert from our <a href="https://sysdig.com/products/platform/" target="_blank" rel="noopener noreferrer">Sysdig Secure</a> toolset, a <a href="https://falco.org/" target="_blank" rel="noopener noreferrer">Falco</a>-based agent software which continually monitors our cluster
+<p>The first sign that something was amiss was an alert from our <a href="https://sysdig.com/products/platform/" target="_blank" rel="noopener noreferrer" class="">Sysdig Secure</a> toolset, a <a href="https://falco.org/" target="_blank" rel="noopener noreferrer" class="">Falco</a>-based agent software which continually monitors our cluster
 for signs of abnormal activity according to a predefined ruleset and provides a SaaS portal for further analysis and management of threats.
 (We will cover more of our security features and mechanisms and how we try to build a modern kubernetes based application platform with built-in security and zero trust in a future blog post.)
 After initial examination, we found that the incident was of such a nature that we engaged our crisis management plan in order to investigate, contain and mitigate the incident.
@@ -692,7 +692,7 @@ Systematic examination of logs and audit logs soon turned up suspicious activity
 decision was made to immediately suspend (simulated in this case) the account, removing all access to organizational systems and in effect locking it out.
 Simultaneously, the malicious software was removed once enough evidence was secured in order to further analyze the actions and impact of it.
 The exercise was announced as ended once we suspended the compromised user account and removed the malicious application while retaining and analyzing enough logs, forensic captures and other traces of activity.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="exercise-2-everything-is-on-fire">Exercise 2: "Everything is on fire"<a href="https://skip.kartverket.no/blog/crisis-management-exercises#exercise-2-everything-is-on-fire" class="hash-link" aria-label="Direct link to Exercise 2: &quot;Everything is on fire&quot;" title="Direct link to Exercise 2: &quot;Everything is on fire&quot;" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-2-everything-is-on-fire">Exercise 2: "Everything is on fire"<a href="https://skip.kartverket.no/blog/crisis-management-exercises#exercise-2-everything-is-on-fire" class="hash-link" aria-label="Direct link to Exercise 2: &quot;Everything is on fire&quot;" title="Direct link to Exercise 2: &quot;Everything is on fire&quot;" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration of malicious actor" src="https://skip.kartverket.no/assets/images/serverroomonfire-d4f5e0159394923419ba537e82f37102.jpeg" width="1024" height="1024" class="img_ev3q"></p>
 <p>The second exercise scenario was somewhat more involved, taking place over two days. The incident itself was as follows:
 A software update or rogue script caused catastrophic hardware failure in production infrastructure, necessitating creation of a
@@ -713,30 +713,30 @@ This ensured that we are way less dependent on the knowledge and skillset of spe
 Therefore, we decided to set aside most of day 2 to do just that. We had the infrastructure team tear down and setup the cluster again, and let the newest team members loose on it - this time on their own without guidance - an additional two times.
 The last run-through of the exercise took between 30 and 60 minutes, a significant improvement from the initial attempt.</p>
 <p>All in all, we considered the exercise to be a great success, with many important lessons learned and a substantial improvement in the quality of our documentation and crisis management plans.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-did-we-learn">What did we learn?<a href="https://skip.kartverket.no/blog/crisis-management-exercises#what-did-we-learn" class="hash-link" aria-label="Direct link to What did we learn?" title="Direct link to What did we learn?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-did-we-learn">What did we learn?<a href="https://skip.kartverket.no/blog/crisis-management-exercises#what-did-we-learn" class="hash-link" aria-label="Direct link to What did we learn?" title="Direct link to What did we learn?" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration of malicious actor" src="https://skip.kartverket.no/assets/images/whatdidwelearn-351c9d63d64164132b84622040fcfa25.jpeg" width="1024" height="1024" class="img_ev3q"></p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lesson-1-you-are-only-as-good-as-your-documentation">Lesson 1: You are only as good as your documentation<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-1-you-are-only-as-good-as-your-documentation" class="hash-link" aria-label="Direct link to Lesson 1: You are only as good as your documentation" title="Direct link to Lesson 1: You are only as good as your documentation" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lesson-1-you-are-only-as-good-as-your-documentation">Lesson 1: You are only as good as your documentation<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-1-you-are-only-as-good-as-your-documentation" class="hash-link" aria-label="Direct link to Lesson 1: You are only as good as your documentation" title="Direct link to Lesson 1: You are only as good as your documentation" translate="no">​</a></h3>
 <p>Documentation is vitally important during a crisis, and should be detailed enough that any team member may follow it on a step-by-step basis and be able to restore normal service, even with minimal knowledge and during a stressful situation.
 This ensures that you avoid being dependent upon key personnel that might or might not be available during a crisis scenario, and also ensures that you retain vital institutional knowledge even when team members move on to different tasks or even new jobs.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lesson-2-logging-logging-logging-oh-and-monitoring-too">Lesson 2: Logging, logging, logging! Oh, and monitoring too!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-2-logging-logging-logging-oh-and-monitoring-too" class="hash-link" aria-label="Direct link to Lesson 2: Logging, logging, logging! Oh, and monitoring too!" title="Direct link to Lesson 2: Logging, logging, logging! Oh, and monitoring too!" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lesson-2-logging-logging-logging-oh-and-monitoring-too">Lesson 2: Logging, logging, logging! Oh, and monitoring too!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-2-logging-logging-logging-oh-and-monitoring-too" class="hash-link" aria-label="Direct link to Lesson 2: Logging, logging, logging! Oh, and monitoring too!" title="Direct link to Lesson 2: Logging, logging, logging! Oh, and monitoring too!" translate="no">​</a></h3>
 <p>Having the ability to search through logs of all parts of our system greatly simplifies any incident management, whether the incident revolved around malicious actors or other factors.
 But logs by themselves are not sufficient - you need some sort of monitoring and alerting system in order to alert on and react to abnormal situations/behaviour in your systems.
 Ideally, you should be able to react on these alerts instead of messages from users - or worse, customers - that something is wrong.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lesson-3-test-your-plans">Lesson 3: Test your plans!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-3-test-your-plans" class="hash-link" aria-label="Direct link to Lesson 3: Test your plans!" title="Direct link to Lesson 3: Test your plans!" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lesson-3-test-your-plans">Lesson 3: Test your plans!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-3-test-your-plans" class="hash-link" aria-label="Direct link to Lesson 3: Test your plans!" title="Direct link to Lesson 3: Test your plans!" translate="no">​</a></h3>
 <p>Merely having plans, routines and documentation is insufficient. Unless they have been thoroughly tested and their quality assured through crisis exercises in realistic scenarios and conditions, they should be treated as flawed and unreliable until the opposite is proven.
 Running crisis management exercises is a great way to expose flaws, insufficiencies and outdated documentation, and careful note-taking and postmortems should be the norm throughout the exercise in order to easily identify and update weak spots in your plans and documentation. As systems and circumstances change, so should plans and documentation too in order to reflect the new order of the day.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lesson-4-communicate">Lesson 4: Communicate!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-4-communicate" class="hash-link" aria-label="Direct link to Lesson 4: Communicate!" title="Direct link to Lesson 4: Communicate!" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lesson-4-communicate">Lesson 4: Communicate!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-4-communicate" class="hash-link" aria-label="Direct link to Lesson 4: Communicate!" title="Direct link to Lesson 4: Communicate!" translate="no">​</a></h3>
 <p>Openness and communication is critical during both exercises and real-world crisis scenarios. Plans should always involve key points of communication - who needs to be informed, whose responsibility it is to keep said people informed, and the frequency, scope and format of information to disseminate.
 This also applies to communication afterwards. Anyone in your organization should be able to understand what happened, how it was solved and what lessons were learned from it.
-In Kartverket, we solve this by writing postmortems about incidents, summing up the incident itself and what we learned from it. We favour <a href="https://www.atlassian.com/incident-management/postmortem/blameless" target="_blank" rel="noopener noreferrer">Blameless Postmortems</a>, enabling us to quickly and thoroughly analayze and document all aspects of an incident without focusing on individual mistakes   and avoid passing blame.
+In Kartverket, we solve this by writing postmortems about incidents, summing up the incident itself and what we learned from it. We favour <a href="https://www.atlassian.com/incident-management/postmortem/blameless" target="_blank" rel="noopener noreferrer" class="">Blameless Postmortems</a>, enabling us to quickly and thoroughly analayze and document all aspects of an incident without focusing on individual mistakes   and avoid passing blame.
 This contributes to a culture of openness, learning and improvement. Hoarding information and disseminating it only on a "need-to-know" basis only breeds distrust and contempt, as does a culture that focuses on blaming and punishing people for mistakes instead of learning from them.
 A further bonus when communicating the happenings and results of your crisis management exercises is the potential to inspire others - when people see the great results and lessons you yourselves have gained from such exercises, they might want to try it with their own systems and teams.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lesson-5-let-the-newbies-handle-it">Lesson 5: Let the "newbies" handle it<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-5-let-the-newbies-handle-it" class="hash-link" aria-label="Direct link to Lesson 5: Let the &quot;newbies&quot; handle it" title="Direct link to Lesson 5: Let the &quot;newbies&quot; handle it" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lesson-5-let-the-newbies-handle-it">Lesson 5: Let the "newbies" handle it<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-5-let-the-newbies-handle-it" class="hash-link" aria-label="Direct link to Lesson 5: Let the &quot;newbies&quot; handle it" title="Direct link to Lesson 5: Let the &quot;newbies&quot; handle it" translate="no">​</a></h3>
 <p>Putting our newest team members in charge of the recovery operations was a great learning experience for them, as well as enabling us to quickly find flaws and shortcomings in our documentation and crisis management plans.
 It is also a great confidence booster, because if they succeed, they'll gain valuable insight and positive experiences with setting up all those scary critical systems from scratch - and if they don't succeed, well, that's not their fault, it was because the documentation and training was insufficent to enable them to handle the situation!</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lesson-6-crisis-exercises-as-team-building">Lesson 6: Crisis exercises as team building<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-6-crisis-exercises-as-team-building" class="hash-link" aria-label="Direct link to Lesson 6: Crisis exercises as team building" title="Direct link to Lesson 6: Crisis exercises as team building" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lesson-6-crisis-exercises-as-team-building">Lesson 6: Crisis exercises as team building<a href="https://skip.kartverket.no/blog/crisis-management-exercises#lesson-6-crisis-exercises-as-team-building" class="hash-link" aria-label="Direct link to Lesson 6: Crisis exercises as team building" title="Direct link to Lesson 6: Crisis exercises as team building" translate="no">​</a></h3>
 <p>Crisis exercises are fun and contribute to better teamwork! They bring everyone together in order to achieve a common goal - get things up and running again as quickly as possible. Combine it with "pair programming" - that is, if possible make sure at least two people are working on any given task together - this helps facilitate cooperation and communication, and provides an extra set of eyes to help catch any manual errors or deviations from the plan.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="thank-you-for-reading">Thank you for reading!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#thank-you-for-reading" class="hash-link" aria-label="Direct link to Thank you for reading!" title="Direct link to Thank you for reading!" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="thank-you-for-reading">Thank you for reading!<a href="https://skip.kartverket.no/blog/crisis-management-exercises#thank-you-for-reading" class="hash-link" aria-label="Direct link to Thank you for reading!" title="Direct link to Thank you for reading!" translate="no">​</a></h2>
 <p>We appreciate you taking the time to read through this blog post. We have learned quite a lot (and had lots of fun) through our approach to crisis management exercises. We hope our experiences and thoughts regarding this subject has been interesting, and that they may inspire others to start doing crisis management exercises as well.</p>]]></content>
         <author>
             <name>Thomas Berg</name>
@@ -755,18 +755,18 @@ It is also a great confidence booster, because if they succeed, they'll gain val
 ]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Anthos in Google Cloud" src="https://skip.kartverket.no/assets/images/anthos-6-bf519df28c4acffaa304344b0ad145aa.jpg" width="770" height="588" class="img_ev3q"></p>
 <p>In this final installment of the Anthos series, we will talk about what we
-learned on the way to building hybrid infrastructure at <a href="https://kartverket.no/en" target="_blank" rel="noopener noreferrer">Kartverket</a>.</p>
+learned on the way to building hybrid infrastructure at <a href="https://kartverket.no/en" target="_blank" rel="noopener noreferrer" class="">Kartverket</a>.</p>
 <p>It's been a long journey, and there's plenty of things we've learned along the
 way in building a hybrid Kubernetes platform. We'll try to share some of those
 hard earned lessons in this post.</p>
 <p>This newsletter is the final entry of a three part series about Anthos in
 Kartverket.</p>
 <ol>
-<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
-<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
-<li>Benefits and what we would have done differently (You are here!)</li>
+<li class=""><a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
+<li class=""><a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
+<li class="">Benefits and what we would have done differently (You are here!)</li>
 </ol>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="do-you-really-need-hybrid">Do you really need hybrid?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#do-you-really-need-hybrid" class="hash-link" aria-label="Direct link to Do you really need hybrid?" title="Direct link to Do you really need hybrid?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="do-you-really-need-hybrid">Do you really need hybrid?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#do-you-really-need-hybrid" class="hash-link" aria-label="Direct link to Do you really need hybrid?" title="Direct link to Do you really need hybrid?" translate="no">​</a></h2>
 <p>When we started out, there was an assumption that it was simply impossible to
 use the cloud. This came from all sides of the organization, so this was
 taken as a given. SKIP was therefore started as a project to build an on-premise
@@ -791,7 +791,7 @@ for doing so. Do you need hybrid, or do you just need to mature your
 organization? If you do, reduce the scope of the initial work to get to a
 workable platform, and preferably start in the cloud, adding hybrid features
 later. If you're not sure, you probably don't need hybrid.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hybrid-gives-your-organization-flexibility">Hybrid gives your organization flexibility<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#hybrid-gives-your-organization-flexibility" class="hash-link" aria-label="Direct link to Hybrid gives your organization flexibility" title="Direct link to Hybrid gives your organization flexibility" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="hybrid-gives-your-organization-flexibility">Hybrid gives your organization flexibility<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#hybrid-gives-your-organization-flexibility" class="hash-link" aria-label="Direct link to Hybrid gives your organization flexibility" title="Direct link to Hybrid gives your organization flexibility" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration of cloud components" src="https://skip.kartverket.no/assets/images/cloud-1-92f59291846076655bb737aa95d25a59.jpg" width="2880" height="1200" class="img_ev3q"></p>
 <p>Now that we've built a platform that seamlessly runs workloads in both public
 cloud and on-premise, we have a lot of flexibility in where we run our workloads
@@ -811,11 +811,11 @@ observability, developer experience and security features but also gives fewer o
 drawbacks, as the on-premise cloud is closer to the existing dependencies than a
 public cloud. Once this is done, smaller chunks kan be rewritten as
 microservices and moved to the cloud, communicating with the monolith seamlessly
-over the hybrid network. This is sometimes referred to as the <a href="https://microservices.io/patterns/refactoring/strangler-application.html" target="_blank" rel="noopener noreferrer">strangler
+over the hybrid network. This is sometimes referred to as the <a href="https://microservices.io/patterns/refactoring/strangler-application.html" target="_blank" rel="noopener noreferrer" class="">strangler
 application</a>.</p>
 <p>This method significantly reduces the scope of refactoring, as one can focus on
 gradually rewriting smaller modules instead of rewriting the entire application.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="service-mesh-is-hard-but-maybe-a-necessary-evil-to-make-hybrid-less-painful">Service mesh is hard, but maybe a necessary evil to make hybrid less painful<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#service-mesh-is-hard-but-maybe-a-necessary-evil-to-make-hybrid-less-painful" class="hash-link" aria-label="Direct link to Service mesh is hard, but maybe a necessary evil to make hybrid less painful" title="Direct link to Service mesh is hard, but maybe a necessary evil to make hybrid less painful" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="service-mesh-is-hard-but-maybe-a-necessary-evil-to-make-hybrid-less-painful">Service mesh is hard, but maybe a necessary evil to make hybrid less painful<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#service-mesh-is-hard-but-maybe-a-necessary-evil-to-make-hybrid-less-painful" class="hash-link" aria-label="Direct link to Service mesh is hard, but maybe a necessary evil to make hybrid less painful" title="Direct link to Service mesh is hard, but maybe a necessary evil to make hybrid less painful" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration of service mesh with Istio logo" src="https://skip.kartverket.no/assets/images/mesh-1-154deaa307f1f382bd1b5c33494d1712.png" width="2200" height="917" class="img_ev3q"></p>
 <p>Oh my word how we have struggled with service mesh.</p>
 <p>Starting from nothing with a goal of providing a secure-by-default zero-trust
@@ -826,7 +826,7 @@ share of that.</p>
 <p>So how do we feel about Istio? There are various opinions in the team, but if we
 average them all out, we're content. It's quite complex and can be hard to
 debug, but it does the job. As we've matured and gotten more experience with
-Istio, we've also started to see more benefits, like extensions for <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter" target="_blank" rel="noopener noreferrer">handling
+Istio, we've also started to see more benefits, like extensions for <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/oauth2_filter" target="_blank" rel="noopener noreferrer" class="">handling
 OAuth2</a>
 and the traffic control features for gradual rollouts which we used for
 canary-testing the migration of some of our larger applications to SKIP. Not all
@@ -841,22 +841,22 @@ their encapsulation. Since the service mesh is a cluster-wide feature, if one
 team makes an invalid configuration, it can break other teams' workloads.
 Kubernetes namespaces be damned. We've therefore moved to a model where the
 platform team provides an abstraction through
-<a href="https://github.dev/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> which configures the
+<a href="https://github.dev/kartverket/skiperator" target="_blank" rel="noopener noreferrer" class="">Skiperator</a> which configures the
 service mesh on their behalf.</p>
 <p>Finally, I think it's prudent to ask yourself wether or not you actually need a
 service mesh. If you're running a small cluster with a few services, you'll
 probably be fine with using the built-in Kubernetes features like Ingress and
 Network Policies. The observability features are nice, but you can get most of
-them with a combination of <a href="https://grafana.com/docs/tempo/latest/metrics-generator/service_graphs/" target="_blank" rel="noopener noreferrer">instrumentation and
+them with a combination of <a href="https://grafana.com/docs/tempo/latest/metrics-generator/service_graphs/" target="_blank" rel="noopener noreferrer" class="">instrumentation and
 Grafana</a>.</p>
 <p>If you need service mesh then limit the scope until you get comfortable with the
 mesh, for example start with just mTLS and observability, and then add zero
 trust networking features later.</p>
 <p>Also keep in mind there is a lot of competition in the service mesh space, and
 there are some interesting alternatives to Istio, like
-<a href="https://linkerd.io/" target="_blank" rel="noopener noreferrer">Linkerd</a> and the up-and-coming <a href="https://cilium.io/use-cases/cluster-mesh/" target="_blank" rel="noopener noreferrer">Cilium Service
+<a href="https://linkerd.io/" target="_blank" rel="noopener noreferrer" class="">Linkerd</a> and the up-and-coming <a href="https://cilium.io/use-cases/cluster-mesh/" target="_blank" rel="noopener noreferrer" class="">Cilium Service
 Mesh</a>.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-helps-you-as-a-platform-team-getting-started-with-best-practices-even-if-you-plan-to-move-to-open-source-components-later">Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#anthos-helps-you-as-a-platform-team-getting-started-with-best-practices-even-if-you-plan-to-move-to-open-source-components-later" class="hash-link" aria-label="Direct link to Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later" title="Direct link to Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="anthos-helps-you-as-a-platform-team-getting-started-with-best-practices-even-if-you-plan-to-move-to-open-source-components-later">Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#anthos-helps-you-as-a-platform-team-getting-started-with-best-practices-even-if-you-plan-to-move-to-open-source-components-later" class="hash-link" aria-label="Direct link to Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later" title="Direct link to Anthos helps you as a platform team getting started with best practices.. Even if you plan to move to open source components later" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Google Anthos logo" src="https://skip.kartverket.no/assets/images/anthos-2-1a3889bc339c3f2ac97e81d32c482cff.png" width="2200" height="917" class="img_ev3q"></p>
 <p>When our platform team started out a few years ago, we picked some of the
 brightest cloud engineers from within the organization and combined them with
@@ -884,7 +884,7 @@ we feel is worth it.</p>
 regret using a paid managed offering in the beginning. It helped us get started
 and make the right decisions early on, and we're now in a position where we can
 capitalize on that great start.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="keep-in-mind-autoscaling-when-choosing-licensing-models">Keep in mind autoscaling when choosing licensing models<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#keep-in-mind-autoscaling-when-choosing-licensing-models" class="hash-link" aria-label="Direct link to Keep in mind autoscaling when choosing licensing models" title="Direct link to Keep in mind autoscaling when choosing licensing models" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="keep-in-mind-autoscaling-when-choosing-licensing-models">Keep in mind autoscaling when choosing licensing models<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#keep-in-mind-autoscaling-when-choosing-licensing-models" class="hash-link" aria-label="Direct link to Keep in mind autoscaling when choosing licensing models" title="Direct link to Keep in mind autoscaling when choosing licensing models" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Autoscaling" src="https://skip.kartverket.no/assets/images/anthos-7-e3f4b6cffc3dd928706042e2610f75e4.png" width="2200" height="917" class="img_ev3q"></p>
 <p>This may be an obvious point to some of the more experienced platform engineers
 out there, but it was still something that we had to learn. When we started out,
@@ -912,7 +912,7 @@ scaling out, which can be suboptimal.</p>
 node on demand, but this is something to keep in mind when choosing a SaaS
 offering. Try to factor in the future scaling needs of your platform when
 purchasing SaaS services.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
 <p>To summarize: We've learned a lot on our journey to building a hybrid Kubernetes
 platform. Over the last few years we've iterated on our platform and learned
 lots of great lessons. It's been a huge help and privilege to have the support
@@ -944,10 +944,10 @@ endorsed by or affiliated with Google in any way.</em></p>]]></content>
 ]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Vegar and Eline in the studio" src="https://skip.kartverket.no/assets/images/plattformpodden-5a902026492330eca4b224cab45eb99b.jpg" width="4032" height="2268" class="img_ev3q"></p>
 <p>Very recently, SKIP was featured on the
-<a href="https://plattformpodden.no/" target="_blank" rel="noopener noreferrer">Plattformpodden</a> podcast! Vegar and Eline were
+<a href="https://plattformpodden.no/" target="_blank" rel="noopener noreferrer" class="">Plattformpodden</a> podcast! Vegar and Eline were
 invited to talk about SKIP, how it came to be and what it's like to work on it.</p>
 <p>Give it a listen!</p>
-<p><a href="https://plattformpodden.no/episode/6" target="_blank" rel="noopener noreferrer">https://plattformpodden.no/episode/6</a></p>]]></content>
+<p><a href="https://plattformpodden.no/episode/6" target="_blank" rel="noopener noreferrer" class="">https://plattformpodden.no/episode/6</a></p>]]></content>
         <author>
             <name>Eline Henriksen</name>
             <uri>https://eliine.dev</uri>
@@ -968,28 +968,28 @@ invited to talk about SKIP, how it came to be and what it's like to work on it.<
 ]]></summary>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Anthos in Google Cloud" src="https://skip.kartverket.no/assets/images/anthos-4-7d2f18bbcb2f378e0657da61ac28fa2f.jpg" width="2880" height="1200" class="img_ev3q"></p>
 <p>In this second installment of the Anthos series, we will talk about how we run
-Anthos and hybrid cloud at <a href="https://kartverket.no/en" target="_blank" rel="noopener noreferrer">Kartverket</a>. We'll touch
+Anthos and hybrid cloud at <a href="https://kartverket.no/en" target="_blank" rel="noopener noreferrer" class="">Kartverket</a>. We'll touch
 on the hardware, the software, and the processes we use to keep it running.</p>
 <p>By the end we hope that we'll have de-mystified Anthos a bit, and maybe given
 you an idea of what it takes to run Anthos in production.</p>
 <p>If you haven't read the first part, you can find it
-<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">here</a>.</p>
+<a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">here</a>.</p>
 <p>This newsletter is the second of the three part series about Anthos in
 Kartverket.</p>
 <ol>
-<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
-<li>How we run Anthos (You are here!)</li>
-<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
+<li class=""><a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">Why we chose Anthos</a></li>
+<li class="">How we run Anthos (You are here!)</li>
+<li class=""><a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
 </ol>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="installation-and-upgrades">Installation and upgrades<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#installation-and-upgrades" class="hash-link" aria-label="Direct link to Installation and upgrades" title="Direct link to Installation and upgrades" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="installation-and-upgrades">Installation and upgrades<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#installation-and-upgrades" class="hash-link" aria-label="Direct link to Installation and upgrades" title="Direct link to Installation and upgrades" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration of the cluster architecture" src="https://skip.kartverket.no/assets/images/anthos-5-41f824768cab6b841ef2fbdc0f5a375b.png" width="1456" height="1082" class="img_ev3q"></p>
 <p>We have been early adopters of Anthos, so when doing the install we did not have
 options for controlplane architecture. We wanted to use existing underlying
 VMware infrastructure, so the nodes in our clusters are VMs, provisioned by
 scripts provided by Google. Our cluster is installed with
-<a href="https://kubernetes.io/blog/2017/01/how-we-run-kubernetes-in-kubernetes-kubeception/" target="_blank" rel="noopener noreferrer">kubeception</a>
+<a href="https://kubernetes.io/blog/2017/01/how-we-run-kubernetes-in-kubernetes-kubeception/" target="_blank" rel="noopener noreferrer" class="">kubeception</a>
 controlplane architechture, this no longer the only, or recommended way. The
-recommended model is <a href="https://cloud.google.com/anthos/clusters/docs/on-prem/latest/how-to/create-user-cluster-controlplane-v2" target="_blank" rel="noopener noreferrer">Controlplane
+recommended model is <a href="https://cloud.google.com/anthos/clusters/docs/on-prem/latest/how-to/create-user-cluster-controlplane-v2" target="_blank" rel="noopener noreferrer" class="">Controlplane
 V2</a>,
 where the controlplane nodes for the user cluster are in the user cluster
 itself.</p>
@@ -1011,23 +1011,23 @@ changes to our production environment. This is mostly done outside work-hours,
 although we have not experienced downtime during cluster upgrades. Here is the
 general workflow for upgrading:</p>
 <ol>
-<li>Upgrade your admin workstation to the target version of your upgrade.</li>
-<li>From your admin workstation, upgrade your user clusters.</li>
-<li>After all of the user clusters have been upgraded, you can upgrade your admin
+<li class="">Upgrade your admin workstation to the target version of your upgrade.</li>
+<li class="">From your admin workstation, upgrade your user clusters.</li>
+<li class="">After all of the user clusters have been upgraded, you can upgrade your admin
 cluster from the admin workstation.</li>
 </ol>
-<p>We have tried using <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform</a> where possible to
+<p>We have tried using <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer" class="">Terraform</a> where possible to
 simplify the setup. This can not be done in the same way for clusters using the
 kubeception model. When we migrate to Controlplane V2 however, clusters can be
 managed via GCP, and we can finally start using terraform for our on-premise
 cluster config in the same way as for our GKE clusters, and GCP configuration in
 general.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="gcp-integration">GCP integration<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#gcp-integration" class="hash-link" aria-label="Direct link to GCP integration" title="Direct link to GCP integration" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="gcp-integration">GCP integration<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#gcp-integration" class="hash-link" aria-label="Direct link to GCP integration" title="Direct link to GCP integration" translate="no">​</a></h2>
 <p>When working with an on-premise Anthos cluster, some of the nice-to-have
 features of a standard GKE cluster have been lost. However, recently Anthos on
 VMware clusters have gradually received more and more features compared to GKE
 clusters.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="iam-and-groups">IAM and Groups<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iam-and-groups" class="hash-link" aria-label="Direct link to IAM and Groups" title="Direct link to IAM and Groups" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="iam-and-groups">IAM and Groups<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iam-and-groups" class="hash-link" aria-label="Direct link to IAM and Groups" title="Direct link to IAM and Groups" translate="no">​</a></h3>
 <p>Since we were early adaptors of Anthos, we had to endure not being able to
 delegate clusterroles to IAM groups, and had to add single users to
 clusterrole/rolebindings in Kubernetes. This was not a huge problem for us,
@@ -1038,7 +1038,7 @@ too many names and email addresses, to only containing groups.</p>
 <p>Our Google Workspace receives groups and users from our Microsoft Active
 Directory. Groups are initially created either in Entra ID, or on our local
 Domain Controllers, and at set intervals changes are pushed to Google Workspace.
-<a href="https://en.wikipedia.org/wiki/Role-based_access_control" target="_blank" rel="noopener noreferrer">Role-based access control
+<a href="https://en.wikipedia.org/wiki/Role-based_access_control" target="_blank" rel="noopener noreferrer" class="">Role-based access control
 (RBAC)</a> based on
 membership in these groups was needed. We wanted to manage this through
 Terraform, and created a repo with where we store and configure our entire IAM
@@ -1047,9 +1047,9 @@ in our organization, more teams, projects and apps have been onboarded to SKIP,
 and this IAM repo has grown. We've tried to simplify the structure more than
 once, but since this is a problem not affecting dev teams, we have chosen to
 prioritize other tasks.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="workloads">Workloads<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#workloads" class="hash-link" aria-label="Direct link to Workloads" title="Direct link to Workloads" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="workloads">Workloads<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#workloads" class="hash-link" aria-label="Direct link to Workloads" title="Direct link to Workloads" translate="no">​</a></h3>
 <p>All clusters created in in Anthos can be viewed from the GCP console, and the
-<a href="https://cloud.google.com/anthos/multicluster-management/gateway/using" target="_blank" rel="noopener noreferrer">Connect
+<a href="https://cloud.google.com/anthos/multicluster-management/gateway/using" target="_blank" rel="noopener noreferrer" class="">Connect
 gateway</a>
 makes it possible to do management from the console (or via kubectl) as well.
 The GCP console can be used to get information about, or manage the state of the
@@ -1060,17 +1060,17 @@ This view shows workloads running in the argocd namespace. All workloads
 displayed here can be clicked, and explored further.</p>
 <p>When accessing the cluster via the Connect gateway there are some limits. The
 Connect gateway does not handle persistent connections, and this makes it
-impossible to do <a href="https://cloud.google.com/anthos/multicluster-management/gateway/using#run_commands_against_the_cluster" target="_blank" rel="noopener noreferrer">exec, port-forward, proxy or
+impossible to do <a href="https://cloud.google.com/anthos/multicluster-management/gateway/using#run_commands_against_the_cluster" target="_blank" rel="noopener noreferrer" class="">exec, port-forward, proxy or
 attach</a>.
 This is not a problem for a production environment, where containers should
 never be used in this way. But for a dev, or sandbox environment, this is a bit
 of a pain-point.</p>
 <p>This issue should be partially fixed in Kubernetes 1.29 and should be completely
 resolved in Kubernetes 1.30.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="service-mesh">Service Mesh<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#service-mesh" class="hash-link" aria-label="Direct link to Service Mesh" title="Direct link to Service Mesh" translate="no">​</a></h3>
-<p>A <a href="https://istio.io/latest/about/service-mesh/" target="_blank" rel="noopener noreferrer">Service Mesh</a> in Kubernetes is
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="service-mesh">Service Mesh<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#service-mesh" class="hash-link" aria-label="Direct link to Service Mesh" title="Direct link to Service Mesh" translate="no">​</a></h3>
+<p>A <a href="https://istio.io/latest/about/service-mesh/" target="_blank" rel="noopener noreferrer" class="">Service Mesh</a> in Kubernetes is
 an infrastructure layer that manages communication between services. We are
-using Anthos Service Mesh (ASM), which is based on <a href="https://istio.io/" target="_blank" rel="noopener noreferrer">Istio</a> and
+using Anthos Service Mesh (ASM), which is based on <a href="https://istio.io/" target="_blank" rel="noopener noreferrer" class="">Istio</a> and
 nicely integrated with the GCP console. It's easy to get an overview of
 services, the connection between them, and what services are connected to either
 our internal or external gateways. This can be displayed in a Topology view, or
@@ -1079,17 +1079,17 @@ if you click on a service, you'll get a more detailed drilldown.</p>
 <em>A snippet of services running in our sandbox cluster.</em></p>
 <p>When we deploy services to our cluster we create almost all Kubernetes and
 service-mesh resources with our custom operator;
-<a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a>. This operator configures
+<a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer" class="">Skiperator</a>. This operator configures
 the resources to fit our setup, and applies "best practices" the easy way. This
 has been one of the great success stories in SKIP, and Skiperator is in
 continuous development.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="deployment">Deployment<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#deployment" class="hash-link" aria-label="Direct link to Deployment" title="Direct link to Deployment" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deployment">Deployment<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#deployment" class="hash-link" aria-label="Direct link to Deployment" title="Direct link to Deployment" translate="no">​</a></h2>
 <p>Deployment is a very interesting subject when it comes to Anthos. As a platform
 team, it is our job to make sure that deployment is as quick and convenient as
 possible for the product teams. This ambition has led us to iterate on our
 processes, which has finally led us to a solution that both we and the
 developers enjoy using.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="iteration-1---terraform">Iteration 1 - Terraform<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iteration-1---terraform" class="hash-link" aria-label="Direct link to Iteration 1 - Terraform" title="Direct link to Iteration 1 - Terraform" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="iteration-1---terraform">Iteration 1 - Terraform<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iteration-1---terraform" class="hash-link" aria-label="Direct link to Iteration 1 - Terraform" title="Direct link to Iteration 1 - Terraform" translate="no">​</a></h3>
 <p>When we first started out with Anthos, we had a very manual process for
 deploying applications. A service account was provisioned in GCP, which allowed
 the developers to impersonate a service account in Kubernetes, which in turn
@@ -1106,11 +1106,11 @@ was too complicated and slow, in addition handling Terraform state was a pain.
 As a platform team we're committed to our teams' well being, so we took this
 seriously and looked at alternatives. This was around the time we adopted Anthos,
 so thus Anthos Config Managment was a natural choice.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="iteration-2---anthos-config-managment-acm">Iteration 2 - Anthos Config Managment (ACM)<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iteration-2---anthos-config-managment-acm" class="hash-link" aria-label="Direct link to Iteration 2 - Anthos Config Managment (ACM)" title="Direct link to Iteration 2 - Anthos Config Managment (ACM)" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="iteration-2---anthos-config-managment-acm">Iteration 2 - Anthos Config Managment (ACM)<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#iteration-2---anthos-config-managment-acm" class="hash-link" aria-label="Direct link to Iteration 2 - Anthos Config Managment (ACM)" title="Direct link to Iteration 2 - Anthos Config Managment (ACM)" translate="no">​</a></h3>
 <p><img decoding="async" loading="lazy" alt="Anthos Config Management architecture showing multiple Git repos deployed to a cluster" src="https://skip.kartverket.no/assets/images/acm-1-46a04fbc7dd63ebcae3c08935a5aa51c.png" width="732" height="726" class="img_ev3q"></p>
 <p>ACM is a set of tools that allows you to declaratively manage your Kubernetes
 resources. Here we're mostly going to talk about Config Sync, which is a
-<a href="https://about.gitlab.com/topics/gitops/" target="_blank" rel="noopener noreferrer">GitOps</a> system for Kubernetes.</p>
+<a href="https://about.gitlab.com/topics/gitops/" target="_blank" rel="noopener noreferrer" class="">GitOps</a> system for Kubernetes.</p>
 <p>In a GitOps system, a team will have a Git repository that contains all the
 Kubernetes resources that they want to deploy. This repository is then synced
 to the Kubernetes cluster, and the resources are applied.</p>
@@ -1118,7 +1118,7 @@ to the Kubernetes cluster, and the resources are applied.</p>
 watches the repo for changes and pulls them into the cluster. This is in
 contrast to a push-based system, where a script pushes the changes to a
 cluster. It is therefore a dedicated system for deployment to Kubernetes, and
-following the <a href="https://en.wikipedia.org/wiki/Unix_philosophy" target="_blank" rel="noopener noreferrer">UNIX philosophy</a>
+following the <a href="https://en.wikipedia.org/wiki/Unix_philosophy" target="_blank" rel="noopener noreferrer" class="">UNIX philosophy</a>
 which focuses on doing that one thing well.</p>
 <p>Using this type of a workflow solves a lot of the issues around the Terraform
 based deployment that we had in the previous iteration. No longer do developers
@@ -1142,7 +1142,7 @@ had this built in, and we'll get back to that.</p>
 system than what ACM was able to provide. The only view into the deployment was
 a long list of resources, which to a developer that is not an expert in
 Kubernetes, was not intuitive enough.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="final-iteration---argo-cd">Final iteration - Argo CD<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#final-iteration---argo-cd" class="hash-link" aria-label="Direct link to Final iteration - Argo CD" title="Direct link to Final iteration - Argo CD" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-iteration---argo-cd">Final iteration - Argo CD<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#final-iteration---argo-cd" class="hash-link" aria-label="Direct link to Final iteration - Argo CD" title="Direct link to Final iteration - Argo CD" translate="no">​</a></h3>
 <p><img decoding="async" loading="lazy" src="https://skip.kartverket.no/assets/images/argo-1-10ff6f4861d91a7f670f671e2f0ba43d.png" width="2498" height="1229" class="img_ev3q"></p>
 <p>This finally brought us to our current iteration. We had heard about Argo CD
 before, but initially we were hesitant to add another system to our stack.
@@ -1156,7 +1156,7 @@ allows you to drill down into the resource to see the details of the failure,
 logs for deployments, Kubernetes events, etc.</p>
 <p><img decoding="async" loading="lazy" src="https://skip.kartverket.no/assets/images/argo-2-61a9fc0299932ae38d232796c8f4f677.png" width="2499" height="1209" class="img_ev3q"></p>
 <p>The above photo illustrates this well. Here you can see a project with a number
-of <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> applications. The
+of <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer" class="">Skiperator</a> applications. The
 green checkmarks indicate that the application is synced and the green heart
 indicates that the application is healthy. A developer can see the underlying
 "owned" resources that Skiperator creates (such as a deployment, service, etc),
@@ -1182,7 +1182,7 @@ go too much into it.</p>
 <p>And finally, if you're wondering what disaster recovery of an entire cluster
 looks like with Argo CD, I leave you with the following video at the end.</p>
 <video controls="" width="100%" muted=""><source src="/img/argo-3.mov" type="video/mp4"></video>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hybrid-mesh">Hybrid Mesh<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#hybrid-mesh" class="hash-link" aria-label="Direct link to Hybrid Mesh" title="Direct link to Hybrid Mesh" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="hybrid-mesh">Hybrid Mesh<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#hybrid-mesh" class="hash-link" aria-label="Direct link to Hybrid Mesh" title="Direct link to Hybrid Mesh" translate="no">​</a></h2>
 <p>A hybrid mesh service mesh configuration is a setup that allows for service
 networking across different environments. For Kartverket this includes a hybrid
 cloud environment. The setup involves several steps, including setting up
@@ -1198,7 +1198,7 @@ Istio in GKE, with ASM on-prem in a multi-cluster setup. We also looked into
 using managed ASM in our GKE cluster, this was hard for us however, due to it
 requiring firewall openings on-prem for sources we could not predict.</p>
 <p><img decoding="async" loading="lazy" alt="Multi-Primary on different networks" src="https://skip.kartverket.no/assets/images/multi-cluster-37ee6eb4218f5c79582ad4738a942ac6.png" width="748" height="555" class="img_ev3q"></p>
-<p>We have chosen the <a href="https://istio.io/latest/docs/setup/install/multicluster/multi-primary_multi-network/" target="_blank" rel="noopener noreferrer">Multi-Primary on different
+<p>We have chosen the <a href="https://istio.io/latest/docs/setup/install/multicluster/multi-primary_multi-network/" target="_blank" rel="noopener noreferrer" class="">Multi-Primary on different
 networks</a>
 after reviewing our network topology and configuration. We connect our
 on-premise network, with the GCP VPC through a VPN connection (using host and
@@ -1212,8 +1212,8 @@ smoothly. This has been a bit of a journey to configure, but as a learning
 experience it has been valuable. Being able to address services seamlessly and
 communicate with mTLS enabled by default across sites, zones and clusters
 without developers having to think about it feels a bit like magic.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="monitoring">Monitoring<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#monitoring" class="hash-link" aria-label="Direct link to Monitoring" title="Direct link to Monitoring" translate="no">​</a></h2>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="google-cloud-monitoring">Google Cloud Monitoring<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#google-cloud-monitoring" class="hash-link" aria-label="Direct link to Google Cloud Monitoring" title="Direct link to Google Cloud Monitoring" translate="no">​</a></h3>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="monitoring">Monitoring<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#monitoring" class="hash-link" aria-label="Direct link to Monitoring" title="Direct link to Monitoring" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="google-cloud-monitoring">Google Cloud Monitoring<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#google-cloud-monitoring" class="hash-link" aria-label="Direct link to Google Cloud Monitoring" title="Direct link to Google Cloud Monitoring" translate="no">​</a></h3>
 <p><img decoding="async" loading="lazy" alt="Google Cloud Monitoring dashboard" src="https://skip.kartverket.no/assets/images/gcp-monitoring-1-eb5c94f71f6e0d8c45c6211002c702e5.png" width="2256" height="1108" class="img_ev3q"></p>
 <p>GKE Enterprise includes an agent that collects metrics from the cluster and sends
 them to Google Cloud. This is a great feature which makes it relatively easy
@@ -1225,7 +1225,7 @@ contributes a significant part of our total spend. It's not that we have a lot
 of clusters, but the amount of metrics that are collected out of the box is very
 high, and Anthos' default setup didn't give us the control we needed to be able
 to manage it in a good way.</p>
-<p>Note that this was before <a href="https://cloud.google.com/managed-prometheus?hl=en" target="_blank" rel="noopener noreferrer">Managed Service for
+<p>Note that this was before <a href="https://cloud.google.com/managed-prometheus?hl=en" target="_blank" rel="noopener noreferrer" class="">Managed Service for
 Prometheus</a> was released with
 more fine grained control over what metrics are collected. It is now the
 recommended default, which should make metrics collection easier to manage.</p>
@@ -1239,7 +1239,7 @@ in comparison.</p>
 <p>So the cost and the user experience were the main reasons we decided to look at
 alternatives to Google Cloud Monitoring. We ended up using Grafana and LGTM,
 which we'll talk about next.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="grafana-with-the-lgtm-stack">Grafana with the LGTM stack<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#grafana-with-the-lgtm-stack" class="hash-link" aria-label="Direct link to Grafana with the LGTM stack" title="Direct link to Grafana with the LGTM stack" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="grafana-with-the-lgtm-stack">Grafana with the LGTM stack<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#grafana-with-the-lgtm-stack" class="hash-link" aria-label="Direct link to Grafana with the LGTM stack" title="Direct link to Grafana with the LGTM stack" translate="no">​</a></h3>
 <p><img decoding="async" loading="lazy" alt="Grafana dashboard with a Kubernetes cluster overview" src="https://skip.kartverket.no/assets/images/grafana-1-aa91144f9105339f1edf0c1ad1aab0b0.png" width="5088" height="3266" class="img_ev3q"></p>
 <p>When we realized that our needs were not entirely met by Google Cloud Monitoring,
 we started a project to develop a monitoring stack that would meet our needs.
@@ -1248,7 +1248,7 @@ as our frontend. Our backend is the LGTM stack, which is a set of open source
 tools that are designed to work well together for ingesting, storing and querying
 logs, traces and metrics.</p>
 <p>What we noticed immediately was that the product teams were much more engaged
-with this stack than they were with <a href="https://cloud.google.com/monitoring/?hl=en" target="_blank" rel="noopener noreferrer">Google Cloud
+with this stack than they were with <a href="https://cloud.google.com/monitoring/?hl=en" target="_blank" rel="noopener noreferrer" class="">Google Cloud
 Monitoring</a>. Previously they would
 not really look at the dashboards, but now they are using them and even creating
 their own. This is a huge win for us, as we want the teams to be engaged with
@@ -1257,7 +1257,7 @@ the monitoring and observability of their services.</p>
 Grafana, which makes it easier for them to get started as the learning curve is
 not as steep.</p>
 <p>There was a discussion about what the backend should be, if we should use
-<a href="https://grafana.com/products/cloud/" target="_blank" rel="noopener noreferrer">Grafana Cloud</a> or host it ourselves. There
+<a href="https://grafana.com/products/cloud/" target="_blank" rel="noopener noreferrer" class="">Grafana Cloud</a> or host it ourselves. There
 would be a lot of benefits of using the cloud, as we would not have to maintain
 the stack or worry about performance or storage. There was, however, a concern
 about cost and whether or not log files could be shipped to a cloud provider. In
@@ -1265,12 +1265,12 @@ the end we decided to host it ourselves, mostly because we didn't have control
 over what quantities of data we're processing. Now that we have a better
 understanding of our usage we can use that to calculate our spend, so we're not
 ruling out migrating to Grafana Cloud in the future.</p>
-<p>The collection (scraping) of data is done by <a href="https://grafana.com/oss/agent/" target="_blank" rel="noopener noreferrer">Grafana
+<p>The collection (scraping) of data is done by <a href="https://grafana.com/oss/agent/" target="_blank" rel="noopener noreferrer" class="">Grafana
 Agent</a>, which is an "all-in-one" agent that
 collects metrics, logs and traces. This means a few less moving parts for the
-stack, as we don't have to run both <a href="https://prometheus.io/" target="_blank" rel="noopener noreferrer">Prometheus</a>,
-<a href="https://fluentbit.io/" target="_blank" rel="noopener noreferrer">Fluent Bit</a> and some
-<a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a> compatible agent for traces. It's a
+stack, as we don't have to run both <a href="https://prometheus.io/" target="_blank" rel="noopener noreferrer" class="">Prometheus</a>,
+<a href="https://fluentbit.io/" target="_blank" rel="noopener noreferrer" class="">Fluent Bit</a> and some
+<a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer" class="">OpenTelemetry</a> compatible agent for traces. It's a
 relatively new project, but it's already relative stable and has a lot of
 features. It uses a funky format for configuration called river, which is based
 on Hashicorp's HCL. The config enables forming pipelines to process data before
@@ -1287,7 +1287,7 @@ every alert that is triggered.</p>
 work to maintain the stack (especially with Istio and other security measures).
 We're also happy with Grafana, and we're looking forward to seeing what the
 future holds for monitoring and observability in Kubernetes.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
 <p>To summarize: We like Anthos, and we think it's a great platform for running
 hybrid Kubernetes. As a platform team we look at each feature on a case-by-case
 basis, with the goal of giving our developers the best possible experience
@@ -1329,7 +1329,7 @@ good way.</p>
 issue by running Anthos on VMWare (or GKE on-prem, if you prefer) tied together
 to the cloud in Kartverket using hybrid mesh. We will also discuss the reasons
 we went with Anthos and pros and cons we have experienced so far.</p>
-<p>At <a href="https://www.kartverket.no/en" target="_blank" rel="noopener noreferrer">Kartverket</a> we have an ambition to adopt cloud
+<p>At <a href="https://www.kartverket.no/en" target="_blank" rel="noopener noreferrer" class="">Kartverket</a> we have an ambition to adopt cloud
 native technologies. There's thousands of ways to do this, and after trialing a
 couple of alternative solutions, including running plain Kubernetes and VMWare
 Tanzu, we decided to go with Anthos. Anthos is a platform that allows us to run
@@ -1339,11 +1339,11 @@ least long enough to be able to share our thoughts.</p>
 <p>This newsletter is the first of three part series about Anthos in
 Kartverket.</p>
 <ol>
-<li>Why we chose Anthos (You are here!)</li>
-<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
-<li><a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
+<li class="">Why we chose Anthos (You are here!)</li>
+<li class=""><a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
+<li class=""><a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
 </ol>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="so-why-a-hybrid-cloud">So why a hybrid cloud?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#so-why-a-hybrid-cloud" class="hash-link" aria-label="Direct link to So why a hybrid cloud?" title="Direct link to So why a hybrid cloud?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="so-why-a-hybrid-cloud">So why a hybrid cloud?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#so-why-a-hybrid-cloud" class="hash-link" aria-label="Direct link to So why a hybrid cloud?" title="Direct link to So why a hybrid cloud?" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration: Anthos runs on GCP, on-premise, other clouds and Edge" src="https://skip.kartverket.no/assets/images/anthos-3-c8c56e8241d54a23f269d181b5d7eb57.png" width="378" height="235" class="img_ev3q"></p>
 <p>Were you to take the time machine back a few years, you would see Kartverket as a
 traditional enterprise with a lot of knowledge and experience in running
@@ -1378,18 +1378,18 @@ good fit for us.</p>
 <p>A hybrid cloud, however, can give us the scalability and flexibility of the
 cloud, while still allowing us to run some of our systems on-prem, with the
 experience being more or less seamless for the developers.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-we-chose-anthos">Why we chose Anthos<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#why-we-chose-anthos" class="hash-link" aria-label="Direct link to Why we chose Anthos" title="Direct link to Why we chose Anthos" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-we-chose-anthos">Why we chose Anthos<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#why-we-chose-anthos" class="hash-link" aria-label="Direct link to Why we chose Anthos" title="Direct link to Why we chose Anthos" translate="no">​</a></h2>
 <p>After some disastrous issues with our previous hybrid cloud PoC (that's a whole
 story in itself) we decided to to look at what alternatives existed on the
 market. We considered various options, but eventually decided to run a PoC on
 Anthos. This was based on a series of conditions at the time, to name a few:</p>
 <ul>
-<li>We had a decent pool of knowledge in GCP compared to AWS and Azure at the time</li>
-<li>Some very well established platform teams in the public sector were also using
+<li class="">We had a decent pool of knowledge in GCP compared to AWS and Azure at the time</li>
+<li class="">Some very well established platform teams in the public sector were also using
 GCP, which meant it would be easier to share work and learnings</li>
-<li>Anthos and GCP seemed to offer a good developer experience, which for us as a
+<li class="">Anthos and GCP seemed to offer a good developer experience, which for us as a
 platform team is of paramount importance</li>
-<li>A provider like Google is well established in the cloud space (especially
+<li class="">A provider like Google is well established in the cloud space (especially
 Kubernetes), and would have a fully featured, stable and user friendly product</li>
 </ul>
 <p>SKIP ran the Anthos PoC over a few months, initially as an on-prem offering only.
@@ -1405,7 +1405,7 @@ installation scripts and documentation, which would make it easier to keep the
 clusters up to date.</p>
 <p>Based on the total package we therefore decided to move ahead with Anthos. To
 infinity and beyond! 🚀</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-is-anthos-anyway">What is Anthos anyway?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#what-is-anthos-anyway" class="hash-link" aria-label="Direct link to What is Anthos anyway?" title="Direct link to What is Anthos anyway?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-anthos-anyway">What is Anthos anyway?<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#what-is-anthos-anyway" class="hash-link" aria-label="Direct link to What is Anthos anyway?" title="Direct link to What is Anthos anyway?" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Anthos logo" src="https://skip.kartverket.no/assets/images/anthos-2-1a3889bc339c3f2ac97e81d32c482cff.png" width="2200" height="917" class="img_ev3q"></p>
 <p>Anthos is Google's solution to multicloud. It's a product portfolio where the
 main product is GKE (Google Kubernetes Engine) on-premise. Using GKE on-prem
@@ -1414,26 +1414,26 @@ control plane in Google Cloud, as if they were proper cloud clusters.</p>
 <p>In fact, Anthos is truly multi-cloud. That means you can deploy Anthos
 clusters to GKE and on-prem, but also AWS and Azure. On other cloud platforms
 it uses the provider's Kubernetes distribution like
-<a href="https://learn.microsoft.com/en-us/azure/aks/" target="_blank" rel="noopener noreferrer">AKS</a>, but you can still manage it
+<a href="https://learn.microsoft.com/en-us/azure/aks/" target="_blank" rel="noopener noreferrer" class="">AKS</a>, but you can still manage it
 from GKE alongside your other clusters.</p>
 <p>In addition to GKE, the toolbox includes:</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-service-mesh-asm">Anthos Service Mesh (ASM)<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#anthos-service-mesh-asm" class="hash-link" aria-label="Direct link to Anthos Service Mesh (ASM)" title="Direct link to Anthos Service Mesh (ASM)" translate="no">​</a></h3>
-<p>A networking solution based on <a href="http://istio.io/" target="_blank" rel="noopener noreferrer">Istio</a>. This is sort of the
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="anthos-service-mesh-asm">Anthos Service Mesh (ASM)<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#anthos-service-mesh-asm" class="hash-link" aria-label="Direct link to Anthos Service Mesh (ASM)" title="Direct link to Anthos Service Mesh (ASM)" translate="no">​</a></h3>
+<p>A networking solution based on <a href="http://istio.io/" target="_blank" rel="noopener noreferrer" class="">Istio</a>. This is sort of the
 backbone of the hybrid features of Anthos, as provided you've configured a
 hybrid mesh it allows applications deployed to the cloud to communicate with
 on-premise workloads automatically and without manual steps like opening
 firewalls.</p>
 <p>All traffic that flows between microservices on the mesh is also automatically
 encrypted with mTLS.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-config-managment-acm">Anthos Config Managment (ACM)<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#anthos-config-managment-acm" class="hash-link" aria-label="Direct link to Anthos Config Managment (ACM)" title="Direct link to Anthos Config Managment (ACM)" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="anthos-config-managment-acm">Anthos Config Managment (ACM)<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#anthos-config-managment-acm" class="hash-link" aria-label="Direct link to Anthos Config Managment (ACM)" title="Direct link to Anthos Config Managment (ACM)" translate="no">​</a></h3>
 <p>A way to sync git repos into a running cluster. Think GitOps here. Build a repo
 containing all your Kubernetes manifests and sync them into your cluster, making
 cluster maintenance easier.</p>
-<p>ACM also includes a policy controller based on <a href="https://open-policy-agent.github.io/gatekeeper/website/" target="_blank" rel="noopener noreferrer">Open Policy Agent Gatekeeper
+<p>ACM also includes a policy controller based on <a href="https://open-policy-agent.github.io/gatekeeper/website/" target="_blank" rel="noopener noreferrer" class="">Open Policy Agent Gatekeeper
 (OPA)</a> which allows
 platform developers to build guardrails into developers' workflows using
 policies like <em>"don't allow containers to run as root"</em>.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-connect-gateway">Anthos Connect Gateway<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#anthos-connect-gateway" class="hash-link" aria-label="Direct link to Anthos Connect Gateway" title="Direct link to Anthos Connect Gateway" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="anthos-connect-gateway">Anthos Connect Gateway<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#anthos-connect-gateway" class="hash-link" aria-label="Direct link to Anthos Connect Gateway" title="Direct link to Anthos Connect Gateway" translate="no">​</a></h3>
 <p>The connect gateway allows developers to log on to the cluster using <code>gcloud</code>
 and <code>kubectl</code> commands, despite the cluster potentially being behind a
 firewall. From a user experience standpoint this is quite useful, as devs
@@ -1444,13 +1444,13 @@ to be assigned to groups instead of manually administered lists of users.</p>
 <p>Currently the connect gateway only supports stateless requests, for example
 <code>kubectl get pods</code> or <code>kubectl logs</code> (including <code>-f</code>). It does not support
 <code>port-forward</code>, <code>exec</code> or <code>run</code>, which can be a bit annoying.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
 <p>As you can see, the above tools gives us a lot of benefits.</p>
 <ul>
-<li>Combined with the power of Google Cloud and
+<li class="">Combined with the power of Google Cloud and
 Terraform, they give us a good combination of flexibility through cloud services</li>
-<li>Ease the maintenance by using the tools that Anthos and Terraform supply us</li>
-<li>Eases the compliance and modernization burden by allowing a gradual or
+<li class="">Ease the maintenance by using the tools that Anthos and Terraform supply us</li>
+<li class="">Eases the compliance and modernization burden by allowing a gradual or
 partial migration to cloud, allowing parts to remain on-premise while still
 retaining most of the modern tooling of the cloud</li>
 </ul>
@@ -1476,20 +1476,20 @@ endorsed by or affiliated with Google in any way.</em></p>]]></content>
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Anthos in Google Cloud" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAEdCAYAAAAl2nqzAAAKG0lEQVR42u3db2jcdwHH8bSd++Pmxmp7aZuuav8oNjLEgk20sGAvF0YJBeGatrrSR0JpRxGlSXM3vCdi1DFI1ygBdxfDHpg+neIDnwzpA5U+LZOBdjDHXCkdTuxQt8Zsik2ybs2fu/t+f9/f6w2f57n73avf+yVNrqNDbe/cuXO/GB8fnw21mZmZkPu+V4BAB10CHXQJdNAl0EGXQAddAh10CXTQJdBBF+igS6CDLoEOugQ66BLooEuSJEmSJEmSJEmSJGn5jY+P/3Ruf8jCZmZmsrKqV5Zig/5iyP/tlqH/Gbec1b2yBDroEuigS6CDLoEOugQ66AIddNAFOuigC3TQQRfooEuggy6BDrokSZIkSZIkSZIkSdKdO3DgwMOWzk6cOGGJrSnQBwcHZy2dnTx50hIb6AY66KCDbqCDDrqBbqAb6Aa6gW6gG+gGuoFuoFuToR88eHA3IKBbwsjnnepPQwK6JYx8HvZXQAHdEkbufh10ywly2EG3nCCHHXTLCXLYQbecIIcddGvfjh8/fm9Q6LVabS08oFvrdurUqS3+zpUkSZIkSZIkSZIkSRnvkeGeWQu3nedLFnCgG+igg26ggw66gQ466AY66KCDbqCDDrqBDjroBjrooBvoBjrooBvooINuoIMOuoEOejah/y4vjzdrjzMvL/y5r/k66KCDDjrooIMOOuiggw466KCDDjrooIMOOuiggw466KCDDjrooIMOOuiggw466KCDDjrooIMOOuiggw466KCDDjrooIMOOuiggw466KCDHgb6v+d2PWNb6WNtydfzvxdqK7bSF//1jO0m6K2Hbv6UlD8lBbqBDjroBhvooINuoIMOuoEOOugGOuigG+gGOuigG+igg26ggw66gQ466LnZhf//YsbEwAXoQAc9kW0b7j12p+uxY2LgGICgg56xbTjz1U+s9Np0PzOwHkbQQY9z11r4u9d/gxN00ANt60jvdLuv287z/dOggg56q++3R3rLsVzDnROlQWhBB71ZPwp78vF7Yr+ej/64dD/AoIO+nLfkwz1vZP36zr2Y/wo06KAvxn2mdzLVa73rfGkSbtBz/PPtnsGOnOW+HvRcrLvWfXfI572zOLJ9Y39ldsvhxtzqj4T8WrY+03sf6KCnsiuhn+uN/dXT7+Gev/9Cv7XNQ43TEdzXvwY66Bn6+XbPeAS4Ly7G/VHQF+1i6K9/x/nSOOigR/jz7Z5ieNyVmx+FexnQ5++d0I/rs+cGiqCDHmwdtb67Qj6Hmwae6l4q7FVAX7jyc58L+sK5UF4HOugtXu+fwp/ao8Mrxd0U6As3HMF38V8GHfRc3G8HhD5/l8J/M69/DHTQl/Hz7b37snS/HQn0+Xs39PO3faK4D3TQb/fxxGuyer8dIfSFP7o7OrXHfT3ooXY59HNQKFVr7cQdCvqi1SJ4i38Z9IShbz3TMxbBW/JLoXBHAv3WjjSC/2O789lSDfQEoG8b2Rv2bWOttjYG2FFCX7TQr8kdPyntAT1D0EM/tg2lp/bEiDt26FHd17//Fh/02KAH/9FOyPvtFKEv2lgE6C+BHgD6tpGe4N/UKfRXLmcJd4ahx3Vff35gGPQWQt92du9u99s5h/6B+/rZNYHRd4O+eujBf6EiC/fbeYa+8LR/bl/40750E/SlQD/TE/xXJDf2V8dSxJ089AWrj0eA/iLoC++3h8PjrryUOu58Qb+1rsON4L+MtOvZ/tO5hP6Z73zlU0G/gHJ5XZ5g5xn6B+7r+2pBf71410Tx8x1q4aldrOzLM27Qb7ND9SIZKeDOwf026Onc12t599svwwz6KvdnkmIr5/fboLd+e741+THQ3G+DnqcdaQwS2Nq35OOQgh7Xj+7qk2Q2Bffoq2CCnpG9QuwS+3Rf7V4QQU9h3eULdxM9r85itQgf6O7r3W8b6Cn9l9zp1O+3X4MMdFuwq5mHvbX32/dBBbotfRvLEw9kAveGUmUQJNCtCW/xhxrlqHAXipVJeEC3BO/rN5YqrwMDugXZtZbB3jJY+zggoFt8W/+N5x90v22g5+q+fuqY+20DPV//SefC4v+88qYXP+iW9K53eOGDbjn4W3le+KAb6Aa6gW6gG+gGuoFuoBvoBrqBbqAb6Aa6gQ66gW6gG+gGuoFuoBvoBrq1HfqiX1n9FwigWxJ7Z6kfsvASFKBbpnZldX9Wqr8yDQjoFuOmXmjRJ65UT8MCugVdrb1/9rlY2QcO6JajD2rsLH33fohAt+at84npQhY+MfVdqEC3VfwYLIOfpPoqYKBbop+o6jv4oNvt7renftORp6AD3dvyfEB/AzzQfTiiU91Ad5qDbqCDDrqBDnos34U/+xh8oKe8TUfqj3XIqQ660xx0Ax30RN6+F6t9AILubbtT3UB3moNuoIMOu4EOOeigG+htrFCsPA8i6Cms63BjmminOuhOc9ANdNBhN9AhB91ABx12gxFy0EE30GEH3SAHHXTQBTvokAt00EGH3UCHPGnkN+AEPfK9TarTHHSnuiAHHXbQwQQddMgNdNhBN9BBhxx0gx100A10yEE32FdWubwORNCTgN5XuwtopznoTvV89tCBkYchBD2ldT4xXSDbaQ66Uz1fFfaPPgog6Clu69Gff5lwpznoTvWcnOb9o9+ED/SkP55paOqY0xw80J3qiSMvVX4AHui52FD9h05zA92pnijyYuUF6EDP0zYPNX7lNDfQnerJneZ/BA70nO6K09xAd6onc5q/BRvoOd8Np7mB7lTPPPKboIFuiWOHDHRLHDpgoFsOsAMGujnVDXTIYTfQIYfdQIccdgMdcthBN8hhB90gzw32lP5xSgkN5LA3HfiCr7ev9gDo7d328uRDH3Y9IIe9qcAXt37/2d2gt/ivqB5tfHGp1wNy2JsKfHGdpdEvgN7kP710dGrPSq8H5LDfdjsff/KeZnzt6x+vPQj6Kj/dpPyz9U15IdVqayGH/f0V9o925u37Dnm7n33vHw7Ic4p9w8Dol9r3OEaHQf/QjbXrOmwq13dDnhPsheLoscCP52ruoQ813gx5DbYcqhchTxZ7dSzCx/X3HEF/O7bnf+5rGoY8HewXsvD4CsXKZHLQjzQy8dx3Ha5PQp5R7IX+yu+z+Bg7i9Vi1qFvPlQfyOJz33W48SLk2cF+1a1KWOhZf/7nHsNfII8UwtwJ/k+3KaA3GfwNyCPCkNxjK1WqGYb+vdSuB+TK5KnuNJdAB11qI/RfZhD6r105KZJT3WkugQ661FbopcrrGYJ+zRWTIjrVneYS6KBLoIMuZQJ785HPrnGVpOShSwJd0p375NcqXdFCL09vc4WkCE91p7kEOuhSqArF6tdjg9411Ci7MlKkp7rTXAIddClkG4rVH0UDfaj+tCsiRXyqO80l0EGXgkMvVn8bAfSLroQU+anuNJdAB12K4+175a2A0P/hCkgZONWd5hLooCfYfwC49Ox5LYmCQQAAAABJRU5ErkJggg==" width="250" height="285" class="img_ev3q"></p>
 <p>SKIP is starting a tech blog! 🚀</p>
 <p>Or call it a newsletter if you're tired of blogs 🤪</p>
-<p>Our first entry is already out, and it's about <a href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">why we chose
+<p>Our first entry is already out, and it's about <a class="" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1">why we chose
 Anthos</a> for hybrid cloud. We're
 working on more entries into that series and other exciting topics, so stay
 tuned!</p>
 <p>SKIP is Statens Kartverks Infrastruktur Plattform, or in English, the
 Infrastructure Platform of the Norwegian Mapping Authority.</p>
-<p>We're the platform team at <a href="https://kartverket.no/" target="_blank" rel="noopener noreferrer">Kartverket</a>. We tame
+<p>We're the platform team at <a href="https://kartverket.no/" target="_blank" rel="noopener noreferrer" class="">Kartverket</a>. We tame
 Kubernetes and the Cloud. With SKIP, developers in Kartverket are empowered to
 run, not walk, using a comprehensive toolbox of modern cloud technology. Using
 SKIP, developers can deploy applications to Kubernetes in a matter of minutes,
 while still being able to use the tools they know and love.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="like-what-you-see">Like what you see?<a href="https://skip.kartverket.no/blog/welcome#like-what-you-see" class="hash-link" aria-label="Direct link to Like what you see?" title="Direct link to Like what you see?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="like-what-you-see">Like what you see?<a href="https://skip.kartverket.no/blog/welcome#like-what-you-see" class="hash-link" aria-label="Direct link to Like what you see?" title="Direct link to Like what you see?" translate="no">​</a></h2>
 <p>We're a small team, but we're growing fast. We're also hiring, so if you're
-interested in working with us, check out our <a href="https://www.kartverket.no/en/about-kartverket/careers" target="_blank" rel="noopener noreferrer">open
+interested in working with us, check out our <a href="https://www.kartverket.no/en/about-kartverket/careers" target="_blank" rel="noopener noreferrer" class="">open
 positions</a>.</p>]]></content>
         <author>
             <name>Eline Henriksen</name>

@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" class="blog-wrapper blog-post-page plugin-blog plugin-id-default" data-has-hydrated="false">
 <head>
 <meta charset="UTF-8">
-<meta name="generator" content="Docusaurus v3.9.1">
+<meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Hybrid Kubernetes in production pt. 1 | SKIP</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Hybrid Kubernetes in production pt. 1 | SKIP"><meta data-rh="true" name="description" content="One of the biggest challenges that we hear is the challenge of running hybridized K8s workloads. Here we share our experience using Anthos for hybrid cloud
 "><meta data-rh="true" property="og:description" content="One of the biggest challenges that we hear is the challenge of running hybridized K8s workloads. Here we share our experience using Anthos for hybrid cloud
 "><meta data-rh="true" property="og:image" content="https://skip.kartverket.no/img/skip.png"><meta data-rh="true" name="twitter:image" content="https://skip.kartverket.no/img/skip.png"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2023-11-07T00:00:00.000Z"><meta data-rh="true" property="article:author" content="https://eliine.dev"><meta data-rh="true" property="article:tag" content="anthos,kubernetes,hybrid"><link data-rh="true" rel="icon" href="/img/favicon/favicon.ico"><link data-rh="true" rel="canonical" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1"><link data-rh="true" rel="alternate" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1" hreflang="en"><link data-rh="true" rel="alternate" href="https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1","mainEntityOfPage":"https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1","url":"https://skip.kartverket.no/blog/hybrid-kubernetes-in-production-part-1","headline":"Hybrid Kubernetes in production pt. 1","name":"Hybrid Kubernetes in production pt. 1","description":"One of the biggest challenges that we hear is the challenge of running hybridized K8s workloads. Here we share our experience using Anthos for hybrid cloud\n","datePublished":"2023-11-07T00:00:00.000Z","author":{"@type":"Person","name":"Eline Henriksen","description":"Tidligere Produkteier og Plattformutvikler","url":"https://eliine.dev","image":"https://github.com/eliihen.png"},"image":{"@type":"ImageObject","@id":"https://skip.kartverket.no/img/skip.png","url":"https://skip.kartverket.no/img/skip.png","contentUrl":"https://skip.kartverket.no/img/skip.png","caption":"title image for the blog post: Hybrid Kubernetes in production pt. 1"},"keywords":[],"isPartOf":{"@type":"Blog","@id":"https://skip.kartverket.no/blog","name":"SKIP Tech Blog"}}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="SKIP RSS Feed">
@@ -15,9 +15,9 @@
 
 
 
-<script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.a0214603.css">
-<script src="/assets/js/runtime~main.27967a34.js" defer="defer"></script>
-<script src="/assets/js/main.e0f53615.js" defer="defer"></script>
+<script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.0042e133.css">
+<script src="/assets/js/runtime~main.6bd4af62.js" defer="defer"></script>
+<script src="/assets/js/main.28649c6c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -33,7 +33,7 @@ good way.</p>
 issue by running Anthos on VMWare (or GKE on-prem, if you prefer) tied together
 to the cloud in Kartverket using hybrid mesh. We will also discuss the reasons
 we went with Anthos and pros and cons we have experienced so far.</p>
-<p>At <a href="https://www.kartverket.no/en" target="_blank" rel="noopener noreferrer">Kartverket</a> we have an ambition to adopt cloud
+<p>At <a href="https://www.kartverket.no/en" target="_blank" rel="noopener noreferrer" class="">Kartverket</a> we have an ambition to adopt cloud
 native technologies. There&#x27;s thousands of ways to do this, and after trialing a
 couple of alternative solutions, including running plain Kubernetes and VMWare
 Tanzu, we decided to go with Anthos. Anthos is a platform that allows us to run
@@ -43,11 +43,11 @@ least long enough to be able to share our thoughts.</p>
 <p>This newsletter is the first of three part series about Anthos in
 Kartverket.</p>
 <ol>
-<li>Why we chose Anthos (You are here!)</li>
-<li><a href="/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
-<li><a href="/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
+<li class="">Why we chose Anthos (You are here!)</li>
+<li class=""><a class="" href="/blog/hybrid-kubernetes-in-production-part-2">How we run Anthos</a></li>
+<li class=""><a class="" href="/blog/hybrid-kubernetes-in-production-part-3">Benefits and what we would have done differently</a></li>
 </ol>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="so-why-a-hybrid-cloud">So why a hybrid cloud?<a href="#so-why-a-hybrid-cloud" class="hash-link" aria-label="Direct link to So why a hybrid cloud?" title="Direct link to So why a hybrid cloud?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="so-why-a-hybrid-cloud">So why a hybrid cloud?<a href="#so-why-a-hybrid-cloud" class="hash-link" aria-label="Direct link to So why a hybrid cloud?" title="Direct link to So why a hybrid cloud?" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Illustration: Anthos runs on GCP, on-premise, other clouds and Edge" src="/assets/images/anthos-3-c8c56e8241d54a23f269d181b5d7eb57.png" width="378" height="235" class="img_ev3q"></p>
 <p>Were you to take the time machine back a few years, you would see Kartverket as a
 traditional enterprise with a lot of knowledge and experience in running
@@ -82,18 +82,18 @@ good fit for us.</p>
 <p>A hybrid cloud, however, can give us the scalability and flexibility of the
 cloud, while still allowing us to run some of our systems on-prem, with the
 experience being more or less seamless for the developers.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-we-chose-anthos">Why we chose Anthos<a href="#why-we-chose-anthos" class="hash-link" aria-label="Direct link to Why we chose Anthos" title="Direct link to Why we chose Anthos" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-we-chose-anthos">Why we chose Anthos<a href="#why-we-chose-anthos" class="hash-link" aria-label="Direct link to Why we chose Anthos" title="Direct link to Why we chose Anthos" translate="no">​</a></h2>
 <p>After some disastrous issues with our previous hybrid cloud PoC (that&#x27;s a whole
 story in itself) we decided to to look at what alternatives existed on the
 market. We considered various options, but eventually decided to run a PoC on
 Anthos. This was based on a series of conditions at the time, to name a few:</p>
 <ul>
-<li>We had a decent pool of knowledge in GCP compared to AWS and Azure at the time</li>
-<li>Some very well established platform teams in the public sector were also using
+<li class="">We had a decent pool of knowledge in GCP compared to AWS and Azure at the time</li>
+<li class="">Some very well established platform teams in the public sector were also using
 GCP, which meant it would be easier to share work and learnings</li>
-<li>Anthos and GCP seemed to offer a good developer experience, which for us as a
+<li class="">Anthos and GCP seemed to offer a good developer experience, which for us as a
 platform team is of paramount importance</li>
-<li>A provider like Google is well established in the cloud space (especially
+<li class="">A provider like Google is well established in the cloud space (especially
 Kubernetes), and would have a fully featured, stable and user friendly product</li>
 </ul>
 <p>SKIP ran the Anthos PoC over a few months, initially as an on-prem offering only.
@@ -109,7 +109,7 @@ installation scripts and documentation, which would make it easier to keep the
 clusters up to date.</p>
 <p>Based on the total package we therefore decided to move ahead with Anthos. To
 infinity and beyond! 🚀</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-is-anthos-anyway">What is Anthos anyway?<a href="#what-is-anthos-anyway" class="hash-link" aria-label="Direct link to What is Anthos anyway?" title="Direct link to What is Anthos anyway?" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-anthos-anyway">What is Anthos anyway?<a href="#what-is-anthos-anyway" class="hash-link" aria-label="Direct link to What is Anthos anyway?" title="Direct link to What is Anthos anyway?" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="Anthos logo" src="/assets/images/anthos-2-1a3889bc339c3f2ac97e81d32c482cff.png" width="2200" height="917" class="img_ev3q"></p>
 <p>Anthos is Google&#x27;s solution to multicloud. It&#x27;s a product portfolio where the
 main product is GKE (Google Kubernetes Engine) on-premise. Using GKE on-prem
@@ -118,26 +118,26 @@ control plane in Google Cloud, as if they were proper cloud clusters.</p>
 <p>In fact, Anthos is truly multi-cloud. That means you can deploy Anthos
 clusters to GKE and on-prem, but also AWS and Azure. On other cloud platforms
 it uses the provider&#x27;s Kubernetes distribution like
-<a href="https://learn.microsoft.com/en-us/azure/aks/" target="_blank" rel="noopener noreferrer">AKS</a>, but you can still manage it
+<a href="https://learn.microsoft.com/en-us/azure/aks/" target="_blank" rel="noopener noreferrer" class="">AKS</a>, but you can still manage it
 from GKE alongside your other clusters.</p>
 <p>In addition to GKE, the toolbox includes:</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-service-mesh-asm">Anthos Service Mesh (ASM)<a href="#anthos-service-mesh-asm" class="hash-link" aria-label="Direct link to Anthos Service Mesh (ASM)" title="Direct link to Anthos Service Mesh (ASM)" translate="no">​</a></h3>
-<p>A networking solution based on <a href="http://istio.io" target="_blank" rel="noopener noreferrer">Istio</a>. This is sort of the
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="anthos-service-mesh-asm">Anthos Service Mesh (ASM)<a href="#anthos-service-mesh-asm" class="hash-link" aria-label="Direct link to Anthos Service Mesh (ASM)" title="Direct link to Anthos Service Mesh (ASM)" translate="no">​</a></h3>
+<p>A networking solution based on <a href="http://istio.io" target="_blank" rel="noopener noreferrer" class="">Istio</a>. This is sort of the
 backbone of the hybrid features of Anthos, as provided you&#x27;ve configured a
 hybrid mesh it allows applications deployed to the cloud to communicate with
 on-premise workloads automatically and without manual steps like opening
 firewalls.</p>
 <p>All traffic that flows between microservices on the mesh is also automatically
 encrypted with mTLS.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-config-managment-acm">Anthos Config Managment (ACM)<a href="#anthos-config-managment-acm" class="hash-link" aria-label="Direct link to Anthos Config Managment (ACM)" title="Direct link to Anthos Config Managment (ACM)" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="anthos-config-managment-acm">Anthos Config Managment (ACM)<a href="#anthos-config-managment-acm" class="hash-link" aria-label="Direct link to Anthos Config Managment (ACM)" title="Direct link to Anthos Config Managment (ACM)" translate="no">​</a></h3>
 <p>A way to sync git repos into a running cluster. Think GitOps here. Build a repo
 containing all your Kubernetes manifests and sync them into your cluster, making
 cluster maintenance easier.</p>
-<p>ACM also includes a policy controller based on <a href="https://open-policy-agent.github.io/gatekeeper/website/" target="_blank" rel="noopener noreferrer">Open Policy Agent Gatekeeper
+<p>ACM also includes a policy controller based on <a href="https://open-policy-agent.github.io/gatekeeper/website/" target="_blank" rel="noopener noreferrer" class="">Open Policy Agent Gatekeeper
 (OPA)</a> which allows
 platform developers to build guardrails into developers&#x27; workflows using
 policies like <em>&quot;don&#x27;t allow containers to run as root&quot;</em>.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="anthos-connect-gateway">Anthos Connect Gateway<a href="#anthos-connect-gateway" class="hash-link" aria-label="Direct link to Anthos Connect Gateway" title="Direct link to Anthos Connect Gateway" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="anthos-connect-gateway">Anthos Connect Gateway<a href="#anthos-connect-gateway" class="hash-link" aria-label="Direct link to Anthos Connect Gateway" title="Direct link to Anthos Connect Gateway" translate="no">​</a></h3>
 <p>The connect gateway allows developers to log on to the cluster using <code>gcloud</code>
 and <code>kubectl</code> commands, despite the cluster potentially being behind a
 firewall. From a user experience standpoint this is quite useful, as devs
@@ -148,13 +148,13 @@ to be assigned to groups instead of manually administered lists of users.</p>
 <p>Currently the connect gateway only supports stateless requests, for example
 <code>kubectl get pods</code> or <code>kubectl logs</code> (including <code>-f</code>). It does not support
 <code>port-forward</code>, <code>exec</code> or <code>run</code>, which can be a bit annoying.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
 <p>As you can see, the above tools gives us a lot of benefits.</p>
 <ul>
-<li>Combined with the power of Google Cloud and
+<li class="">Combined with the power of Google Cloud and
 Terraform, they give us a good combination of flexibility through cloud services</li>
-<li>Ease the maintenance by using the tools that Anthos and Terraform supply us</li>
-<li>Eases the compliance and modernization burden by allowing a gradual or
+<li class="">Ease the maintenance by using the tools that Anthos and Terraform supply us</li>
+<li class="">Eases the compliance and modernization burden by allowing a gradual or
 partial migration to cloud, allowing parts to remain on-premise while still
 retaining most of the modern tooling of the cloud</li>
 </ul>

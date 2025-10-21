@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" class="blog-wrapper blog-post-page plugin-blog plugin-id-default" data-has-hydrated="false">
 <head>
 <meta charset="UTF-8">
-<meta name="generator" content="Docusaurus v3.9.1">
+<meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">20 teams on SKIP: What we&#x27;ve learned along the way | SKIP</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://skip.kartverket.no/blog/20-teams-on-skip"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="20 teams on SKIP: What we&#x27;ve learned along the way | SKIP"><meta data-rh="true" name="description" content="We recently passed an important milestone, onboarding our 20th team on Kartverket&#x27;s platform. On the occasion of this achievement we&#x27;re going to look back at the decisions we made that led us to building a successful platform. In this tech blog we are showcasing the the secrets to our success - the decisions that have had the biggest impact.
 "><meta data-rh="true" property="og:description" content="We recently passed an important milestone, onboarding our 20th team on Kartverket&#x27;s platform. On the occasion of this achievement we&#x27;re going to look back at the decisions we made that led us to building a successful platform. In this tech blog we are showcasing the the secrets to our success - the decisions that have had the biggest impact.
 "><meta data-rh="true" property="og:image" content="https://skip.kartverket.no/img/20-teams-on-skip.jpeg"><meta data-rh="true" name="twitter:image" content="https://skip.kartverket.no/img/20-teams-on-skip.jpeg"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2024-07-26T00:00:00.000Z"><meta data-rh="true" property="article:author" content="https://eliine.dev"><meta data-rh="true" property="article:tag" content="learnings,kubernetes"><link data-rh="true" rel="icon" href="/img/favicon/favicon.ico"><link data-rh="true" rel="canonical" href="https://skip.kartverket.no/blog/20-teams-on-skip"><link data-rh="true" rel="alternate" href="https://skip.kartverket.no/blog/20-teams-on-skip" hreflang="en"><link data-rh="true" rel="alternate" href="https://skip.kartverket.no/blog/20-teams-on-skip" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://skip.kartverket.no/blog/20-teams-on-skip","mainEntityOfPage":"https://skip.kartverket.no/blog/20-teams-on-skip","url":"https://skip.kartverket.no/blog/20-teams-on-skip","headline":"20 teams on SKIP: What we've learned along the way","name":"20 teams on SKIP: What we've learned along the way","description":"We recently passed an important milestone, onboarding our 20th team on Kartverket's platform. On the occasion of this achievement we're going to look back at the decisions we made that led us to building a successful platform. In this tech blog we are showcasing the the secrets to our success - the decisions that have had the biggest impact.\n","datePublished":"2024-07-26T00:00:00.000Z","author":{"@type":"Person","name":"Eline Henriksen","description":"Tidligere Produkteier og Plattformutvikler","url":"https://eliine.dev","image":"https://github.com/eliihen.png"},"image":{"@type":"ImageObject","@id":"https://skip.kartverket.no/img/20-teams-on-skip.jpeg","url":"https://skip.kartverket.no/img/20-teams-on-skip.jpeg","contentUrl":"https://skip.kartverket.no/img/20-teams-on-skip.jpeg","caption":"title image for the blog post: 20 teams on SKIP: What we've learned along the way"},"keywords":[],"isPartOf":{"@type":"Blog","@id":"https://skip.kartverket.no/blog","name":"SKIP Tech Blog"}}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="SKIP RSS Feed">
@@ -15,9 +15,9 @@
 
 
 
-<script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.a0214603.css">
-<script src="/assets/js/runtime~main.27967a34.js" defer="defer"></script>
-<script src="/assets/js/main.e0f53615.js" defer="defer"></script>
+<script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.0042e133.css">
+<script src="/assets/js/runtime~main.6bd4af62.js" defer="defer"></script>
+<script src="/assets/js/main.28649c6c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -40,7 +40,7 @@ importantly we&#x27;ve learned a lot in our journey.</p>
 made that led us to building a successful platform. In this tech blog we are
 showcasing the secrets to our success - the decisions that have had the
 biggest impact.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="principles-matter">Principles matter<a href="#principles-matter" class="hash-link" aria-label="Direct link to Principles matter" title="Direct link to Principles matter" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="principles-matter">Principles matter<a href="#principles-matter" class="hash-link" aria-label="Direct link to Principles matter" title="Direct link to Principles matter" translate="no">​</a></h2>
 <p>When you set out to create something new, you have the privilege of setting
 some standards that encourage best practices. While this is possible to do for
 an existing system, in practice it will mean a lot of work to get to the
@@ -49,25 +49,25 @@ with a clean slate.</p>
 <p>For our platform, we decided on a set of principles that we wanted to follow.
 Some of these are:</p>
 <ul>
-<li><strong>Stateless</strong>: Our clusters are stateless, which means that we can easily
+<li class=""><strong>Stateless</strong>: Our clusters are stateless, which means that we can easily
 replace them if something goes wrong. All configuration is held in a GitOps
 repository and all state is held in external systems like managed databases,
 object storage, etc. This significantly reduces operational complexity and
 recovery time. If a cluster fails we can easily replace or revert it by
 applying the configuration from the GitOps repository without worrying about
 losing state, or doing time-consuming data recovery operations.</li>
-<li><strong>Ownership</strong>: For each application, there is a clear owner. This owner is
+<li class=""><strong>Ownership</strong>: For each application, there is a clear owner. This owner is
 responsible for the application and maintains and supports it.  This way we&#x27;re
 able to avoid the &quot;tragedy of the commons&quot;, where no one is responsible for
 an application. If an app has unclear or short-term ownership, you simply
 don&#x27;t get to use the platform. We&#x27;re not an orphanage.</li>
-<li><strong>Financing</strong>: You use the platform? You also need to pay for its continued
+<li class=""><strong>Financing</strong>: You use the platform? You also need to pay for its continued
 support and development. We&#x27;re working towards a chargeback model where your
 department is billed for the resources they use as a way to ensure that the
 platform is sustainable. Until this is ready, we expose the costs of the
 resources used by each team and then negotiate with the departments on how to
 cover these costs, but this is time-consuming work.</li>
-<li><strong>Secure by default</strong>: We enforce security best practices by default. Examples
+<li class=""><strong>Secure by default</strong>: We enforce security best practices by default. Examples
 of this are zero trust networking with Network Policies, where no app can talk
 to another without explicitly allowing this. Some applications will need to opt
 out of some of these defaults, and they can do so by altering their
@@ -79,7 +79,7 @@ principles and are expected to follow them. This means that being able to use
 the modern platform is contingent on the teams being able to prioritize
 modernizing their applications and working in sustainable ways, which helps push
 for positive change.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="encourage-collaboration">Encourage collaboration<a href="#encourage-collaboration" class="hash-link" aria-label="Direct link to Encourage collaboration" title="Direct link to Encourage collaboration" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="encourage-collaboration">Encourage collaboration<a href="#encourage-collaboration" class="hash-link" aria-label="Direct link to Encourage collaboration" title="Direct link to Encourage collaboration" translate="no">​</a></h2>
 <p>It&#x27;s easy for a product team to ask the platform team for help when they&#x27;re
 stuck. We&#x27;re always happy to help, but we also have a heavy workload of exciting
 things we&#x27;re working on. Therefore it&#x27;s much better when platform users can help
@@ -95,7 +95,7 @@ a channel where everyone can help each other out.</p>
 <p>And a final tip: As a platform developer, sometimes it&#x27;s better to wait a little
 while before responding to questions in these channels to allow the community to
 help each other out before you jump in and help.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="make-time-for-innovation">Make time for innovation<a href="#make-time-for-innovation" class="hash-link" aria-label="Direct link to Make time for innovation" title="Direct link to Make time for innovation" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="make-time-for-innovation">Make time for innovation<a href="#make-time-for-innovation" class="hash-link" aria-label="Direct link to Make time for innovation" title="Direct link to Make time for innovation" translate="no">​</a></h2>
 <p>It&#x27;s easy to get bogged down in the day-to-day work of keeping the platform
 running. This is why it&#x27;s important to set aside time for innovation, this
 is something we take very seriously.</p>
@@ -128,12 +128,12 @@ video lessons, as this creates discussion and further ideas.</p>
 <p><img decoding="async" loading="lazy" alt="Demo time!" src="/assets/images/show-and-tell-2b3a7d820d2d83410db38ba2e98bc45c.jpeg" width="2364" height="1330" class="img_ev3q"></p>
 <p>There&#x27;s plenty of examples of features that are results of work done on these
 days. On-premise Web Application Firewall with Wasm, Grafana features, open
-source tools like <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> and
-<a href="https://github.com/kartverket/skyline" target="_blank" rel="noopener noreferrer">Skyline</a> as well as this very website!</p>
+source tools like <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer" class="">Skiperator</a> and
+<a href="https://github.com/kartverket/skyline" target="_blank" rel="noopener noreferrer" class="">Skyline</a> as well as this very website!</p>
 <p>No one has time to prioritize innovation, and we&#x27;re no different. But we
 prioritize it anyway, because we know that it&#x27;s important to keep improving and
 to keep learning.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="communication-is-key">Communication is key<a href="#communication-is-key" class="hash-link" aria-label="Direct link to Communication is key" title="Direct link to Communication is key" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="communication-is-key">Communication is key<a href="#communication-is-key" class="hash-link" aria-label="Direct link to Communication is key" title="Direct link to Communication is key" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="SKIPs kommunikasjonsstrategi" src="/assets/images/communication-6c3f011dc5e4d434f5ac4d176aeaa455.png" width="980" height="865" class="img_ev3q"></p>
 <p>Unfortunately a lot of infrastructure teams don&#x27;t prioritize communication very
 well. This is a mistake. Communication is key to building a successful platform.</p>
@@ -160,7 +160,7 @@ This can be done through a status page, a Slack channel, or postmortems. Again,
 we use a mix of these so that we can reach as many users as possible at the
 right time.</p>
 <p>Do these things and you will have happy users that feel informed.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="branding-is-important">Branding is important<a href="#branding-is-important" class="hash-link" aria-label="Direct link to Branding is important" title="Direct link to Branding is important" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="branding-is-important">Branding is important<a href="#branding-is-important" class="hash-link" aria-label="Direct link to Branding is important" title="Direct link to Branding is important" translate="no">​</a></h2>
 <p><img decoding="async" loading="lazy" alt="SKIP logo" src="/assets/images/skip-brand-017598d9204f22b0562dfc8c2836f8b0.png" width="580" height="452" class="img_ev3q"></p>
 <p>Do you think Spotify would be as successful if it was called &quot;Music Player&quot;?
 Do you think Apple would be as successful if it was called &quot;Computer Company&quot;?
@@ -181,7 +181,7 @@ you should think deeply about, as it&#x27;s something that will stick with you f
 long time. After this you can think about a website, merchandise like stickers
 and t-shirts, and a mascot. These things are not necessary, but they can help
 build a sense of identity and community around your platform.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="using-the-cloud-is-a-long-journey">Using the cloud is a long journey<a href="#using-the-cloud-is-a-long-journey" class="hash-link" aria-label="Direct link to Using the cloud is a long journey" title="Direct link to Using the cloud is a long journey" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="using-the-cloud-is-a-long-journey">Using the cloud is a long journey<a href="#using-the-cloud-is-a-long-journey" class="hash-link" aria-label="Direct link to Using the cloud is a long journey" title="Direct link to Using the cloud is a long journey" translate="no">​</a></h2>
 <p>As a platform team, it&#x27;s our responsibility to push for modern, user-friendly
 and secure solutions. This generally means using public cloud solutions like
 Google Cloud Platform. But for most organizations, pushing this narrative incurs
@@ -208,7 +208,7 @@ representatives of the platform team sit down with the lawyers and talk through
 the risks and how to mitigate them.  This is the only way you can combine the
 technical and legal aspects of this work. Working in silos and not talking to
 each other is a surefire way to fail.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="autonomy-and-platform-as-a-product">Autonomy and platform as a product<a href="#autonomy-and-platform-as-a-product" class="hash-link" aria-label="Direct link to Autonomy and platform as a product" title="Direct link to Autonomy and platform as a product" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="autonomy-and-platform-as-a-product">Autonomy and platform as a product<a href="#autonomy-and-platform-as-a-product" class="hash-link" aria-label="Direct link to Autonomy and platform as a product" title="Direct link to Autonomy and platform as a product" translate="no">​</a></h2>
 <p>Your platform is a product, and so you need to work as a product team. This
 means continuously improving your product, listening to your users, and building
 the features that they need.</p>
@@ -226,7 +226,7 @@ your users; sometimes requests don&#x27;t align well with the actual needs. Just
 because someone asks loudly for something, doesn&#x27;t mean it&#x27;s the right fit for
 your platform. Saying yes to everything does not result in a good product. Dare
 to challenge assumptions and ask why.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="abstractions-save-time">Abstractions save time<a href="#abstractions-save-time" class="hash-link" aria-label="Direct link to Abstractions save time" title="Direct link to Abstractions save time" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="abstractions-save-time">Abstractions save time<a href="#abstractions-save-time" class="hash-link" aria-label="Direct link to Abstractions save time" title="Direct link to Abstractions save time" translate="no">​</a></h2>
 <p>It should go without saying that a platform team&#x27;s job is to make tools that
 make product teams&#x27; jobs easier. But it really can&#x27;t be said enough. The better
 the tooling you provide, the less you have to do support. This is a win-win for
@@ -234,7 +234,7 @@ everyone.</p>
 <p>When building tools, think about how you can abstract away complexity. This can
 be done in many ways, but we&#x27;ve had great success building an operator that
 abstracts away the complexity of managing applications on Kubernetes. The
-operator is called <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer">Skiperator</a> and
+operator is called <a href="https://github.com/kartverket/skiperator" target="_blank" rel="noopener noreferrer" class="">Skiperator</a> and
 makes deploying applications on Kubernetes as easy as writing a configuration
 manifest.</p>
 <div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token key atrule" style="color:#00a4db">apiVersion</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> skiperator.kartverket.no/v1alpha1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">kind</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Application</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">metadata</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">namespace</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> sample</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> sample</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">two</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">spec</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">image</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> nginxinc/nginx</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">unprivileged</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">port</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">80</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">replicas</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">2</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">ingresses</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> foo.com</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> bar.com</span><br></span></code></pre></div></div>
@@ -246,7 +246,7 @@ like &quot;I want to expose this service to the internet&quot; or &quot;I want t
 every day at midnight&quot;. This simplifies the user experience of Kubernetes, which
 is a complex system, and makes it easier for users to get started.</p>
 <p>Work smarter not harder.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="build-forward--and-backwards-compatibility">Build forward- and backwards compatibility<a href="#build-forward--and-backwards-compatibility" class="hash-link" aria-label="Direct link to Build forward- and backwards compatibility" title="Direct link to Build forward- and backwards compatibility" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="build-forward--and-backwards-compatibility">Build forward- and backwards compatibility<a href="#build-forward--and-backwards-compatibility" class="hash-link" aria-label="Direct link to Build forward- and backwards compatibility" title="Direct link to Build forward- and backwards compatibility" translate="no">​</a></h2>
 <p>We&#x27;ve had multiple experiences where we&#x27;ve weighed our options and decided to
 make a breaking change. Just recently we asked our users to migrate their apps
 from one cluster to another in order to improve the architecture of the
@@ -270,7 +270,7 @@ possible from the existing configuration is a good thing.</p>
 <p>When building operators, don&#x27;t change or remove fields that are in use. Use
 default values for new fields, and use lists of objects instead of raw values
 like lists of strings as they are easier to extend.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="documentation-is-key">Documentation is key<a href="#documentation-is-key" class="hash-link" aria-label="Direct link to Documentation is key" title="Direct link to Documentation is key" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="documentation-is-key">Documentation is key<a href="#documentation-is-key" class="hash-link" aria-label="Direct link to Documentation is key" title="Direct link to Documentation is key" translate="no">​</a></h2>
 <p>One thing we keep hearing from our users is the need for more and better
 documentation. This is understandable. When you&#x27;re using a platform, you don&#x27;t
 want to have to ask for help all the time - you want to be able to discover
@@ -296,7 +296,7 @@ documentation and reply with a link to the documentation page. This is a triple
 win, as you will now have more updated documentation, save time in the future by
 being able to refer to the improved docs instead of writing a lengthy response
 and the user will now know where to look for answers.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="learn-from-others">Learn from others<a href="#learn-from-others" class="hash-link" aria-label="Direct link to Learn from others" title="Direct link to Learn from others" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="learn-from-others">Learn from others<a href="#learn-from-others" class="hash-link" aria-label="Direct link to Learn from others" title="Direct link to Learn from others" translate="no">​</a></h2>
 <p>When building a platform you&#x27;ll quickly learn that you don&#x27;t have all the
 answers. You might discuss how to implement a feature with your team, but you
 might not have the experience to know what works well in this context. When you
@@ -307,7 +307,7 @@ public sector platform teams for advice and learn from their experiences. We can
 also share our experiences with others, which is usually interesting. Invest
 some time in building these relationships of mutual benefit.</p>
 <p><img decoding="async" loading="lazy" alt="Public PaaS presentation" src="/assets/images/public-paas-c5adabedea2208a72bc881ee34d23662.png" width="384" height="512" class="img_ev3q"></p>
-<p>I also want to give special credit to Hans Kristian Flaatten and the <a href="https://offentlig-paas.no/" target="_blank" rel="noopener noreferrer">Public
+<p>I also want to give special credit to Hans Kristian Flaatten and the <a href="https://offentlig-paas.no/" target="_blank" rel="noopener noreferrer" class="">Public
 PaaS</a> network here. Having a shared forum to discuss
 platform issues is a strong asset and helps the Norwegian public sector get
 ahead and stay competitive.</p>
@@ -317,9 +317,9 @@ never hurts to ask. Teams generally want to help each other out, and it&#x27;s
 usually possible to make a trade of some sort. I suggest to offer to give a talk
 on your experiences and ask if they can do the same. It&#x27;s a win-win for both
 parties.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
 <p>You may think building a platform is mostly technology, and we&#x27;ve written a lot
-about technology in <a href="/blog/hybrid-kubernetes-in-production-part-1">previous blog
+about technology in <a class="" href="/blog/hybrid-kubernetes-in-production-part-1">previous blog
 posts</a>. But it&#x27;s important to
 remember that building a platform is also about building a community, and
 communities have expectations and needs that go beyond technology. This is a

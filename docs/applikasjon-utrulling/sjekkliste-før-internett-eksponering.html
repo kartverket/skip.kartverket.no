@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-applikasjon-utrulling/sjekkliste-før-internett-eksponering" data-has-hydrated="false">
 <head>
 <meta charset="UTF-8">
-<meta name="generator" content="Docusaurus v3.9.1">
+<meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Sjekkliste før internetteksponering | SKIP</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://skip.kartverket.no/docs/applikasjon-utrulling/sjekkliste-før-internett-eksponering"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Sjekkliste før internetteksponering | SKIP"><meta data-rh="true" name="description" content="Denne siden er under utarbeidelse og er et samarbeid mellom utvikling og sikkerhet"><meta data-rh="true" property="og:description" content="Denne siden er under utarbeidelse og er et samarbeid mellom utvikling og sikkerhet"><link data-rh="true" rel="icon" href="/img/favicon/favicon.ico"><link data-rh="true" rel="canonical" href="https://skip.kartverket.no/docs/applikasjon-utrulling/sjekkliste-før-internett-eksponering"><link data-rh="true" rel="alternate" href="https://skip.kartverket.no/docs/applikasjon-utrulling/sjekkliste-før-internett-eksponering" hreflang="en"><link data-rh="true" rel="alternate" href="https://skip.kartverket.no/docs/applikasjon-utrulling/sjekkliste-før-internett-eksponering" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"🚀 Applikasjon & utrulling","item":"https://skip.kartverket.no/docs/applikasjon-utrulling/"},{"@type":"ListItem","position":2,"name":"Sjekkliste før internetteksponering","item":"https://skip.kartverket.no/docs/applikasjon-utrulling/sjekkliste-før-internett-eksponering"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="SKIP RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="SKIP Atom Feed">
 <link rel="alternate" type="application/json" href="/blog/feed.json" title="SKIP JSON Feed">
@@ -13,9 +13,9 @@
 
 
 
-<script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.a0214603.css">
-<script src="/assets/js/runtime~main.27967a34.js" defer="defer"></script>
-<script src="/assets/js/main.e0f53615.js" defer="defer"></script>
+<script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.0042e133.css">
+<script src="/assets/js/runtime~main.6bd4af62.js" defer="defer"></script>
+<script src="/assets/js/main.28649c6c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -25,64 +25,64 @@
 <div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>Denne siden er under utarbeidelse og er et samarbeid mellom utvikling og sikkerhet</p></div></div>
 <p>For å eksponere en applikasjon som kjører på SKIP mot internett må man:</p>
 <ul>
-<li>Opprette en DNS-record som ikke er under statkart.no-domenet, f.eks. <code>applikasjonX.kartverket.no</code> . Det gjøres ved å opprette en ticket i <a href="https://kartverket.pureservice.com/" target="_blank" rel="noopener noreferrer">PureService</a> og be om at dette domenet skal ha et CNAME som peker mot SKIP-lastbalansereren (atkv3-prod.kartverket.cloud for on-prem og atgcp1-prod.kartverket.cloud for sky)</li>
-<li>Legge til det nye domenenavnet under <code>ingresses</code> i <a href="https://github.com/kartverket/skiperator?tab=readme-ov-file#application-reference" target="_blank" rel="noopener noreferrer">Skiperator-manifestet</a> eller <code>hostname</code> for <a href="https://github.com/kartverket/skiperator?tab=readme-ov-file#routing-reference" target="_blank" rel="noopener noreferrer">Routing-manifestet</a> , slik at applikasjonen registrerer seg mot ekstern ingress gateway</li>
+<li class="">Opprette en DNS-record som ikke er under statkart.no-domenet, f.eks. <code>applikasjonX.kartverket.no</code> . Det gjøres ved å opprette en ticket i <a href="https://kartverket.pureservice.com/" target="_blank" rel="noopener noreferrer" class="">PureService</a> og be om at dette domenet skal ha et CNAME som peker mot SKIP-lastbalansereren (atkv3-prod.kartverket.cloud for on-prem og atgcp1-prod.kartverket.cloud for sky)</li>
+<li class="">Legge til det nye domenenavnet under <code>ingresses</code> i <a href="https://github.com/kartverket/skiperator?tab=readme-ov-file#application-reference" target="_blank" rel="noopener noreferrer" class="">Skiperator-manifestet</a> eller <code>hostname</code> for <a href="https://github.com/kartverket/skiperator?tab=readme-ov-file#routing-reference" target="_blank" rel="noopener noreferrer" class="">Routing-manifestet</a> , slik at applikasjonen registrerer seg mot ekstern ingress gateway</li>
 </ul>
 <p>Før dette kan gjøres må man gå igjennom denne sjekklisten:</p>
 <ul>
-<li>
-<p>Gjør dere kjent med <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/599130113/Overordnede+f+ringer" target="_blank" rel="noopener noreferrer">Overordnede føringer</a> og spesielt <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/770113537/Ansvarsfordeling" target="_blank" rel="noopener noreferrer">Ansvarsfordeling</a> fra Sikkerhetshåndboka</p>
+<li class="">
+<p>Gjør dere kjent med <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/599130113/Overordnede+f+ringer" target="_blank" rel="noopener noreferrer" class="">Overordnede føringer</a> og spesielt <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/770113537/Ansvarsfordeling" target="_blank" rel="noopener noreferrer" class="">Ansvarsfordeling</a> fra Sikkerhetshåndboka</p>
 </li>
-<li>
-<p>Opprett metadata i GitHub-repoene tilknyttet applikasjonen i henhold til <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/732397586/Sikkerhet+i+repoet" target="_blank" rel="noopener noreferrer">sikkerhet i repoet</a>. Dette sikrer at applikasjonen blir integrert i Utviklerportalen og får tilgang til sikkerhetsmetrikker.</p>
+<li class="">
+<p>Opprett metadata i GitHub-repoene tilknyttet applikasjonen i henhold til <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/732397586/Sikkerhet+i+repoet" target="_blank" rel="noopener noreferrer" class="">sikkerhet i repoet</a>. Dette sikrer at applikasjonen blir integrert i Utviklerportalen og får tilgang til sikkerhetsmetrikker.</p>
 </li>
-<li>
+<li class="">
 <p>Foranalyse må være gjennomført (det kommer løype for dette i PureService)</p>
 </li>
-<li>
-<p>Det er gjort IP (Innledende Personvernsvurdering) og eventuelt DPIA. Kopier malen <a href="https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338719/IP+DPIA+og+ROS-analyse+for+det+som+vurderes+.+IKKE+SKRIV+INN+I+MALEN+men+kopier+sidene." target="_blank" rel="noopener noreferrer">IP, DPIA og ROS-analyse for [det som vurderes]</a> til deres område og fyll ut informasjonen der.</p>
+<li class="">
+<p>Det er gjort IP (Innledende Personvernsvurdering) og eventuelt DPIA. Kopier malen <a href="https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338719/IP+DPIA+og+ROS-analyse+for+det+som+vurderes+.+IKKE+SKRIV+INN+I+MALEN+men+kopier+sidene." target="_blank" rel="noopener noreferrer" class="">IP, DPIA og ROS-analyse for [det som vurderes]</a> til deres område og fyll ut informasjonen der.</p>
 </li>
-<li>
+<li class="">
 <p>ROS-analyse gjennomført og godkjent av risikoeier/systemeier</p>
 </li>
-<li>
-<p>Codeowners definert i koderepo <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/561348667/CODEOWNERS" target="_blank" rel="noopener noreferrer">CODEOWNERS</a></p>
+<li class="">
+<p>Codeowners definert i koderepo <a href="https://kartverket.atlassian.net/wiki/spaces/SIK/pages/561348667/CODEOWNERS" target="_blank" rel="noopener noreferrer" class="">CODEOWNERS</a></p>
 </li>
-<li>
+<li class="">
 <p>Gjennomfør en sikkerhetssjekk</p>
 <ul>
-<li>Se over hvilke endepunkter som er eksponert og at debug endepunkter og liknende interne endepunkter ikke er eksponert</li>
-<li>Sørg for at alle endepunkter som krever autentisering faktisk krever det</li>
-<li>Vi anbefaler i tillegg å bruke <a href="https://www.zaproxy.org/" target="_blank" rel="noopener noreferrer">OWASP ZAP</a> for å kjøre en scan</li>
+<li class="">Se over hvilke endepunkter som er eksponert og at debug endepunkter og liknende interne endepunkter ikke er eksponert</li>
+<li class="">Sørg for at alle endepunkter som krever autentisering faktisk krever det</li>
+<li class="">Vi anbefaler i tillegg å bruke <a href="https://www.zaproxy.org/" target="_blank" rel="noopener noreferrer" class="">OWASP ZAP</a> for å kjøre en scan</li>
 </ul>
 </li>
-<li>
+<li class="">
 <p>Følgende headere blir sendt på alle kall:</p>
 <ul>
-<li><a href="https://scotthelme.co.uk/hsts-the-missing-link-in-tls/" target="_blank" rel="noopener noreferrer">HTTP Strict Transport Security</a></li>
-<li><a href="https://scotthelme.co.uk/content-security-policy-an-introduction/" target="_blank" rel="noopener noreferrer">Content Security Policy</a></li>
-<li><a href="https://scotthelme.co.uk/hardening-your-http-response-headers/#x-frame-options" target="_blank" rel="noopener noreferrer">X-Frame-Options</a></li>
-<li><a href="https://scotthelme.co.uk/hardening-your-http-response-headers/#x-content-type-options" target="_blank" rel="noopener noreferrer">X-Content-Type-Options</a></li>
-<li><a href="https://scotthelme.co.uk/a-new-security-header-referrer-policy/" target="_blank" rel="noopener noreferrer">Referrer Policy</a></li>
-<li><a href="https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/" target="_blank" rel="noopener noreferrer">Permissions Policy</a></li>
+<li class=""><a href="https://scotthelme.co.uk/hsts-the-missing-link-in-tls/" target="_blank" rel="noopener noreferrer" class="">HTTP Strict Transport Security</a></li>
+<li class=""><a href="https://scotthelme.co.uk/content-security-policy-an-introduction/" target="_blank" rel="noopener noreferrer" class="">Content Security Policy</a></li>
+<li class=""><a href="https://scotthelme.co.uk/hardening-your-http-response-headers/#x-frame-options" target="_blank" rel="noopener noreferrer" class="">X-Frame-Options</a></li>
+<li class=""><a href="https://scotthelme.co.uk/hardening-your-http-response-headers/#x-content-type-options" target="_blank" rel="noopener noreferrer" class="">X-Content-Type-Options</a></li>
+<li class=""><a href="https://scotthelme.co.uk/a-new-security-header-referrer-policy/" target="_blank" rel="noopener noreferrer" class="">Referrer Policy</a></li>
+<li class=""><a href="https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/" target="_blank" rel="noopener noreferrer" class="">Permissions Policy</a></li>
 </ul>
 </li>
-<li>
-<p>Når appen er eksponert skal sikkerhetsheaders testes med <a href="https://securityheaders.com/" target="_blank" rel="noopener noreferrer">https://securityheaders.com</a> og <a href="https://observatory.mozilla.org/" target="_blank" rel="noopener noreferrer">https://observatory.mozilla.org</a></p>
+<li class="">
+<p>Når appen er eksponert skal sikkerhetsheaders testes med <a href="https://securityheaders.com/" target="_blank" rel="noopener noreferrer" class="">https://securityheaders.com</a> og <a href="https://observatory.mozilla.org/" target="_blank" rel="noopener noreferrer" class="">https://observatory.mozilla.org</a></p>
 </li>
-<li>
-<p>Monitorering og varsling er satt opp i <a href="https://monitoring.kartverket.cloud" target="_blank" rel="noopener noreferrer">Grafana</a>, og vaktlaget er onboardet disse alarmene</p>
+<li class="">
+<p>Monitorering og varsling er satt opp i <a href="https://monitoring.kartverket.cloud" target="_blank" rel="noopener noreferrer" class="">Grafana</a>, og vaktlaget er onboardet disse alarmene</p>
 <ul>
-<li><a href="/docs/observability/metrikker">Metrics with Grafana</a></li>
-<li><a href="/docs/observability/logs-with-Loki">Logs with Loki</a></li>
-<li><a href="/docs/observability/alerting-with-grafana">Alerting with Grafana</a></li>
+<li class=""><a class="" href="/docs/observability/metrikker">Metrics with Grafana</a></li>
+<li class=""><a class="" href="/docs/observability/logs-with-Loki">Logs with Loki</a></li>
+<li class=""><a class="" href="/docs/observability/alerting-with-grafana">Alerting with Grafana</a></li>
 </ul>
 </li>
 </ul>
 <p>Denne sjekklisten gjelder eksponering av tjenester som skal være tilgjengelig på internett, uavhengig av miljø (prod/dev). Hvis man har behov for å eksponere en applikasjon eksternt i dev må man i tillegg kontakte SKIP for å sikre at alle sikkerhetskrav overholdes.</p>
 <p>Navnekonvensjon for eksternt tilgjengelig domenenavn vil i så fall være</p>
 <ul>
-<li>&lt;applikasjonX&gt;.atkv3-dev.kartverket.cloud</li>
-</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/kartverket/skip-docs/edit/main/docs/03-applikasjon-utrulling/03-sjekkliste-før-internett-eksponering.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/applikasjon-utrulling/oppsett-og-bruk-av-secret-manager"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Oppsett og bruk av Google Secret Manager</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/applikasjon-utrulling/skiperator"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">🤖 Skiperator</div></a></nav></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Lenker</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://uustatus.no/nb/erklaringer/publisert/7148395f-f0cf-4019-9c45-3b83d79fd544" target="_blank" rel="noopener noreferrer" class="footer__link-item">Tilgjengelighetserklæring<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Statens Kartverk</div></div></div></footer></div>
+<li class="">&lt;applikasjonX&gt;.atkv3-dev.kartverket.cloud</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/kartverket/skip-docs/edit/main/docs/03-applikasjon-utrulling/03-sjekkliste-før-internett-eksponering.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/applikasjon-utrulling/oppsett-og-bruk-av-secret-manager"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Oppsett og bruk av Google Secret Manager</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/applikasjon-utrulling/skiperator"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">🤖 Skiperator</div></a></nav></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Lenker</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://uustatus.no/nb/erklaringer/publisert/7148395f-f0cf-4019-9c45-3b83d79fd544" target="_blank" rel="noopener noreferrer" class="footer__link-item">Tilgjengelighetserklæring<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Statens Kartverk</div></div></div></footer></div>
 </body>
 </html>
