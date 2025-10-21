@@ -14,8 +14,8 @@
 
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.0042e133.css">
-<script src="/assets/js/runtime~main.6bd4af62.js" defer="defer"></script>
-<script src="/assets/js/main.28649c6c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.c75ddafa.js" defer="defer"></script>
+<script src="/assets/js/main.a77b0cb4.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -318,9 +318,9 @@ By default requests falling under: &quot;connect-failure,refused-stream,unavaila
 <table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><b>attempts</b></td><td>integer</td><td><p>Attempts is the number of retries to be allowed for a given request before giving up. The interval between retries will be determined automatically (25ms+).
 Default is 2<br></p><br><p><i>Format</i>: int32<br>
 <i>Minimum</i>: 1<br></p></td><td>false</td></tr><tr><td><b>perTryTimeout</b></td><td>string</td><td><p>PerTryTimeout is the timeout per attempt for a given request, including the initial call and any retries. Format: 1h/1m/1s/1ms. MUST be &gt;=1ms.
-Default: no timeout<br></p><br><p><i>Format</i>: duration<br></p></td><td>false</td></tr><tr><td><b>retryOnHttpResponseCodes</b></td><td>[]enum</td><td><p>RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is [503].
+Default: no timeout<br></p><br><p><i>Format</i>: duration<br></p></td><td>false</td></tr><tr><td><b>retryOnHttpResponseCodes</b></td><td>[]int or string</td><td><p>RetryOnHttpResponseCodes HTTP response codes that should trigger a retry. A typical value is [503].
 You may also use 5xx and retriable-4xx (only 409).
-mixed types are allowed such as [503, &quot;retriable-4xx&quot;]<br></p><br><p><i>Enum</i>: 500, 500, 501, 501, 502, 502, 503, 503, 504, 504, 505, 505, 506, 506, 507, 507, 508, 508, 510, 510, 511, 511, 409, 409, retriable-4xx, 5xx<br></p></td><td>false</td></tr></tbody></table>
+mixed types are allowed such as [503, &quot;retriable-4xx&quot;]<br></p></td><td>false</td></tr></tbody></table>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="applicationspecistiosettingstelemetry">Application.spec.istioSettings.telemetry<a href="#applicationspecistiosettingstelemetry" class="hash-link" aria-label="Direct link to Application.spec.istioSettings.telemetry" title="Direct link to Application.spec.istioSettings.telemetry" translate="no">​</a></h3>
 <sup><sup><a href="#applicationspecistiosettings" class="">↩ Parent</a></sup></sup>
 <p>Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.</p>
