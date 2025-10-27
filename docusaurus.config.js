@@ -144,6 +144,14 @@ const darkCodeTheme = themes.dracula;
           ],
         },
       ],
+      [
+        "posthog-docusaurus",
+        {
+          apiKey: "phc_u4Ex4Cbp5HNPRMCbuXo9saYy66sbqTPAuzOBCkD8EJa",
+          api_host: "https://ph.kartverket.no",
+          ui_host: "https://eu.i.posthog.com",
+        },
+      ]
     ],
   }
 );
