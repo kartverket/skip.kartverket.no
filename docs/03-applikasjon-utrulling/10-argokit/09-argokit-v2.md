@@ -1,4 +1,4 @@
-# ArgoKit v2 API Reference
+# V2 API Reference
 
 ## jsonnet ArgoKit API
 
