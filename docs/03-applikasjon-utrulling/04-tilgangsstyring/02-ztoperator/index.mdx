@@ -1,0 +1,45 @@
+import ZtoperatorLogo from '../images/ztoperator-logo.png';
+import Columns from '@site/src/components/Columns';
+import Column from '@site/src/components/Column';
+
+# Ztoperator
+
+<Columns> 
+  <Column className='col--8'>
+    Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons endepunkter skal styres. Den gir støtte for å
+    
+    - definere hvilke endepunkter som skal være åpne.
+    - definere hvilke endepunkter som krever et gyldig OAuth 2.0-token.
+    - definere hvilke endepunkter som krever spesifikke claims.
+    - definere hvilke endepunkter som skal omdirigere brukeren til innlogging.
+  </Column>
+  <Column className='text--center'>
+    <img src={ZtoperatorLogo} style={{width: 300}} />
+  </Column>
+</Columns>
+
+Ztoperator konfigureres opp mot en identitetstilbyder med feltet `spec.wellKnownURI`, som peker til et [OpenID Connect Discovery Document](https://openid.net/specs/openid-connect-discovery-1_0.html). Dette dokumentet inneholder informasjon om hvordan Ztoperator skal kommunisere med identitetstilbyderen, slik som endepunkter for autentisering, tokenvalidering og utlogging. 
+Hvilke identitetstilbydere Ztoperator støtter per nå kan ses under [Støttede identitetstilbydere](#-støttede-identitetstilbydere).
+
+Hvilke felter som eksisterer og deres oppførsel er dokumentert i [API Reference](02-api-docs.mdx).
+Hvordan du kan teste og verifisere oppførselen til en `AuthPolicy` finner du under [Test din Ztoperator-AuthPolicy](03-test-authpolicy.mdx).
+
+## 🎬 Tutorials
+
+I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator for å beskytte en applikasjon på SKIP.
+
+- [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-tutorials.mdx#microsoft-entra-id)
+- [Eksempeloppsett av Ztoperator: ID-Porten](01-tutorials.mdx#id-porten)
+- [Eksempeloppsett av Ztoperator: Ansattporten](01-tutorials.mdx#ansattporten)
+
+## 🛠 Støttede identitetstilbydere
+
+| Miljø | Identitetstilbyder | `wellKnownURI` |
+| --- | --- | --- |
+| `PROD` | Microsoft Entra ID (Kartverket) | [https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration](https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration) |
+| `TEST` | ID-porten | [https://test.idporten.no/.well-known/openid-configuration](https://test.idporten.no/.well-known/openid-configuration) |
+| `PROD` | ID-porten | [https://idporten.no/.well-known/openid-configuration](https://idporten.no/.well-known/openid-configuration) |
+| `TEST` | Maskinporten | [https://test.maskinporten.no/.well-known/oauth-authorization-server](https://test.maskinporten.no/.well-known/oauth-authorization-server) |
+| `PROD` | Maskinporten | [https://maskinporten.no/.well-known/oauth-authorization-server](https://maskinporten.no/.well-known/oauth-authorization-server) |
+| `TEST` | Ansattporten | [https://test.ansattporten.no/.well-known/openid-configuration](https://test.ansattporten.no/.well-known/openid-configuration) |
+| `PROD` | Ansattporten | [https://ansattporten.no/.well-known/openid-configuration](https://ansattporten.no/.well-known/openid-configuration) |
