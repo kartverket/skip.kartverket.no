@@ -11,6 +11,7 @@ Felles for alle manifest-kommandoer.
 | `--output`, `-o` | string | `text` | `text`, `json` | Velger loggformat for logger. |
 | `--debug` | bool | `false` | `true`, `false` | Aktiverer debug-logging. |
 | `--path`, `-p` | string | `.` | Valgfri sti | Angir hvor manifestene leses fra. |
+| `--no-analytics` | `bool` | `true` | Ingen | Velge bort at anonym analysedata blir sendt |
 
 ---
 ## Diff
