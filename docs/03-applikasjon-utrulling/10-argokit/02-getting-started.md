@@ -42,7 +42,7 @@ application.new('app-name', 'test-image', 3000)
 Du kan også legge til miljøvariabler fra secrets:
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
-+ application.withEnvironmentVariablesFromSecret('API_KEY', 'secretRef')
++ application.withEnvironmentVariablesFromSecret(secretName='test-name')
 ```
 
 
