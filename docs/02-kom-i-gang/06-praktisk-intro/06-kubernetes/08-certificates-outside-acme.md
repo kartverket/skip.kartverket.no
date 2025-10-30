@@ -7,7 +7,7 @@ In some instances there is a requirement to use certificates not from ACME. This
 To be able to use a custom certificate we need a secret to mount to the gateway resource. This is a kubernetes.io/tls type secret and can be created via external secrets like this:
 
 ```yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: star-matrikkel
