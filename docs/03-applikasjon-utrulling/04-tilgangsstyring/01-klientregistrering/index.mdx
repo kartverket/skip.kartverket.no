@@ -1,0 +1,29 @@
+# Klientregistrering
+
+Før du går i gang med å sikre din applikasjon med Ztoperator, så trenger du en klientregistrering hos en identitetstilbyder.
+Når du registrerer en klient, får applikasjonen sin egen identitet og kan autentisere seg mot den valgte identitetstilbyderen.
+
+## ⚖️ Valg av identitetstilbyder
+
+Når du skal opprette en klientregistrering bør du vurdere hvilke(n) identitetstilbyder(e) som passer best til behovene i din applikasjon. 
+Microsoft Entra ID og Digitaliseringsdirektoratets (Digdir) fellesløsninger; ID-Porten, Maskinporten og Ansattporten er identitetstilbyderne vi mener dekker bredden av konsumentene av Kartverkets digitale tjenester. 
+Hvis du har behov for en annen identitetstilbyder enn de som er listet opp under, ta kontakt med Team Tilgangsstyring på [#gen-tilgangsstyring](https://kartverketgroup.slack.com/archives/C08CJLBLY2X).
+Valg av identitetstilbyder(e) kan forenkles å stille seg spørsmålene: "*Hvem er sluttbruker?*" og "*Hvilke tjenester skal du kalle?*".
+
+```mermaid
+flowchart LR;
+  konsument([**Hvem er sluttbruker?**]);
+
+  konsument -- "Innbygger" --> id-porten([<a href="klientregistrering/id-porten">ID-Porten</a>]);
+  konsument -- "Ansatt i <br>ekstern virksomhet" --> ansattporten([<a href="klientregistrering/ansattporten">Ansattporten</a>]);
+  konsument -- "Ansatt i <br>Kartverket" --> entra-id([<a href="klientregistrering/entra-id">Microsoft Entra ID</a>]);
+  konsument -- "Ekstern virksomhet" --> maskinporten([<a href="klientregistrering/maskinporten">Maskinporten</a>]);
+
+  ansattporten ~~~ tilbyder
+
+  tilbyder([**Hvilke tjenester skal du kalle?**]);
+
+  tilbyder -- "Intern tjeneste hos <br>Kartverket" --> entra-id([<a href="klientregistrering/entra-id">Microsoft Entra ID</a>]);
+  tilbyder -- "Ekstern virksomhet" --> maskinporten([<a href="klientregistrering/maskinporten">Maskinporten</a>]);
+```
+_Valg av identitetstilbyder ved klientregistrering._

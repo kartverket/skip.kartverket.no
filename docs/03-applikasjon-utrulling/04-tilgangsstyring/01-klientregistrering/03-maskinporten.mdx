@@ -1,0 +1,92 @@
+# Maskinporten
+
+For å registrere en klient i Maskinporten, kan du enten gjøre det i Digdir sin [selvbetjeninsløsning](https://sjolvbetjening.samarbeid.digdir.no/login) eller
+gjennom Kubernetes-operatoren [Digdirator](https://https://github.com/nais/digdirator). Digdirator er en Kubernetes-operator utviklet av NAV sitt plattformteam ([NAIS](https://nais.io)) som skal gjøre det enkelt å deklarativt sette opp og vedlikeholde
+integrasjoner mot [Digdir](https://docs.digdir.no) sine systemer. Dette inkluderer **ID-Porten**-integrasjoner og **Maskinporten**-integrasjoner, men per nå **ikke** **Annsattporten**-integrasjoner.
+
+:::caution
+Digdirator støtter kun klientregistreringer mot ID-porten og Maskinporten. For Ansattporten må klientregistreringer gjøres manuelt i Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login).
+:::
+
+## 🧪 Testmiljø for Maksinporten
+
+Digdir tilbyr Maskinporten i et testmiljø, der du kan teste applikasjonen din med syntetiske organisasjoner. 
+For å registrere en klient mot Maskinporten sitt testmiljø så kan du enten gjøre det i Digdir sin [selvbetjeningsløsning i test](https://sjolvbetjening.test.samarbeid.digdir.no/login) 
+eller opprette en `MaskinportenClient`-ressurs i dev-clustrene til SKIP, i.e. `atgcp1-dev` eller `atkv3-dev`.
+
+## 🤖 `MaskinportenClient`
+
+En `MaskinportenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde Maskinporten-klientregistreringer.
+
+<details>
+    <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `MaskinportenClient`</summary>
+
+    <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
+    <p><strong>clientName</strong> _(string, optional)_ – Navnet på klienten registrert hos DigDir. Vises under innlogging for brukerorienterte flyter, og er ellers en lesbar måte å skille mellom klienter i DigDirs selvbetjeningsportal.</p>
+    <details>
+        <summary><strong>scopes</strong> _([]object, optional)_ – Definerer hvilke scopes applikasjonen konsumerer og hvilke den eksponerer.</summary>
+        <details>
+            <summary><strong>consumes</strong> _([]object, optional)_ – En liste med scopes din klient kan forespørre tilgang til.</summary>
+            <p><strong>name</strong> _(string, required)_ – Scopene som applikasjonen konsumerer for å få tilgang til en ekstern organisasjons API.</p>
+        </details>
+        <details>
+            <summary><strong>exposes</strong> _([]object, optional)_ – En liste med scopes din applikasjon ønsker å eksponere til andre organisasjoner hvor tilgang er basert på organisasjonsnummer.</summary>
+            <p><strong>enabled</strong> _(bool, required)_ – Hvis `true`, så er detkonfigurerte scopet tilgjengelig for bruk og til å bli konsumert av organisasjoner som har fått godkjent tilgang.</p>
+            <p><strong>name</strong> _(string, påkrevd)_ – Det faktiske sub-scopet kombinert med `product`.</p>
+            <p><strong>product</strong> _(string, valgfritt)_ – Produktområde tilknyttet scopet. Dette vil inkluderes i resultatet: `org:<product><name>`.</p>
+            <p><strong>atMaxAge</strong> _(int, valgfritt)_ – Maksimal tillatt levetid for token i sekunder. Defaulter til 30 sekunder.</p>
+            <p><strong>allowedIntegrations</strong> _([]string, valgfritt)_ – Liste over tillatte integrasjonstyper for dette eksponerte omfanget. Defaulter til `maskinporten`.</p>
+            <details>
+                <summary><strong>consumers</strong> _([]object, valgfritt)_ – Liste over eksterne konsumenter som har tilgang til å konsumere dette scopet og som kan forespørre `access_token`.</summary>
+                <p><strong>orgno</strong> – Det eksterne organisasjonsnummeret.</p>
+                <p><strong>name</strong> – Beskrivende felt brukt utelukkende for oversikt.</p>
+            </details>
+            <p><strong>accessibleForAll</strong> – Tillater alle organisasjoner å få tilgang til scopet.</p>
+            <p><strong>delegationSource</strong> – Delegasjonskilde for scopet. Default er tomt, noe som betyr at ingen delegasjon er tillatt.</p>
+            <p><strong>separator</strong> – Tegnet som skiller `product` og `name` i det endelige scopet. Resultatet blir da `<prefix>:<product><separator><name>`. Defaulter til `:` med mindre `name` inneholder `/`, i det tilfellet defaultes det til `/`.</p>
+            <p><strong>visibility</strong> – Kontrollerer synligheten til scopet. Offentlige scopes er synlige for alle, mens private scopes kun er synlige for organisasjonen som eier scopet og organisasjoner som har fått tilgang som konsumenter. Defaulter til `public`. Tillatte verdier: `private`, `public`.</p>
+        </details>
+    </details>
+</details>
+
+Følgende eksempel oppretter en klientintegrasjon mot Maskinporten og definerer scopet `innsyn`.
+Den setter HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS som godkjente konsumenter av scopet.
+Når registrering er fullført vil Digdirator opprette Kubernetes-hemmeligheten `maskinporten-secret` i namespacet `tilgangsstyring-main`.
+
+```yaml title="Klientregistrering mot Maskinporten med Digdirator"
+apiVersion: nais.io/v1
+kind: MaskinportenClient
+metadata:
+  name: test-client
+  namespace: tilgangsstyring-main
+spec:
+  clientName: innsikt-secure-deltashare
+  scopes:
+    exposes:
+      - enabled: true
+        name: "innsyn"
+        product: "Produktområde"
+        consumers:
+          - name: HUSLØS HURTIG TIGER AS
+            orgno: "987654321"
+          - name: KOSTBAR LEKKER APE AS
+            orgno: "123456789"
+  secretName: maskinporten-secret
+```
+
+```yaml title="Hemmelighet opprettet av Digdirator etter fullført klientregistrering"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: maskinporten-secret
+  namespace: tilgangsstyring-main
+data:
+  MASKINPORTEN_CLIENT_ID: ++++++++
+  MASKINPORTEN_CLIENT_JWK: ++++++++
+  MASKINPORTEN_ISSUER: ++++++++
+  MASKINPORTEN_JWKS_URI: ++++++++
+  MASKINPORTEN_SCOPES: ++++++++
+  MASKINPORTEN_TOKEN_ENDPOINT: ++++++++
+  MASKINPORTEN_WELL_KNOWN_URL: ++++++++
+type: Opaque
+```
