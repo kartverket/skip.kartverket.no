@@ -4,13 +4,13 @@ Forutsatt at du har fulgt [Komme i gang](../09-argo-cd/01-komme-i-gang-med-argoc
 Første steg er å inkludere ArgoKit-biblioteket ved å kjøre følgende kommando:
 
 ```bash
-$ git submodule add https://github.com/kartverket/argokit.git
+git submodule add https://github.com/kartverket/argokit.git
 ```
 
 Dersom du har klonet et apps-repo med ArgoKit allerede installert (med vanlig git clone),
 må du kjøre følgende kommando for å få ArgoKit koden:
 ```bash
-$ git submodule update --init --recursive
+git submodule update --init --recursive
 ```
 
 ### Automatiske versjonsoppdateringer
