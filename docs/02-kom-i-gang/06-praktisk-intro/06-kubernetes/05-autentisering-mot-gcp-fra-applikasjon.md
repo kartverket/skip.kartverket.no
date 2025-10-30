@@ -15,7 +15,7 @@ Gitt variablene:
 ```
 GCP_SA_NAME - Navnet på GCP servicekontoen
 GCP_SA_PROJECT_ID - GCP Project ID til prosjektet GCP SA ligger i
-KUBERNETES_PROJECT_ID - GCP Project ID for Kubernetes-cluster (for eksempel `kubernetes-dev-94b9` for dev-clusteret)
+KUBERNETES_PROJECT_ID - GCP Project ID for Kubernetes-cluster (for eksempel `kubernetes-dev-94b9` for dev-clusteret eller `kubernetes-prod-e4a2` for prod-clusteret)
 KUBERNETES_NAMESPACE - Kubernetes namespace hvor servicekontoen er opprettet
 KUBERNETES_SA_NAME - Navnet på Kubernetes service accounten som brukes av en Pod (Vanligvis samme som applikasjonsnavnet, men med et suffix -skipjob for SKIPJob'er)
 ```
@@ -28,6 +28,8 @@ gcloud iam service-accounts add-iam-policy-binding \
   --role=roles/iam.workloadIdentityUser \
   --member="serviceAccount:KUBERNETES_PROJECT_ID.svc.id.goog[KUBERNETES_NAMESPACE/KUBERNETES_SA_NAME]"
 ```
+
+For en SKIPJob får kubernetes service accounten navnet `KUBERNETES_SA_NAME-skipjob` og member i eksempelet over blir `serviceAccount:KUBERNETES_PROJECT_ID.svc.id.goog[KUBERNETES_NAMESPACE/KUBERNETES_SA_NAME-skipjob]`.
 
 ## 3. Legg inn config i Skiperatormanifest
 

@@ -12,7 +12,7 @@ local argokit = import '../argokit/v2/jsonnet/argokit.libsonnet';
 
 ### Definer en applikasjon
 
-Lag en ny skiperator applikasjon med ArgoKit appAndObjects:
+Lag en ny Skiperator-applikasjon med ArgoKit `appAndObjects`-abstraksjonen:
 
 *Tips! Lag en ny variabel for application for å få kortere uttrykk.*
 ```jsonnet
@@ -21,7 +21,7 @@ local application = argokit.appAndObjects.application;
 application.new('app-name', 'test-image', 3000)
 ```
 
-🎉 Sånn! Der har du en minimal applikasjon som kan kjøres på skip!
+🎉 Sånn! Der har du en minimal applikasjon som kan kjøres på SKIP!
 
 🤔 Lurer du på om manifestet ditt er gyldig? [Installer skipctl](https://skip.kartverket.no/docs/applikasjon-utrulling/skipctl/get-started) og kjør:
 ```shell
@@ -33,7 +33,7 @@ så slipper du å lure. 😎
 ---
 ## Bygge spec-en
 ### Miljøvariabler
-Med ArgoKit kan du legge til variabler med `withVariable` funksjonen
+Med ArgoKit kan du legge til variabler med `withEnvironmentVariable` funksjonen
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
 + application.withEnvironmentVariable('NAME', value)
@@ -48,8 +48,7 @@ application.new('app-name', 'test-image', 3000)
 
 ### Access Policies
 Det finnes en rekke funksjoner for å sette access policies i ArgoKit,
-her kan vi sette tilgang ut til en postgres database og inn fra en
-annen skip app slik.
+her kan vi sette opp tilgang til en Postgres-database fra en SKIP-app:
 
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
