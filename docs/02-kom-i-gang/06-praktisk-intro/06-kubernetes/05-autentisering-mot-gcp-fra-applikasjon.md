@@ -1,23 +1,30 @@
-# Autentisering mot GCP fra applikasjon
+# Autentisering mot GCP fra applikasjon på SKIP
 
 ## 1. Opprett Servicekonto
 
 Dersom man ønsker å få tilgang til GCP-tjenester fra Kubernetes gjøres dette med å først opprette en servicekonto i GCP og å gi den IAM-rettigheter til det man ønsker at den skal gjøre.
 
-Servicekontoer bør enten opprettes med terraform eller via [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) repoet til SKIP.
+:::danger
+
+Det er sterkt anbefalt å opprette en dedikert servicekonto for hver applikasjon eller tjeneste som trenger tilgang til GCP-ressurser, slik at man følger least-privilege prinsippet.
+Hvis man benytter seg av deploy-kontoen direkte i en pod, og denne har fått mange rettigheter, kan et eventuelt sikkerhetsbrudd i applikasjonen føre til at en angriper får tilgang til alle ressursene som deploy-kontoen har tilgang til.
+
+:::
+
+Servicekontoer bør opprettes med terraform ved hjelp av en deploy-konto man får opprettet via [gcp-service-accounts](https://github.com/kartverket/gcp-service-accounts) repoet til SKIP.
 
 ## 2. Gi WIF IAM Policy til Servicekonto
 
 For å autentisere som denne GCP-servicekontoen fra Kubernetes må Kubernetes-servicekontoen gis tilganger til det. Dette gjøres ved å gi Kubernetes-servicekontoen rollen `iam.workloadIdentityUser`.
 
-Gitt variablene:
+Forklaring på bruk av variabler i kommandoen nedenfor:
 
 ```
 GCP_SA_NAME - Navnet på GCP servicekontoen
 GCP_SA_PROJECT_ID - GCP Project ID til prosjektet GCP SA ligger i
 KUBERNETES_PROJECT_ID - GCP Project ID for Kubernetes-cluster (for eksempel `kubernetes-dev-94b9` for dev-clusteret eller `kubernetes-prod-e4a2` for prod-clusteret)
 KUBERNETES_NAMESPACE - Kubernetes namespace hvor servicekontoen er opprettet
-KUBERNETES_SA_NAME - Navnet på Kubernetes service accounten som brukes av en Pod (Vanligvis samme som applikasjonsnavnet, men med et suffix -skipjob for SKIPJob'er)
+KUBERNETES_SA_NAME - Kubernetes service account som brukes av en Pod - Samme navn som Application-manifestet (for SKIPJob'er legges det til et suffix `-skipjob`).
 ```
 
 Kjør følgende kommando med `gcloud` CLI:
@@ -36,7 +43,6 @@ For en SKIPJob får kubernetes service accounten navnet `KUBERNETES_SA_NAME-skip
 Til slutt legger man til `gcp` config i sin skiperator Application for å lage kubernetes-config slik at podden kan autentisere mot GCP.
 
 ```yaml
-//yaml format
 spec:
   gcp:
     auth:
