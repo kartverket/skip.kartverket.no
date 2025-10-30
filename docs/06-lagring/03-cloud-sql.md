@@ -112,7 +112,7 @@ Kjenner du ikke til GSM og ExternalSecrets anbefaler vi å lese [Hente hemmeligh
 For å hente ut disse så må du lage to `ExternalSecret`, en for sertifikater og en for passord/brukernavn, her er et eksempel:
 
 ```yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: my-app-db-client-password # Denne brukes for å hente ut password fra json secreten i gsm.
@@ -136,7 +136,7 @@ spec:
 
 --- 
 
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: database-certs

@@ -9,20 +9,20 @@ External Secrets Operator (ESO) er en operator som kjører i clusteret og har ev
 Merk at External Secrets brukes til **deploy-time** uthenting av hemmeligheter. Hvis du har en applikasjon som kjører og skal bruke hemmeligheter **runtime** bør du ikke bruke External Secrets og heller bruke biblioteker som [https://spring.io/projects/spring-cloud-gcp](https://spring.io/projects/spring-cloud-gcp). Se [Oppsett og bruk av Secret Manager](../03-oppsett-og-bruk-av-secret-manager.md).
 :::
 
-Mer om external secrets finnes på [https://external-secrets.io/v0.7.2/](https://external-secrets.io/v0.7.2/) .
+Mer om external secrets finnes på [https://external-secrets.io/](https://external-secrets.io/latest/).
 
 ## Hvordan bruke External Secrets
 
-ESO lytter i clusteret etter [ExternalSecret](https://external-secrets.io/v0.7.2/api/externalsecret/) - og [SecretStore](https://external-secrets.io/v0.7.2/api/secretstore/) -manifester. I det øyeblikket disse blir plukket opp blir de lest som konfigurasjon for ESO og en synk mot hvelvet starter som vil ende opp med å opprette en Kubernetes Secret. Kubernetes Secreten vil også synkroniseres regelmessig slik at man kan f.eks. rullere hemmeligheter ved å endre dem i hvelvet.
+ESO lytter i clusteret etter [ExternalSecret](https://external-secrets.io/latest/api/externalsecret/) - og [SecretStore](https://external-secrets.io/latest/api/secretstore/) -manifester. I det øyeblikket disse blir plukket opp blir de lest som konfigurasjon for ESO og en synk mot hvelvet starter som vil ende opp med å opprette en Kubernetes Secret. Kubernetes Secreten vil også synkroniseres regelmessig slik at man kan f.eks. rullere hemmeligheter ved å endre dem i hvelvet.
 
 ## SecretStore
 
 SecretStore-manifestet definerer et hvelv, slik som Vault eller GSM, og må settes opp først. Denne konfigurasjonen vil også inneholde hvordan ESO skal autentisere seg og kan gjenbrukes av flere ExternalSecret-manifester. Disse settes typisk opp av et produktteam for deres namespace for å definere hvor de har lagret sine hemmeligheter.
 
-Se [GCPSMProvider](https://external-secrets.io/v0.7.2/api/spec/#external-secrets.io/v1beta1.GCPSMProvider) for alle gyldige verdier.
+Se [GCPSMProvider](https://external-secrets.io/latest/api/spec/#external-secrets.io/v1.GCPSMProvider) for alle gyldige verdier.
 
 ```yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: SecretStore
 metadata:
   name: gsm
@@ -52,7 +52,7 @@ Når du har definert et hemmelighetshvelv med `SecretStore`, kan du definere hvi
 I eksempelet under hentes en hemmelighet fra Google Secret Manager og synkroniseres inn som en Kubernetes `Secret`.
 
 ```yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: dbpass
@@ -93,8 +93,8 @@ apiVersion: external-secrets.io/v1alpha1
 kind: PushSecret
 metadata:
   annotations:
-  name: push-secret-navn
-  namespace: app-namespace
+    name: push-secret-navn
+    namespace: app-namespace
 
 spec:
   # Dette er secreten som pushes til i gsm.
