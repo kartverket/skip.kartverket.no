@@ -31,7 +31,7 @@ En `MaskinportenClient` er en CRD som lar brukere deklarativt opprette og vedlik
         </details>
         <details>
             <summary><strong>exposes</strong> _([]object, optional)_ – En liste med scopes din applikasjon ønsker å eksponere til andre organisasjoner hvor tilgang er basert på organisasjonsnummer.</summary>
-            <p><strong>enabled</strong> _(bool, required)_ – Hvis `true`, så er detkonfigurerte scopet tilgjengelig for bruk og til å bli konsumert av organisasjoner som har fått godkjent tilgang.</p>
+            <p><strong>enabled</strong> _(bool, required)_ – Hvis `true`, så er det konfigurerte scopet tilgjengelig for bruk og til å bli konsumert av organisasjoner som har fått godkjent tilgang.</p>
             <p><strong>name</strong> _(string, påkrevd)_ – Det faktiske sub-scopet kombinert med `product`.</p>
             <p><strong>product</strong> _(string, valgfritt)_ – Produktområde tilknyttet scopet. Dette vil inkluderes i resultatet: `org:<product><name>`.</p>
             <p><strong>atMaxAge</strong> _(int, valgfritt)_ – Maksimal tillatt levetid for token i sekunder. Defaulter til 30 sekunder.</p>
