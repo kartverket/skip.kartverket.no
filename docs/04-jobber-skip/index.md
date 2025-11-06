@@ -79,5 +79,5 @@ Trykk på "Delete", velg "Foreground Delete" (default) og trykk "Ok" så vil `Jo
 
 For å trigge cron jobber manuelt kan du trykke på kebab meny knappen på "cronjob" ressursen og velge "Create Job". 
 
-Ved å sette [`.spec.job.cron.suspend = true`](/docs/applikasjon-utrulling/skiperator/api-docs#skipjobspeccron) kan du hindre en cron jobb fra å kjøre periodisk og den kan dermed trigges manuelt via kebab meny. 
+Ved å sette [`.spec.cron.suspend = true`](/docs/applikasjon-utrulling/skiperator/api-docs#skipjobspeccron) kan du hindre en cron jobb fra å kjøre periodisk og den kan dermed trigges manuelt via kebab meny. 
 SKIPJoben vil da oppføre seg som en one-off jobb, men den vil ikke kjøre når den synces. 
