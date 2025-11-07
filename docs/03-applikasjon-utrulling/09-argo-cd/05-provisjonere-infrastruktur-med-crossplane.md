@@ -75,7 +75,7 @@ Følgende ressurser er støttet for å provisjoneres med Crossplane i dag:
 For å komme i gang med Crossplane må du gjøre noe setup. Alle produktteam får automatisk opprettet en servicekonto på GCP som vil brukes av Crossplane til å autentisere mot GCP, og for at Crossplane skal få brukt denne må det ligge en secret i namespacet deres. For å få inn denne kan dere opprette en secret ved hjelp av en ExternalSecret (se [Hente hemmeligheter fra hemmelighetshvelv](04-hente-hemmeligheter-fra-hemmelighetsvelv.md)) som kopierer hemmeligheten fra Google Secret Manager inn i Kubernetes. Dette må dere sette opp for hvert prefiks i `<prefix>-main` mappen deres i apps-repoet:
 
 ```yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: crossplane-secret

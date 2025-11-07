@@ -13,7 +13,7 @@ The below example of a `config.json` file enables automatic syncing of the direc
 }
 ```
 
-Only placement in root directories of namespaces are supported. For example `dev/foo-main/config.json` or `env/atkv1-dev/foo-main/config.json` .
+Only placement in root directories of namespaces are supported. For example `dev/foo-main/config.json` or `env/atkv3-dev/foo-main/config.json` .
 
 No special action is needed after the file is added to a directory in the apps repo. Argo CD will locate it automatically and update the project settings accordingly.
 
