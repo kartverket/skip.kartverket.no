@@ -3,10 +3,112 @@
 Under finner du video-gjennomganger av hvordan du kan sikre applikasjoner med Ztoperator på SKIP for 
 identitetstilbyderne Microsoft Entra ID, ID-Porten og Ansattporten.
 
-##  Microsoft Entra ID
+## 🔹  Microsoft Entra ID
 
-Følgende eksempel går gjennom hvordan man kan bruke en Ztoperator-`AuthPolicy` til å beskytte en
-eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot Kartverket sin Microsoft Entra ID.
+Følgende eksempel går gjennom hvordan man kan konfigurere en Ztoperator-`AuthPolicy` til å beskytte en
+eksempelapplikasjon og logge inn brukere mot Kartverket sin Microsoft Entra ID. Til det så benyttes Azurerator til klientregistrering, 
+Skiperator til applikasjonsutrulling og Ztoperator til tilgangsstyring og innloggingsflyt.
+
+Oppsettet for eksempelet finner du i [`env/atgcp1-sandbox/ztoperator-demo-entraid` i tilgangsstyring-apps](https://github.com/kartverket/tilgangsstyring-apps/tree/main/env/atgcp1-sandbox/ztoperator-demo-entraid).
+
+Den beskyttede applikasjonen kan nås på [entraid-ztoperator.atgcp1-sandbox.kartverket.cloud](https://entraid-ztoperator.atgcp1-sandbox.kartverket.cloud).
+
+### 📋 Manifester
+
+Følgende manifester ble opprettet for å realisere eksempelet:
+
+<details>
+    <summary><strong>`AzureAdApplication`: ztoperator-demo-entraid/entraid-reg</strong></summary>
+
+```yaml
+apiVersion: nais.io/v1
+kind: AzureAdApplication
+metadata:
+  name: entraid-reg
+spec:
+  claims:
+    groups:
+      - id: a6578085-e0ee-4168-bf97-1b3026f6f3bd # Kartverket@kartverket.no
+  replyUrls:
+    - url: https://entraid-ztoperator.atgcp1-sandbox.kartverket.cloud/oauth2/callback
+  secretName: entraid-secret
+```
+</details>
+
+<details>
+    <summary><strong>`Application`: ztoperator-demo-entraid/entraid-demo-app</strong></summary>
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: entraid-demo-app
+spec:
+  podSettings:
+    annotations:
+      sidecar.istio.io/userVolume: |
+        [
+          {
+            "name": "istio-oauth2",
+            "secret": {
+              "secretName": "authpolicy-entraid-envoy-secret"
+            }
+          }
+        ]
+      sidecar.istio.io/userVolumeMount: |
+        [
+          {
+            "name": "istio-oauth2",
+            "mountPath": "/etc/istio/config",
+            "readonly": true
+          }
+        ]
+  image: ghcr.io/kartverket/ztoperator-echo-app:v0
+  port: 5000
+  env:
+    - name: ECHO_TITLE
+      value: Hello from Entra ID Ztoperator Demo
+  ingresses:
+    - entraid-ztoperator.atgcp1-sandbox.kartverket.cloud
+```
+</details>
+
+<details>
+    <summary><strong>`AuthPolicy`: ztoperator-demo-entraid/authpolicy-entraid</strong></summary>
+```yaml
+apiVersion: ztoperator.kartverket.no/v1alpha1
+kind: AuthPolicy
+metadata:
+  name: authpolicy-entraid
+spec:
+  enabled: true
+  selector:
+    matchLabels:
+      app: entraid-demo-app
+  wellKnownURI: https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration
+  audience:
+    - 51525343-f969-4820-9ddc-4c41526f6aae
+  ignoreAuthRules:
+    - paths:
+        - /
+        - /favicon.ico
+  autoLogin:
+    enabled: true
+    logoutPath: /logout
+    redirectPath: /oauth2/callback
+    scopes:
+      - 51525343-f969-4820-9ddc-4c41526f6aae/.default
+  oAuthCredentials:
+    clientIDKey: AZURE_APP_CLIENT_ID
+    clientSecretKey: AZURE_APP_CLIENT_SECRET
+    secretRef: entraid-secret
+  outputClaimToHeaders:
+    - claim: preferred_username
+      header: zt-mail
+    - claim: name
+      header: zt-name
+```
+</details>
+
 
 <div style={{ maxWidth: 640 }}>
     <div
@@ -18,7 +120,7 @@ eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot Kartver
         }}
     >
         <iframe
-            src="https://kartverket-my.sharepoint.com/personal/lars_sorensen_kartverket_no/_layouts/15/embed.aspx?UniqueId=14821180-8cf0-4500-88de-b993320a2b07&embed=%7B%22ust%22%3Afalse%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
+            src="https://kartverket-my.sharepoint.com/personal/lars_sorensen_kartverket_no/_layouts/15/embed.aspx?UniqueId=3d1d102d-26ca-4671-bbc8-fcb61afaa037&embed=%7B%22ust%22%3Afalse%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
             width="640"
             height="360"
             frameBorder="0"
@@ -39,10 +141,130 @@ eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot Kartver
     </div>
 </div>
 
-## ID-Porten
+## 🪪 ID-Porten
 
-Følgende eksempel går gjennom hvordan man kan bruke en Ztoperator-`AuthPolicy` til å beskytte en
-eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot ID-Porten.
+Følgende eksempel går gjennom hvordan man kan konfigurere en Ztoperator-`AuthPolicy` til å beskytte en
+eksempelapplikasjon og logge inn brukere mot ID-Porten i test. Til det så benyttes Digdir sin selvbetjeningsløsning til klientregistrering, 
+Skiperator til applikasjonsutrulling og Ztoperator til tilgangsstyring og innloggingsflyt.
+
+Oppsettet for eksempelet finner du i [`env/atgcp1-sandbox/ztoperator-demo-idporten` i tilgangsstyring-apps](https://github.com/kartverket/tilgangsstyring-apps/tree/main/env/atgcp1-sandbox/ztoperator-demo-idporten).
+
+Den beskyttede applikasjonen kan nås på [idporten-ztoperator.atgcp1-sandbox.kartverket.cloud](https://idporten-ztoperator.atgcp1-sandbox.kartverket.cloud).
+
+### 📋 Manifester
+
+Følgende manifester ble opprettet for å realisere eksempelet:
+
+<details>
+    <summary><strong>`ExternalSecret`: ztoperator-demo-idporten/idporten-secrets</strong></summary>
+
+```yaml
+apiVersion: external-secrets.io/v1
+kind: SecretStore
+metadata:
+  name: idporten-gsm
+spec:
+  provider:
+    gcpsm:
+      projectID: tilgangsstyring-sandbox-e5ab
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: idporten-secrets
+spec:
+  secretStoreRef:
+    kind: SecretStore
+    name: idporten-gsm
+  target:
+    name: idporten-secrets
+  data:
+    - secretKey: CLIENT_ID
+      remoteRef:
+        key: idporten-client-id
+        metadataPolicy: None
+    - secretKey: CLIENT_SECRET
+      remoteRef:
+        key: idporten-client-secret
+        metadataPolicy: None       
+  refreshInterval: 1h
+```
+</details>
+
+<details>
+    <summary><strong>`Application`: ztoperator-demo-idporten/idporten-demo-app</strong></summary>
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: idporten-demo-app
+spec:
+  podSettings:
+    annotations:
+      sidecar.istio.io/userVolume: |
+        [
+          {
+            "name": "istio-oauth2",
+            "secret": {
+              "secretName": "authpolicy-idporten-envoy-secret"
+            }
+          }
+        ]
+      sidecar.istio.io/userVolumeMount: |
+        [
+          {
+            "name": "istio-oauth2",
+            "mountPath": "/etc/istio/config",
+            "readonly": true
+          }
+        ]
+  image: ghcr.io/kartverket/ztoperator-echo-app:v0
+  port: 5000
+  env:
+    - name: ECHO_TITLE
+      value: Hello from Ztoperator ID-Porten Demo App
+  ingresses:
+    - idporten-ztoperator.atgcp1-sandbox.kartverket.cloud
+```
+</details>
+
+<details>
+    <summary><strong>`AuthPolicy`: ztoperator-demo-idporten/authpolicy-idporten</strong></summary>
+```yaml
+apiVersion: ztoperator.kartverket.no/v1alpha1
+kind: AuthPolicy
+metadata:
+  name: authpolicy-idporten
+spec:
+  enabled: true
+  selector:
+    matchLabels:
+      app: idporten-demo-app
+  wellKnownURI: https://test.idporten.no/.well-known/openid-configuration
+  audience:
+    - 8ad04c24-ac32-4252-9491-763d83d2cfad
+  acceptedResources:
+    - https://idporten-ztoperator.atgcp1-sandbox.kartverket.cloud
+  ignoreAuthRules:
+    - paths:
+        - /
+        - /favicon.ico
+  autoLogin:
+    enabled: true
+    logoutPath: /logout
+    redirectPath: /oauth2/callback
+    scopes:
+      - openid
+      - profile
+  oAuthCredentials:
+    clientIDKey: CLIENT_ID
+    clientSecretKey: CLIENT_SECRET
+    secretRef: idporten-secrets
+  outputClaimToHeaders:
+    - claim: pid
+      header: zt-pid
+```
+</details>
 
 <div style={{ maxWidth: 640 }}>
     <div
@@ -54,13 +276,13 @@ eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot ID-Port
         }}
     >
         <iframe
-            src="https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1"
+            src="https://kartverket-my.sharepoint.com/personal/lars_sorensen_kartverket_no/_layouts/15/embed.aspx?UniqueId=90418fbc-7e6f-4568-a88c-c9c44b63595e&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
             width="640"
             height="360"
             frameBorder="0"
             scrolling="no"
             allowFullScreen
-            title="Team tilgangsstyring - Team Heimdall-20251028_090706-Meeting Recording.mp4"
+            title="Ztoperator - ID-Porten"
             style={{
                 border: 'none',
                 position: 'absolute',
@@ -75,10 +297,139 @@ eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot ID-Port
     </div>
 </div>
 
-## Ansattporten
+## 👩‍💼 Ansattporten
 
-Følgende eksempel går gjennom hvordan man kan bruke en Ztoperator-`AuthPolicy` til å beskytte en
-eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot Ansattporten.
+Følgende eksempel går gjennom hvordan man kan konfigurere en Ztoperator-`AuthPolicy` til å beskytte en
+eksempelapplikasjon og logge inn brukere mot Ansattporten i test. Til det så benyttes Digdir sin selvbetjeningsløsning til klientregistrering, 
+Skiperator til applikasjonsutrulling og Ztoperator til tilgangsstyring og innloggingsflyt.
+
+Oppsettet for eksempelet finner du i [`env/atgcp1-sandbox/ztoperator-demo-ansattporten` i tilgangsstyring-apps](https://github.com/kartverket/tilgangsstyring-apps/tree/main/env/atgcp1-sandbox/ztoperator-demo-ansattporten).
+
+Den beskyttede applikasjonen kan nås på [ansattporten-ztoperator.atgcp1-sandbox.kartverket.cloud](https://ansattporten-ztoperator.atgcp1-sandbox.kartverket.cloud).
+
+### 📋 Manifester
+
+Følgende manifester ble opprettet for å realisere eksempelet:
+
+<details>
+    <summary><strong>`ExternalSecret`: ztoperator-demo-ansattporten/ansattporten-secrets</strong></summary>
+
+```yaml
+apiVersion: external-secrets.io/v1
+kind: SecretStore
+metadata:
+  name: ansattporten-gsm
+spec:
+  provider:
+    gcpsm:
+      projectID: tilgangsstyring-sandbox-e5ab
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: ansattporten-secrets
+spec:
+  secretStoreRef:
+    kind: SecretStore
+    name: ansattporten-gsm
+  target:
+    name: ansattporten-secrets
+  data:
+    - secretKey: CLIENT_ID
+      remoteRef:
+        key: ansattporten-client-id
+        metadataPolicy: None
+    - secretKey: CLIENT_SECRET
+      remoteRef:
+        key: ansattporten-client-secret
+        metadataPolicy: None
+  refreshInterval: 1h
+```
+</details>
+
+<details>
+    <summary><strong>`Application`: ztoperator-demo-ansattporten/ansattporten-demo-app</strong></summary>
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: ansattporten-demo-app
+spec:
+  podSettings:
+    annotations:
+      sidecar.istio.io/userVolume: |
+        [
+          {
+            "name": "istio-oauth2",
+            "secret": {
+              "secretName": "authpolicy-ansattporten-envoy-secret"
+            }
+          }
+        ]
+      sidecar.istio.io/userVolumeMount: |
+        [
+          {
+            "name": "istio-oauth2",
+            "mountPath": "/etc/istio/config",
+            "readonly": true
+          }
+        ]
+  image: ghcr.io/kartverket/ztoperator-echo-app:v0
+  port: 5000
+  env:
+    - name: ECHO_TITLE
+      value: Hello from Ztoperator Ansattporten Demo App
+  ingresses:
+    - ansattporten-ztoperator.atgcp1-sandbox.kartverket.cloud
+```
+</details>
+
+<details>
+    <summary><strong>`AuthPolicy`: ztoperator-demo-ansattporten/authpolicy-ansattporten</strong></summary>
+```yaml
+apiVersion: ztoperator.kartverket.no/v1alpha1
+kind: AuthPolicy
+metadata:
+  name: authpolicy-ansattporten
+spec:
+  enabled: true
+  selector:
+    matchLabels:
+      app: ansattporten-demo-app
+  wellKnownURI: https://test.ansattporten.no/.well-known/openid-configuration
+  audience:
+    - a2b58353-e3b5-4f69-a453-3f180c1f00de
+  acceptedResources:
+    - https://ansattporten-ztoperator.atgcp1-sandbox.kartverket.cloud
+  ignoreAuthRules:
+    - paths:
+        - /
+        - /favicon.ico
+  autoLogin:
+    enabled: true
+    logoutPath: /logout
+    redirectPath: /oauth2/callback
+    scopes:
+      - openid
+      - profile
+    loginParams:
+      authorization_details: |
+        [
+          {
+            "type": "ansattporten:altinn:service",
+            "resource": "urn:altinn:resource:5822:1",
+            "allow_multiple_organizations": false
+          }
+        ]
+  oAuthCredentials:
+    clientIDKey: CLIENT_ID
+    clientSecretKey: CLIENT_SECRET
+    secretRef: ansattporten-secrets
+  outputClaimToHeaders:
+    - claim: pid
+      header: zt-pid
+```
+</details>
 
 <div style={{ maxWidth: 640 }}>
     <div
@@ -90,13 +441,13 @@ eksempelapplikasjon, logge inn brukere og ivareta en innlogget sejon mot Ansattp
         }}
     >
         <iframe
-            src="https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1"
+            src="https://kartverket-my.sharepoint.com/personal/lars_sorensen_kartverket_no/_layouts/15/embed.aspx?UniqueId=9f1cb5d8-0e76-448a-9e5d-87259fbde584&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
             width="640"
             height="360"
             frameBorder="0"
             scrolling="no"
             allowFullScreen
-            title="Team tilgangsstyring - Team Heimdall-20251028_090706-Meeting Recording.mp4"
+            title="Ztoperator - Ansattporten"
             style={{
                 border: 'none',
                 position: 'absolute',

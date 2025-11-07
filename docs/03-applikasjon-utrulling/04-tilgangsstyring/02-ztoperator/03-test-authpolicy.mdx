@@ -69,10 +69,10 @@ steps:
 
   # 🚨 Må kjøres først 🚨
   - name: Setup SKIP
-    uses: kartverket/setup-skip-action@v0.0.1
+    uses: kartverket/setup-skip-action@v0.0.3
 
   - name: Test AuthPolicy
-    uses: kartverket/test-authpolicy-action@v0.0.1
+    uses: kartverket/test-authpolicy-action@v0.0.2
     with:
       test: test.yaml
       authpolicy: authpolicy.yaml
