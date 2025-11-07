@@ -1,0 +1,121 @@
+# Microsoft Entra ID
+
+Microsoft Entra ID er identitetstilbyderen Kartverket bruker internt for sine ansatte. Velger du Microsoft Entra ID som identitetstilbyder for din applikasjon,
+så er det fordi du ønsker å tilby tjenesten din for internt ansatte i Kartverket. 
+En klientregistrering i Microsoft Entra ID kalles for en _app-registration_. For å opprette en app-registration i Microsoft Entra ID, kan du bruke Kubernetes-operatoren [Azurerator](https://github.com/nais/azurerator). 
+Den er utviklet av [NAV sitt plattformteam (NAIS)](https://nais.io), og har som mål å gjøre det enkelt å deklarativt sette opp og vedlikeholde
+app-registrations i [Microsoft Entra ID](https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/Overview).
+
+## 🔹 `AzureAdApplication`
+
+Azurerator introduserer CRD-en `AzureAdApplication`, som håndterer opprettelse og vedlikehold av app-registrations i Microsoft Entra ID. 
+App-registrations opprettet med Azureator vil få navn basert på hvor de er plassert i et Kubernetes-cluster, i.e. `cluster:namespace:name`. 
+Etter å ha fullført opprettelsen, vil Azurerator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksemepel `client_id`, `client_secret`, `private_key_jwt`, diverse URL-er og lignende.  
+
+:::tip
+Azurerator håndterer rullering av hemmeligheter for deg! 
+Hemmeligheten som Azurerator oppretter vil ha to sett med `client_id` og `private_key_jwt`: ett aktivt og ett neste. 
+Når det aktive settet nærmer seg utløp, vil Azurerator automatisk generere et nytt sett og oppdatere app-registreringen i Entra ID.
+:::
+
+<details>
+    <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `AzureAdApplication`</summary>
+
+    <p><strong>allowAllUsers</strong> _(bool, required)_ – Bestemmer om alle brukere i tenanten som Azurerator er konfigurert mot skal få tilgang.</p>
+
+    <details>
+        <summary><strong>claims</strong> _(object, optional)_ – Definerer konfigurasjon av claims som inkluderes i tokenene som returneres til Entra ID applikasjonen.</summary>
+        <details>
+            <summary><strong>groups</strong> _([]object, optional)_ – En liste over Entra ID gruppe ID-er som skal inkluderes i `groups`-claimet i tokenene utstedt av Entra ID. Dette tildeler også grupper til app-registreringen brukt for tilgangskontroll. Kun direkte medlemmer av gruppene får tilgang.</summary>
+            <p><strong>id</strong> _(string, required)_ – Objekt-ID-en (OID) til en Entra ID-gruppe.</p>
+        </details>
+    </details>
+
+    <details>
+        <summary><strong>replyUrls</strong> _([]object, required)_ – URL-er som applikasjonen godtar som svaradresser etter autentisering.</summary>
+        <p><strong>url</strong> _(string, required)_ – En godkjent svaradresse (reply URL) for applikasjonen.</p>
+    </details>
+
+    <p><strong>logoutUrl</strong> _(string, optional)_ – URL-en brukere blir omdirigert til når de logger ut av applikasjonen..</p>
+
+    <details>
+        <summary><strong>preAuthorizedApplications</strong> _([]object, optional)_ – Definerer andre app-registreringer som er forhåndsautorisert til å få tilgang til denne applikasjonen. Her refereres det til tilsvarende `AzureAdApplication`.</summary>
+        <p><strong>application</strong> _(string, required)_ – Navnet på den forhåndsgodkjente applikasjonen.</p>
+        <p><strong>namespace</strong> _(string, required)_ – Namespacet hvor den forhåndsgodkjente applikasjonen befinner seg.</p>
+        <p><strong>cluster</strong> _(string, required)_ – Clusteret hvor den forhåndsgodkjente applikasjonen befinner seg.</p>
+        <details>
+            <summary><strong>permissions</strong> _(object, optional)_ – Spesifiserer hvilke claims den forhåndsautoriserte applikasjonen har.</summary>
+            <p><strong>scopes</strong> _([]string, optional)_ – Liste med egendefinerte tilgangs-scopes tildelt til den forhåndsautoriserte appliaksjonen.</p>
+            <p><strong>roles</strong> _([]string, optional)_ – Liste med egendefinerte tilgangs-roller tildelt til den forhåndsautoriserte appliaksjonen.</p>
+        </details>
+    </details>
+
+    <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
+    <p><strong>secretKeyPrefix</strong> _(string, optional)_ – Et valgfritt brukerdefinert prefiks som brukes på nøklene i den genererte hemmeligheten, og erstatter standardprefikset (AZURE).</p>
+    <p><strong>secretProtected</strong> _(bool, optional)_ – Angir om hemmeligheten skal tilbaketrekkes selv når den ikke er i bruk.</p>
+    <p><strong>singlePageApplication</strong> _(bool, optional)_ – Angir om denne Entra ID-applikasjonen skal registreres som en single-page-application for bruk i klient-side-applikasjoner uten tilgang til hemmeligheter.</p>
+</details>
+
+Følgende eksempel oppretter app-registreringen `atgcp1-sandbox:tilgangsstyring-main:test-app`.
+Den gir kun tilgang til direkte medlemmer av gruppene med objekt-ID [4bdc77ce-2a99-406c-a07e-88a1eba82dd9](https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupDetailsMenuBlade/~/Overview/groupId/4bdc77ce-2a99-406c-a07e-88a1eba82dd9/menuId/) eller [1262b1c5-d2db-44ad-96e3-ed8637e6b996](https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupDetailsMenuBlade/~/Overview/groupId/1262b1c5-d2db-44ad-96e3-ed8637e6b996/menuId/).
+Den forhåndsautoriserer også app-registration med navn `atgcp1-dev:other-namespace:other-app`.
+Når registrering er fullført vil Azurerator opprette Kubernetes-hemmeligheten `entraid-secret` i namespacet `tilgangsstyring-main`.
+
+Hvis denne klientregistreringen skal brukes sammen med Ztoperator for å beskytte din applikasjon og eventuelt logge inn brukere, 
+så er det et par felt som må konfigureres riktig.
+
+- `spec.replyUrls` må samsvare med `spec.ingresses` i din Skiperator-`Application` og `spec.autoLogin.redirectPath` i din Ztoperator-`AuthPolicy`.
+- `spec.logoutUrl` må matche `spec.ingresses` i din Skiperator-`Application`.
+- `spec.secretName` må matche `spec.oAuthCredentials` i Ztoperator-`AuthPolicy`.
+- `spec.singlePageApplication` må være satt til `false` ettersom Ztoperator ikke gjennomfører innloggingsflyten i en offentlig klient.
+
+```yaml title="Klientregistrering mot Microsoft Entra ID med Azurerator"
+apiVersion: nais.io/v1
+kind: AzureAdApplication
+metadata:
+  name: test-app
+  namespace: tilgangsstyring-main
+spec:
+  allowAllUsers: false
+  claims:
+    groups:
+      - id: 4bdc77ce-2a99-406c-a07e-88a1eba82dd9
+      - id: 1262b1c5-d2db-44ad-96e3-ed8637e6b996
+  replyUrls:
+    - url: https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/callback
+  logoutUrl: https://test-app.atgcp1-sandbox.kartverket-intern.cloud/
+  preAuthorizedApplications:
+    - application: other-app
+      namespace: other-namespace
+      cluster: atgcp1-dev
+  secretName: entraid-secret
+  secretKeyPrefix: CUSTOM_PREFIX
+  secretProtected: true
+  singlePageApplication: false
+```
+
+```yaml title="Hemmelighet opprettet av Azurerator etter fullført klientregistrering"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: entraid-secret
+  namespace: tilgangsstyring-main
+data:
+  AZURE_APP_CERTIFICATE_KEY_ID: ++++++++
+  AZURE_APP_CLIENT_ID: ++++++++
+  AZURE_APP_CLIENT_SECRET: ++++++++
+  AZURE_APP_JWK: ++++++++
+  AZURE_APP_JWKS: ++++++++
+  AZURE_APP_NEXT_CERTIFICATE_KEY_ID: ++++++++
+  AZURE_APP_NEXT_CLIENT_SECRET: ++++++++
+  AZURE_APP_NEXT_JWK: ++++++++
+  AZURE_APP_NEXT_PASSWORD_KEY_ID: ++++++++
+  AZURE_APP_PASSWORD_KEY_ID: ++++++++
+  AZURE_APP_PRE_AUTHORIZED_APPS: ++++++++
+  AZURE_APP_TENANT_ID: ++++++++
+  AZURE_APP_WELL_KNOWN_URL: ++++++++
+  AZURE_OPENID_CONFIG_ISSUER: ++++++++
+  AZURE_OPENID_CONFIG_JWKS_URI: ++++++++
+  AZURE_OPENID_CONFIG_TOKEN_ENDPOINT: ++++++++
+type: Opaque
+```

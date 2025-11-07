@@ -1,0 +1,100 @@
+import ZtoperatorLogo from '../images/ztoperator-logo.png';
+import Columns from '@site/src/components/Columns';
+import Column from '@site/src/components/Column';
+
+# Ztoperator
+
+<Columns> 
+  <Column className='col--8'>
+    Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons endepunkter skal styres. Den gir støtte for å
+    
+    - definere hvilke endepunkter som skal være åpne.
+    - definere hvilke endepunkter som krever et gyldig OAuth 2.0-token.
+    - definere hvilke endepunkter som krever spesifikke claims.
+    - definere hvilke endepunkter som skal omdirigere brukeren til innlogging.
+  </Column>
+  <Column className='text--center'>
+    <img src={ZtoperatorLogo} style={{width: 300}} />
+  </Column>
+</Columns>
+
+Ztoperator konfigureres opp mot en identitetstilbyder med feltet `spec.wellKnownURI`, som peker til et [OpenID Connect Discovery Document](https://openid.net/specs/openid-connect-discovery-1_0.html). Dette dokumentet inneholder informasjon om hvordan Ztoperator skal kommunisere med identitetstilbyderen, slik som endepunkter for autentisering, tokenvalidering og utlogging. 
+Hvilke identitetstilbydere Ztoperator støtter per nå kan ses under [Støttede identitetstilbydere](#-støttede-identitetstilbydere).
+
+Hvilke felter som eksisterer og deres oppførsel er dokumentert i [API Reference](02-api-docs.mdx).
+Hvordan du kan teste og verifisere oppførselen til en `AuthPolicy` finner du under [Test din Ztoperator-AuthPolicy](03-test-authpolicy.mdx).
+
+## 🚀 Innlogging og utlogging med Ztoperator
+
+Det går an å konfigurere Ztoperator til å håndtere innlogging og utlogging av sluttbrukere på vegne av applikasjonen din. 
+Dette gjøres ved å sette opp `spec.autoLogin` og `spec.oAuthCredentials` i Ztoperator-`AuthPolicy`-ressursen din. 
+`spec.autoLogin` konfigurerer ulike endepunkter brukt i innloggings -og utloggingsflyten, mens `spec.oAuthCredentials` 
+peker til en Kubernetes-hemmelighet som inneholder klient-ID `client_id` og klienthemmelighet `client_secret` for en registrert OIDC-klient hos identitetstilbyderen. 
+
+En annen ting å merke seg er at Ztoperator ikke har lov til å laste inn hemmeligheter som brukes for innlogging i den beskyttede applikasjonen. 
+For å løse dette er man nødt til å legge til en konfigurasjon på den beskyttede Skiperator-applikasjonen for at innloggingshemligheter som Ztoperator håndterer skal kunne lastes inn.
+Følgende eksempel viser hvordan dette kan gjøres i en Skiperator-applikasjon. Hvorfor det må til overlates som en oppgave til leseren, men det viktige er at 
+man er nødt til å erstatte `<NAVN PÅ AUTHPOLICY>` med navnet på sin Ztoperator-`AuthPolicy`. Så hvis din `AuthPolicy` heter `my-auth-policy`, så må du sette `secretName: my-auth-policy-envoy-secret`.
+
+:::danger[OBS]
+For at innlogging skal fungere med Ztoperator, **må** den beskyttede Skiperator-applikasjonen oppdateres med 
+`spec.podSettings.annotations.sidecar.istio.io/userVolume` og `spec.podSettings.annotations.sidecar.istio.io/userVolumeMount`.
+:::
+
+```yaml title="Skiperator-applikasjon med Ztoperator-innlogging"
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+spec:
+//diff-add-start
+  podSettings:
+    annotations:
+      sidecar.istio.io/userVolume: |
+        [
+          {
+            "name": "istio-oauth2",
+            "secret": {
+              "secretName": "<NAVN PÅ AUTHPOLICY>-envoy-secret"
+            }
+          }
+        ]
+      sidecar.istio.io/userVolumeMount: |
+        [
+          {
+            "name": "istio-oauth2",
+            "mountPath": "/etc/istio/config",
+            "readonly": true
+          }
+        ]
+//diff-add-end
+  image: ghcr.io/kartverket/myapp:latest
+  port: 8080
+  ingresses:
+    - myapp.atkv3-dev.kartverket-intern.cloud
+  redirectToHTTPS: true
+  accessPolicy:
+    inbound: 
+      rules:
+        - application: myjob-skipjob
+```
+
+## 🎬 Tutorials
+
+I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator for å beskytte en applikasjon på SKIP.
+
+- [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-tutorials.mdx#--microsoft-entra-id)
+- [Eksempeloppsett av Ztoperator: ID-Porten](01-tutorials.mdx#-id-porten)
+- [Eksempeloppsett av Ztoperator: Ansattporten](01-tutorials.mdx#-ansattporten)
+
+## 🛠 Støttede identitetstilbydere
+
+| Miljø | Identitetstilbyder | `wellKnownURI` |
+| --- | --- | --- |
+| `PROD` | Microsoft Entra ID (Kartverket) | [https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration](https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration) |
+| `TEST` | ID-porten | [https://test.idporten.no/.well-known/openid-configuration](https://test.idporten.no/.well-known/openid-configuration) |
+| `PROD` | ID-porten | [https://idporten.no/.well-known/openid-configuration](https://idporten.no/.well-known/openid-configuration) |
+| `TEST` | Maskinporten | [https://test.maskinporten.no/.well-known/oauth-authorization-server](https://test.maskinporten.no/.well-known/oauth-authorization-server) |
+| `PROD` | Maskinporten | [https://maskinporten.no/.well-known/oauth-authorization-server](https://maskinporten.no/.well-known/oauth-authorization-server) |
+| `TEST` | Ansattporten | [https://test.ansattporten.no/.well-known/openid-configuration](https://test.ansattporten.no/.well-known/openid-configuration) |
+| `PROD` | Ansattporten | [https://ansattporten.no/.well-known/openid-configuration](https://ansattporten.no/.well-known/openid-configuration) |
