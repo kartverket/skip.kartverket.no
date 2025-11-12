@@ -41,4 +41,4 @@ jobs:
           fail-on-severity: moderate
 ```
 
-Dependency review kan fjernes eller konfigureres slik teamet ønsker det. Se også [Dependency review](./dependency-review.md).
+Dependency review kan fjernes eller konfigureres slik teamet ønsker det. Se også [Dependency review](./05-dependency-review.md).

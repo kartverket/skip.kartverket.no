@@ -17,5 +17,5 @@ Kom igang ved å sjekke ut lenkene under:
 - [GitHub Actions som CI/CD](../../../03-applikasjon-utrulling/08-github-actions/index.md)
 - [Håndtering av sensitiv data som er kommet på repositoriet](04-håndtering-av-sensitiv-data-som-er-kommet-på-repositoriet.md)
 - [Bruk av GitHub med Jenkins](05-bruk-av-github-med-jenkins.md)
-- [Tilgang til on-prem infrastruktur fra GitHub Actions](../../../03-applikasjon-utrulling/08-github-actions/tilgang-til-on-prem-infrastruktur-fra-github-actions.md)
-- [Tilgang til repoer med tokens fra GitHub Actions](../../../03-applikasjon-utrulling/08-github-actions/tilgang-til-repoer-med-tokens-fra-github-actions.md)
+- [Tilgang til on-prem infrastruktur fra GitHub Actions](../../../03-applikasjon-utrulling/08-github-actions/13-tilgang-til-on-prem-infrastruktur-fra-github-actions.md)
+- [Tilgang til repoer med tokens fra GitHub Actions](../../../03-applikasjon-utrulling/08-github-actions/12-tilgang-til-repoer-med-tokens-fra-github-actions.md)

@@ -32,7 +32,7 @@ Det finnes mange GCP-kurs på [Pluralsight](https://www.pluralsight.com/browse/g
 - [CloudSQL](../06-lagring/03-cloud-sql.md) - Relasjonell database
 
 ### Infrastruktur og containere
-- [Terraform](../03-applikasjon-utrulling/08-github-actions/bruk-av-terraform.md) - Infrastructure as Code ([Pluralsight](https://app.pluralsight.com/library/courses/terraform-getting-started-2023/table-of-contents))
+- [Terraform](../03-applikasjon-utrulling/08-github-actions/01-bruk-av-terraform.md) - Infrastructure as Code ([Pluralsight](https://app.pluralsight.com/library/courses/terraform-getting-started-2023/table-of-contents))
 - Helm - Kubernetes package manager ([Offisiell Intro](https://helm.sh/docs/intro/quickstart/))
 - Docker - Containerteknologi ([Offisiell Intro](https://docs.docker.com/get-started/))
 

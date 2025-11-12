@@ -4,7 +4,7 @@
 
 ![Dep Rev](./images/dependency-review-pr.png)
 
-GitHub actions kan brukes for å få beskjed om sårbarheter og lisenser på PR, slik som i eksempelet under. Dette forutsetter at dependency graph er riktig satt opp for økosystemet. Gradle-økosystemet må håndteres på en spesiell måte, som vist i [Transitive avhengigheter i Dependency Graph med Gradle](./gradle-dependency-graph.md). Se også [Dependency graph i Sikkerhetshåndboka](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/306906088/Dependency+Graph).
+GitHub actions kan brukes for å få beskjed om sårbarheter og lisenser på PR, slik som i eksempelet under. Dette forutsetter at dependency graph er riktig satt opp for økosystemet. Gradle-økosystemet må håndteres på en spesiell måte, som vist i [Transitive avhengigheter i Dependency Graph med Gradle](./06-gradle-dependency-graph.md). Se også [Dependency graph i Sikkerhetshåndboka](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/306906088/Dependency+Graph).
 
 ```yaml
 name: Review dependencies
