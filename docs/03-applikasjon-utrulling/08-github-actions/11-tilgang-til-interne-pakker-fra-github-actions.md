@@ -5,14 +5,14 @@ Når man jobber med avhengigheter til interne pakker i organisasjonen kan det v�
 ## Bakgrunn
 GitHub tilbyr ikke en optimal mekanisme for å dele interne pakker på tvers av repoer i en organisasjon. Dette har ført til at utviklerne i ulike team må opprette egne PAT's manuelt, og disse blir liggende rundt om kring i ulike repoer til de utløper. 
 
-Vi har vurdert og besluttet at en pragmatisk løsning er å tilby et organization secret som gir lesetilgang til pakker. Dette er en mellomløsning i påvente av bedre mekanismer fra GitHub.
+Vi har vurdert og besluttet at en pragmatisk løsning er å tilby en secret på organisasjonsnivå som gir lesetilgang til pakker internt. Dette er en mellomløsning i påvente av bedre mekanismer fra GitHub.
 
 :::info
 Tokenet gir kun lesetilgang til pakker i organisasjonen, og skal ikke brukes til andre formål.
 :::
 
 ## Slik får repoet ditt tilgang
-For å få tilgang til en organization secret som gir lesetilgang til interne pakker, må du gjøre følgende:
+For å få tilgang til secreten med tokenet for henting av interne pakker må du gjøre følgende:
 
 ### 1. Legg til topic på repoet
 Legg til topic `needs-packages` på GitHub-repoet ditt. Dette gjøres ved å gå til repo-innstillingene på GitHub.
@@ -21,8 +21,8 @@ Legg til topic `needs-packages` på GitHub-repoet ditt. Dette gjøres ved å gå
 ![Legg til topic steg 2](./images/repo-topic-details.png)
 
 
-### 2. Trigger Terraform-workflow
-Når topic er lagt til må du trigge Terraform-workflowen i [github-iac](https://github.com/kartverket/github-iac/actions/workflows/shared_package_repos.yaml) for å oppdatere tilgangene. Dette sørger for at repoet ditt får tilgang til organization secret.
+### 2. Kjør Terraform-workflow
+Når topic er lagt til må du kjøre Terraform-workflowen i [github-iac](https://github.com/kartverket/github-iac/actions/workflows/shared_package_repos.yaml) for å oppdatere tilgangene. Dette sørger for at repoet ditt får tilgang til tokenet som en secret fra organisasjonen.
 
 Workflowen kjøres også automatisk en gang daglig kl 12 for å fange opp nye repoer og fjerne tilgang fra repoer som ikke lenger har topicen.
 
