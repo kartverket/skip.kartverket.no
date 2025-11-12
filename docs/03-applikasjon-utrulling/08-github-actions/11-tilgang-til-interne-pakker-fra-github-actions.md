@@ -26,6 +26,10 @@ Når topic er lagt til må du kjøre Terraform-workflowen i [github-iac](https:/
 
 Workflowen kjøres også automatisk en gang daglig kl 12 for å fange opp nye repoer og fjerne tilgang fra repoer som ikke lenger har topicen.
 
+Når workflowen har kjørt kan du verifisere at repoet ditt har fått tilgang ved å gå til `Settings` -> `Secrets and variables` -> `Actions` i repoet ditt. Der skal du se en secret med navnet `SHARED_PACKAGES_READ_TOKEN`.
+
+![Verifiser secret](./images/repo-org-secret.png)
+
 ### 3. Bruk tokenet i workflows
 Etter at tilgangen er på plass kan du bruke tokenet i dine GitHub Actions workflows. Organization secret heter `SHARED_PACKAGES_READ_TOKEN` og kan brukes som en environment-variabel eller sendes inn til actions etter behov.
 
@@ -60,3 +64,7 @@ jobs:
         with:
           token: ${{ secrets.SHARED_PACKAGES_READ_TOKEN }}
 ```
+
+:::tip
+Husk å slette eventuelle gamle PAT's opprettet på din personlige konto når du har bekreftet at alt fungerer med det nye tokenet.
+:::
