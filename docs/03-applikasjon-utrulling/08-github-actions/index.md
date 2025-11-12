@@ -36,10 +36,10 @@ Resultatet blir å finne på GitHub repositoriet til koden og ser slik ut:
 
 ![GH Repo](images/306745536.png)
 
-Det er anbefalt å kjøre skannere på images som bygges før de deployes. Da vil sårbarheter kunne vises i [Utviklerportalen](https://kartverket.dev/). Se [Pharos](./pharos.md) for å komme i gang med kodeskanning.
+Det er anbefalt å kjøre skannere på images som bygges før de deployes. Da vil sårbarheter kunne vises i [Utviklerportalen](https://kartverket.dev/). Se [Pharos](04-pharos.md) for å komme i gang med kodeskanning.
 
 ## Deployment
 
 For deployment brukes Argo CD som det dedikert deployment-verktøy. Se [Argo CD](../09-argo-cd/index.md) for mer informasjon om hvordan man tar i bruk dette.
 
-Det vil finnes prosjekter som bruker Terraform, enten fordi de hadde oppstart før Argo CD eller fordi de har spesielle behov som tilsier at de trenger Terraform. Disse prosjektene kan se på [Bruk av Terraform](bruk-av-terraform.md) for videre dokumentasjon. For nye prosjekter anbefaler vi Argo CD.
+Det vil finnes prosjekter som bruker Terraform, enten fordi de hadde oppstart før Argo CD eller fordi de har spesielle behov som tilsier at de trenger Terraform. Disse prosjektene kan se på [Bruk av Terraform](01-bruk-av-terraform.md) for videre dokumentasjon. For nye prosjekter anbefaler vi Argo CD.

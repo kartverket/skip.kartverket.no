@@ -20,7 +20,7 @@ På forhånd takk 🙌
 
 2. Etter du har fått tilgang til hemmelighetene, legg til følgende i din GitHub workflow
 
-```java
+```yaml
 - name: Tailscale
   uses: tailscale/github-action@v2
   with:
