@@ -40,6 +40,7 @@ const darkCodeTheme = themes.dracula;
             blogTitle: 'SKIP Tech Blog',
             blogDescription: 'SKIP\'s latest!',
             blogSidebarTitle: 'Recent posts',
+            blogSidebarCount: 'ALL',
             feedOptions: {
               type: "all",
             },
