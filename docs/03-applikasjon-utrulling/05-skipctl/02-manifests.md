@@ -106,3 +106,14 @@ Formaterer manifestfiler i stedet (“in place”) eller fra stdin til stdout.
 | `skipctl manifest format` | Formaterer alle manifester i nåværende katalog rekursivt. |
 | `skipctl manifest format -p ./k8s` | Formaterer alle manifester under ./k8s. |
 | `cat manifest.jsonnet \| skipctl manifest format -` | Leser fra stdin, skriver formatert til stdout. |
+
+---
+
+## Schemas
+
+Lister ut alle støttede skjemaer som kan brukes for validering.
+
+**Eksempel bruk**
+| Kommando | Handling |
+|---|---|
+| `skipctl schemas` | Lister ut alle støttede skjemaer. |
