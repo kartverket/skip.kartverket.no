@@ -7,12 +7,6 @@ brew tap kartverket/taps && \
 brew install skipctl
 ```
 
-### Installere Go
-For å bygge skipctl fra kildekode trenger du Go installert:
-```shell
-brew install go
-```
-
 ### Oppdatering
 Om du allerede har installert skipctl kan du sjekke versjon slik:
 ```shell
@@ -22,6 +16,16 @@ skipctl -v
 Oppdater til nyeste versjon slik:
 ```shell
 brew upgrade kartverket/taps/skipctl
+```
+
+## Utvikling av skipctl
+
+*Dette avsnittet er kun relevant for de som skal jobbe med kildekoden til skipctl.*
+
+### Installere Go
+For å bygge skipctl fra kildekode trenger du Go installert:
+```shell
+brew install go
 ```
 
 ### Bygg
@@ -54,9 +58,6 @@ golangci-lint run
 ### Installasjon
 Last ned [siste versjon](https://github.com/kartverket/skipctl/releases) for Windows.
 
-### Installere Go
-For å bygge skipctl fra kildekode trenger du Go installert. Last ned fra [go.dev/dl](https://go.dev/dl/).
-
 ### Oppdatering
 Last ned [siste versjon](https://github.com/kartverket/skipctl/releases) og erstatt den eksisterende filen.
 
@@ -64,6 +65,13 @@ Sjekk versjon:
 ```shell
 skipctl -v
 ```
+
+## Utvikling av skipctl (Windows)
+
+*Dette avsnittet er kun relevant for de som skal jobbe med kildekoden til skipctl.*
+
+### Installere Go
+For å bygge skipctl fra kildekode trenger du Go installert. Last ned fra [go.dev/dl](https://go.dev/dl/).
 
 ### Bygg
 Bygg skipctl med make:
