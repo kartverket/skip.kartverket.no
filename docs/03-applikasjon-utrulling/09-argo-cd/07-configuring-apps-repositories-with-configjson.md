@@ -1,10 +1,10 @@
-# Configuring apps repositories with config.json
+# Konfigurere applikasjons-repositorier med config.json
 
-Using [Argo CD](index.md) to deploy and dynamically set up new environments by adding new directories in your [apps-repo](02-hva-er-et-apps-repo.md) is a super convenient way to spin up new test environments, but it also introduces some challenges. Since projects in Argo CD are dynamically created as new directories in your apps repo are discovered, the settings on those projects have until now been pre-defined by SKIP. This gives you sane default behaviours like auto sync enabled on dev but not on prod and generally no good ways to change that behaviour.
+Applikasjoner i [Argo CD](index.md) opprettes dynamisk når nye mapper i [apps-repoet](02-hva-er-et-apps-repo.md) blir opprettet. Disse applikasjonene følger en standard som er forhåndsdefinert av SKIP. Som standard er autosynkronsikring aktivert i utviklingsmiljø (dev), men ikke i produksjon (prod).
 
-It’s possible to configure the settings of a directory within your apps-repo by adding a special file called `config.json` . When this file is present, a set of pre-defined options can be provided to configure the way that directory is synced by Argo CD.
+Det er mulig å konfigurere innstillingene til en applikasjon i apps-repoet ditt ved å legge til en spesiell fil kalt config.json i mappen. Når denne filen er til stede, kan et sett forhåndsdefinerte alternativer angis for å konfigurere hvordan applikasjonen skal synkroniseres av Argo CD.
 
-The below example of a `config.json` file enables automatic syncing of the directory that it resides in.
+Eksempelet nedenfor viser en `config.json` fil:
 
 ```javascript
 {
@@ -13,16 +13,16 @@ The below example of a `config.json` file enables automatic syncing of the direc
 }
 ```
 
-Only placement in root directories of namespaces are supported. For example `dev/foo-main/config.json` or `env/atkv3-dev/foo-main/config.json` .
+`config.json` Kan kun plasseres i rot-mappen for namespaces. For eksempel: `dev/foo-main/config.json` eller `env/atkv3-dev/foo-main/config.json` .
 
-No special action is needed after the file is added to a directory in the apps repo. Argo CD will locate it automatically and update the project settings accordingly.
+Når filen er lagt til i mappen, må applikasjonen synkroniseres i Argo CD for å oppdatere applikasjonsinnstillingene slik at de følger spesifikasjonene i `config.json`. Dette skjer automatisk hvis autosynkronsikring er aktivert.
 
-## Supported options
+## Tilgjengelige innstillinger
 
-| **Key**           | **Type**                           | **Description**                                                                                                                                                                                                                                                                                                                                      |
+| **Nøkkel**           | **Type**                           | **Beskrivelse**                                                                                                                                                                                                                                                                                                                                      |
 | ----------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tool` (required) | `directory` / `kustomize` / `helm` | Which tool should Argo CD use to sync this directory? The “Directory” option supports yaml and jsonnet files. See also [tools](https://argo-cd.readthedocs.io/en/latest/user-guide/application_sources/) .                                                                                                                                           |
-| `autoSync`        | boolean ( `true` / `false` )       | When set to `true` , the directory is automatically synced when changes are detected. The default value is `true` in dev and `false` in prod.                                                                                                                                                                                                        |
-| `prune`           | boolean ( `true` / `false` )       | When enabled, Argo CD will automatically remove resouces that are no longer present in Git. Default is `true` . See [prune](https://argo-cd.readthedocs.io/en/latest/user-guide/auto_sync/#automatic-pruning) . Only used when `autoSync` is `true`                                                                                                  |
-| `allowEmpty`      | boolean ( `true` / `false` )       | Safety mechanism. When `prune` is enabled it deletes resources automatically, but it will not allow empty syncs (delete all) unless `allowEmpty` also is enabled. Default is `false` . See [allowEmpty](https://argo-cd.readthedocs.io/en/latest/user-guide/auto_sync/#automatic-pruning-with-allow-empty-v18) . Only used when `autoSync` is `true` |
-| `selfHeal`        | boolean ( `true` / `false` )       | When changes are made on the cluster directly, Argo will not revert them unless `selfHeal` is provided. Default is `true` . See [self heal](https://argo-cd.readthedocs.io/en/latest/user-guide/auto_sync/#automatic-self-healing) . Only used when `autoSync` is `true`                                                                             |
+| `tool` (required) | `directory` / `kustomize` / `helm` | Hvilken framgangsmåte Argo CD skal bruke for å synkronisere applikasjonen. “Directory” alternativet støtter yaml og jsonnet filer. Se [tools](https://argo-cd.readthedocs.io/en/latest/user-guide/application_sources/).                                                                                                                                           |
+| `autoSync`        | boolean ( `true` / `false` )       | Når den er `true` , vil applikasjonen automatisk synkroniseres når Argo CD oppdager endringer i apps-repoet.  Standardverdi er`true` i dev og `false` i prod.                                                                                                                                                                                                        |
+| `prune`           | boolean ( `true` / `false` )       |Når den er `true` , Vil Argo CD automatisk fjerne ressurser som ikke eksisterer i apps-repoet i Git. Standardverdi er `true` . Se [prune](https://argo-cd.readthedocs.io/en/latest/user-guide/auto_sync/#automatic-pruning) . Blir bare brukt hvis `autoSync` er `true`.                                                                                                  |
+| `allowEmpty`      | boolean ( `true` / `false` )       | Sikkerhetsmekanisme. Når prune er `true`, vil ressurser slettes automatisk, men det tillates ikke tomme synkroniseringer (slette alt) utenom når `allowEmpty` er også satt til `true`. Standardverdi er `false` . Se [allowEmpty](https://argo-cd.readthedocs.io/en/latest/user-guide/auto_sync/#automatic-pruning-with-allow-empty-v18) . Blir bare brukt hvis `autoSync` er `true`. |
+| `selfHeal`        | boolean ( `true` / `false` )       | Når forandringer er gjort direkte på klusteret, vil Argo CD ikke tilbakestille disse med mindre `selfHeal` er satt til `true` . Standardverdi er `true` . Se [selfHeal](https://argo-cd.readthedocs.io/en/latest/user-guide/auto_sync/#automatic-self-healing) . Blir bare brukt hvis `autoSync` er `true`.                                                                             |
