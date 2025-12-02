@@ -49,7 +49,7 @@ golangci-lint run
 Last ned [siste versjon](https://github.com/kartverket/skipctl/releases) for Windows.
 
 ### Oppdatering
-Last ned [nyeste versjon](https://github.com/kartverket/skipctl/releases) og erstatt den eksisterende filen.
+Last ned [siste versjon](https://github.com/kartverket/skipctl/releases) og erstatt den eksisterende filen.
 
 Sjekk versjon:
 ```shell
