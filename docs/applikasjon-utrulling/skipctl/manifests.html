@@ -16,8 +16,8 @@
 <script>!function(t,e){var o,s,r,a;e.__SV||(window.posthog=e,e._i=[],e.init=function(p,i,n){function u(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(r=t.createElement("script")).type="text/javascript",r.async=!0,r.src=i.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(a=t.getElementsByTagName("script")[0]).parentNode.insertBefore(r,a);var c=e;for(void 0!==n?c=e[n]=[]:n="posthog",c.people=c.people||[],c.toString=function(t){var e="posthog";return"posthog"!==n&&(e+="."+n),t||(e+=" (stub)"),e},c.people.toString=function(){return c.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),s=0;s<o.length;s++)u(c,o[s]);e._i.push([p,i,n])},e.__SV=1)}(document,window.posthog||[]),posthog.init("phc_u4Ex4Cbp5HNPRMCbuXo9saYy66sbqTPAuzOBCkD8EJa",{api_host:"https://ph.kartverket.no",ui_host:"https://eu.i.posthog.com",id:"default"})</script>
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.0042e133.css">
-<script src="/assets/js/runtime~main.f3347caf.js" defer="defer"></script>
-<script src="/assets/js/main.65e05bef.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.a2cfc1b4.js" defer="defer"></script>
+<script src="/assets/js/main.b87026c7.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -47,19 +47,19 @@ Kommandoene skal gjøre lokal utvikling enklere, men de kan også brukes i githu
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="validate">Validate<a href="#validate" class="hash-link" aria-label="Direct link to Validate" title="Direct link to Validate" translate="no">​</a></h2>
 <p>Validerer manifestfiler mot kjente Kubernetes-skjema, oppsummerer resultater og rydder opp midlertidige filer.</p>
 <p><strong>Eksempel bruk</strong></p>
-<table><thead><tr><th>Kommando</th><th>Handling</th></tr></thead><tbody><tr><td><code>skipctl manifest validate</code></td><td>Validerer alle manifester i nåværende katalog.</td></tr><tr><td><code>skipctl manifest validate -p ./k8s</code></td><td>Validerer alle manifester under ./k8s.</td></tr><tr><td><code>cat manifest.jsonnet | skipctl manifest validate -</code></td><td>Validerer manifest fra stdin.</td></tr></tbody></table>
+<table><thead><tr><th>Kommando</th><th>Handling</th></tr></thead><tbody><tr><td><code>skipctl manifest validate</code></td><td>Validerer alle manifester i nåværende katalog.</td></tr><tr><td><code>skipctl manifest validate ./k8s</code></td><td>Validerer alle manifester under ./k8s.</td></tr><tr><td><code>skipctl manifest validate ./k8s/validateme.jsonnet</code></td><td>Validerer filen /validateme.jsonnet.</td></tr><tr><td><code>cat manifest.jsonnet | skipctl manifest validate -</code></td><td>Validerer manifest fra stdin.</td></tr></tbody></table>
 <p><strong>Output (oppsummering)</strong></p>
 <table><thead><tr><th>Felt</th><th>Beskrivelse</th></tr></thead><tbody><tr><td><code>totalResources</code></td><td>Totalt antall ressurser prosessert</td></tr><tr><td><code>valid</code></td><td>Antall gyldige</td></tr><tr><td><code>invalid</code></td><td>Antall ugyldige</td></tr><tr><td><code>errors</code></td><td>Antall feil under validering</td></tr><tr><td><code>skipped</code></td><td>Antall hoppet over</td></tr></tbody></table>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="render">Render<a href="#render" class="hash-link" aria-label="Direct link to Render" title="Direct link to Render" translate="no">​</a></h2>
 <p>Renderer manifestfiler og skriver gyldig output til stdout. Feil går til stderr.</p>
 <p><strong>Eksempel bruk</strong></p>
-<table><thead><tr><th>Kommando</th><th>Handling</th></tr></thead><tbody><tr><td><code>skipctl manifest render</code></td><td>Renderer alle manifester i nåværende katalog.</td></tr><tr><td><code>skipctl manifest render -p ./manifests</code></td><td>Renderer alle manifester under ./manifests.</td></tr><tr><td><code>cat manifest.jsonnet | skipctl manifest render -</code></td><td>Leser manifest fra stdin og renderer til stdout.</td></tr></tbody></table>
+<table><thead><tr><th>Kommando</th><th>Handling</th></tr></thead><tbody><tr><td><code>skipctl manifest render</code></td><td>Renderer alle manifester i nåværende katalog.</td></tr><tr><td><code>skipctl manifest render ./manifests</code></td><td>Renderer alle manifester under ./manifests.</td></tr><tr><td><code>skipctl manifest render ./manifests/renderme.jsonnet</code></td><td>Renderer filen /renderme.jsonnet`.</td></tr><tr><td><code>cat manifest.jsonnet | skipctl manifest render -</code></td><td>Leser manifest fra stdin og renderer til stdout.</td></tr></tbody></table>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="format">Format<a href="#format" class="hash-link" aria-label="Direct link to Format" title="Direct link to Format" translate="no">​</a></h2>
 <p>Formaterer manifestfiler i stedet (“in place”) eller fra stdin til stdout.</p>
 <p><strong>Eksempel bruk</strong></p>
-<table><thead><tr><th>Kommando</th><th>Handling</th></tr></thead><tbody><tr><td><code>skipctl manifest format</code></td><td>Formaterer alle manifester i nåværende katalog rekursivt.</td></tr><tr><td><code>skipctl manifest format -p ./k8s</code></td><td>Formaterer alle manifester under ./k8s.</td></tr><tr><td><code>cat manifest.jsonnet | skipctl manifest format -</code></td><td>Leser fra stdin, skriver formatert til stdout.</td></tr></tbody></table>
+<table><thead><tr><th>Kommando</th><th>Handling</th></tr></thead><tbody><tr><td><code>skipctl manifest format</code></td><td>Formaterer alle manifester i nåværende katalog rekursivt.</td></tr><tr><td><code>skipctl manifest format ./k8s</code></td><td>Formaterer alle manifester under ./k8s.</td></tr><tr><td><code>skipctl manifest format ./k8s/formatme.jsonnet</code></td><td>Formaterer filen ./formatme.jsonnet.</td></tr><tr><td><code>cat manifest.jsonnet | skipctl manifest format -</code></td><td>Leser fra stdin, skriver formatert til stdout.</td></tr></tbody></table>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="schemas">Schemas<a href="#schemas" class="hash-link" aria-label="Direct link to Schemas" title="Direct link to Schemas" translate="no">​</a></h2>
 <p>Lister ut alle støttede skjemaer som kan brukes for validering.</p>
