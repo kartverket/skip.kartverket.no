@@ -9,6 +9,11 @@ I tillegg til gcloud cli trenger du også `gke-gcloud-auth-plugin` for å kunne 
 gcloud components install gke-gcloud-auth-plugin
 ```
 
+Verifiser at `gke-gcloud-auth-plugin` er tilgjengelig på path:
+```bash
+gke-gcloud-auth-plugin --version
+```
+
 ### 1. Logg inn med gcloud
 
 Hvis du ikke har logget inn med gcloud allerede må du logge inn
@@ -38,7 +43,7 @@ gcloud config set project kubernetes-dev-94b9
 List opp tilgjengelige clusters:
 
 ```bash
-gcloud container hub memberships list
+gcloud container fleet memberships list
 ```
 
 **Clusternavn-format:**
@@ -51,7 +56,7 @@ Generer kubeconfig og sett som aktiv context:
 
 #### On-premise
 ```bash
-gcloud container hub memberships get-credentials atkv3-dev-user-cluster
+gcloud container fleet memberships get-credentials atkv3-dev-user-cluster
 ```
 #### GCP
 
@@ -68,6 +73,12 @@ Kommandoen er forskjellig mellom on-prem og GCP fordi man ikke behøver å gå g
 
 **Eksempel on-prem**: `connectgateway_kubernetes-dev-94b9_europe-north1_atkv3-dev-user-cluster`
 **Eksempel GCP**: `gke_kubernetes-dev-94b9_europe-north1_atgcp1-dev`
+
+:::note
+
+For å kunne nå cluster i GCP utenom Connect Gateway må man være på Kartverkets nettverk eller bruke VPN.
+
+:::
 
 ### 5. Bytte til riktig context
 
