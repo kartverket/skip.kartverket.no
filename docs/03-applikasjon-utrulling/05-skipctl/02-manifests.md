@@ -68,7 +68,8 @@ Validerer manifestfiler mot kjente Kubernetes-skjema, oppsummerer resultater og 
 | Kommando | Handling |
 |---|---|
 | `skipctl manifest validate` | Validerer alle manifester i nåværende katalog. |
-| `skipctl manifest validate -p ./k8s` | Validerer alle manifester under ./k8s. |
+| `skipctl manifest validate ./k8s` | Validerer alle manifester under ./k8s. |
+| `skipctl manifest validate ./k8s/validateme.jsonnet` | Validerer filen /validateme.jsonnet. |
 | `cat manifest.jsonnet \| skipctl manifest validate -` | Validerer manifest fra stdin. |
 
 **Output (oppsummering)**
@@ -90,7 +91,8 @@ Renderer manifestfiler og skriver gyldig output til stdout. Feil går til stderr
 | Kommando | Handling |
 |---|---|
 | `skipctl manifest render` | Renderer alle manifester i nåværende katalog. |
-| `skipctl manifest render -p ./manifests` | Renderer alle manifester under ./manifests. |
+| `skipctl manifest render ./manifests` | Renderer alle manifester under ./manifests. |
+| `skipctl manifest render ./manifests/renderme.jsonnet` | Renderer filen /renderme.jsonnet`. |
 | `cat manifest.jsonnet \| skipctl manifest render -` | Leser manifest fra stdin og renderer til stdout. |
 
 ---
@@ -104,5 +106,17 @@ Formaterer manifestfiler i stedet (“in place”) eller fra stdin til stdout.
 | Kommando | Handling |
 |---|---|
 | `skipctl manifest format` | Formaterer alle manifester i nåværende katalog rekursivt. |
-| `skipctl manifest format -p ./k8s` | Formaterer alle manifester under ./k8s. |
+| `skipctl manifest format ./k8s` | Formaterer alle manifester under ./k8s. |
+| `skipctl manifest format ./k8s/formatme.jsonnet` | Formaterer filen ./formatme.jsonnet. |
 | `cat manifest.jsonnet \| skipctl manifest format -` | Leser fra stdin, skriver formatert til stdout. |
+
+---
+
+## Schemas
+
+Lister ut alle støttede skjemaer som kan brukes for validering.
+
+**Eksempel bruk**
+| Kommando | Handling |
+|---|---|
+| `skipctl schemas` | Lister ut alle støttede skjemaer. |

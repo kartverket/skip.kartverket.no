@@ -316,6 +316,7 @@ The default value for replicas is:
 		min: 2
 		max: 5
 		targetCpuUtilization: 80
+     targetMemoryUtilization: 80
 Using autoscaling is the recommended configuration for replicas.<br/>
         </td>
         <td>false</td>

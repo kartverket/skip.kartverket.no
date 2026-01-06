@@ -18,7 +18,7 @@
     "@docusaurus/plugin-client-redirects": "^3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@docusaurus/theme-mermaid": "3.9.2",
-    "@grafana/faro-react": "^1.19.0",
+    "@grafana/faro-react": "^2.0.2",
     "@mdx-js/react": "^3.1.1",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
@@ -26,9 +26,9 @@
     "file-loader": "^6.2.0",
     "posthog-docusaurus": "^2.0.5",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-player": "^3.3.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-player": "^3.4.0",
     "url-loader": "^4.1.1"
   },
   "browserslist": {
@@ -47,7 +47,7 @@
     "node": "24.8.0"
   },
   "devDependencies": {
-    "prettier": "^3.6.2"
+    "prettier": "^3.7.4"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
