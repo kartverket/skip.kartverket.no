@@ -2,7 +2,7 @@
 
 Packages:
 
-- ztoperator.kartverket.no/v1alpha1
+- [ztoperator.kartverket.no/v1alpha1](#ztoperatorkartverketnov1alpha1)
 
 # ztoperator.kartverket.no/v1alpha1
 
@@ -14,6 +14,7 @@ Resource Types:
 
 
 ## AuthPolicy
+<sup><sup>[↩ Parent](#ztoperatorkartverketnov1alpha1 )</sup></sup>
 
 
 
@@ -44,7 +45,7 @@ AuthPolicy is the Schema for the authpolicies API.
       <td>true</td>
       </tr>
       <tr>
-      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#objectmeta-v1-meta">metadata</a></b></td>
+      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#objectmeta-v1-meta">metadata</a></b></td>
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
@@ -108,18 +109,34 @@ If enabled, incoming JWTs will be validated against the issuer specified in the 
         <td><b>acceptedResources</b></td>
         <td>[]string</td>
         <td>
-          AcceptedResources is used as a validation field following [RFC8707](https://datatracker.ietf.org/doc/html/rfc8707).
+          AcceptedResources specifies resource indicators used to request an audience limited access token following [RFC8707](https://datatracker.ietf.org/doc/html/rfc8707).
 It defines accepted audience resource indicators in the JWT token.
 
+The resource indicators specified will be added to the initial authorize request towards the configured identity provider.
+Each resource indicator must be a valid URI,
+and the access token returned by the identity provider will set the resource indicators in the `aud` claim in the JWT token.
+If none of the specified resource indicators is present in the `aud` claim in the JWT, the request will be denied.
 
-Each resource indicator must be a valid URI, and the indicator must be present as the `aud` claim in the JWT token.<br/>
+Please note that this alone is not sufficient to securely restrict access to a resource based on the `aud` claim.
+Use .allowedAudiences to specify one or more allowed client IDs.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#authpolicyspecallowedaudiencesindex">allowedAudiences</a></b></td>
+        <td>[]object</td>
+        <td>
+          AllowedAudiences defines the allowed audience (`aud`) values in the JWT.
+At least one of the listed audience values must be present in the token's `aud` claim for validation to succeed.
+
+The normative behaviour for an OAuth / OIDC-compliant identity provider is to validate the presense of one or more client IDs as allowed audiences.<br/>
         </td>
         <td>false</td>
       </tr><tr>
         <td><b>audience</b></td>
         <td>[]string</td>
         <td>
-          Audience defines the accepted audience (`aud`) values in the JWT.
+          **Deprecated: use .allowedAudiences instead**.
+Audience defines the accepted audience (`aud`) values in the JWT.
 At least one of the listed audience values must be present in the token's `aud` claim for validation to succeed.<br/>
         </td>
         <td>false</td>
@@ -129,7 +146,6 @@ At least one of the listed audience values must be present in the token's `aud` 
         <td>
           AuthRules defines rules for allowing HTTP requests based on conditions
 that must be met based on JWT claims.
-
 
 API endpoints not covered by AuthRules and/or IgnoreAuthRules requires an authenticated JWT by default.<br/>
         </td>
@@ -153,7 +169,6 @@ API endpoints not covered by AuthRules and/or IgnoreAuthRules requires an authen
         <td>[]object</td>
         <td>
           IgnoreAuthRules defines request matchers for HTTP requests that do not require JWT authentication.
-
 
 API endpoints not covered by AuthRules or IgnoreAuthRules require an authenticated JWT by default.<br/>
         </td>
@@ -201,10 +216,145 @@ The Selector specifies which workload the defined auth policy should be applied 
           One or more labels that indicate a specific set of pods/VMs
 on which a policy should be applied. The scope of label search is restricted to
 the configuration namespace in which the resource is present.<br/>
-          <br/>
-            <i>Validations</i>:<li>self.all(key, !key.contains('*')): wildcard not allowed in label key match</li><li>self.all(key, key.size() != 0): key must not be empty</li>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### AuthPolicy.spec.allowedAudiences[index]
+<sup><sup>[↩ Parent](#authpolicyspec)</sup></sup>
+
+
+
+AllowedAudience defines an audience that is validated against the `aud` claim in the JWT.
+An audience can be defined as a static value or retrieved from a kubernetes resource.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>value</b></td>
+        <td>string</td>
+        <td>
+          Value specifies a static audience value.<br/>
         </td>
         <td>false</td>
+      </tr><tr>
+        <td><b><a href="#authpolicyspecallowedaudiencesindexvaluefrom">valueFrom</a></b></td>
+        <td>object</td>
+        <td>
+          ValueFrom specifies a reference to a kubernetes resource to retrieve the audience value from.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### AuthPolicy.spec.allowedAudiences[index].valueFrom
+<sup><sup>[↩ Parent](#authpolicyspecallowedaudiencesindex)</sup></sup>
+
+
+
+ValueFrom specifies a reference to a kubernetes resource to retrieve the audience value from.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#authpolicyspecallowedaudiencesindexvaluefromconfigmapkeyref">configMapKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          ConfigMapKeyRef specifies a reference to a key in a ConfigMap.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#authpolicyspecallowedaudiencesindexvaluefromsecretkeyref">secretKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          SecretKeyRef specifies a reference to a key in a Secret.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### AuthPolicy.spec.allowedAudiences[index].valueFrom.configMapKeyRef
+<sup><sup>[↩ Parent](#authpolicyspecallowedaudiencesindexvaluefrom)</sup></sup>
+
+
+
+ConfigMapKeyRef specifies a reference to a key in a ConfigMap.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          Key specifies the data entry name within the ConfigMap/Secret; must follow key naming rules.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name specifies the name of the ConfigMap/Secret; must satisfy DNS-1123 subdomain naming.<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### AuthPolicy.spec.allowedAudiences[index].valueFrom.secretKeyRef
+<sup><sup>[↩ Parent](#authpolicyspecallowedaudiencesindexvaluefrom)</sup></sup>
+
+
+
+SecretKeyRef specifies a reference to a key in a Secret.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          Key specifies the data entry name within the ConfigMap/Secret; must follow key naming rules.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name specifies the name of the ConfigMap/Secret; must satisfy DNS-1123 subdomain naming.<br/>
+        </td>
+        <td>true</td>
       </tr></tbody>
 </table>
 
@@ -248,7 +398,6 @@ Defaults to false, meaning auto-login will be triggered (if configured).<br/>
           Methods specifies HTTP methods that applies for the defined paths.
 If omitted, all methods are permitted.
 
-
 Allowed methods:
 - GET
 - POST
@@ -267,7 +416,6 @@ Allowed methods:
         <td>
           When defines additional conditions based on JWT claims that must be met.
 
-
 The request is permitted if at least one of the specified conditions is satisfied.<br/>
         </td>
         <td>false</td>
@@ -282,10 +430,8 @@ The request is permitted if at least one of the specified conditions is satisfie
 
 Condition represents a rule that evaluates JWT claims to determine access control.
 
-
 This type allows defining conditions that check whether a specific claim in
 the JWT token contains one of the expected values.
-
 
 If multiple conditions are specified, all must be met (AND logic) for the request to be allowed.
 
@@ -424,7 +570,6 @@ Each path must be a valid URI path, starting with '/' and not ending with '/'.<b
         <td>
           Methods specifies HTTP methods that applies for the defined paths.
 If omitted, all methods are permitted.
-
 
 Allowed methods:
 - GET
@@ -582,7 +727,6 @@ AuthPolicyStatus defines the observed state of AuthPolicy.
 
 Condition contains details for one aspect of the current state of this API Resource.
 
-
 <table>
     <thead>
         <tr>
@@ -634,11 +778,7 @@ This field may not be empty.<br/>
         <td><b>type</b></td>
         <td>string</td>
         <td>
-          type of condition in CamelCase or in foo.example.com/CamelCase.
----
-Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be
-useful (see .node.status.conditions), the ability to deconflict is important.
-The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)<br/>
+          type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
       </tr><tr>
