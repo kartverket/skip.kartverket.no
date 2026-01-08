@@ -1,8 +1,8 @@
 # ID-Porten
 
-For å registrere en klient i ID-porten, kan du enten gjøre det i Digdir sin [selvbetjeninsløsning](https://sjolvbetjening.samarbeid.digdir.no/login) eller
+For å registrere en klient i ID-porten, kan du enten gjøre det i Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login) eller
 gjennom Kubernetes-operatoren [Digdirator](https://github.com/nais/digdirator). Digdirator er en Kubernetes-operator utviklet av NAV sitt plattformteam (NAIS) som skal gjøre det enkelt å deklarativt sette opp og vedlikeholde
-integrasjoner mot [Digdir](https://docs.digdir.no) sine systemer. Dette inkluderer **ID-Porten**-integrasjoner og **Maskinporten**-integrasjoner, men per nå **ikke** **Annsattporten**-integrasjoner.
+integrasjoner mot [Digdir](https://docs.digdir.no) sine systemer. Dette inkluderer **ID-Porten**-integrasjoner og **Maskinporten**-integrasjoner, men per nå **ikke** **Ansattporten**-integrasjoner.
 
 :::caution
 Digdirator støtter kun klientregistreringer mot ID-porten og Maskinporten. For Ansattporten må klientregistreringer gjøres manuelt i Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login).
@@ -33,11 +33,11 @@ Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 
     <p><strong>scopes</strong> _([]string, optional)_ – Definerer OAuth2-scopes for klienten. Begrenset basert på `integrationType`.</p>
 
-    <p><strong>frontchannelLogoutURI</strong> _(string, optional)_ – URL som ID-porten omdirigere til når en utlogging utløses av en annen applikasjon.</p>
+    <p><strong>frontchannelLogoutURI</strong> _(string, optional)_ – URL som ID-porten omdirigerer til når en utlogging utløses av en annen applikasjon.</p>
 
     <p><strong>postLogoutRedirectURIs</strong> _([]string, optional)_ – Liste over gyldige URI-er hvor ID-porten kan omdirigere etter utlogging.</p>
 
-    <p><strong>redirectURIs</strong> _([]string], optional)_ – Liste over redirect URI-er som skal registreres hos DigDir.</p>
+    <p><strong>redirectURIs</strong> _([]string, optional)_ – Liste over redirect URI-er som skal registreres hos DigDir.</p>
 
     <p><strong>accessTokenLifetime</strong> _(integer, optional)_ – Maksimal levetid i sekunder for `access_token` som returneres fra ID-porten. Min: 1, maks: 3600.</p>
 
