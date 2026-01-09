@@ -9,8 +9,8 @@ app-registrations i [Microsoft Entra ID](https://portal.azure.com/#view/Microsof
 ## 🔹 `AzureAdApplication`
 
 Azurerator introduserer CRD-en `AzureAdApplication`, som håndterer opprettelse og vedlikehold av app-registrations i Microsoft Entra ID. 
-App-registrations opprettet med Azureator vil få navn basert på hvor de er plassert i et Kubernetes-cluster, i.e. `cluster:namespace:name`. 
-Etter å ha fullført opprettelsen, vil Azurerator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksemepel `client_id`, `client_secret`, `private_key_jwt`, diverse URL-er og lignende.  
+App-registrations opprettet med Azurerator vil få navn basert på hvor de er plassert i et Kubernetes-cluster, i.e. `cluster:namespace:name`.
+Etter å ha fullført opprettelsen, vil Azurerator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `client_secret`, `private_key_jwt`, diverse URL-er og lignende.
 
 :::tip
 Azurerator håndterer rullering av hemmeligheter for deg! 
