@@ -29,7 +29,7 @@ for env_file in env/**/*.jsonnet; do
   
   echo "Rendering $env_file -> $output_file"
   mkdir -p "$(dirname "$output_file")"
-  skipctl manifests render --path "$env_file" -o json > "$output_file" 2>&1
+  DO_NOT_TRACK=true skipctl manifests render --path "$env_file" -o json > "$output_file"
 done
 ```
 
@@ -70,7 +70,7 @@ for env_file in env/**/*.jsonnet; do
   
   echo "Rendering $env_file -> $output_file"
   mkdir -p "$(dirname "$output_file")"
-  skipctl manifests render --path "$env_file" -o json > "$output_file" 2>&1
+  DO_NOT_TRACK=true skipctl manifests render --path "$env_file" -o json > "$output_file"
 done
 ```
 
