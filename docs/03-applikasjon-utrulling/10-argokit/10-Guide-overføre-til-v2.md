@@ -56,7 +56,7 @@ skipctl manifest render --output migration/v2-rendered
 
 ### Steg 4: Diff mellom legacy og nye manifester
 
-Bruk diff-scriptet for å sammenligne legacy og nye rendrede manifester. Dette scriptet er spesielt laget for å sammenligne gamle og nye rendrede manifester, og det er **sterkt anbefalt** å bruke det for å verifisere at migreringen er korrekt.
+Bruk diff-scriptet for å sammenligne legacy og nye rendrede manifester. Dette scriptet er spesielt laget for migrering til ArgoKit v2, og det er **sterkt anbefalt** å bruke det for å verifisere at migreringen er korrekt.
 
 Scriptet er annerledes enn `skipctl diff` ved at den tar 2 rendrede manifest-filer som input, ekstraherer ut listen med ressurser og sorterer den så sammenligningen blir tydeligere.
 
