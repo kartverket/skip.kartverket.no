@@ -55,7 +55,7 @@ skipctl refactor env/example-file.jsonnet
 
 Kommandoen analyserer env-filen, finner den tilknyttede application-filen, og genererer en ArgoKit v2-versjon av den.
 
-> **Warning:** `skipctl refactor` genererer kun et første utkast basert på automatisk konvertering. Du må alltid validere resultatet manuelt og kjøre diff mellom legacy og nye manifester (se steg 4) for å sikre at migreringen er korrekt.
+> **Warning:** `skipctl refactor` genererer kun et første utkast basert på automatisk konvertering, og resultatet kan ofte være feil eller ufullstendig. Verktøyet er ment som et utgangspunkt, ikke en komplett løsning. Du må alltid validere resultatet manuelt og kjøre diff mellom legacy og nye manifester (se steg 4) for å sikre at migreringen er korrekt.
 
 ### Steg 3: Render ut nye manifester
 
