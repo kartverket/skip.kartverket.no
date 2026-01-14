@@ -18,14 +18,24 @@ Følg disse stegene for å sikre en trygg migrering:
 
 ### Steg 1: Render ut eksisterende manifester (baseline)
 
-Før du begynner migreringen, render ut alle eksisterende env-filer og lagre dem i en egen mappe. Dette brukes senere for å sammenligne med de nye manifestene.
+Før du begynner migreringen, render ut alle eksisterende env-filer og lagre dem i en egen mappe. Dette brukes senere for å sammenligne med de nye manifestene. Kjør følgende kommandoer:
 
 ```shell
 # Lag en mappe for legacy manifester
 mkdir -p migration/legacy-rendered
 
-# Render ut eksisterende manifester
-skipctl manifest render --output migration/legacy-rendered
+# Render ut eksisterende manifester (JSON format)
+for env_dir in env/*/; do
+  env_name=$(basename "$env_dir")
+  echo "Processing environment: $env_name"
+  
+  for namespace_dir in "$env_dir"*/; do
+    namespace=$(basename "$namespace_dir")
+    echo "  Rendering $namespace..."
+    mkdir -p "migration/legacy-rendered/$env_name/$namespace"
+    skipctl manifests render --path "$namespace_dir" -o json > "migration/legacy-rendered/$env_name/$namespace/manifest.json" 2>&1
+  done
+done
 ```
 
 ### Steg 2: Konverter application-filer til ArgoKit v2
