@@ -82,7 +82,7 @@ Scriptet er annerledes enn `skipctl diff` ved at den tar 2 rendrede manifest-fil
 
 #### Opprett diff-scriptet
 
-Lag et Python-script `scripts/compare-manifests.py`:
+Lag et Python-script `compare-manifests.py`:
 
 ```python
 import json
@@ -237,7 +237,7 @@ if __name__ == "__main__":
 #### Kjør diff-scriptet
 
 ```shell
-python3 scripts/compare-manifests.py migration/legacy-rendered/<env>.json migration/v2-rendered/<env>.json
+python3 compare-manifests.py migration/legacy-rendered/<env>.json migration/v2-rendered/<env>.json
 ```
 
 Scriptet vil:
