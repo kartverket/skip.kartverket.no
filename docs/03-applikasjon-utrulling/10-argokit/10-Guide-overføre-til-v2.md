@@ -8,7 +8,7 @@ ArgoKit v2 introduserer en ny struktur som er mer konsistent og enklere å bruke
 
 ## Forutsetninger
 
-- [skipctl installert](../skipctl/get-started.md)
+- [skipctl installert](../05-skipctl/01-get-started.md)
 - Et apps-repo
 - ArgoKit v2 installert i repoet ditt ([se installasjonsveiledning](./01-installation-guide.md))
 
