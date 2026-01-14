@@ -21,20 +21,15 @@ Følg disse stegene for å sikre en trygg migrering:
 Før du begynner migreringen, render ut alle eksisterende env-filer og lagre dem i en egen mappe. Dette brukes senere for å sammenligne med de nye manifestene. Kjør følgende kommandoer:
 
 ```shell
-# Lag en mappe for legacy manifester
 mkdir -p migration/legacy-rendered
 
-# Render ut eksisterende manifester (JSON format)
-for env_dir in env/*/; do
-  env_name=$(basename "$env_dir")
-  echo "Processing environment: $env_name"
+for env_file in env/**/*.jsonnet; do
+  rel_path="${env_file#env/}"
+  output_file="migration/legacy-rendered/${rel_path%.jsonnet}.json"
   
-  for namespace_dir in "$env_dir"*/; do
-    namespace=$(basename "$namespace_dir")
-    echo "  Rendering $namespace..."
-    mkdir -p "migration/legacy-rendered/$env_name/$namespace"
-    skipctl manifests render --path "$namespace_dir" -o json > "migration/legacy-rendered/$env_name/$namespace/manifest.json" 2>&1
-  done
+  echo "Rendering $env_file -> $output_file"
+  mkdir -p "$(dirname "$output_file")"
+  skipctl manifests render --path "$env_file" -o json > "$output_file" 2>&1
 done
 ```
 
@@ -67,20 +62,15 @@ Kommandoen analyserer env-filen, finner den tilknyttede application-filen, og ge
 Etter å ha overført application-filene til ArgoKit v2, render de ut og legg de rendrede filene i en egen mappe:
 
 ```shell
-# Lag en mappe for nye manifester
 mkdir -p migration/v2-rendered
 
-# Render ut nye manifester
-for env_dir in env/*/; do
-  env_name=$(basename "$env_dir")
-  echo "Processing environment: $env_name"
+for env_file in env/**/*.jsonnet; do
+  rel_path="${env_file#env/}"
+  output_file="migration/v2-rendered/${rel_path%.jsonnet}.json"
   
-  for namespace_dir in "$env_dir"*/; do
-    namespace=$(basename "$namespace_dir")
-    echo "  Rendering $namespace..."
-    mkdir -p "migration/legacy-rendered/$env_name/$namespace"
-    skipctl manifests render --path "$namespace_dir" -o json > "migration/legacy-rendered/$env_name/$namespace/manifest.json" 2>&1
-  done
+  echo "Rendering $env_file -> $output_file"
+  mkdir -p "$(dirname "$output_file")"
+  skipctl manifests render --path "$env_file" -o json > "$output_file" 2>&1
 done
 ```
 
