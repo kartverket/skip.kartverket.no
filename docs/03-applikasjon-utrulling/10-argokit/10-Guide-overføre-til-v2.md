@@ -42,15 +42,25 @@ done
 
 Konverter dine application libsonnet-filer til ArgoKit v2 ved å følge [dokumentasjonen for ArgoKit v2 med eksempler](./09-argokit-v2.md).
 
-#### Hjelpeverktøy: skipctl refactor (valgfritt)
-
-Hvis `skipctl refactor` er tilgjengelig (per 14. januar 2026 ikke ute enda), kan den brukes til å få AI til å gjøre et første forsøk på å omskrive application libsonnet-filene:
+Du kan opprette en egen mappe for de konverterte filene for å holde orden på migreringsprosessen:
 
 ```shell
-skipctl refactor --path ./env
+mkdir -p applications-v2
 ```
 
-> Warning: `skipctl refactor` gir kun et første utkast. Du må uansett validere og diffe manifestene manuelt etterpå.
+#### Hjelpeverktøy: skipctl refactor (valgfritt)
+
+> **Note:** `skipctl refactor` er ikke tilgjengelig ennå (per 14. januar 2026), men når den blir lansert, kan den brukes som et hjelpeverktøy i migreringsprosessen.
+
+Når kommandoen er tilgjengelig, kan den brukes til å automatisk konvertere application libsonnet-filer til ArgoKit v2-format. For å bruke verktøyet, spesifiser env-filen som inneholder referansen til application-filen du vil konvertere:
+
+```shell
+skipctl refactor env/example-file.jsonnet
+```
+
+Kommandoen analyserer env-filen, finner den tilknyttede application-filen, og genererer en ArgoKit v2-versjon av den.
+
+> **Warning:** `skipctl refactor` genererer kun et første utkast basert på automatisk konvertering. Du må alltid validere resultatet manuelt og kjøre diff mellom legacy og nye manifester (se steg 4) for å sikre at migreringen er korrekt.
 
 ### Steg 3: Render ut nye manifester
 
