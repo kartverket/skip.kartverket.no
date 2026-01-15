@@ -246,9 +246,9 @@ Scriptet vil:
 - Viser forskjeller med fargekoding (grønn = lagt til, rød = fjernet, gul = endret)
 - Returnerer exit code 0 hvis manifestene er identiske, 1 hvis de er forskjellige
 
-:::note
+> NOTE: 
 Diff-scriptet vil hjelpe deg med å identifisere eventuelle forskjeller mellom de gamle og nye manifestene, slik at du kan verifisere at migreringen er korrekt.
-:::
+
 
 ## Detaljert bruk av skipctl refactor
 
