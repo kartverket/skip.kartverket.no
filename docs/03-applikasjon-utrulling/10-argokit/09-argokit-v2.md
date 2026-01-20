@@ -33,7 +33,7 @@ Sett replikaer for en applikasjon med autoskalering basert på CPU og minne.
 |-|-|-|-|-|
 |`initial`|`number`|`true`|-|initialt antall replikaer (2 er anbefalt)|
 |`max`|`number`|`false`|-|maksimum antall replikaer (hvis satt, aktiverer autoskalering)|
-|`targetCpuUtilization`|`number`|`false`|80|CPU-terskel i prosent før autoskalering|
+|`targetCpuUtilization`|`number`|`false`|-|CPU-terskel i prosent før autoskalering|
 |`targetMemoryUtilization`|`number`|`false`|-|Minneterskel i prosent før autoskalering|
 
 **Eksempel:** [examples/replicas.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/replicas.jsonnet)
@@ -344,9 +344,11 @@ Opprett en `ExternalSecret` og legg til miljøvariabler fra den i applikasjonen.
 |navn|type|obligatorisk|standardverdi|beskrivelse|
 |-|-|-|-|-|
 |`name`|`string`|`true`| - |navn på `ExternalSecret`|
-|`secrets`|`array`|`false`|[]|array av secret objekter med {`toKey`, `fromSecret`}|
+| `creationPolicy` | `string` | `null` | `false` | `null` | styrer `spec.target.creationPolicy`. Når `null`/utelatt blir feltet **ikke** med i manifestet. |
+|`secrets`|`array`|`false`|[]|array av secret objekter med &#123;`toKey` (påkrevd), `fromSecret` (påkrevd), `property`, `decodingStrategy`, `conversionStrategy`, `metadataPolicy`&#125;|
 |`allKeysFrom`|`array`|`false`|[]|array av secret objekter med {`fromSecret`} for å hente alle `keys`|
 |`secretStoreRef`|`string`|`false`|'gsm'|navn på `store`|
+
 
 **OBS:** Enten `secrets` eller `allKeysFrom` må inneholde minst ett element.
 
@@ -387,3 +389,25 @@ Legg til en `AzureADApplication`-ressurs og konfigurerer applikasjonen.
 |`preAuthorizedApplications`|`array`|`false`|[]|liste over forhåndsautoriserte applikasjoner|
 
 **Eksempel:** [examples/withAzureAdApplication.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/withAzureAdApplication.jsonnet)
+
+## ArgoKit's Mounts API
+
+### `argokit.appAndObjects.application.withSecretAsMount()`
+Monter en eksisterende hemmelighet som filer på angitt sti.
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`secretName`|`string`|`true`| - |navn på hemmeligheten som skal monteres|
+|`mountPath`|`string`|`true`| - |stien hvor hemmeligheten skal monteres|
+
+**Eksempel:** [examples/mounts.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/mounts.jsonnet)
+
+### `argokit.appAndObjects.application.withPersistentVolumeClaimAsMount()`
+Monter en Persistent Volume Claim (PVC) på angitt sti.
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`pvcName`|`string`|`true`| - |navn på PVC som skal monteres|
+|`mountPath`|`string`|`true`| - |stien for montering|
+
+**Eksempel:** [examples/mounts.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/mounts.jsonnet)
