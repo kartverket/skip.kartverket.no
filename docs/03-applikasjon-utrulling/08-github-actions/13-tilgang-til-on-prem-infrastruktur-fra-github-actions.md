@@ -22,11 +22,12 @@ På forhånd takk 🙌
 
 ```yaml
 - name: Tailscale
-  uses: tailscale/github-action@v2
+  uses: tailscale/github-action@v4
   with:
     oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
     oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
     tags: tag:github-runner
+    version: latest
 ```
 
 3. Du kan nå benytte deg av utvalgte interne tjenester. Lykke til!
