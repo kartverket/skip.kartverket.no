@@ -13,9 +13,10 @@ Før dette kan gjøres må man gå igjennom denne sjekklisten:
 
 - Gjør dere kjent med [Overordnede føringer](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/599130113/Overordnede+f+ringer) og spesielt [Ansvarsfordeling](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/770113537/Ansvarsfordeling) fra Sikkerhetshåndboka
 - Opprett metadata i GitHub-repoene tilknyttet applikasjonen i henhold til [sikkerhet i repoet](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/732397586/Sikkerhet+i+repoet). Dette sikrer at applikasjonen blir integrert i Utviklerportalen og får tilgang til sikkerhetsmetrikker.
-- Foranalyse må være gjennomført (det kommer løype for dette i PureService)
+- Verdivurdering er utført.
 - Det er gjort IP (Innledende Personvernsvurdering) og eventuelt DPIA. Kopier malen [IP, DPIA og ROS-analyse for [det som vurderes]](https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338719/IP+DPIA+og+ROS-analyse+for+det+som+vurderes+.+IKKE+SKRIV+INN+I+MALEN+men+kopier+sidene.) til deres område og fyll ut informasjonen der.
 - ROS-analyse gjennomført og godkjent av risikoeier/systemeier
+- Systemet er registrert i systemoversikten ( Pureservice->Tilganger, sikkerhet og systemforvaltning->Registrer nytt system ).
 - Codeowners definert i koderepo [CODEOWNERS](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/561348667/CODEOWNERS)
 - Gjennomfør en sikkerhetssjekk
   - Se over hvilke endepunkter som er eksponert og at debug endepunkter og liknende interne endepunkter ikke er eksponert
