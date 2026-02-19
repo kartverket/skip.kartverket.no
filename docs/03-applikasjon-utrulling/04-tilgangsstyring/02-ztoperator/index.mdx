@@ -4,7 +4,13 @@ import Column from '@site/src/components/Column';
 
 # Ztoperator
 
-<Columns> 
+:::danger[Deprecation warnings]
+Ztoperator har aktive deprecation warnings, se [deprecation warnings](#deprecation-warnings) for mer informasjon.
+- `audience` vil fjernes til fordel for `allowedAudiences`
+- Bruk av wildcards `*` i `paths` vil fjernes til fordel for eksplisitt syntaks med `{*}` og `{**}`
+:::
+
+<Columns>
   <Column className='col--8'>
     Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons endepunkter skal styres. Den gir støtte for å
     
@@ -98,3 +104,41 @@ I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator
 | `PROD` | Maskinporten | [https://maskinporten.no/.well-known/oauth-authorization-server](https://maskinporten.no/.well-known/oauth-authorization-server) |
 | `TEST` | Ansattporten | [https://test.ansattporten.no/.well-known/openid-configuration](https://test.ansattporten.no/.well-known/openid-configuration) |
 | `PROD` | Ansattporten | [https://ansattporten.no/.well-known/openid-configuration](https://ansattporten.no/.well-known/openid-configuration) |
+
+## Deprecation warnings
+
+### Nytt felt for audience med støtte for både statiske og dynamiske referanser
+Feltet `audience` vil fjernes innen kort tid. Bruk `allowedAudiences`, med enten statisk eller dynamisk referanse:
+```
+kind: AuthPolicy
+spec:
+  allowedAudiences:
+    # statisk
+    - value: <AUDIENCE>
+    # dynamisk via secret
+    - valueFrom:
+        secretKeyRef:
+          name: <SECRET_NAME>
+          key: <SECRET_KEY>
+    # dynamisk via configmap
+    - valueFrom:
+        configMapKeyRef:
+          name: <CONFIGMAP_NAME>
+          key: <CONFIGMAP_KEY>
+```
+
+## Ny syntaks for wildcards i `paths`
+Støtte for frittstående wildcards `*` i `paths` vil fjernes innen kort tid. Bruk eksplisitt syntaks som enten matcher
+èn `{*}` eller flere `{**}` path-segmenter:
+```
+kind: AuthPolicy
+spec:
+  ignoreAuthRules:
+    - paths:
+        # vilkårlig mange path-segmenter
+        - /{**}
+        # ett vilkårlig path-segment
+        - /{*}
+        # komplett eksempel
+        - /api/{*}/endpoint/{**}
+```

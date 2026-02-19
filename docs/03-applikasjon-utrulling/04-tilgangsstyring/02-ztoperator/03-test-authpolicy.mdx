@@ -26,16 +26,17 @@ spec:
   enabled: true
   ignoreAuthRules:
     - paths:
-        - /public*
+        - /public{**}
   authRules:
     - paths:
-        - /admin*
+        - /admin{**}
       when:
         - claim: role
           values:
             - admin
       denyRedirect: true
-  audience: some-audience
+  allowedAudiences:
+    - value: some-audience
   oAuthCredentials:
     secretRef: oauth-secret
     clientIDKey: CLIENT_ID_KEY
