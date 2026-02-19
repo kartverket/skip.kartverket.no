@@ -26,10 +26,10 @@ spec:
   enabled: true
   ignoreAuthRules:
     - paths:
-        - /public*
+        - /public{**}
   authRules:
     - paths:
-        - /admin*
+        - /admin{**}
       when:
         - claim: role
           values:
