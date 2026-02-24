@@ -38,6 +38,11 @@ av applikasjoner på SKIP, f.eks via `argokit`, direkte i definisjon av Skiperat
 _custom resource_. Kom gjerne med innspill på hvordan dette bør se ut i praksis!
 :::
 
+:::warning[SKIP støtter ikke SPIFFE på tvers av Kubernetes-cluster]
+Dersom du har applikasjoner som prater sammen på tvers av Kubernetes-cluster og ønsker å bruke SPIFFE, ta gjerne kontakt
+med Team Tilgangsstyring. Basert på behov og etterspørsel vil vi vurdere å tilby støtte for dette i fremtiden.
+:::
+
 For å definere SPIFFE-regler bruker vi Istio sine `AuthorizationPolicy`-ressurser. Disse kan defineres med enten `DENY`
 eller `ALLOW` som `action`. Førstnevnte brukes gjerne sammen med `notPrincipals` for å nekte tilgang for alle andre
 identiteter enn den som spesifiseres, mens sistnevnte brukes sammen med `principals` for å gi tilgang til spesifikke
@@ -47,13 +52,15 @@ identiteter. Å beskytte et API med bruk av SPIFFE-regler vil gjerne innebære e
 Dersom en forespørsel matcher en `DENY`-regel vil den alltid bli avvist, uavhengig av eventuelle `ALLOW`-regler.
 Dersom det eksisterer `ALLOW`-regler så må en forespørsel matche minst én av disse for å bli tillatt.
 
-Eksemplene under viser hvordan AuthorizationPolicy-ressurser med SPIFFE-regler kan defineres. Principels og
+Eksemplene under viser hvordan AuthorizationPolicy-ressurser med SPIFFE-regler kan defineres. Principals og
 notPrincipals spesifiseres på formatet `<cluster>/ns/<namespace>/sa/<serviceaccount>`. For kommunikasjon med
-identiteter i sammen Kubernetes-cluster brukes `cluster.local` som cluster-navn.
+identiteter i sammen Kubernetes-cluster brukes `cluster.local` som cluster-navn. En applikasjon sin _Service Account_ vil
+alltid ha samme navn som den tilhørende Skiperator-applikasjonen. For applikasjoner på SKIP vil altså principals være
+på formatet `cluster.local/ns/<namespace>/sa/<app-name>`.
 
-Vi anbefaler bruk av _Envoy Uri Template_ for å definere wildcards i paths, med bruk av `{*}` og `{**}` for å matche
-hhv. ett eller flere path-segmenter. Sistnevnte kan kun opptre i slutten av en path, mens førstnevnte kan opptre hvor
-som helst i pathen.
+I definisjon av paths brukes wildcards `{*}` og `{**}` for å matche hhv. ett eller flere path-segmenter. Sistnevnte kan
+kun opptre i slutten av en path, mens førstnevnte kan opptre hvor som helst i pathen. Wildcard-operatorene kan ikke
+opptre sammen med andre tegn i samme path-segment, dvs. `/foo/bar/{*}` er gyldig, mens `/foo/bar{*}` er ikke er gyldig.
 
 ### Eksempel på `DENY`-policy med `notPrincipals`
 Eksemplet avviser alle forespørsler mot `/secure{**}`, unntatt de som kommer fra `other-app` sin SPIFFE-identitet.
@@ -76,7 +83,7 @@ spec:
       to:
         - operation:
             paths:
-              - /secure{**}
+              - /secure/{**}
 ```
 
 ### Eksempel på `ALLOW`-policy med `principals`
@@ -105,9 +112,12 @@ spec:
             - cluster.local/ns/<other-app-namespace>/sa/<other-app-with-only-get-access>
       to:
         - operation:
-            methods: ["GET"]
+            methods:
+              - GET
     - to:
       - operation:
-          methods: ["GET"]
-          paths: ["/public{**}"]
+          methods:
+            - GET
+          paths:
+            - /public/{**}
 ```
