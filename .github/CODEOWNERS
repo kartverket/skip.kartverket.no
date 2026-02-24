@@ -1,3 +1,4 @@
 * @kartverket/skip
 /.sikkerhet/ @omaen
 /docs/03-applikasjon-utrulling/04-tilgangsstyring/ @tilgangsstyring
+/docs/07-observability/ @kartverket/skoop
