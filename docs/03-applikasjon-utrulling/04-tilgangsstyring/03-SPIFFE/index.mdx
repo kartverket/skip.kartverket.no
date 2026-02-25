@@ -1,0 +1,123 @@
+# SPIFFE
+
+## Hva er SPIFFE
+**SPIFFE** (_Secure Production Identity Framework For Everyone_) er en standard som kort forklart definerer:
+- en identifikator, kalt `SPIFFE ID`. Ved bruk av SPIFFE vil hver workload ha en unik SPIFFE ID
+- et verifikasjonsdokument, kalt `SVID` (_SPIFFE Verifiable Identity Document_). Workloads bruker SVID-en for å
+  presentere sin identitet for andre workloads
+- en mekanisme for å utstede SVID-er, kalt `SPIFFE Workload API`. Workload-APIet utsteder SVID-er til workloads med en
+  tilhørende kortlevd privat nøkkel, samt en _trust bundle_ som inneholder de nødvendige sertifikatene for å verifisere
+  SVID-er utstedt til andre workloads
+
+**SPIRE** (_SPIFFE Runtime Environment_) er en implementasjon av SPIFFE, som SKIP har innebygd støtte for via Istio.
+
+## Hvorfor SPIFFE
+
+For at applikasjoner på SKIP skal kunne kommunisere sikkert med både eksterne og interne tjenester er det flere
+sikkerhetsmekanismer i spill:
+- Applikasjoner er i utgangspunktet helt låst ned, og inngående og utgående nettverksregler må defineres eksplisitt
+  for å kunne kommunisere med andre tjenester
+- Istio, som er vårt Service Mesh og kjører som sidecar for alle pods, håndterer mutual TLS på vegne av
+  applikasjonen. Dette sikrer kryptert trafikk mellom tjenester
+
+Network Policies på Kubernetes tilbyr en del funksjonalitet på nivå 3 og 4 (ref. OSI-modellen), blant annet:
+- Label-basert tilgangskontroll, basert på `podSelector` og `namespaceSelector`
+- IP-/CIDR-basert tilgangskontroll
+- Begrensninger på hvilke porter og protokoller som kan brukes
+
+SPIFFE tilbyr derimot en del funksjonalitet som Network Policies _ikke_ tilbyr, også på nivå 7, blant annet:
+- Begrense trafikk basert på SPIFFE-identiteter
+- Begrense trafikk basert på HTTP-verb og paths
+- Deny-regler, i motsetning til Network Policies som baserer seg på kun Allow-regler
+
+## Hvordan SPIFFE
+
+:::tip[Vi ønsker å forenkle oppsett av SPIFFE på SKIP]
+På sikt ønsker vi å tilby et abstrasksjonslag som knytter oppsett av SPIFFE-regler tettere opp mot øvrig konfigurasjon
+av applikasjoner på SKIP, f.eks via `argokit`, direkte i definisjon av Skiperator-applikasjoner, eller via en egen
+_custom resource_. Kom gjerne med innspill på hvordan dette bør se ut i praksis!
+:::
+
+:::warning[SKIP støtter ikke SPIFFE på tvers av Kubernetes-cluster]
+Dersom du har applikasjoner som prater sammen på tvers av Kubernetes-cluster og ønsker å bruke SPIFFE, ta gjerne kontakt
+med Team Tilgangsstyring. Basert på behov og etterspørsel vil vi vurdere å tilby støtte for dette i fremtiden.
+:::
+
+For å definere SPIFFE-regler bruker vi Istio sine `AuthorizationPolicy`-ressurser. Disse kan defineres med enten `DENY`
+eller `ALLOW` som `action`. Førstnevnte brukes gjerne sammen med `notPrincipals` for å nekte tilgang for alle andre
+identiteter enn den som spesifiseres, mens sistnevnte brukes sammen med `principals` for å gi tilgang til spesifikke
+identiteter. Å beskytte et API med bruk av SPIFFE-regler vil gjerne innebære en kombinasjon av `ALLOW`- og
+`DENY`-regler.
+
+Dersom en forespørsel matcher en `DENY`-regel vil den alltid bli avvist, uavhengig av eventuelle `ALLOW`-regler.
+Dersom det eksisterer `ALLOW`-regler så må en forespørsel matche minst én av disse for å bli tillatt.
+
+Eksemplene under viser hvordan AuthorizationPolicy-ressurser med SPIFFE-regler kan defineres. Principals og
+notPrincipals spesifiseres på formatet `<cluster>/ns/<namespace>/sa/<serviceaccount>`. For kommunikasjon med
+identiteter i sammen Kubernetes-cluster brukes `cluster.local` som cluster-navn. En applikasjon sin _Service Account_ vil
+alltid ha samme navn som den tilhørende Skiperator-applikasjonen. For applikasjoner på SKIP vil altså principals være
+på formatet `cluster.local/ns/<namespace>/sa/<app-name>`.
+
+I definisjon av paths brukes wildcards `{*}` og `{**}` for å matche hhv. ett eller flere path-segmenter. Sistnevnte kan
+kun opptre i slutten av en path, mens førstnevnte kan opptre hvor som helst i pathen. Wildcard-operatorene kan ikke
+opptre sammen med andre tegn i samme path-segment, dvs. `/foo/bar/{*}` er gyldig, mens `/foo/bar{*}` er ikke er gyldig.
+
+### Eksempel på `DENY`-policy med `notPrincipals`
+Eksemplet avviser alle forespørsler mot `/secure{**}`, unntatt de som kommer fra `other-app` sin SPIFFE-identitet.
+```yaml
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: my-app
+  namespace: my-namespace
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  action: DENY
+  rules:
+    - from:
+      - source:
+          notPrincipals:
+            - cluster.local/ns/<other-app-namespace>/sa/<other-app>
+      to:
+        - operation:
+            paths:
+              - /secure/{**}
+```
+
+### Eksempel på `ALLOW`-policy med `principals`
+Eksemplet gir `other-app-with-full-access` tilgang med alle HTTP-verb, mens `other-app-with-only-get-access` kun får
+tilgang til GET-forespørsler. I tillegg tillater den alle forespørsler til `/public` og alle under-stier, uavhengig av
+identitet.
+```yaml
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: my-app
+  namespace: my-namespace
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  action: ALLOW
+  rules:
+    - from:
+      - source:
+          principals:
+            - cluster.local/ns/<other-app-namespace>/sa/<other-app-with-full-access>
+    - from:
+      - source:
+          principals:
+            - cluster.local/ns/<other-app-namespace>/sa/<other-app-with-only-get-access>
+      to:
+        - operation:
+            methods:
+              - GET
+    - to:
+      - operation:
+          methods:
+            - GET
+          paths:
+            - /public/{**}
+```
