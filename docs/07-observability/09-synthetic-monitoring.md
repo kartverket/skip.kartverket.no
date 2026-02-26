@@ -12,29 +12,7 @@ For å ta i bruk syntetisk overvåking må du gjøre følgende steg:
 
 1. Velg et repo der konfigurasjonen skal ligge. Vi anbefaler at den legges i repoet som inneholder koden til applikasjonen, men et apps-repo er også mulig.
 
-2. Installer følgende reusable workflow i repoet ditt. Denne validerer konfigurasjonen på pull requests, og dytter den til et sentralt repo ved push til `main` (ev. en annen default branch).
-
-    ```yaml
-    name: Validate Synthetic Monitoring Config
-
-    on:
-      push:
-        branches:
-        - main  # Bytt ut med navnet på default branch om det ikke er main
-      pull_request:
-
-    jobs:
-      call-synthetic-monitoring:
-        permissions:
-          contents: read
-          pull-requests: write
-          id-token: write
-        uses: kartverket/github-workflows/.github/workflows/synthetic-monitoring.yaml@<release tag>
-    ```
-
-    Bytt ut `<release tag>` med den siste versjonen av workflowen. Se [releases](https://github.com/kartverket/github-workflows/releases).
-
-3. Sett opp tilgang for repoet ditt via Octo STS. Dette er et førstegangssteg som gir workflowen tilgang til å opprette PR-er i det sentrale repoet. Du må opprette en PR i [`blackbox-exporter`-repoet](https://github.com/kartverket/blackbox-exporter) med to endringer:
+2. Sett opp tilgang for repoet ditt via Octo STS. Dette er et førstegangssteg som gir workflowen tilgang til å opprette PR-er i det sentrale repoet. Du må opprette en PR i [`blackbox-exporter`-repoet](https://github.com/kartverket/blackbox-exporter) med to endringer:
 
     **a)** Opprett en Octo STS trust policy-fil under `.github/chainguard/<repo-navn>.sts.yaml`:
 
@@ -61,8 +39,31 @@ For å ta i bruk syntetisk overvåking må du gjøre følgende steg:
           - name: mitt-repo
     ```
 
+3. Installer følgende reusable workflow i repoet ditt. Denne validerer konfigurasjonen på pull requests, og dytter den til et sentralt repo ved push til `main` (ev. en annen default branch).
 
-3. Opprett en fil kalt `synthetic-monitoring.yaml` i repoet ditt (se [Konfigurasjon](#konfigurasjon)).
+    ```yaml
+    name: Validate Synthetic Monitoring Config
+
+    on:
+      push:
+        branches:
+        - main  # Bytt ut med navnet på default branch om det ikke er main
+      pull_request:
+
+    jobs:
+      call-synthetic-monitoring:
+        permissions:
+          contents: read
+          pull-requests: write
+          id-token: write
+        uses: kartverket/github-workflows/.github/workflows/synthetic-monitoring.yaml@<release tag>
+    ```
+
+    Bytt ut `<release tag>` med den siste versjonen av workflowen. Se [releases](https://github.com/kartverket/github-workflows/releases).
+
+
+
+4. Opprett en fil kalt `synthetic-monitoring.yaml` i repoet ditt (se [Konfigurasjon](#konfigurasjon)).
 
 
 ## Konfigurasjon
