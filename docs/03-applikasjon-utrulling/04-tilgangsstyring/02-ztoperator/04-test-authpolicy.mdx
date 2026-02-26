@@ -70,10 +70,10 @@ steps:
 
   # 🚨 Må kjøres først 🚨
   - name: Setup SKIP
-    uses: kartverket/setup-skip-action@v0.0.3
+    uses: kartverket/setup-skip-action@latest
 
   - name: Test AuthPolicy
-    uses: kartverket/test-authpolicy-action@v0.0.2
+    uses: kartverket/test-authpolicy-action@latest
     with:
       test: test.yaml
       authpolicy: authpolicy.yaml
@@ -83,7 +83,7 @@ steps:
 ### 🧪 Test-fil
 
 `test-authpolicy-action` har to input: filstien til `AuthPolicy`-ressursen som skal testes, og filstien til en _testfil_ som beskriver selve testene.
-Testfilen må følge JSON-skjemaet definert [her](https://kartverket.github.io/test-authpolicy-action/v0.0.1/schema.json).
+Testfilen må følge JSON-skjemaet definert [her](https://kartverket.github.io/test-authpolicy-action/latest/schema.json).
 
 Testfilen består av et navn (`name`) og en samling forespørsler (`requests`). Hver forespørsel definerer:
 - Én eller flere URL-stier.
