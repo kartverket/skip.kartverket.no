@@ -48,7 +48,11 @@ For å ta i bruk syntetisk overvåking må du gjøre følgende steg:
       push:
         branches:
         - main  # Bytt ut med navnet på default branch om det ikke er main
+        paths:
+        - synthetic-monitoring.yaml
       pull_request:
+        paths:
+        - synthetic-monitoring.yaml
 
     jobs:
       call-synthetic-monitoring:
