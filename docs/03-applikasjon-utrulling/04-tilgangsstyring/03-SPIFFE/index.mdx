@@ -1,5 +1,15 @@
 # SPIFFE
 
+## Innhold
+- [Hva er SPIFFE](#hva-er-spiffe)
+- [Hvorfor SPIFFE](#hvorfor-spiffe)
+- [Hvordan SPIFFE](#hvordan-spiffe)
+    - [Eksempler på action: deny](#eksempel-p%C3%A5-deny-policy-med-notprincipals)
+    - [Eksempler på action: allow](#eksempel-p%C3%A5-allow-policy-med-principals)
+- [Validering av SPIFFE-identitet i din applikasjon](#validering-av-spiffe-identitet-i-din-applikasjon)
+- [Testing av SPIFFE-regler](#testing-av-spiffe-regler)
+- [Bruk av SPIFFE sammen med Ztoperator](#bruk-av-spiffe-sammen-med-ztoperator)
+
 ## Hva er SPIFFE
 **SPIFFE** (_Secure Production Identity Framework For Everyone_) er en standard som kort forklart definerer:
 - en identifikator, kalt `SPIFFE ID`. Ved bruk av SPIFFE vil hver workload ha en unik SPIFFE ID
@@ -41,6 +51,13 @@ _custom resource_. Kom gjerne med innspill på hvordan dette bør se ut i praksi
 :::warning[SKIP støtter ikke SPIFFE på tvers av Kubernetes-cluster]
 Dersom du har applikasjoner som prater sammen på tvers av Kubernetes-cluster og ønsker å bruke SPIFFE, ta gjerne kontakt
 med Team Tilgangsstyring. Basert på behov og etterspørsel vil vi vurdere å tilby støtte for dette i fremtiden.
+:::
+
+:::danger[Samspill mellom Ztoperator og SPIFFE-regler]
+Ztoperator baserer seg, i likhet med SPIFFE, på å opprette `AuthorizationPolicy`-ressurser. Det er derfor viktig å være klar over at
+Ztoperator og egendefinerte SPIFFE-baserte `AuthorizationPolicy`-ressurser kan komme i konflikt. Se
+[denne seksjonen](#bruk-av-spiffe-sammen-med-ztoperator) for nærmere forklaring. På sikt håper Team Tilgangsstyring å
+kunne tilby en bedre løsning for dette, f.eks støtte for SPIFFE integrert i Ztoperator.
 :::
 
 For å definere SPIFFE-regler bruker vi Istio sine `AuthorizationPolicy`-ressurser. Disse kan defineres med enten `DENY`
@@ -121,3 +138,33 @@ spec:
           paths:
             - /public/{**}
 ```
+
+## Validering av SPIFFE-identitet i din applikasjon
+Istio sender med seg headeren `X-Forwarded-Client-Cert`, som inneholder informasjon om SPIFFE-identiteten til klienten
+som gjør kallet. Denne er på formatet
+```
+By=spiffe://cluster.local/ns/<namespace>/sa/<service-account>;Hash=<hash>;Subject="";URI=spiffe://cluster.local/ns/<namespace>>/sa/<service-account>
+```
+
+Det mest naturlige er da å bruke URI-delen av headeren for å validere SPIFFE-identiteten. Vår infrastruktur med Istio
+i sidecar-modus er konfigurert slik at applikasjonen alltid kan stole på at denne headeren er korrekt, og at den ikke
+kan forfalskes av klienten.
+
+## Testing av SPIFFE-regler
+Team Tilgangsstyring tilbyr p.t. ingen verktøy for testing av `AuthorizationPolicy`-ressurser med SPIFFE-regler. Ta
+kontakt med oss dersom du har innspill til hvordan et slikt testverktøy bør fungere. Enn så lenge anbefaler vi at dere
+bruker `dev`-miljøet for testing. Vi er tilgjengelig for sparring mtp. oppsett av AuthorizationPolicy-ressurser.
+
+## Bruk av SPIFFE sammen med Ztoperator
+### For rene maskin-til-maskin-baserte APIer
+Dersom alle endepunkter i appen til er ment for samme type maskin-til-maskin-kommunikasjon, er det problemfritt å bruke
+Ztoperator (for validering av tokens) og SPIFFE-regler (for validering av identiteter) sammen.
+
+### For APIer som skal håndtere både maskin-til-maskin-kommunikasjon og kommunikasjon med sluttbrukere
+For at Ztoperator-regler og SPIFFE-regler ikke skal gå i beina på hverandre må de ulike delene av APIet for hhv. m2m-
+og sluttbruker-kommunikasjon være adskilt, f.eks på ulike rotstier `/api/user/..` og `/api/m2m/...`. Videre må du være
+nøye på å sette opp Ztoperator-regler og SPIFFE-regler slik at sikkerheten i APIet ikke kompromitteres. Dette innebærer:
+- Sett opp Ztoperator med ønsket validering av sluttbrukertokens, og `api/m2m/{**}` som `ignoreAuthRules`-path
+- Sett opp SPIFFE-regler for `api/m2m/{**}`-pathen, **med både**:
+    - `DENY`-regler som nekter tilgang for alle identiteter unntatt de som skal ha tilgang
+    - `ALLOW`-regler som gir tilgang til de identitetene som skal ha tilgang
