@@ -31,6 +31,19 @@ Hvordan du definerer autorisasjonsregler er dokumentert under [Autorisasjonsregl
 Hvilke felter som eksisterer og deres oppførsel er dokumentert i [API Reference](03-api-docs.mdx).
 Hvordan du kan teste og verifisere oppførselen til en `AuthPolicy` finner du under [Test din Ztoperator-AuthPolicy](04-test-authpolicy.mdx).
 
+## 🧩 Forutsetninger
+
+Før du kan bruke Ztoperator til å beskytte tjenesten din må følgende være på plass:
+
+- Du må vite hvilken OAuth 2.0-identitetstilbyder som passer for din tjeneste og registrere en klient hos denne. Se [her](index.mdx#-støttede-identitetstilbydere) for en oversikt over hvilke identitetstilbydere som støttes av Ztoperator på SKIP.
+- Du må vite hvilket *well-known endepunkt*, *audience* og eventuelle *claims* som gjelder for applikasjonen din.
+- Den beskyttede applikasjonen **må** kjøre på SKIP.
+
+:::caution
+Ztoperator registrerer ikke en OIDC-klient for deg. Du må selv ha etablert en integrasjon mot valgt identitetstilbyder, og Ztoperator brukes kun til å beskrive hvordan appen skal beskyttes og håndtere eventuelle innloggingsflyter.
+:::
+
+
 ## 🚀 Innlogging og utlogging med Ztoperator
 
 Det går an å konfigurere Ztoperator til å håndtere innlogging og utlogging av sluttbrukere på vegne av applikasjonen din. 
