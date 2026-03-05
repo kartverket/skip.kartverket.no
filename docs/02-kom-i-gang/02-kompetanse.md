@@ -29,6 +29,7 @@ Det finnes mange GCP-kurs på [Pluralsight](https://www.pluralsight.com/browse/g
 - [GCP Secrets](../03-applikasjon-utrulling/03-oppsett-og-bruk-av-secret-manager.md) - Håndtering av hemmeligheter ([GCP Docs](https://cloud.google.com/secret-manager/docs))
 - [Service Accounts](./06-praktisk-intro/06-kubernetes/05-autentisering-mot-gcp-fra-applikasjon.md) - Tilgangsstyring for tjenester
 - [IAM & Permissions](./04-team/08-jit.md) - Rettigheter og tilganger ([IAM Docs](https://cloud.google.com/iam/docs/overview) | [WIF Docs](https://cloud.google.com/iam/docs/workload-identity-federation))
+- [Privileged Access Manager (PAM)](./04-team/09-pam-google-cloud.md) - Midlertidig og kontrollert tilgang til Google Cloud-ressurser ([PAM Docs](https://cloud.google.com/iam/docs/pam-overview))
 - [CloudSQL](../06-lagring/03-cloud-sql.md) - Relasjonell database
 
 ### Infrastruktur og containere
@@ -51,4 +52,4 @@ Prodklare apper på SKIP forventes å implementere grunnleggende sikkerhet og ov
 ### Overvåkning og drift
 - [Monitoring](../07-observability/index.md) - Observabilitet og overvåkning
 - [Alarmer](../07-observability/04-alerting-with-grafana.md) - Konfigurering av alarmer og varsling
-- [Kostnadsoversikt](./04-team/09-kostnadsoversikt-og-alarmer.md) - Kostnadsstyring og budsjettering
+- [Kostnadsoversikt](./04-team/10-kostnadsoversikt-og-alarmer.md) - Kostnadsstyring og budsjettering

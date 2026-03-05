@@ -12,7 +12,7 @@ Det er mange fordeler med GSM:
 - Veldig stabilt og fullt driftet av GCP
 - Praktisk talt gratis
 - Kan administreres med [Terraform](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret)
-- Man kan bruke GitHub cloud runners som fører til raskere bygg med mer [pre-installed sofware](https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md)
+- Man kan bruke GitHub cloud runners som fører til raskere bygg med mer [pre-installed sofware](https://github.com/actions/runner-images/blob/main/README.md)
 - Tilgjengelig fra Kubernetes via [Hente hemmeligheter fra hemmelighetshvelv](./09-argo-cd/04-hente-hemmeligheter-fra-hemmelighetsvelv.md)
 
 ## Hvordan komme i gang?

@@ -31,7 +31,7 @@ dev/
     db.yaml  # Crossplane-manifester for databasen på GCP
 ```
 
-Det første steget er å få autentisert mot GCP slik at Crossplane får tilgang til å opprette ressurser i prosjektet deres. Dette gjøres ved å kontakte SKIP og få lagt inn mapping for prefikset deres i [skip-apps](https://github.com/kartverket/skip-apps/blob/main/lib/argocd/argocd.libsonnet) .
+Det første steget er å få autentisert mot GCP slik at Crossplane får tilgang til å opprette ressurser i prosjektet deres. Dette gjøres ved å kontakte SKIP og få lagt inn mapping for prefikset deres i [skip-apps](https://github.com/kartverket/skip-apps/blob/main/lib/argocd/teams.json) .
 
 Deretter kan man opprette ressurser som er støttet av SKIP dokumentert lenger ned. Crossplane støtter mye mer, se CRD-er i [GCP provideren](https://marketplace.upbound.io/providers/upbound/provider-gcp/v0.28.0/crds) , men det må lages støtte for disse, se “Tilgang til ressurser”.
 

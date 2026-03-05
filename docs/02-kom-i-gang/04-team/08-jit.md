@@ -1,8 +1,11 @@
 # Dynamisk tilgangskontroll (JIT)
+:::note
+Privileged Access Manager (PAM) is our newest and recommended method for temporary privilege elevation.
+See [PAM guide](./09-pam-google-cloud.md).
+:::
+Most developers will at some point experience not having the correct permissions to operate on Google Cloud resources. This is intentional and is part of the [principle of least privilege](https://owasp.org/www-community/controls/Least_Privilege_Principle).
 
-Most developers will at some point experience not having the correct permissions to operate on Google Cloud resources. This is intentional and is part of the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) .
-
-In order to operate on the resources you want to access, you need to elevate your privileges. A system exists to make this operation self-service, and it is called Just-In-Time access. It can be accessed at [https://jit.skip.kartverket.no](https://jit.skip.kartverket.no/) .
+In order to operate on the resources you want to access, you need to elevate your privileges. A system exists to make this operation self-service, and it is called Just-In-Time access. It can be accessed at [https://jit.skip.kartverket.no](https://jit.skip.kartverket.no/).
 
 After logging in with your Kartverket google account, it will take you to the below screen.
 
