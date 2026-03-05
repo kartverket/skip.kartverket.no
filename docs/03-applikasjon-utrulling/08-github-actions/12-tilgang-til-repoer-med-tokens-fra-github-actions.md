@@ -14,7 +14,7 @@ En Secure Token Service (STS) er en tjeneste som utsteder sikkerhetstokener som 
 
 Måten STS fungerer på er at man etablerer tillit mellom to repoer. Dette gjøres ved å legge inn en konfigurasjonsfil i repoet du ønsker å ha tilgang til som sier noe om hvem som skal kunne få tilgang til repoet. Deretter bruker man en ferdig GitHub action i repot som skal få tilgang til å etablere et kortlevd tiken via STS-tjenesten.
 
-Les [denne artikkelen](https://www.chainguard.dev/unchained/the-end-of-github-pats-you-cant-leak-what-you-dont-have) for mer detaljer om Octo STS.
+Les [denne artikkelen](https://edu.chainguard.dev/open-source/octo-sts/overview/) for mer detaljer om Octo STS.
 
 ### Etablere tillit
 

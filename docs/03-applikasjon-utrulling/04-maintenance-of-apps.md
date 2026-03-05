@@ -8,7 +8,7 @@ Denne siden prøver å forklare hvordan man kan gjøre en del av disse manuelle 
 
 For å kunne stoppe en kjørende applikasjon som er administrert av ArgoCD må man først være sikker på at autosync/self heal er deaktivert for produktteamet som eier applikasjonen. Hvis ikke vil bare applikasjonen spinne opp igjen automatisk.
 
-Se [denne filen](https://github.com/kartverket/skip-apps/blob/main/lib/argocd/argocd.libsonnet#L51) for å sjekke hva som er status, eventuelt spør noen på SKIP hvis du er usikker. Hvis ikke annet er satt kan du gå ut i fra at autosync er skrudd på i dev og test, men avslått i prod.
+Se [denne filen](https://github.com/kartverket/skip-apps/blob/main/lib/argocd/teams.json) for å sjekke hva som er status, eventuelt spør noen på SKIP hvis du er usikker. Hvis ikke annet er satt kan du gå ut i fra at autosync er skrudd på i dev og test, men avslått i prod.
 
 For å stoppe en applikasjon trykker du på menyen til en application-ressurs og velger “Stop”. Dette vil midlertidig sette antall kopier til 0 slik at skiperator skalerer ned applikasjonen. Du vil da kunne se at pods forsvinner fra grensesnittet, og “Sync Status” for applikasjonen vil stå som “OutOfSync”
 ![Trykk stopp](images/671907942.png)

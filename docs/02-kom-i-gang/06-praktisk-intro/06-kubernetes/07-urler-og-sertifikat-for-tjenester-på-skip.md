@@ -20,10 +20,6 @@ Eksempel: minapp.atkv3-prod.kartverket-intern.cloud
 
 ### Vanity URL-er
 
-:::note
-Akkurat nå støttes kun kartverket-intern.cloud URL-er pga. en begrensning i utstedelse av sertfikater ( [SKIP-1459](https://kartverket.atlassian.net/browse/SKIP-1459) ) og en begrensning i lastbalanserer på atkv3-dev cluster ( [SKIP-1458](https://kartverket.atlassian.net/browse/SKIP-1458) ). Dette skal utbedres.
-:::
-
 Dersom du ønsker et annet hostname enn `app.<cluster>.kartverket-intern.cloud` er dette mulig, men krever noe mer setup. Den nye URL-en må registreres i DNS og skiperator-applikasjonen din må settes opp til å lytte på denne. Utstedelse og fornying av sertfikater vil fremdeles håndteres automatisk av Skiperator.
 
 For å sette opp DNS må du gjøre følgende: Først bestem hvilke URL du vil ha, deretter sett opp et CNAME for denne URL-en til `<cluster>.kartverket-intern.cloud` . Dersom du ønsker et CNAME som ligger under kartverket-intern.cloud (for eksempel minapp.kartverket-intern.cloud) kan dette gjøres av SKIP, for alle andre domener ta kontakt med eier av domenet via bestilling i pureservice. Når dette er gjort vil alle spørringer som går mot URL-en du har bestemt ende opp host lastbalansereren foran clusteret, og sendes videre inn til Kubernetes.

@@ -23,14 +23,8 @@ Før dette kan gjøres må man gå igjennom denne sjekklisten:
   - Sørg for at alle endepunkter som krever autentisering faktisk krever det
   - Vi anbefaler i tillegg å bruke [OWASP ZAP](https://www.zaproxy.org/) for å kjøre en scan
 
-- Følgende headere blir sendt på alle kall:
-  - [HTTP Strict Transport Security](https://scotthelme.co.uk/hsts-the-missing-link-in-tls/)
-  - [Content Security Policy](https://scotthelme.co.uk/content-security-policy-an-introduction/)
-  - [X-Frame-Options](https://scotthelme.co.uk/hardening-your-http-response-headers/#x-frame-options)
-  - [X-Content-Type-Options](https://scotthelme.co.uk/hardening-your-http-response-headers/#x-content-type-options)
-  - [Referrer Policy](https://scotthelme.co.uk/a-new-security-header-referrer-policy/)
-  - [Permissions Policy](https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/)
-- Når appen er eksponert skal sikkerhetsheaders testes med [https://securityheaders.com](https://securityheaders.com/) og [https://observatory.mozilla.org](https://observatory.mozilla.org/)
+
+- Når appen er eksponert skal sikkerhetsheaders testes med [https://securityheaders.com](https://securityheaders.com/) og [https://observatory.mozilla.org](https://observatory.mozilla.org/). Gå gjennom resultatene og sørg for at relevante header-typer er på plass.
 - Monitorering og varsling er satt opp i [Grafana](https://monitoring.kartverket.cloud), og vaktlaget er onboardet disse alarmene
   - [Metrics with Grafana](../07-observability/metrikker.md)
   - [Logs with Loki](../07-observability/05-logs-with-Loki.md)

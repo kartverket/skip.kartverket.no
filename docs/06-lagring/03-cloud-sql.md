@@ -10,7 +10,7 @@ Dokumentasjon for hvordan modulene brukes finnes på wiki-siden til [terraform-m
 Spesielt guiden for [hvordan bruke terraform-modules repoet](https://github.com/kartverket/terraform-modules/wiki/Hvordan-bruke-dette-repoet) er relevant.
 
 ### cloud_sql modulen
-> For mer utfyllende dokumentasjon se [cloud_sql wiki](https://github.com/kartverket/terraform-modules/tree/main/cloud_sql)
+> For mer utfyllende dokumentasjon se [cloud_sql wiki](https://github.com/kartverket/terraform-modules/wiki/cloud_sql)
 
 ```hcl
 module "cloudsql_test" {
