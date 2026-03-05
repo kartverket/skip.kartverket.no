@@ -60,7 +60,7 @@ Velg varighet ved å trykke på "Grant duration", og gi en begrunnelse for tilga
 
 ## Godkjenning og ansvar
 
-- Teamene har selv ansvar for godkjenning og oppfølging av PAM-forespørsler, det kreves at ett teammedlem godkjenner forespørselen.
+- Teamene har selv ansvar for godkjenning og oppfølging av PAM-forespørsler, det kreves at et teammedlem godkjenner forespørselen.
 
 ## Relatert dokumentasjon
 
