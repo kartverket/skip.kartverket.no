@@ -16,7 +16,7 @@ For å ta i bruk syntetisk overvåking må du gjøre følgende steg:
   For å kjøre workflowen, klikk på "Run workflow", skriv inn verdiene for team og repoene du vil skal ha tilgang og deretter klikk på "Run workflow" nederst. 
   Da opprettes en PR som SKOOP-teamet må godkjenne, gi oss gjerne et lite pling i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack. Du kan fortsette på neste steg i mellomtiden.
   <img src={require("./images/onboarding-workflow-dispatch.png").default} alt="Skjermbilde av GitHub onboarding workflow dispatch" style={{ width: "40%" }} />
-  Så lenge team-navnet er det samme kan denne workflowen kjøres igjen for å legge til flere repoer. 
+  Så lenge teamnavnet er det samme kan denne workflowen kjøres igjen for å legge til flere repoer. 
 
 3. Installer følgende reusable workflow i repoet ditt. Denne validerer konfigurasjonen på pull requests, og dytter den til et sentralt repo ved push til `main` (ev. en annen default branch).
 
