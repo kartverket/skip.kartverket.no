@@ -12,32 +12,11 @@ For å ta i bruk syntetisk overvåking må du gjøre følgende steg:
 
 1. Velg et repo der konfigurasjonen skal ligge. Vi anbefaler at den legges i repoet som inneholder koden til applikasjonen, men et apps-repo er også mulig.
 
-2. Sett opp tilgang for repoet ditt via Octo STS. Dette er et førstegangssteg som gir workflowen tilgang til å opprette PR-er i det sentrale repoet. Du må opprette en PR i [`blackbox-exporter`-repoet](https://github.com/kartverket/blackbox-exporter) med to endringer:
-
-    **a)** Opprett en Octo STS trust policy-fil under `.github/chainguard/<repo-navn>.sts.yaml`:
-
-    Bytt ut `<repo-navn>` med navnet på repoet ditt.
-
-    ```yaml
-    issuer: https://token.actions.githubusercontent.com
-    subject_pattern: repo:kartverket\/(<repo-navn>:(ref:refs\/heads\/.+|pull_request))
-
-    permissions:
-      pull_requests: write
-      contents: write
-    ```
-
-    Se [Octo STS-dokumentasjonen](https://skip.kartverket.no/docs/applikasjon-utrulling/github-actions/tilgang-til-repoer-med-tokens-fra-github-actions#secure-token-service-sts) for mer informasjon om hvordan dette fungerer.
-
-    **b)** Legg til repoet ditt i `onboarded-teams.yaml`:
-
-    ```yaml
-    teams:
-      # ... eksisterende teams
-      - name: Mitt Team
-        repositories:
-          - name: mitt-repo
-    ```
+2. Kjør [onboarding](https://github.com/kartverket/blackbox-exporter/actions/workflows/onboarding.yaml) workflowen i `blackbox-exporter`-repoet. Dette setter opp tilgang slik at ditt repo kan pushe og opprette PR. 
+  For å kjøre workflowen, klikk på "Run workflow", skriv inn verdiene for team og repoene du vil skal ha tilgang og deretter klikk på "Run workflow" nederst. 
+  Da opprettes en PR som SKOOP-teamet må godkjenne, gi oss gjerne et lite pling i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack. Du kan fortsette på neste steg i mellomtiden.
+  <img src={require("./images/onboarding-workflow-dispatch.png").default} alt="Skjermbilde av GitHub onboarding workflow dispatch" style={{ width: "40%" }} />
+  Så lenge teamnavnet er det samme kan denne workflowen kjøres igjen for å legge til flere repoer. 
 
 3. Installer følgende reusable workflow i repoet ditt. Denne validerer konfigurasjonen på pull requests, og dytter den til et sentralt repo ved push til `main` (ev. en annen default branch).
 
