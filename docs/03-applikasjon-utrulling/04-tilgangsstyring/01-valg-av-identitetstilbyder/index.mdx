@@ -1,0 +1,89 @@
+# Valg av identitetstilbyder
+
+Du bør vurdere hvilke(n) identitetstilbyder(e) som passer best til behovene i din applikasjon. Microsoft Entra ID og
+Digitaliseringsdirektoratets (Digdir) fellesløsninger; ID-Porten, Maskinporten og Ansattporten er identitetstilbyderne
+vi mener dekker bredden av konsumentene av Kartverkets digitale tjenester. I tillegg vil vi innen kort tid tilby Token
+Exchange for innveksling av tokens og bevaring av sluttbrukerkontekst i kall til underliggende tjenester. Hvis du har
+behov for en annen identitetstilbyder enn de som er listet opp under, ta kontakt med Team Tilgangsstyring på [#gen-tilgangsstyring](https://kartverketgroup.slack.com/archives/C08CJLBLY2X).
+
+Valg av identitetstilbyder(e) kan forenkles å stille seg spørsmålene:
+- **"*Hvem er sluttbruker?*"**. Menneske- eller maskinbruker avgjør hvilke identitetstilbydere som er aktuelle
+- **"*Hvilken tjeneste skal du kalle?*"**. Interne og eksterne tjenester sikres med ulike identitetstilbydere
+- **"*Er jeg i kontekst av en sluttbruker?*"**. Vi ønsker å bevare sluttbrukerkontekst i kall til underliggende tjenester
+    ved bruk av Token Exchange
+
+## Som API-tilbyder
+```mermaid
+flowchart LR;
+  konsument([**Hvem er sluttbruker?**]);
+  flyt([**I kontekst av en sluttbruker?**]);
+
+  konsument -- "System i Kartverket" --> flyt;
+  flyt -- "Ja" --> tokendings([Token Exchange<br>via Tokendings]);
+  flyt -- "Nei" --> entra-id-app([Microsoft Entra ID App eller SPIFFE]);
+  konsument -- "Ansatt i Kartverket" --> entra-id-user([Microsoft Entra ID User]);
+  konsument -- "Innbygger" --> id-porten([ID-Porten]);
+  konsument -- "Ansatt i ekstern virksomhet" --> ansattporten([Ansattporten]);
+  konsument -- "System i ekstern virksomhet (m2m)" --> maskinporten([Maskinporten]);
+
+```
+_Valg av identitetstilbyder som API-tilbyder._
+
+Dersom samme API skal brukes av flere typer konsumenter, for eksempel et internt system i Kartverket som blir kalt både
+i en sluttbrukerflyt og i en frittstående flyt (f.eks av en `Job`), anbefaler vi å eksponere de ulike tjeneste på ulike
+rotstier, f.eks `/api/user/..` og `/api/m2m/..`, fremfor å benytte de samme endepunktene.
+## Som API-konsument
+```mermaid
+flowchart LR;
+  konsument([**Hvem er sluttbruker?**]);
+  tjeneste-m2m([**Hvilken tjeneste skal du kalle?**]);
+  tjeneste-h2m([**Hvilken tjeneste skal du kalle?**]);
+  flyt([**I kontekst av en sluttbruker?**]);
+
+  konsument -- "System i Kartverket" --> tjeneste-m2m;
+  konsument -- "Ansatt i Kartverket" --> tjeneste-h2m;
+
+  tjeneste-m2m -- "Ekstern tjeneste" --> maskinporten([Maskinporten]);
+  tjeneste-m2m -- "Intern tjeneste" --> flyt;
+
+  flyt -- "Ja" --> tokendings([Token Exchange<br>via Tokendings]);
+  flyt -- "Nei" --> entra-id-app([Microsoft Entra ID App eller SPIFFE])
+
+  tjeneste-h2m -- "Intern tjeneste" --> entra-id-user([Microsoft Entra ID User]);
+  tjeneste-h2m -- "Ekstern tjeneste" --> ansattporten([Ansattporten]);
+```
+_Valg av identitetstilbyder som API-konsument._
+
+## Utvidet funksjonalitet hos enkelte identitetstilbydere
+Maskinporten og Ansattporten kan i kombinasjon med Altinn tilby utvidet funksjonalitet. Disse kan være aktuelle dersom
+du har behov for mer finkornet tilgangsstyring til, eller validering i, ditt API.
+
+### Maskinporten + Altinn-delegering
+Altinn-delegering egner seg dersom du:
+1. Ønsker å bruke Maskinporten for å sikre ditt API, og
+2. Ønsker å tilgangsstyre tilgang til API-et ved å gi konsumenten eksplisitt tilgang via Maskinporten, og
+3. Tillater at konsumenten delegerer tilgangen videre til en tredjepart, som da vil kunne hente tokens på vegne av
+   konsumenten.
+
+Nevnte tredjepart (f.eks en systemleverandør) skal _ikke_ ha eksplisitt tilgang til det aktuelle Maskinporten-scopet i
+dette tilfellet, men vil kunne hente ut tokens på vegne av konsumenten så lenge konsumenten har tilgang til scopet og
+har delegert denne tilgangen videre i Altinn.
+
+[Her](./01-delegering.mdx) kan du lese mer om Altinn-delegering, både i rollen som API-tilbyder og API-konsument.
+
+### Maskinporten + Systembrukere i Altinn
+Systembrukere i Altinn egner seg dersom du:
+1. Ønsker å bruke Maskinporten for å sikre ditt API, og
+2. Ønsker å tilgangsstyre tilgang til API-et ved å gi systemleverandører eksplisitt tilgang via Maskinporten, og
+3. Ønsker å tilgangsstyre tilgang til API-et ved å definere en tilgangspakke eller rolle i Altinn, som så kan opprette
+   systembrukere tilknyttet systemleverandørens fagsystem
+
+[Her](./02-systembruker.mdx) kan du lese mer om systembrukere, systemer og ressurser i Altinn, både i rollen som
+API-tilbyder og API-konsument.
+
+### Ansattporten + Altinn-roller
+Egner seg dersom du:
+1. Ønsker å la ansatte i eksterne virksomheter logge inn med Ansattporten, og
+2. Ønsker å tilgangsstyre tilgang til API-et basert på roller definert i Altinn
+
+[Her](./03-altinn-roller.mdx) kan du lese mer om hvordan du kan bruke Ansattporten i kombinasjon med Altinn-roller for

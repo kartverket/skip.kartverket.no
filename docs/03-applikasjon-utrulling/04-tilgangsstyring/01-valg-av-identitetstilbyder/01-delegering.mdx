@@ -1,0 +1,50 @@
+# Altinn-delegering i Maskinporten
+:::warning[Under arbeid]
+Har du umiddelbare spørsmål eller behov rundt dette, ta kontakt med Team Tilgangsstyring.
+:::
+
+## Som API-tilbyder
+Dette gjelder dersom du ønsker å leverere et API sikret med Maskinporten, der konsumentene skal kunne delegere tilgangen
+videre til en tredjepart (f.eks en systemleverandør). I dette tilfellet er Kartverket API-tilbyder.
+
+### 1. Opprett delegerbart Maskinporten-scope
+Med Digdirator, i selvbetjeningsportalen eller via Digdir sine API-er. Videre beskrivelse kommer.
+
+### 2. Opprett delegeringsoppsett i Altinn for det aktuelle scopet
+I Altinn Studio eller via Altinn sine API-er. Videre beskrivelse kommer.
+
+### 3. Gi konsument tilgang til Maskinporten-scopet
+Med Digdirator, i selvbetjeningsportalen eller via Digdir sine API-er. Videre beskrivelse kommer.
+
+### 4. Gjør evt. delegeringsrelevant validering i ditt API
+Maskinporten-tokens der delegering er i bruk har to ekstra claims `delegation_source` og `supplier`:
+```json
+{
+  "consumer" : {
+    "authority" : "iso6523-actorid-upis",
+    "ID" : "0192:<orgnr_for_konsument>"
+  }
+  ..
+  "delegation_source" : "https://tt02.altinn.no/",
+  "supplier" : {
+    "authority" : "iso6523-actorid-upis",
+    "ID" : "0192:<orgnr_for_systemleverandør>"
+  },
+}
+```
+
+_Dersom_ du har begrensninger knyttet til delegering i ditt API, f.eks at kun et begrenset utvalg leverandører for lov
+til å handle på vegne av dine konsumenter, bør du validere at:
+1. `delegation_source` er satt (`https://altinn.no/` i produksjon)
+2. `supplier`-claimen inneholder et organisasjonsnummer som lar lov til å opptre på vegne av konsumenten
+
+## Som API-konsument
+Dette gjelder dersom du skal få delegert tilgang til å bruke et Maskinporten-scope på vegne av en konsument. I dette
+tilfellet er Kartverket API-konsument, på vegne av en virksomhet.
+
+### 1. Få delegert tilgang i Altinn
+I Altinn. Videre beskrivelse kommer.
+
+### 2. Hent ut Maskinporten-tokens
+Eneste forskell fra vanlig token-uthenting er at konsumentens organisasjonsnummer må inkluderes via
+`consumer_org`-claimet.
