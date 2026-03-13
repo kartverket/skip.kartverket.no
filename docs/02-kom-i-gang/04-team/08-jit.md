@@ -1,32 +1,32 @@
 # Dynamisk tilgangskontroll (JIT)
 :::note
-Privileged Access Manager (PAM) is our newest and recommended method for temporary privilege elevation.
-See [PAM guide](./09-pam-google-cloud.md).
+Privileged Access Manager (PAM) er vår nyeste og anbefalte metode for midlertidig rettighetseskalering (privilege elevation).
+Se [PAM guide](./09-pam-google-cloud.md).
 :::
-Most developers will at some point experience not having the correct permissions to operate on Google Cloud resources. This is intentional and is part of the [principle of least privilege](https://owasp.org/www-community/controls/Least_Privilege_Principle).
+De fleste utviklere vil på et tidspunkt oppleve å ikke ha de riktige tilgangene for å bruke Google Cloud-ressurser. Dette er tilsiktet og er en del av [principle of least privilege](https://owasp.org/www-community/controls/Least_Privilege_Principle).
 
-In order to operate on the resources you want to access, you need to elevate your privileges. A system exists to make this operation self-service, and it is called Just-In-Time access. It can be accessed at [https://jit.skip.kartverket.no](https://jit.skip.kartverket.no/).
+For å kunne bruke ressursene du ønsker tilgang til, må du eskalere privilegiene dine. Det finnes et system for å gjøre denne operasjonen som selvbetjening, og det kalles Just-In-Time access. Det er tilgjengelig på [https://jit.skip.kartverket.no](https://jit.skip.kartverket.no/).
 
-After logging in with your Kartverket google account, it will take you to the below screen.
+Etter at du har logget inn med din Google-konto i Kartverket, vil du komme til skjermbildet under.
 
 ![JIT project selection screen](images/jit-project.png)
 
-First step is filling in the ID of the project you wish to get access to. This can be found by searching in the box or by finding the ID from [console.cloud.google.com](http://console.cloud.google.com/).
+Første steg er å fylle inn ID-en til prosjektet du ønsker tilgang til. Denne kan finnes ved å søke i boksen eller ved å finne ID-en fra [console.cloud.google.com](http://console.cloud.google.com/).
 
 ![JIT role selection screen](images/jit-roles.png)
 
-Second step, select the roles you want. It is often possible to see which role you need from the error message you got when trying to do an operation and getting denied.
+Andre steg er å velge rollene du ønsker. Det er ofte mulig å se hvilken rolle du trenger fra feilmeldingen du fikk da du prøvde å utføre en operasjon og ble nektet tilgang.
 
-A common role that is used for administering secrets in Google Secret Manager is `secretmanager.admin`.
+En vanlig rolle som brukes for å administrere secrets i Google Secret Manager er `secretmanager.admin`.
 
-Select a suitable duration using the slider and click continue. Note that some sensitive roles are not compatible with longer durations.
+Velg en passende varighet ved å bruke glidebryteren og klikk fortsett. Merk at enkelte sensitive roller ikke er kompatible med lengre varighet.
 ![JIT role selection screen](images/jit-justification.png)
 
-Now for the final step, enter a reason for the access request. This is mostly for auditing, as generally speaking requests are granted automatically. The reason entered will be possible to see in the logs if we need to investigate a security breach.
+Til slutt, skriv inn en begrunnelse for tilgangsforespørselen. Dette er hovedsakelig for revisjon (auditing), da forespørsler generelt sett innvilges automatisk. Begrunnelsen som legges inn vil være mulig å se i logs dersom vi må undersøke et sikkerhetsbrudd (security breach).
 
-In less common cases, for example when restricted roles are to be granted, a manual approval is required. In that case the reason will be visible to the person who approves the request.
+I sjeldnere tilfeller, for eksempel når begrensede roller skal tildeles, kreves en manuell godkjenning. I slike tilfeller vil begrunnelsen være synlig for personen som godkjenner forespørselen.
 ![JIT access granted](./images/jit-granted.png)
 
-When you click request access, you will be taken to a summary screen which gives you the result of your request. In the example above, my request was granted automatically.
+Når du klikker på "Request Access", vil du bli tatt til et oppsummeringsskjermbilde som gir deg resultatet av forespørselen din. I eksempelet over ble forespørselen min automatisk godkjent.
 
-You now have access, and that's just in time!
+Du har nå tilgang, og det "Just-In-Time"!

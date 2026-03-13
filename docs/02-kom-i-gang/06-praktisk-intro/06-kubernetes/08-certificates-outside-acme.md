@@ -1,10 +1,10 @@
-# Certificates outside ACME
+# Sertifikater utenfor ACME
 
-In some instances there is a requirement to use certificates not from ACME. This might be because DNS points to something other than SKIP LB, and traffic is routed to SKIP via other endpoints in kartverket.
+I noen tilfeller er det behov for å bruke sertifikater som ikke kommer fra ACME. Dette kan være fordi DNS peker på noe annet enn SKIP LB, og trafikk rutes til SKIP via andre endpoints i Kartverket.
 
-## Create certificate secret resource in istio-gateways
+## Opprett certificate secret-ressurs i istio-gateways
 
-To be able to use a custom certificate we need a secret to mount to the gateway resource. This is a kubernetes.io/tls type secret and can be created via external secrets like this:
+For å kunne bruke et egendefinert sertifikat trenger vi en secret som kan monteres til gateway-ressursen. Dette er en secret av typen kubernetes.io/tls og kan opprettes via external secrets slik:
 
 ```yaml
 apiVersion: external-secrets.io/v1
@@ -25,14 +25,14 @@ spec:
   target:
     creationPolicy: Owner
     deletionPolicy: Retain
-    name: star-matrikkel # Secret in Kubernetes
+    name: star-matrikkel # Secret i Kubernetes
     template:
       engineVersion: v2
       mergePolicy: Replace
       type: kubernetes.io/tls
 ```
 
-This fetches the secret from Google Secret Manager. This secret should look like this:
+Dette henter secreten fra Google Secret Manager. Denne secreten bør se slik ut:
 
 ```json
 {
@@ -41,9 +41,9 @@ This fetches the secret from Google Secret Manager. This secret should look like
 }
 ```
 
-## Edit the gateway resource
+## Rediger gateway-ressursen
 
-The gateway resource should then be updated with the new secret:
+Gateway-ressursen bør deretter oppdateres med den nye secreten:
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -68,13 +68,13 @@ spec:
       number: 443
       protocol: HTTPS
     tls:
-      credentialName: star-matrikkel # Secret created by externalsecret
+      credentialName: star-matrikkel # Secret opprettet av externalsecret
       mode: SIMPLE
 ```
 
-### If Skiperator is the gateway creator
+### Hvis Skiperator er gateway-oppretteren
 
-When the gateway is created via Skiperator it will have a credentialName corresponding to the secret created by the certificate from Skiperator. Skiperator will reset configurations to its resources unless the resource labeled “skiperator.kartverket.no/ignore: "true"“. This will make skiperator ignore this specific resource during reconciliation loops.
+Når gateway-en er opprettet via Skiperator, vil den ha et credentialName som tilsvarer secreten opprettet av sertifikatet fra Skiperator. Skiperator vil tilbakestille konfigurasjoner til sine egne ressurser med mindre ressursen er merket med labelen `skiperator.kartverket.no/ignore: "true"`. Dette vil få Skiperator til å ignorere denne spesifikke ressursen under reconciliation loops.
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -84,12 +84,12 @@ metadata:
     skiperator.kartverket.no/ignore: "true"
 ```
 
-This is meant to be a temporary solution, and ACME is the prefered way to get certificates in SKIP.
+Dette er ment som en midlertidig løsning, og ACME er den foretrukne måten å få sertifikater i SKIP.
 
-## Change to ACME certificate
-### Non-Skiperator apps
+## Bytte til ACME-sertifikat
+### Apper som ikke bruker Skiperator
 
-Using ACME certificate on a non skiperator app requires a certificate resource, and using the resulting secret in the gateway. This resource must be created in the istio-gateways namespace and therefore in the [skip-apps](https://github.com/kartverket/skip-apps) :
+Bruk av ACME-sertifikat på en app som ikke bruker Skiperator krever en certificate-ressurs, og bruk av den resulterende secreten i gateway-en. Denne ressursen må opprettes i istio-gateways-namespacet og derfor i [skip-apps](https://github.com/kartverket/skip-apps):
 
 ```yaml
 apiVersion: cert-manager.io/v1
@@ -106,8 +106,8 @@ spec:
   secretName: desired-secret-name
 ```
 
-After this is created and the secret is created, the gateway resource can be edited, and spec.tls.credentialName set to the secret.
+Etter at denne og secreten er opprettet, kan gateway-ressursen redigeres, og spec.tls.credentialName settes til secreten.
 
-### Skiperator apps
+### Apper som bruker Skiperator
 
-Remove the “skiperator.kartverket.no/ignore: "true"“ label, and skiperator will handle the rest.
+Fjern labelen `skiperator.kartverket.no/ignore: "true"`, så vil Skiperator håndtere resten.

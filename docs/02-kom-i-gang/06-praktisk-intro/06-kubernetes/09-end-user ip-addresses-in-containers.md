@@ -1,12 +1,12 @@
-# End-user IP-Addresses in Containers
+# Sluttbrukers IP-adresser i containers
 
-To forward end-user IP-Addresses to a kubernetes container running spring boot, you need to add the following line to your configuration:
+For å videresende sluttbrukers IP-adresser (End-user IP-Addresses) til en Kubernetes container som kjører Spring Boot, må du legge til følgende linje i konfigurasjonen din:
 
 ```java
 server.forward-headers-strategy=NONE
 ```
 
-After testing, we found that this setting should be “NONE”.
+Etter testing fant vi ut at denne innstillingen bør være "NONE".
 
 [Running spring Behind a Front-end Proxy Server](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.webserver.use-behind-a-proxy-server)
 
