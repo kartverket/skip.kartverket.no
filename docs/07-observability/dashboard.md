@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Dashboards
 
-Grafana har mange visualiseringsmuligheter i dashboards. I dashboards kan du kombinerre data fra ulike datakilder (f.eks. både logger og metrikker, eller logger fra ulike miljøer), visualisere med over 20 ulike innebygde [visualiseringstyper](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/) og ha dynamiske visualiseringer med variabler.
+Grafana har mange visualiseringsmuligheter i dashboards. I dashboards kan du kombinerre data fra ulike datakilder (f.eks. både logs og metrics, eller logs fra ulike miljøer), visualisere med over 20 ulike innebygde [visualiseringstyper](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/) og ha dynamiske visualiseringer med variabler.
 
 
 ## Rask intro til dashboards
@@ -90,7 +90,7 @@ Det er mange måter å lage dashboards på, og det finnes gode artikler på det:
 
 * 📚 [Enkel introduksjon fra Grafana for å lage dashboards](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/create-dashboard/)
 * 📚 [Grafanas egne "best practices" for å lage dashboards](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/)
-* 📚 [The Four Golden Signals](https://sre.google/sre-book/monitoring-distributed-systems/#xref_monitoring_golden-signals) fra Googles SRE Book diskuterer de viktigste metrikkene å monitorere
+* 📚 [The Four Golden Signals](https://sre.google/sre-book/monitoring-distributed-systems/#xref_monitoring_golden-signals) fra Googles SRE Book diskuterer de viktigste metrics å monitorere
 
 
 

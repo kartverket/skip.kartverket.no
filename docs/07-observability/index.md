@@ -7,7 +7,7 @@
 
 Observabilitet handler om evnen til å forstå den indre tilstanden og
 oppførselen til et system basert på de eksterne dataene det produserer, som
-logger, metrikker og sporingsdata (*traces*). Det gir team muligheten til å få
+logs, metrics og traces. Det gir team muligheten til å få
 innsikt i hvordan systemet fungerer, identifisere problemer, og diagnostisere
 årsakene til disse problemene uten å måtte endre systemets kode eller
 overvåkingsmekanismer. Observabilitet går utover tradisjonell overvåkning ved å
@@ -18,8 +18,8 @@ som de oppstår.
 ## Hva tilbyr SKIP?
 
 SKIP tilbyr innsamling, visualisering og alarmering basert på telemetri
-innsamlet fra applikasjonene på SKIP. Telemetrien vi samler inn er metrikker,
-logger og traces.
+innsamlet fra applikasjonene på SKIP. Telemetrien vi samler inn er metrics,
+logs og traces.
 
 [Grafana](https://monitoring.kartverket.cloud/) er verktøyet for å søke,
 visualisere og sammenstille innsamlet telemetri fra ulike kilder. Her kan du

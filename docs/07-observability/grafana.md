@@ -20,8 +20,8 @@ Venstre sidemeny lar deg navigere dit du trenger, og viser de viktigste tingene 
 Som produktteam på SKIP er de viktigste egenskapene i Grafana:
 
  * Utforsk data i [Explore-mode](https://monitoring.kartverket.cloud/explore).
-     * Her kan du utforske både logger, metrikker og traces.
-     * Grafana har også en egen [Metrics explore](https://monitoring.kartverket.cloud/explore/metrics) som lar deg utforske hvilke metrikker som finnes.
+     * Her kan du utforske både logs, metrics og traces.
+     * Grafana har også en egen [Metrics explore](https://monitoring.kartverket.cloud/explore/metrics) som lar deg utforske hvilke metrics som finnes.
 
  * Lag dashboards som gir oversikt over hva som skjer i applikasjonene dine.
 

@@ -1,19 +1,19 @@
 # Grafana cheat sheet
 
-This is a collection of tips&tricks that are useful when troubleshooting problems in the kubernetes clusters based on data from LGTM
+Dette er en samling av tips&triks som er nyttige ved feilsøking (troubleshooting) av problemer i Kubernetes-clustere basert på data fra LGTM.
 
-## Useful Mimir queries
+## Nyttige Mimir-spørringer (queries)
 
-### Top 20 of metrics with high cardinality
+### Topp 20 metrics med høy kardinalitet (cardinality)
 
 [https://monitoring.kartverket.cloud/goto/cc_GwW1SR?orgId=1](https://monitoring.kartverket.cloud/goto/cc_GwW1SR?orgId=1)
 
 ```promql
-# Set time range to "Last 5 minutes"
+# Sett tidsintervall til "Last 5 minutes"
 topk(20, count by (__name__)({__name__=~".+"}))
 ```
 
-### Top 10 namespaces with overallocated cpu resources
+### Topp 10 namespaces med overallokerte CPU-ressurser
 
 [https://monitoring.kartverket.cloud/goto/6V2jQZJIg?orgId=1](https://monitoring.kartverket.cloud/goto/6V2jQZJIg?orgId=1)
 
@@ -23,7 +23,7 @@ topk(10, sum by (namespace)
   - sum by (namespace) (rate(container_cpu_usage_seconds_total{}[$__rate_interval])))
 ```
 
-### Sum of overallocated cpu for containers by namespace
+### Sum av overallokert CPU for containers per namespace
 
 [https://monitoring.kartverket.cloud/goto/xF2DlW1SR?orgId=1](https://monitoring.kartverket.cloud/goto/xF2DlW1SR?orgId=1)
 
@@ -33,7 +33,7 @@ sum by (container)
   - sum by (container) (rate(container_cpu_usage_seconds_total{namespace=~"matrikkel.*"}[$__rate_interval]))
 ```
 
-### Daily amount of requests by destination app and response code
+### Daglig antall forespørsler per destinasjons-app og responskode
 
 ```promql
 sum by (destination_app, response_code) (
@@ -41,4 +41,4 @@ sum by (destination_app, response_code) (
 )
 ```
 
-### Useful Loki queries
+### Nyttige Loki-spørringer (queries)

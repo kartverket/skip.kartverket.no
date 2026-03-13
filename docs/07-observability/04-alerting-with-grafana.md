@@ -1,107 +1,107 @@
-# Alerting with Grafana
+# Alerting med Grafana
 
 ![Grafana Alerting](images/alerting_with_grafana_header.png)
 
-Applications on SKIP use [Grafana](https://grafana.com/) for monitoring for unexpected changes in the system. When an alert is fired it can be either handled as a critical alert sent to several channels, including SMS and email, or as a non-critical alert that is handled during office hours by the product team.
+Applikasjoner på SKIP bruker [Grafana](https://grafana.com/) for overvåking av uventede endringer i systemet. Når en alert blir utløst (fired), kan den enten håndteres som en kritisk alert sendt til flere kanaler, inkludert SMS og e-post, eller som en ikke-kritisk alert som håndteres i arbeidstiden av produktteamet.
 
-Here are some useful links for handling alerts:
+Her er noen nyttige lenker for håndtering av alerts:
 
-- [Alert config (grafana-alerts on GitHub)](https://github.com/kartverket/grafana-alerts)
-- [Alert dashboard](https://monitoring.kartverket.cloud/alerting/list?view=state)
-- [Critical alerts dashboard](https://monitoring.kartverket.cloud/d/dd79f2b5-feca-45ff-9396-f67d22adc3c5/alerts?orgId=1)
-- [Current active incidents](https://monitoring.kartverket.cloud/a/grafana-oncall-app/alert-groups)
-- [Synthetic Monitoring overview](https://monitoring.kartverket.cloud/d/fU-WBSqWz/synthetic-monitoring-summary?dashboard=summary&orgId=1)
-- [Synthetic Monitoring checks](https://monitoring.kartverket.cloud/a/grafana-synthetic-monitoring-app/checks)
-- [Planned alert silences (maintainance periods)](https://monitoring.kartverket.cloud/alerting/silences)
-- [Alert Schedules](https://monitoring.kartverket.cloud/a/grafana-oncall-app/schedules?p=1)
+- [Alert-konfigurasjon (grafana-alerts på GitHub)](https://github.com/kartverket/grafana-alerts)
+- [Alert-dashboard](https://monitoring.kartverket.cloud/alerting/list?view=state)
+- [Dashboard for kritiske alerts](https://monitoring.kartverket.cloud/d/dd79f2b5-feca-45ff-9396-f67d22adc3c5/alerts?orgId=1)
+- [Aktive hendelser (incidents) akkurat nå](https://monitoring.kartverket.cloud/a/grafana-oncall-app/alert-groups)
+- [Oversikt over Synthetic Monitoring](https://monitoring.kartverket.cloud/d/fU-WBSqWz/synthetic-monitoring-summary?dashboard=summary&orgId=1)
+- [Sjekker i Synthetic Monitoring](https://monitoring.kartverket.cloud/a/grafana-synthetic-monitoring-app/checks)
+- [Planlagte alert-dempinger (silences/vedlikeholdsperioder)](https://monitoring.kartverket.cloud/alerting/silences)
+- [Alert-planer (schedules)](https://monitoring.kartverket.cloud/a/grafana-oncall-app/schedules?p=1)
 
-## Creating alerts
+## Opprette alerts
 
-The first step to start adding alerts to your application is to onboard that app to SKIP. Grafana is only used for SKIP, the rest of Kartverket uses Zabbix. Once you have been onboarded and deployed your app to SKIP you can request access to the [grafana-alerts](https://github.com/kartverket/grafana-alerts) repo.
+Det første steget for å begynne å legge til alerts for din applikasjon er å onboade appen til SKIP. Grafana brukes kun for SKIP, resten av Kartverket bruker Zabbix. Når du har blitt onboardet og rullet ut appen din til SKIP, kan du be om tilgang til [grafana-alerts](https://github.com/kartverket/grafana-alerts)-repoet.
 
-The grafana-alerts repo is designed to be a repo that contains the alerts of all teams and handles deployment of alerts to Grafana. You will get a file which contains the configuration of your alerts in a Terraform format. For example, the file could look like this:
+Repoet `grafana-alerts` er designet for å inneholde alerts for alle team og håndtere utrulling (deployment) av alerts til Grafana. Du vil få en fil som inneholder konfigurasjonen av dine alerts i et Terraform-format. For eksempel kan filen se slik ut:
 
 ```hcl
-resource "grafana_folder" "MYTEAMNAME_folder" {
+resource "grafana_folder" "MITT_TEAMNAVN_folder" {
   for_each = local.envs
-  title    = "Alerts MYTEAMNAME ${each.key}"
+  title    = "Alerts MITT_TEAMNAVN ${each.key}"
 }
 
-module "MYTEAMNAME_alerts_kubernetes" {
+module "MITT_TEAMNAVN_alerts_kubernetes" {
   source   = "../modules/grafana_alert_group"
   for_each = local.envs
 
   name             = "kube-state-metrics"
   env              = each.value
-  runbook_base_url = # URL to document describing each alert
-  folder_uid       = grafana_folder.MYTEAMNAME_folder[each.key].uid
+  runbook_base_url = # URL til dokument som beskriver hver alert
+  folder_uid       = grafana_folder.MITT_TEAMNAVN_folder[each.key].uid
   team = {
-    name = "MYTEAMNAME"
+    name = "MITT_TEAMNAVN"
   }
   alerts = {
     KubernetesPodNotHealthy = {
       summary     = "Kubernetes Pod not healthy (instance {{ $labels.instance }})"
-      description = "Pod has been in a non-ready state for longer than 15 minutes.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      description = "Pod har vært i en non-ready tilstand i mer enn 15 minutter.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       severity    = "critical"
       for         = "15m"
       expr        = <<EOT
           sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed", namespace=~"nrl-.*"})
       EOT
     },
-    # ... more alerts
+    # ... flere alerts
   }
 }
 ```
 
-In the above file we create an alert that monitors the health of a pod in all nrl namespaces. Pay attention to the `expr` field, which is the Prometheus query language PromQL. If you want to learn more about PromQL look at the [documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) as well as [some examples](https://prometheus.io/docs/prometheus/latest/querying/examples/) from the Prometheus documentation and the examples at [awesome prometheus alerts](https://samber.github.io/awesome-prometheus-alerts/) .
+I filen over oppretter vi en alert som overvåker helsen til en pod i alle nrl-namespaces. Vær oppmerksom på `expr`-feltet, som er spørrespråket PromQL for Prometheus. Hvis du vil lære mer om PromQL, se på [dokumentasjonen](https://prometheus.io/docs/prometheus/latest/querying/basics/) samt [noen eksempler](https://prometheus.io/docs/prometheus/latest/querying/examples/) fra Prometheus-dokumentasjonen og eksemplene hos [awesome prometheus alerts](https://samber.github.io/awesome-prometheus-alerts/).
 
-This is a file that you will be given CODEOWNER access to. This means that you and your team will be able to update this file and review your own changes without involving SKIP. Your team is expected to keep them at a level that verifies the running state of the application.
+Dette er en fil som du vil få CODEOWNER-tilgang til. Dette betyr at du og teamet ditt vil kunne oppdatere denne filen og godkjenne deres egne endringer uten å involvere SKIP. Teamet ditt forventes å holde disse på et nivå som verifiserer applikasjonens kjøretilstand.
 
-Updating this file in the GitHub repo will automatically deploy the changes to Grafana.
+Oppdatering av denne filen i GitHub-repoet vil automatisk rulle ut endringene til Grafana.
 
 ## Grafana Oncall Alerts
 
-In addition to Grafana alerts, we have installed a plugin to Grafana called Oncall. This plugin gives us the possibility of adding schedules/shifts and custom alerting behaviour. It also gives your team an overview and a system to handle alerts.
+I tillegg til Grafana-alerts har vi installert en plugin til Grafana som heter Oncall. Denne plugin-en gir oss muligheten til å legge til vaktplaner (schedules/shifts) og egendefinert alert-oppførsel. Den gir også teamet ditt en oversikt og et system for å håndtere alerts.
 
 ![Oncall Alerts](images/oncall_alerts.png)
 
-### Integration
+### Integrasjon
 
-In order to start using Oncall you need an [oncall integration](https://grafana.com/docs/oncall/latest/integrations/) to Grafana. This integration will show up as a contact point in Grafana which can be used in notification policies to route alerts to your integration.
+For å begynne å bruke Oncall trenger du en [oncall integration](https://grafana.com/docs/oncall/latest/integrations/) til Grafana. Denne integrasjonen vil vises som et kontaktpunkt (contact point) i Grafana som kan brukes i varslingsregler (notification policies) for å rute alerts til din integrasjon.
 
-From the integration you can add [routes and escalation chains](https://grafana.com/docs/oncall/latest/escalation-chains-and-routes/) which decides how the integration will notify the team. The standard setup is to send all alerts to a slack channel, and also to a team member on schedule or shared inbox.
+Fra integrasjonen kan du legge til [ruter og eskaleringskjeder](https://grafana.com/docs/oncall/latest/escalation-chains-and-routes/) (routes and escalation chains) som bestemmer hvordan integrasjonen skal varsle teamet. Standardoppsettet er å sende alle alerts til en Slack-kanal, og også til et teammedlem på vaktplan eller delt innboks.
 
 ![SKIPs Oncall integration](images/oncall_integration.png)
 
 ![Grafana Contact point for an Oncall integration watchdog](images/oncall_contactpoint.png)
 
-In the grafana-alerts repository we have created an `oncall_integration` module, which you can use to create your teams integration.
+I repoet `grafana-alerts` har vi opprettet en `oncall_integration`-modul som du kan bruke til å opprette teamets integrasjon.
 
-### Routes
+### Ruter (Routes)
 
-In an integration you always have a default route, but you can also have a specified route. A route will decide which escalation chain the integration should use when it receives an alert. For example if you have a critical app that requires 24/7 alerting, you can create a route that checks for certain labels, and if found, it will route the alert to the “appdrift” escalation chain.
+I en integrasjon har du alltid en standardrute (default route), men du kan også ha en spesifisert rute. En rute bestemmer hvilken eskaleringskjede integrasjonen skal bruke når den mottar en alert. For eksempel, hvis du har en kritisk app som krever varsling 24/7, kan du opprette en rute som sjekker etter visse labels, og hvis de finnes, vil den rute alerten til "appdrift"-eskaleringskjeden.
 
-### Schedules
+### Vaktplaner (Schedules)
 
-An [Oncall Schedule](https://grafana.com/docs/oncall/latest/on-call-schedules/web-schedule/) is a collection of “Shifts”. In short this means that you can assign a person to a shift, and that person will receive all alerts sent to the Oncall integration for the duration of their shift. In the grafana-alerts repository you can use the `oncall_team` integration to create both a schedule and escalation chain.
+En [Oncall Schedule](https://grafana.com/docs/oncall/latest/on-call-schedules/web-schedule/) er en samling av "vakter" (shifts). Kort fortalt betyr dette at du kan tildele en person til en vakt, og den personen vil motta alle alerts sendt til Oncall-integrasjonen i løpet av vaktperioden. I repoet `grafana-alerts` kan du bruke `oncall_team`-integrasjonen til å opprette både en vaktplan og en eskaleringskjede.
 
 ![Oncall Schedule](images/oncall_schedule.png)
 
-### Escalation Chains
+### Eskaleringskjeder (Escalation Chains)
 
-[Escalation chains](https://grafana.com/docs/oncall/latest/escalation-chains-and-routes/) are instructions to Oncall on how to notify you when the connected integration receives an alert. The standard setup here is to contact the assigned person in the set way in Oncall.
+[Eskaleringskjeder](https://grafana.com/docs/oncall/latest/escalation-chains-and-routes/) er instruksjoner til Oncall om hvordan du skal varsles når den tilkoblede integrasjonen mottar en alert. Standardoppsettet her er å kontakte den tildelte personen på den måten som er satt i Oncall.
 
-The escalation chain below will contact the person which has an assigned shift in Schedule, in the way they have set in Oncall. Usually email or slack mentions.
+Eskaleringskjeden under vil kontakte personen som har en tildelt vakt i vaktplanen (schedule), på den måten de har satt opp i Oncall. Vanligvis e-post eller Slack-mentions.
 
 ![Escalation Chain](images/oncall_escalationchain.png)
 
-In Oncall → Users → edit user, you can decide how you want the escalation chain to contact you.
+Under Oncall → Users → edit user, kan du bestemme hvordan du vil at eskaleringskjeden skal kontakte deg.
 
 ![Edit user](images/oncall_edituser.png)
 
 ### Terraform
 
-A typical Grafana Oncall setup for a team will look like this:
+Et typisk Grafana Oncall-oppsett for et team vil se slik ut:
 
 ```hcl
 module "team_oncall" {
@@ -113,23 +113,23 @@ module "team_oncall" {
 module "team_integration" {
     source                      = "../modules/oncall_integration"
     integration_name            = "team"
-    slack_channel_name          = "grafana-oncall" //Not required, replace with your own
+    slack_channel_name          = "grafana-oncall" //Ikke påkrevd, bytt ut med din egen
     vaktlag_enabled             = false
     default_escalation_chain_id = module.team_oncall.team_escalation_chain_id
 }
 ```
 
 :::note
-The slack channel must already exist in grafana.
+Slack-kanalen må allerede eksistere i Grafana.
 
-If you want to use predefined users instead of a schedule, then the users must already exist in Oncall.
+Hvis du vil bruke forhåndsdefinerte brukere i stedet for en vaktplan, må brukerne allerede eksistere i Oncall.
 :::
 
-### Notification policies
+### Varslingsregler (Notification policies)
 
-You also have to configure notification policies to use your integration. Terraform doesn’t activate the contact point of the integration yet, so this has to be done manually before adding this to terraform(do this by navigating to your integration and activate the contact point). Add code [here.](https://github.com/kartverket/grafana-alerts/blob/main/atgcp1-prod/policies.tf)
+Du må også konfigurere varslingsregler for å bruke integrasjonen din. Terraform aktiverer ennå ikke kontaktpunktet for integrasjonen, så dette må gjøres manuelt før det legges til i Terraform (gjør dette ved å navigere til integrasjonen din og aktivere kontaktpunktet). Legg til kode [her](https://github.com/kartverket/grafana-alerts/blob/main/atgcp1-prod/policies.tf).
 
-Example:
+Eksempel:
 
 ```hcl
 policy {
@@ -143,31 +143,31 @@ policy {
 }
 ```
 
-## 24/7 alerting
+## 24/7 varsling
 
-Once you have configured a set of alerts, you might want them to be monitored 24/7. Kartverket provides a solution for this in the form of “Vaktlaget”. Vaktlaget is a team consisting of various people in IT-drift that have a special agreement that allows them to be notified and follow up when an alert fires outside of normal working hours.
+Når du har konfigurert et sett med alerts, vil du kanskje at de skal overvåkes 24/7. Kartverket tilbyr en løsning for dette i form av "Vaktlaget". Vaktlaget er et team bestående av ulike personer i IT-drift som har en spesiell avtale som tillater dem å bli varslet og følge opp når en alert utløses utenfor normal arbeidstid.
 
-The first step for getting your alerts onboarded onto vaktlaget is to maintain a set of alerts that only fire when there is a serious outage. Keep in mind that an alert that fires will potentially wake people in the middle of the night, so it is paramount that this set of alerts don’t contain non-critical or “flaky” alerts. These alerts should be given a severity of “critical” to make them distinct from other alerts.
+Det første steget for å få dine alerts onboardet til vaktlaget er å vedlikeholde et sett med alerts som bare utløses ved alvorlige driftsavbrudd (outage). Husk at en alert som utløses potensielt vil vekke folk midt på natten, så det er avgjørende at dette settet med alerts ikke inneholder ikke-kritiske eller ustabile ("flaky") alerts. Disse bør gis en severity på "critical" for å skille dem fra andre alerts.
 
-Once you have done this you need to contact vaktlaget to discuss the alerts you wish to onboard. They will comment on what is important enough to be onboarded and you will end up with a set of alerts that is a neat balance between ensuring the stability of our systems and preserving the mental health of the people on the alert schedule.
+Når du har gjort dette, må du kontakte vaktlaget for å diskutere alertene du ønsker å onboade. De vil gi tilbakemelding på hva som er viktig nok, og dere vil ende opp med et sett med alerts som er en god balanse mellom å sikre systemstabilitet og å bevare den mentale helsen til personene på vaktplanen.
 
-After you’ve discussed with vaktlaget you can contact SKIP in #gen-skip to have your alert integration be switched over. When this is done, all alerts labeled with env=prod and severity=critical will be sent to vaktlaget using the following schedule:
+Etter at du har diskutert med vaktlaget, kan du kontakte SKIP i #gen-skip for å få alert-integrasjonen din byttet over. Når dette er gjort, vil alle alerts merket med env=prod og severity=critical bli sendt til vaktlaget etter følgende plan:
 
-- The alerts will be sent to your slack channel all day
-- The alerts will be sent to appdrift as email, SMS and phone call between 7 and 22
-- The alerts will be sent to infrastrukturdrift as email, SMS and phone call between 22 and 7
+- Alertene vil bli sendt til din Slack-kanal hele dagen
+- Alertene vil bli sendt til appdrift som e-post, SMS og telefonoppringing mellom kl. 07 og 22
+- Alertene vil bli sendt til infrastrukturdrift som e-post, SMS og telefonoppringing mellom kl. 22 og 07
 
-You can also create a pull request in grafana-alerts with the vaktlag escalation chain added to your integration:
+Du kan også opprette en pull request i `grafana-alerts` med eskaleringskjeden for vaktlaget lagt til i din integrasjon:
 
 ```hcl
 module "skip" {
   source                      = "../modules/oncall_integration"
   integration_name            = "skip"
-  slack_channel_name          = "grafana-oncall" //Not required, replace with your own
+  slack_channel_name          = "grafana-oncall" //Ikke påkrevd, bytt ut med din egen
   vaktlag_enabled             = true
   vaktlag_escalation_chain_id = module.vaktlag.appdrift_escalation_chain_id
   default_escalation_chain_id = module.skip.team_escalation_chain_id
 }
 ```
 
-When you later add more alerts to the critical level you also need to discuss with vaktlaget so they can sign off on the new alerts before they are added.
+Når du senere legger til flere alerts på kritisk nivå, må du også diskutere disse med vaktlaget slik at de kan godkjenne de nye alertene før de legges til.
