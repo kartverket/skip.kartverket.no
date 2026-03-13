@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Dashboards
 
-Grafana har mange visualiseringsmuligheter i dashboards. I dashboards kan du kombinerre data fra ulike datakilder (f.eks. både logs og metrics, eller logs fra ulike miljøer), visualisere med over 20 ulike innebygde [visualiseringstyper](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/) og ha dynamiske visualiseringer med variabler.
+Grafana har mange visualiseringsmuligheter i dashboards. I dashboards kan du kombinerre data fra ulike datakilder (f.eks. både logger og metrikker, eller logger fra ulike miljøer), visualisere med over 20 ulike innebygde [visualiseringstyper](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/) og ha dynamiske visualiseringer med variabler.
 
 
 ## Rask intro til dashboards
@@ -21,7 +21,7 @@ Her kan du velge visualiseringstype oppe til høyre:
 
 ![Visualiseringstyper](./images/visualization-types.png)
 
-De ulike visualiseringstypene har ulike muligheter for tilpasning. De viktigste visualiseringstypene er [time series](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/time-series/), [heatmap](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/heatmap/), [logs](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/logs/), [stat](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/stat/) og [table](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/table/).
+De ulike visualiseringstypene har ulike muligheter for tilpasning. De viktigste visualiseringstypene er [time series](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/time-series/), [heatmap](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/heatmap/), [logger](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/logs/), [stat](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/stat/) og [table](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/table/).
 
 ## Dynamiske dashboards med variabler
 
@@ -33,12 +33,12 @@ Det viktigste variabeltypene er "Data source" og "Query". Førstnevnte lar deg v
 
 ### Eksempel med variabler
 
-Her er fremgangsmåten for å lage en datasource variabel, `metrics`, og en query-variabel `namespace`.
+Her er fremgangsmåten for å lage en datasource variabel, `metrikker`, og en query-variabel `namespace`.
 
-Først data source-variabelen `metrics`:
+Først data source-variabelen `metrikker`:
 
 
-1. Lag en ny variabel, med type "Datasource". Gi den navnet `metrics`.
+1. Lag en ny variabel, med type "Datasource". Gi den navnet `metrikker`.
 
 2. Under "Data source options", velg "Type" Prometheus.
 
@@ -52,7 +52,7 @@ Deretter `namespace`-variabelen:
 
 1. Lag en ny variabel, med type "Query" og gi den navnet `namespace`.
 
-2. Under "Query options" velg datasource `${metrics}`. Vi kan nå gjøre spørringer mot den datakilden som er valgt av `metrics`-variabelen.
+2. Under "Query options" velg datasource `${metrikker}`. Vi kan nå gjøre spørringer mot den datakilden som er valgt av `metrikker`-variabelen.
 
 3. Velg "Query type" "Label values".
 

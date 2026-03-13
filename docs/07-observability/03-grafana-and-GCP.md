@@ -2,11 +2,11 @@
 
 ## Google Cloud Monitoring
 
-Det er mulig å hente metrics fra et Google Cloud-prosjekt ved å bruke Grafana-datakilden "Google Cloud Monitoring".
+Det er mulig å hente metrikker fra et Google Cloud-prosjekt ved å bruke Grafana-datakilden "Google Cloud Monitoring".
 
 ![Example query Google Cloud Monitoring Logging Service](images/grafana_googlecloudquery.png)
 
-Ved å bruke denne datakilden vil du kunne se alle metrics som er eksponert gjennom ulike Google Cloud-tjenester, som CloudSQL, BigQuery, CloudKMS, Logging osv. Disse kan deretter legges til i dine dashboards og alarmer.
+Ved å bruke denne datakilden vil du kunne se alle metrikker som er eksponert gjennom ulike Google Cloud-tjenester, som CloudSQL, BigQuery, CloudKMS, Logging osv. Disse kan deretter legges til i dine dashboards og alarmer.
 
 ### Sette opp datakilden
 

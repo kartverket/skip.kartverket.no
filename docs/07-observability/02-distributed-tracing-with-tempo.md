@@ -19,7 +19,7 @@ Som en del av vår implementering av LGTM-stacken, har SKIP valgt å tilby [Graf
 ### Instrumentering (instrumentation)
 
 :::warning
-En kjent begrensning i måten vi har samlet inn traces på, er at vi frem til nylig ikke har hatt noen måte å ekskludere visse traces automatisk. Dette betyr at alle Prometheus-skrapinger (innsamling av metrics) og automatiske helsesjekker også vil bli samlet inn.
+En kjent begrensning i måten vi har samlet inn traces på, er at vi frem til nylig ikke har hatt noen måte å ekskludere visse traces automatisk. Dette betyr at alle Prometheus-skrapinger (innsamling av metrikker) og automatiske helsesjekker også vil bli samlet inn.
 
 Nå som issue [#4628](https://github.com/grafana/agent/issues/4628) er implementert, kan dette endelig rettes opp. Følg [SKIP-1250](https://kartverket.atlassian.net/browse/SKIP-1250) for oppdateringer om når dette blir implementert i vårt oppsett.
 :::

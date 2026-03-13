@@ -2,7 +2,7 @@
 
 ![Faro Grafana Dashboard](images/faro_header.png)
 
-Å oppdage lastetider for sider og brukeratferd i nettleseren kan ofte være vanskelig, da det ikke genereres logs eller metrics som kan inspiseres. [Grafana Faro](https://grafana.com/oss/faro/) løser dette ved å la deg legge til en JavaScript SDK i din frontend som sender hendelser (events) over HTTP til en mottaker som legger dataene inn i Grafana. På denne måten kan du observere metrics for reell brukeratferd i sanntid ved hjelp av Grafana, og sette opp alarmer på dem slik du vanligvis ville gjort med Grafana Alerting.
+Å oppdage lastetider for sider og brukeratferd i nettleseren kan ofte være vanskelig, da det ikke genereres logger eller metrikker som kan inspiseres. [Grafana Faro](https://grafana.com/oss/faro/) løser dette ved å la deg legge til en JavaScript SDK i din frontend som sender hendelser (events) over HTTP til en mottaker som legger dataene inn i Grafana. På denne måten kan du observere metrikker for reell brukeratferd i sanntid ved hjelp av Grafana, og sette opp alarmer på dem slik du vanligvis ville gjort med Grafana Alerting.
 
 Det er flere typer hendelser (events) som støttes av Faro:
 
@@ -63,7 +63,7 @@ Grafana Faro støtter integrasjon med React Router. Dette gir deg hendelser for 
 
 ## Vise data
 
-Når metrics har begynt å samles inn, vil de være synlige i et dedikert Grafana Faro-dashboard. Dette dashboardet finnes [her](https://monitoring.kartverket.cloud/d/CiroMopVz/grafana-faro-frontend-monitoring).
+Når metrikkene har begynt å samles inn, vil de være synlige i et dedikert Grafana Faro-dashboard. Dette dashboardet finnes [her](https://monitoring.kartverket.cloud/d/CiroMopVz/grafana-faro-frontend-monitoring).
 
 Det er også mulig å søke etter data i [explore view](https://monitoring.kartverket.cloud/explore). Nyttige labels å søke etter er:
 
@@ -77,7 +77,7 @@ Det er også mulig å søke etter data i [explore view](https://monitoring.kartv
 Det er opp til deg og teamet ditt å vurdere hvordan Faro skal brukes sammen med personopplysninger, som beskrevet i deres IP og DPIA.
 :::
 
-Når vi sender data til Faro, er det for det meste metrics som ikke inneholder [PII](https://www.investopedia.com/terms/p/personally-identifiable-information-pii.asp) (personidentifiserbar informasjon). Det er mulig å inkludere PII som navn, IP eller annet som er tilgjengelig fra JavaScript i SDK-en, men dette gjøres ikke som standard og krever at man kaller funksjonen `setUser` i SDK-en.
+Når vi sender data til Faro, er det for det meste metrikker som ikke inneholder [PII](https://www.investopedia.com/terms/p/personally-identifiable-information-pii.asp) (personidentifiserbar informasjon). Det er mulig å inkludere PII som navn, IP eller annet som er tilgjengelig fra JavaScript i SDK-en, men dette gjøres ikke som standard og krever at man kaller funksjonen `setUser` i SDK-en.
 
 En sesjons-ID (session ID) sendes med for å muliggjøre fjerning av duplikate hendelser som navigasjon mellom sider og rangering av toppbrukere. Dette er en tilfeldig generert streng og lagres i brukerens SessionStorage i nettleseren. Merk at selv om dette ikke er en informasjonskapsel (cookie), betyr det at et "cookie-banner" er påkrevd i henhold til EUs [ePrivacy directive](https://en.wikipedia.org/wiki/EPrivacy_Directive#Cookies).
 

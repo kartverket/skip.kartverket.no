@@ -4,7 +4,7 @@ Dette er en samling av tips&triks som er nyttige ved feilsøking (troubleshootin
 
 ## Nyttige Mimir-spørringer (queries)
 
-### Topp 20 metrics med høy kardinalitet (cardinality)
+### Topp 20 metrikker med høy kardinalitet (cardinality)
 
 [https://monitoring.kartverket.cloud/goto/cc_GwW1SR?orgId=1](https://monitoring.kartverket.cloud/goto/cc_GwW1SR?orgId=1)
 
