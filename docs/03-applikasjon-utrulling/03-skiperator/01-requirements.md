@@ -12,7 +12,7 @@ I SKIP bruker vi [GitHub](../../02-kom-i-gang/06-praktisk-intro/01-github/index.
 
 ## Krav til CI/CD
 
-For å deploye applikasjonen din må du ha satt opp en CI/CD-pipeline som bygger og pusher containerimaget ditt til container-registeret.
+For å deployere applikasjonen din må du ha satt opp en CI/CD-pipeline som bygger og pusher containerimaget ditt til container-registeret.
 Som tidligere nevnt bruker vi GitHub som kodelager i SKIP. Du kan lese mer om hvordan du setter opp en CI/CD-pipeline i dokumentasjonen for [GitHub Actions](../08-github-actions/index.md).
 
 Vi må også sette opp Argo CD for utrulling av applikasjonen. Du kan lese mer om hvordan du setter opp Argo CD i dokumentasjonen for [Argo CD](../09-argo-cd/index.md).
