@@ -5,7 +5,7 @@ For å kunne deploye applikasjoner og jobber til SKIP, må du og teamet ditt ha 
 ## Krav til applikasjoner og jobber
 
 Først og fremst må applikasjonene og jobbene dine være containerisert. Dette betyr at applikasjonen eller jobben må være pakket i et linux-containerimage som kan kjøres i et Kubernetes-cluster.
-I SKIP anbefaler vi å bruke [scratch](https://hub.docker.com/_/scratch)-imaget som baseimage for applikasjonen eller jobben din. Dette er et minimalt image som kun inneholder de nødvendige filene for å kjøre applikasjonen eller jobben.
+På SKIP anbefaler vi å bruke [scratch](https://hub.docker.com/_/scratch)-imaget som baseimage for applikasjonen eller jobben din. Dette er et minimalt image som kun inneholder de nødvendige filene for å kjøre applikasjonen eller jobben.
 
 Deretter må imaget ligge i et container-register som er tilgjengelig fra Kubernetes-clusteret.
 I SKIP bruker vi [GitHub](../../02-kom-i-gang/06-praktisk-intro/01-github/index.md) som vårt container-register. Det spiller ingen rolle om imaget er offentlig tilgjengelig eller privat, så lenge repoet ligger under Kartverket-organisasjonen.
