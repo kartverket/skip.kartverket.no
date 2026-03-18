@@ -1,16 +1,16 @@
-# Common Skiperator configuration
+# Vanlig Skiperator-konfigurering
 
-This is just a quick reference for the most common configurations in Skiperator.
-For a complete reference see the [API docs](04-api-docs.md).
+Dette er en rask referanse for de vanligste konfigureringene i Skiperator.
+For en komplett referanse, se [API-dokumentasjonen](04-api-docs.md).
 
 ## Application
 
 ### Ingress
 
-An ingress is a way to expose your application to the outside world. It is a Kubernetes resource that manages external access to services in a cluster, typically HTTP.
-This sets up all the necessary configuration behind the scenes to route traffic to your application, and also sets up a lets encrypt certificate for your application.
+En ingress er en måte å eksponere applikasjonen din for omverdenen på. Det er en Kubernetes-ressurs som administrerer ekstern tilgang til tjenester i et cluster, vanligvis via HTTP.
+Dette setter opp all nødvendig konfigurasjon i bakgrunnen for å rute trafikk til applikasjonen din, og setter også opp et Let's Encrypt-sertifikat for applikasjonen.
 
-Simple example of an ingress:
+Enkelt eksempel på en ingress:
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -25,21 +25,21 @@ spec:
   redirectToHTTPS: true
 ```
 
-This sets up an ingress to your application that can be reached from Kartverkets internal network. The `redirectToHTTPS` field is optional and will redirect all incoming traffic to HTTPS.
-To make it publicly available you can remove the `-intern` part of the domain name.
+Dette setter opp en ingress for applikasjonen din som kan nås fra Kartverkets interne nettverk. Feltet `redirectToHTTPS` er valgfritt og vil videresende all innkommende trafikk til HTTPS.
+For å gjøre den offentlig tilgjengelig kan du fjerne `-intern`-delen av domenenavnet.
 
-If you want, or already have a different domain name for your application then we most likely need to set up a CNAME record in DNS. You can read more about domain names [here](../../02-kom-i-gang/06-praktisk-intro/06-kubernetes/07-urler-og-sertifikat-for-tjenester-på-skip.md).
+Hvis du ønsker, eller allerede har et annet domenenavn for applikasjonen din, må vi mest sannsynlig sette opp en CNAME-oppføring i DNS. Du kan lese mer om domenenavn [her](../../02-kom-i-gang/06-praktisk-intro/06-kubernetes/07-urler-og-sertifikat-for-tjenester-på-skip.md).
 
-### Access policy
+### Access policy (tilgangspolicy)
 
-In SKIP we run istio as a service mesh. This means that all traffic between services is encrypted by default.
-All traffic is also blocked with network policies or istio policies by default.
-To allow traffic between services you need to set up an access policy.
-This is done by specifying `spec.accessPolicy` in your application.
+I SKIP kjører vi Istio som en service mesh. Dette betyr at all trafikk mellom tjenester er kryptert som standard.
+All trafikk er også blokkert med nettverkspolicyer eller Istio-policyer som standard.
+For å tillate trafikk mellom tjenester må du sette opp en `accessPolicy`.
+Dette gjøres ved å spesifisere `spec.accessPolicy` i applikasjonen din.
 
-### allowing communication between two applications in the same namespace
+### Tillate kommunikasjon mellom to applikasjoner i samme namespace
 
-creates rules to allow traffic between application `app1` and `app2` in the same namespace on service ports
+Oppretter regler for å tillate trafikk mellom applikasjon `app1` og `app2` i samme namespace på tjeneste-porter.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -73,9 +73,9 @@ spec:
         - application: app1
 ```
 
-#### allowing in and outbound traffic to an application in a different namespace
+#### Tillate inn- og utgående trafikk til en applikasjon i et annet namespace
 
-creates network policy rules to allow inbound and outbound traffic on service port to application `app2` in namespace `namespace2`
+Oppretter nettverkspolicy-regler for å tillate innkommende og utgående trafikk på tjeneste-port til applikasjon `app2` i namespace `namespace2`.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -96,10 +96,10 @@ spec:
           namespace: namespace2
 ```
 
-#### allowing outbound traffic to a job in namespaces with label
+#### Tillate utgående trafikk til en jobb i namespacer med en bestemt merkelapp (label)
 
-creates outbound rules to allow traffic to the skipjob `job2` in all namespaces with label `team: someteam` on service port for `app2`
-Note that all skipjobs must have the postfix `-skipjob` in the name when defining the application name in the access policy.
+Oppretter utgående regler for å tillate trafikk til SKIPJob-en `job2` i alle namespacer med merkelappen `team: someteam` på tjeneste-port for `app2`.
+Merk at alle SKIPJob-er må ha suffikset `-skipjob` i navnet når du definerer applikasjonsnavnet i tilgangspolicyen.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -117,9 +117,9 @@ spec:
             team: someteam
 ```
 
-#### access policy to allow traffic to a public domain
+#### Tilgangspolicy for å tillate trafikk til et offentlig domene
 
-creates istio policies to allow traffic to a public domain on port 443, and different public domain on port 80
+Oppretter Istio-policyer for å tillate trafikk til et offentlig domene på port 443, og et annet offentlig domene på port 80.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -140,18 +140,18 @@ spec:
               protocol: HTTP
 ```
 
-### Replicas
+### Replicas (kopier)
 
-you can either specify a fixed number of replicas or let the autoscaler handle it for you.  
+Du kan enten spesifisere et fast antall replikaer (kopier) eller la autoskaleren håndtere det for deg.
 
-if not specified skiperator uses autoscaler by default:  
+Hvis det ikke er spesifisert, bruker Skiperator autoskalering som standard:
 
 ```yaml
 minReplicas: 2
 maxReplicas: 5
 ```
 
-static:
+Statisk:
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -164,7 +164,7 @@ spec:
   replicas: 2
 ```
 
-autoscaler:
+Autoskalering:
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -180,12 +180,12 @@ spec:
     targetCpuUtilization: 60
 ```
 
-This will always have minimum 3 pods running, and scale up to more pods (max 6) if cpu utilization hits 60%.
-Only minimum value is required.
+Dette vil alltid ha minimum 3 pod-er kjørende, og skalere opp til flere (maks 6) hvis CPU-bruken når 60%.
+Kun minimumsverdi er påkrevd.
 
-### Environment variables
+### Miljøvariabler (Environment variables)
 
-Environment values can be set directly in the application spec with `spec.env` or by using a secret or config map with `spec.envFrom`.
+Miljøvariabler kan settes direkte i `spec.env` eller ved å bruke en `Secret` eller `ConfigMap` med `spec.envFrom`.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -206,8 +206,8 @@ spec:
 
 ### GCP
 
-If your application needs to read a gcp bucket for example you need to set up a service account with the correct permissions and add it to the application spec.
-Best practice here is to create a service account with the same name as the application, for example `myapp@some-project-id.iam.gserviceaccount.com`, then give this service account minimal permissions in GCP Console.
+Hvis applikasjonen din trenger å lese fra for eksempel en GCP-bøtte (bucket), må du sette opp en tjenestekonto (service account) med riktige rettigheter og legge den til i applikasjonsspesifikasjonen.
+Beste praksis her er å opprette en tjenestekonto med samme navn som applikasjonen, for eksempel `myapp@some-project-id.iam.gserviceaccount.com`, og deretter gi denne tjenestekontoen minimale rettigheter i GCP-konsollen.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -224,9 +224,9 @@ spec:
 
 ## SKIPJob
 
-### Cron - SkipJob
+### Cron - SKIPJob
 
-basic cron job that executes every minute
+Grunnleggende cron-jobb som kjører hvert minutt.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -240,9 +240,9 @@ spec:
     schedule: "* * * * *"
 ```
 
-### Commands - SkipJob
+### Kommandoer - SKIPJob
 
-a job that uses a command with a docker image
+En jobb som bruker en kommando med et Docker-image.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -259,18 +259,18 @@ spec:
       - "print bpi(2000)"
 ```
 
-### Access policy - SkipJob
+### Access policy - SKIPJob
 
-This is the same as for applications, except we don't define inbound policies for jobs.
+Dette er det samme som for applikasjoner, bortsett fra at vi ikke definerer `inbound`-policyer for jobber.
 
 ## Routing
 
-### Frontend and backend services under the same domain
+### Frontend- og backend-tjenester under samme domene
 
-One thing that is important to remember with routes is that the order of the routes matters.
-The route that is defined first will be the one that is matched first.
+En ting som er viktig å huske med ruter er at rekkefølgen på rutene spiller en rolle.
+Ruten som er definert først, vil være den som blir sjekket først.
 
-If your backend service expects requests without the leading pathPrefix, you can configure `rewriteUri` to remove the prefix before it arrives at the backend.
+Hvis backend-tjenesten din forventer forespørsler uten `pathPrefix`, kan du konfigurere `rewriteUri` til å fjerne prefikset før forespørselen når frem til backend.
 
 ```yaml
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -280,9 +280,9 @@ metadata:
 spec:
     hostname: kartverket.com
     routes:
-        - pathPrefix: /api          # Highest priority
+        - pathPrefix: /api          # Høyest prioritet
           rewriteUri: true
           targetApp: backend-app
-        - pathPrefix: /             # Lowest priority
+        - pathPrefix: /             # Lavest prioritet
           targetApp: frontend-app
-
+```
