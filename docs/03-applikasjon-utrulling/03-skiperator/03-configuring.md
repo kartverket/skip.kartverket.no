@@ -32,7 +32,7 @@ Hvis du ønsker, eller allerede har et annet domenenavn for applikasjonen din, m
 
 ### Access policy (tilgangspolicy)
 
-I SKIP kjører vi Istio som en service mesh. Dette betyr at all trafikk mellom tjenester er kryptert som standard.
+På SKIP kjører vi Istio som en service mesh. Dette betyr at all trafikk mellom tjenester er kryptert som standard.
 All trafikk er også blokkert med nettverkspolicyer eller Istio-policyer som standard.
 For å tillate trafikk mellom tjenester må du sette opp en `accessPolicy`.
 Dette gjøres ved å spesifisere `spec.accessPolicy` i applikasjonen din.
