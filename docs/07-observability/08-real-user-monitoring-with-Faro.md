@@ -95,4 +95,4 @@ Hver HTTP-forespørsel tømmer kapasiteten til bøtta med én. Når bøtta er to
 
 ## Tracing
 
-Faro støtter [sporing (tracing)](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/instrument/tracing-instrumentation/) av HTTP-forespørsler, men dette er foreløpig ikke implementert i innsamleren på SKIP. Kontakt SKIP hvis du ønsker dette!
+Faro støtter [tracing](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/instrument/tracing-instrumentation/) av HTTP-forespørsler, men dette er foreløpig ikke implementert i innsamleren på SKIP. Kontakt SKIP hvis du ønsker dette!

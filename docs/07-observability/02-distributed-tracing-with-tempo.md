@@ -1,14 +1,14 @@
-# Distribuert sporing med Tempo
+# Distribuert tracing med Tempo
 
-## Hva er distribuert sporing?
+## Hva er distribuert tracing?
 
-I komplekse (og distribuerte) systemer er det til enhver tid mange pågående parallelle prosesser. Noen av disse er sammenkoblet eller utløser hverandre. For å finne ut hvilke operasjoner som stammer fra samme forespørsel, er det vanlig i mange systemer å ha en såkalt Trace ID. Med moderne distribuert sporing er dette standardisert, og i tillegg støttes underoperasjoner (spans) per Trace ID. Når du bruker et standardisert oppsett for å spore applikasjoner, får du også tilgang til en stor og spennende verktøykasse.
+I komplekse (og distribuerte) systemer er det til enhver tid mange pågående parallelle prosesser. Noen av disse er sammenkoblet eller utløser hverandre. For å finne ut hvilke operasjoner som stammer fra samme forespørsel, er det vanlig i mange systemer å ha en såkalt Trace ID. Med moderne distribuert tracing er dette standardisert, og i tillegg støttes underoperasjoner (spans) per Trace ID. Når du bruker et standardisert oppsett for å trace applikasjoner, får du også tilgang til en stor og spennende verktøykasse.
 
 Videre lesning:
 
 - [OpenTelemetry](https://opentelemetry.io/)
 - [Zipkin](https://zipkin.io/) (interessant fra et historisk perspektiv)
-- [En generell guide for å komme i gang med distribuert sporing](https://www.honeycomb.io/getting-started/getting-started-distributed-tracing)
+- [En generell guide for å komme i gang med distribuert tracing](https://www.honeycomb.io/getting-started/getting-started-distributed-tracing)
 
 ## Hva tilbyr SKIP?
 
@@ -19,17 +19,17 @@ Som en del av vår implementasjon av LGTM-stacken, har SKIP valgt å tilby [Graf
 ### Instrumentering
 
 :::warning
-En kjent begrensning i måten vi har samlet inn sporingsdata på er at vi inntil nylig ikke har hatt noen måte å ekskludere visse spor (traces) automatisk. Dette betyr at alle Prometheus-skrapinger (metrikkinnsamling) og automatiske helsesjekker også vil bli samlet inn.
+En kjent begrensning i måten vi har samlet inn tracing-data på er at vi inntil nylig ikke har hatt noen måte å ekskludere visse traces automatisk. Dette betyr at alle Prometheus-skrapinger (metrikkinnsamling) og automatiske helsesjekker også vil bli samlet inn.
 
 Nå som sak [#4628](https://github.com/grafana/agent/issues/4628)
 er implementert, kan dette endelig rettes opp. Følg [SKIP-1250](https://kartverket.atlassian.net/browse/SKIP-1250) for oppdateringer om når dette er implementert i vårt oppsett.
 :::
 
-For å generere, videreføre og sende spor må applikasjonen instrumenteres.
+For å generere, videreføre og sende traces må applikasjonen instrumenteres.
 
 Instrumentering kan oppnås på flere måter, hvorav to er relevante for oss: manuell og automatisk instrumentering.
 
-Manuell instrumentering krever bruk av et [bibliotek](https://opentelemetry.io/docs/instrumentation/java/manual/) som vet hvordan en gitt integrasjon oppfører seg, og som gjør det mulig å koble seg til kroker (hooks) i disse integrasjonene for å generere nye spor og/eller spans hvis de ikke allerede eksisterer.
+Manuell instrumentering krever bruk av et [bibliotek](https://opentelemetry.io/docs/instrumentation/java/manual/) som vet hvordan en gitt integrasjon oppfører seg, og som gjør det mulig å koble seg til kroker (hooks) i disse integrasjonene for å generere nye traces og/eller spans hvis de ikke allerede eksisterer.
 
 Den andre (og anbefalte) metoden er å bruke en automatisert tilnærming. For Java-applikasjoner (den eneste typen som er testet per nå), må du inkludere en java-agent i Docker-imaget ditt, samt sette opp noe ekstra konfigurasjon når applikasjonen kjøres (for eksempel gjennom Skiperator).
 
@@ -79,9 +79,9 @@ Når denne konfigurasjonen er gjort, sendes den til `JAVA_TOOL_OPTIONS` [slik so
 
 Det er for øyeblikket ingen innebygd mekanisme i [ArgoKit](https://github.com/kartverket/argokit) for å oppnå dette. Vi er åpne for pull requests om dette temaet hvis noen ønsker å bidra.
 
-### Se spor (traces)
+### Se traces
 
-Spor kan sees gjennom vår Grafana-instans på [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud/) . Herfra velger du **Explore** i menyen og deretter den riktige **Tempo**-datakilden som tilsvarer miljøet du ønsker å se spor for.
+Traces kan sees gjennom vår Grafana-instans på [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud/) . Herfra velger du **Explore** i menyen og deretter den riktige **Tempo**-datakilden som tilsvarer miljøet du ønsker å se traces for.
 
 
 Etter det har du valget mellom å bruke **Search** (grafisk verktøy for spørringer) eller **TraceQL** (manuell spesifisering av spørringer).
@@ -89,5 +89,5 @@ Etter det har du valget mellom å bruke **Search** (grafisk verktøy for spørri
 ![“Search”-fanen er aktiv, og felt er fylt ut ved bruk av rullegardinmenyer.](images/temposearchtab.png)
 Over: “Search”-fanen er aktiv, og felt er fylt ut ved bruk av rullegardinmenyer.
 
-![“TraceQL”-fanen lar deg spesifisere en brukerdefinert spørring. Her vises en spørring for “gbok2-server”-spor, som filtrerer ut helsesjekker](images/tempotraceqltab.png)
-Over: “TraceQL”-fanen lar deg spesifisere en brukerdefinert spørring. Her vises en spørring for “gbok2-server”-spor, som filtrerer ut helsesjekker
+![“TraceQL”-fanen lar deg spesifisere en brukerdefinert spørring. Her vises en spørring for “gbok2-server”-traces, som filtrerer ut helsesjekker](images/tempotraceqltab.png)
+Over: “TraceQL”-fanen lar deg spesifisere en brukerdefinert spørring. Her vises en spørring for “gbok2-server”-traces, som filtrerer ut helsesjekker

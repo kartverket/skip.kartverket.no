@@ -7,7 +7,7 @@
 
 Observabilitet handler om evnen til å forstå den indre tilstanden og
 oppførselen til et system basert på de eksterne dataene det produserer, som
-logger, metrikker og sporingsdata (*traces*). Det gir team muligheten til å få
+logger, metrikker og traces. Det gir team muligheten til å få
 innsikt i hvordan systemet fungerer, identifisere problemer, og diagnostisere
 årsakene til disse problemene uten å måtte endre systemets kode eller
 overvåkingsmekanismer. Observabilitet går utover tradisjonell overvåkning ved å
