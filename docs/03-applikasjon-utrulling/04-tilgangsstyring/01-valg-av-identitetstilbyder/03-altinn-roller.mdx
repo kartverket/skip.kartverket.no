@@ -1,5 +1,45 @@
 # Altinn-roller ifbm. Ansattporten
-:::warning[Under arbeid]
-Har du umiddelbare spørsmål eller behov rundt dette, ta kontakt med Team Tilgangsstyring.
-:::
-Beskrivelse kommer.
+Egner seg dersom du:
+1. Ønsker å la ansatte i eksterne virksomheter logge inn med Ansattporten, og
+2. Ønsker å tilgangsstyre tilgang til API-et basert på roller definert i Altinn
+
+Ansattporten tilbyr å berike forespørselen som sendes ved innlogging av sluttbruker med _RAR-typer_
+(Rich Authorization Requests). [Du finner Digdir sin dokumentasjon av dette her.](https://docs.digdir.no/docs/ansattporten/ansattporten_rar.html)
+RAR-typer gir deg mulighet til å definere en Altinn-ressurs ved innlogging, for eksempel ved å inkludere
+følgende i request'en:
+```json
+{
+  ...
+  authorization_details= [
+    {
+      "type": "ansattporten:altinn:resource",
+      "resource": "urn:altinn:resource:<resource-id>",
+      "allow_multiple_organizations": false,
+    }
+  ]
+}
+```
+
+Du er nødt til å finne `resource-id` for den aktuelle Altinn-ressursen. Beste måte å gjøre dette på er TBD.
+
+Responsen du får fra Ansattporten etter innlogging vil inneholde et `authorization_details`-claim med relevant
+informasjon du kan validere i din tjeneste. Eksempel på respons:
+```json
+{
+  ...
+  "authorization_details" : [ {
+    "authorized_parties" : [ {
+      "orgno" : {
+        "authority" : "iso6523-actorid-upis",
+        "ID" : "0192:<orgnr_for_virksomhet>"
+      },
+      "resource" : "<resource-id>",
+      "name" : "<navn_på_virksomhet>",
+      "unit_type" : "NUF"
+    } ],
+    "resource" : "urn:altinn:resource:<resource_id>",
+    "type" : "ansattporten:altinn:resource",
+    "resource_name" : "<resource_name>"
+  } ],
+}
+```
