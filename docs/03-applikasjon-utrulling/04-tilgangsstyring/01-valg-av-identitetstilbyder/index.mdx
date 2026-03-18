@@ -61,29 +61,32 @@ du har behov for mer finkornet tilgangsstyring til, eller validering i, ditt API
 ### Maskinporten + Altinn-delegering
 Altinn-delegering egner seg dersom du:
 1. Ønsker å bruke Maskinporten for å sikre ditt API, og
-2. Ønsker å tilgangsstyre tilgang til API-et ved å gi konsumenten eksplisitt tilgang via Maskinporten, og
-3. Tillater at konsumenten delegerer tilgangen videre til en tredjepart, som da vil kunne hente tokens på vegne av
-   konsumenten.
+2. Ønsker å tilgangsstyre API-et ved å gi konsumenter (f.eks en kommune) eksplisitt tilgang via Maskinporten, og
+3. Tillater at konsumenter delegerer tilgangen videre til en tredjepart (f.eks en systemleverandør eller et fagsystem),
+   som da vil kunne hente tokens på vegne av konsumenten.
 
-Nevnte tredjepart (f.eks en systemleverandør) skal _ikke_ ha eksplisitt tilgang til det aktuelle Maskinporten-scopet i
-dette tilfellet, men vil kunne hente ut tokens på vegne av konsumenten så lenge konsumenten har tilgang til scopet og
-har delegert denne tilgangen videre i Altinn.
+Tredjeparten skal _ikke_ ha eksplisitt tilgang til det aktuelle Maskinporten-scopet i dette tilfellet, men vil
+kunne hente ut tokens på vegne av konsumenten så lenge konsumenten har tilgang til scopet og har delegert denne
+tilgangen videre i Altinn.
 
-[Her](./01-delegering.mdx) kan du lese mer om Altinn-delegering, både i rollen som API-tilbyder og API-konsument.
+[Her](./01-delegering.mdx) kan du lese mer om Altinn-delegering.
 
 ### Maskinporten + Systembrukere i Altinn
 Systembrukere i Altinn egner seg dersom du:
 1. Ønsker å bruke Maskinporten for å sikre ditt API, og
-2. Ønsker å tilgangsstyre tilgang til API-et ved å gi systemleverandører eksplisitt tilgang via Maskinporten, og
-3. Ønsker å tilgangsstyre tilgang til API-et ved å definere en tilgangspakke eller rolle i Altinn, som så kan opprette
-   systembrukere tilknyttet systemleverandørens fagsystem
+2. Ønsker å tilgangsstyre API-et ved å gi systemleverandører eksplisitt tilgang via Maskinporten, og
+3. Ønsker å tilgangsstyre API-et ved at ansatte i konsumentens virksomhet (f.eks en kommune) med bestemte
+   tilgangspakker eller roller i Altinn (f.eks daglig leder) kan opprette systembrukere tilknyttet systemleverandørens
+   fagsystem
 
-[Her](./02-systembruker.mdx) kan du lese mer om systembrukere, systemer og ressurser i Altinn, både i rollen som
-API-tilbyder og API-konsument.
+Konsumentene skal _ikke_ ha eksplisitt tilgang til det aktuelle Maskinporten-scopet i dette tilfellet. Systemleverandør
+vil kunne hente ut tokens med konsumentens systembruker som `authorization_details`.
+
+[Her](./02-systembruker.mdx) kan du lese mer om systembrukere, systemer og ressurser i Altinn.
 
 ### Ansattporten + Altinn-roller
 Egner seg dersom du:
 1. Ønsker å la ansatte i eksterne virksomheter logge inn med Ansattporten, og
 2. Ønsker å tilgangsstyre tilgang til API-et basert på roller definert i Altinn
 
-[Her](./03-altinn-roller.mdx) kan du lese mer om hvordan du kan bruke Ansattporten i kombinasjon med Altinn-roller for
+[Her](./03-altinn-roller.mdx) kan du lese mer om hvordan du kan bruke Ansattporten i kombinasjon med Altinn-roller.
