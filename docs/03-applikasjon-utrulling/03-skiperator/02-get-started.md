@@ -62,7 +62,7 @@ SKIPJob-er må ha suffikset `-skipjob` i tilgangspolicyen. Du kan også koble ti
 
 ## Routing
 
-`Routing` er en valgfri ressurs du kan bruke for å forenkle stibasert ruting (path-based routing), som lar flere mikrotjenester dele samme vertsnavn (hostname). Under panseret brukes Istio for å proxy-styre forespørsler basert på HTTP-stien. Ved å bruke Routing bør du fjerne feltet `ingresses` i Application-manifestet ditt.
+`Routing` er en valgfri ressurs du kan bruke for å forenkle stibasert ruting (path-based routing), som lar flere mikrotjenester dele samme vertsnavn (hostname). Under panseret brukes Istio for å rute forespørsler basert på HTTP-stien. Ved å bruke Routing bør du fjerne feltet `ingresses` i Application-manifestet ditt.
 For eksempel, hvis du har to applikasjoner, frontend og backend, kan du opprette en rutingregel som ruter forespørsler til `/api` til backend og alt annet til frontend.
 
 ```yaml
