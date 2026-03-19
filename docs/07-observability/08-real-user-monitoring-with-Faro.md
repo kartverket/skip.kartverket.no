@@ -1,42 +1,42 @@
-# Real User Monitoring with Faro
+# Reell brukerovervåking med Faro
 
 ![Faro Grafana Dashboard](images/faro_header.png)
 
-Detecting loading times of pages and user behavior within their browsers can often be tricky, as there are no logs or metrics generated to inspect. [Grafana Faro](https://grafana.com/oss/faro/) solves this by enabling you to add a JavaScript SDK to your frontend which sends events over HTTP to a receiver that ingests the data into Grafana. This way you are able to observe real user behavior metrics in real time using Grafana and set alerts on them as you usually would with Grafana Alerting.
+Det kan ofte være vanskelig å oppdage lastetider for sider og brukeratferd i nettleseren, ettersom det ikke genereres logger eller metrikker å inspisere. [Grafana Faro](https://grafana.com/oss/faro/) løser dette ved at du kan legge til en JavaScript-SDK i frontenden din som sender hendelser over HTTP til en mottaker som legger dataene inn i Grafana. På denne måten kan du observere reelle brukermetrikker i sanntid ved hjelp av Grafana, og sette opp varsler på dem slik du vanligvis ville gjort med Grafana Alerting.
 
-There are multiple types of events that are supported by Faro:
+Det er flere typer hendelser som støttes av Faro:
 
-- Events like Time To First Byte and First Contentful Paint can help with debugging slow frontend pages
-- Exceptions are collected and sent so that you have a complete catalogue of any exceptions that have been thrown in the frontend of your app. Source maps are used to map line numbers back to source code
-- Page visits are counted so that you can see which pages are visited by users.
-- Metadata like browser type enables you to see which browsers are in use and which you don’t need to support anymore
+- Hendelser som Time To First Byte og First Contentful Paint kan hjelpe med feilsøking av trege frontend-sider
+- Unntak (exceptions) samles inn og sendes, slik at du har en komplett oversikt over alle unntak som har blitt kastet i frontenden til appen din. Source maps brukes til å mappe linjenumre tilbake til kildekoden
+- Sidebesøk telles slik at du kan se hvilke sider som besøkes av brukere
+- Metadata som nettlesertype gjør det mulig å se hvilke nettlesere som er i bruk, og hvilke du ikke lenger trenger å støtte
 
-You may have heard of similar services like [Sentry.io](http://sentry.io/) . Faro is not to be confused with an analytics service,and it is recommended to have a separate instance for user insights like Google Analytics or Posthog. An analytics service can tell you more about user behaviour, while services like Faro and Sentry are more intended for monitoring and debugging.
+Du har kanskje hørt om lignende tjenester som [Sentry.io](http://sentry.io/). Faro skal ikke forveksles med en analysetjeneste, og det anbefales å ha en egen instans for brukerinnsikt som Google Analytics eller Posthog. En analysetjeneste kan fortelle deg mer om brukeratferd, mens tjenester som Faro og Sentry er mer beregnet på overvåking og feilsøking.
 
-## Getting started
+## Kom i gang
 
-Setting up Faro requires two steps which are explained below:
+Oppsett av Faro krever to steg som er forklart nedenfor:
 
-1. Installing the SDK
-2. Configuring the SDK
+1. Installere SDK-en
+2. Konfigurere SDK-en
 
-It will also be useful to start by reading the [Faro quick start guide](https://github.com/grafana/faro-web-sdk/blob/main/docs/sources/tutorials/quick-start-browser.md#install-grafana-faro-web-sdk) . See also the [README](https://github.com/grafana/faro-web-sdk/blob/main/README.md) of the Faro GitHub page for more links to relevant documentation.
+Det kan også være nyttig å starte med å lese [Faro hurtigstartguide](https://github.com/grafana/faro-web-sdk/blob/main/docs/sources/tutorials/quick-start-browser.md#install-grafana-faro-web-sdk). Se også [README](https://github.com/grafana/faro-web-sdk/blob/main/README.md) på Faros GitHub-side for flere lenker til relevant dokumentasjon.
 
-### Installing the SDK
+### Installere SDK-en
 
-If you use React this is done by running one of the following commands:
+Hvis du bruker React gjøres dette ved å kjøre en av følgende kommandoer:
 
 ```bash
-# If you use npm
+# Med npm
 npm i -S @grafana/faro-web-sdk
 
-# If you use Yarn
+# Med Yarn
 yarn add @grafana/faro-web-sdk
 ```
 
-### Configuring the SDK
+### Konfigurere SDK-en
 
-Import and configure the following options in your app’s entrypoint (main.js or similar).
+Importer og konfigurer følgende alternativer i appens inngangspunkt (main.js eller lignende).
 
 ```js
 import { initializeFaro } from "@grafana/faro-react";
@@ -50,49 +50,49 @@ initializeFaro({
 });
 ```
 
-### List of valid options for `app`
+### Gyldige alternativer for `app`
 
-|             | **Type**    | **Description**                                                        | **Required?** |
+|             | **Type**    | **Beskrivelse**                                                        | **Påkrevd?** |
 | ----------- | ----------- | ---------------------------------------------------------------------- | ------------- |
-| name        | string      | The name of the application as it will appear on dashboards in Grafana | Yes           |
-| environment | “localhost” &vert; “dev” &vert; “test” &vert; “prod” | The environment the frontend is currently running in. This is used to filter data in Grafana dashboards | Yes |
+| name        | string      | Navnet på applikasjonen slik det vil vises på dashbord i Grafana | Ja           |
+| environment | "localhost" &vert; "dev" &vert; "test" &vert; "prod" | Miljøet frontenden kjører i. Dette brukes til å filtrere data i Grafana-dashbord | Ja |
 
-### Configuring the SDK with React Router integration
+### Konfigurere SDK-en med React Router-integrasjon
 
-Grafana Faro supports integration with React Router. This gives you events for page navigation and re-renders. See the [Faro docs](https://github.com/grafana/faro-web-sdk/blob/main/packages/react/README.md) for more information on this.
+Grafana Faro støtter integrasjon med React Router. Dette gir deg hendelser for sidenavigasjon og re-renderinger. Se [Faro-dokumentasjonen](https://github.com/grafana/faro-web-sdk/blob/main/packages/react/README.md) for mer informasjon om dette.
 
-## Showing the data
+## Vise dataene
 
-When the metrics have started to be gathered, they will be visible in a dedicated Grafana Faro dashboard. This dashboard can be found [here](https://monitoring.kartverket.cloud/d/CiroMopVz/grafana-faro-frontend-monitoring) .
+Når metrikkene har begynt å bli samlet inn, vil de være synlige i et dedikert Grafana Faro-dashbord. Dette dashbordet finner du [her](https://monitoring.kartverket.cloud/d/CiroMopVz/grafana-faro-frontend-monitoring).
 
-It is also possible to search for data in the [explore view](https://monitoring.kartverket.cloud/explore) . Useful labels to search for are:
+Det er også mulig å søke etter data i [utforsk-visningen](https://monitoring.kartverket.cloud/explore). Nyttige etiketter å søke etter er:
 
 - `faro_app_name`
 - `kind`
 - `env`
 
-## Privacy concerns
+## Personvern
 
 :::note
-It is up to you and your team to consider the how to use Faro with personal information as outlined in your IP and DPIA
+Det er opp til deg og teamet ditt å vurdere hvordan Faro brukes med personopplysninger, i henhold til deres ROS-analyse og DPIA
 :::
 
-When we send data to Faro, it is mostly metrics that don’t contain any [PII](https://www.investopedia.com/terms/p/personally-identifiable-information-pii.asp) . It is possible to include PII like name, IP or anything that is accessible from JavaScript in the SDK, but this is not done by default and requres calling the `setUser` function on the SDK.
+Når vi sender data til Faro, er det stort sett metrikker som ikke inneholder [personidentifiserbar informasjon (PII)](https://www.investopedia.com/terms/p/personally-identifiable-information-pii.asp). Det er mulig å inkludere PII som navn, IP-adresse eller annet som er tilgjengelig fra JavaScript i SDK-en, men dette gjøres ikke som standard og krever at du kaller `setUser`-funksjonen i SDK-en.
 
-A session ID is sent in to enable de-duplicating events like navigation between pages and ranking top users. This is a randomly generated string and is stored in the user’s browser SessionStorage. Note that even though this is not a cookie, this means a “cookie banner” is required as per the EU’s [ePrivacy directive](https://en.wikipedia.org/wiki/EPrivacy_Directive#Cookies) .
+En sesjons-ID sendes med for å muliggjøre de-duplisering av hendelser som navigasjon mellom sider og rangering av toppbrukere. Dette er en tilfeldig generert streng og lagres i brukerens nettleser-SessionStorage. Merk at selv om dette ikke er en informasjonskapsel (cookie), betyr det at et «cookie-banner» er påkrevd i henhold til EUs [ePrivacy-direktiv](https://en.wikipedia.org/wiki/EPrivacy_Directive#Cookies).
 
-As `SessionInstrumentation` is [included by default](https://github.com/grafana/faro-web-sdk/blob/28f2d0c6c3032ce56876045c5a92256f5f798605/packages/web-sdk/src/config/getWebInstrumentations.ts#L18) in the web instrumentation of the JavaScript SDK, disabling it requires invoking the SDK with `instrumentations` set and omitting the `SessionInstrumentation` function.
+Ettersom `SessionInstrumentation` er [inkludert som standard](https://github.com/grafana/faro-web-sdk/blob/28f2d0c6c3032ce56876045c5a92256f5f798605/packages/web-sdk/src/config/getWebInstrumentations.ts#L18) i webinstrumenteringen av JavaScript-SDK-en, krever deaktivering at du kaller SDK-en med `instrumentations` satt og utelater `SessionInstrumentation`-funksjonen.
 
-Data is stored on SKIP’s `atgcp1-prod` cluster, which stores data in Google Cloud Storage europe-north1 region. This region is located in Finland, and is thus within EU. This means no data leaves the EU’s borders which means the storage of the data is compliant with GDPR.
+Data lagres på SKIPs `atgcp1-prod`-cluster, som lagrer data i Google Cloud Storage europe-north1-regionen. Denne regionen ligger i Finland, og er dermed innenfor EU. Dette betyr at ingen data forlater EUs grenser, noe som gjør lagringen av dataene i samsvar med GDPR.
 
 ## Rate limiting
 
-A rate limit for requests is implemented and is currently set to `50` requests per second. This is shared between all users of Faro, so it’s possible that we eventually reach the limit. Contact SKIP if you start getting queries rejected with `HTTP 429 Too Many Requests` .
+En hastighetsbegrensning for forespørsler er implementert og er for øyeblikket satt til `50` forespørsler per sekund. Denne deles mellom alle brukere av Faro, så det er mulig at vi etter hvert når grensen. Kontakt SKIP hvis du begynner å få forespørsler avvist med `HTTP 429 Too Many Requests`.
 
-The rate limiting algorighm is a token bucket algorithm, where a bucket has a maximum capacity for up to burst_size requests and refills at a rate of rate per second.
+Algoritmen for hastighetsbegrensning er en token bucket-algoritme, der en bøtte har en maksimal kapasitet for opptil burst_size forespørsler og fylles på med en hastighet på rate per sekund.
 
-Each HTTP request drains the capacity of the bucket by one. Once the bucket is empty, HTTP requests are rejected with an HTTP 429 Too Many Requests status code until the bucket has more available capacity.
+Hver HTTP-forespørsel tapper kapasiteten til bøtten med én. Når bøtten er tom, avvises HTTP-forespørsler med statuskoden HTTP 429 Too Many Requests til bøtten har mer tilgjengelig kapasitet.
 
 ## Tracing
 
-Faro supports [tracing](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/instrument/tracing-instrumentation/) of HTTP requests, but this is not currently implemented in the collector on SKIP. Contact SKIP if you want this!
+Faro støtter [sporing](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/instrument/tracing-instrumentation/) av HTTP-forespørsler, men dette er foreløpig ikke implementert i mottakeren på SKIP. Kontakt SKIP hvis du ønsker dette!

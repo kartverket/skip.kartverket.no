@@ -1,16 +1,16 @@
-# 🔭 Observabilitet
+# 🔭 Observerbarhet
 
 ![Grafana Dashboard](../img/grafana.png)
 
 
-## Hva er observabilitet?
+## Hva er observerbarhet?
 
-Observabilitet handler om evnen til å forstå den indre tilstanden og
+Observerbarhet handler om evnen til å forstå den indre tilstanden og
 oppførselen til et system basert på de eksterne dataene det produserer, som
 logger, metrikker og sporingsdata (*traces*). Det gir team muligheten til å få
 innsikt i hvordan systemet fungerer, identifisere problemer, og diagnostisere
 årsakene til disse problemene uten å måtte endre systemets kode eller
-overvåkingsmekanismer. Observabilitet går utover tradisjonell overvåkning ved å
+overvåkingsmekanismer. Observerbarhet går utover tradisjonell overvåking ved å
 tilby en mer fleksibel og dypere analyse av systemets ytelse og helsetilstand,
 noe som gjør det mulig å stille og besvare nye spørsmål om systemet etter hvert
 som de oppstår.
@@ -19,7 +19,7 @@ som de oppstår.
 
 SKIP tilbyr innsamling, visualisering og alarmering basert på telemetri
 innsamlet fra applikasjonene på SKIP. Telemetrien vi samler inn er metrikker,
-logger og traces.
+logger og traces. LGTM-stacken (Loki, Grafana, Tempo, Mimir) driftes av SKOOP-teamet.
 
 [Grafana](https://monitoring.kartverket.cloud/) er verktøyet for å søke,
 visualisere og sammenstille innsamlet telemetri fra ulike kilder. Her kan du
