@@ -82,7 +82,7 @@ Nå kan variablene brukes i dashboard-panelene:
 
 Det er mulig å lage dashboards som kode, enten egenlaget eller hentet fra eksterne kilder, som f.eks. [Grafanas dashboardside](https://grafana.com/grafana/dashboards/). Du kan se eksempler på dette i [skip-dashboards](https://github.com/kartverket/skip-dashboards).
 
-Dashboards om lages som kode bør ikke endres i GUI-et. For å eksperimentere med slike dashboards anbefaler vi å lage en kopi av dashboardet, eksperimentere og deretter gjøre tilsvarende endringer i kode-repoet. Dette kan gjøres f.eks. ved å trykke "Export > Export as JSON" oppe til høyre i dashboard UI-et.
+Dashboards som lages som kode bør ikke endres i GUI-et. For å eksperimentere med slike dashboards anbefaler vi å lage en kopi av dashboardet, eksperimentere og deretter gjøre tilsvarende endringer i kode-repoet. Dette kan gjøres f.eks. ved å trykke "Export > Export as JSON" oppe til høyre i dashboard UI-et.
 
 ## Andre ressurser
 
