@@ -10,8 +10,6 @@ Her er noen nyttige lenker for håndtering av alarmer:
 - [Alarm-dashboard](https://monitoring.kartverket.cloud/alerting/list?view=state)
 - [Dashboard for kritiske alarmer](https://monitoring.kartverket.cloud/d/dd79f2b5-feca-45ff-9396-f67d22adc3c5/alerts?orgId=1)
 - [Aktive hendelser](https://monitoring.kartverket.cloud/a/grafana-oncall-app/alert-groups)
-- [Syntetisk overvåking – oversikt](https://monitoring.kartverket.cloud/d/fU-WBSqWz/synthetic-monitoring-summary?dashboard=summary&orgId=1)
-- [Syntetisk overvåking – sjekker](https://monitoring.kartverket.cloud/a/grafana-synthetic-monitoring-app/checks)
 - [Planlagte alarmpauser (vedlikeholdsperioder)](https://monitoring.kartverket.cloud/alerting/silences)
 - [Alarmtidsplaner](https://monitoring.kartverket.cloud/a/grafana-oncall-app/schedules?p=1)
 
