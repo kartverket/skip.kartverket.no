@@ -1,4 +1,4 @@
-# 🔐 Tilgangsstyring på SKIP
+# 🔐 Tilgangsstyring
 
 ## Målbilde for tilgangsstyring på SKIP
 Vi ønsker å tilby plattformfunksjonalitet som gjør det enkelt for teamene på SKIP å levere sikre tjenester, basert på
