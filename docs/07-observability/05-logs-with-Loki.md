@@ -1,6 +1,6 @@
 # Logger med Loki
 
-LGTM-stacken er satt opp til å automatisk samle inn logger fra alle applikasjoner som kjører i Kubernetes-clustrene. Du trenger ikke konfigurere noe spesielt for å oppnå dette, bortsett fra å sørge for at applikasjonen din logger til `stdout`. Loggene plukkes opp av Grafana Alloy gjennom den egendefinerte ressursen `PodLogs`, som spesifiserer hvilke navnerom det skal samles logger fra (alle, i dette tilfellet) og et sett med regler for omerking som sikrer at vi har et felles sett med labels til bruk i søk, dashbord og varsling.
+LGTM-stacken er satt opp til å automatisk samle inn logger fra alle applikasjoner som kjører i Kubernetes-clustrene. Du trenger ikke konfigurere noe spesielt for å oppnå dette, bortsett fra å sørge for at applikasjonen din logger til `stdout`. Loggene plukkes opp av Grafana Alloy gjennom den egendefinerte ressursen `PodLogs`, som spesifiserer hvilke navnerom det skal samles logger fra (alle, i dette tilfellet) og et sett med regler for relabeling som sikrer at vi har et felles sett med labels til bruk i søk, dashbord og varsling.
 
 Logger samles inn og lagres i Loki, som bruker et lokalt (on-premise) S3-kompatibelt lagringssystem basert på Scality, med én bucket per cluster. Hver Loki-instans er konfigurert som en datakilde i Grafana, som tilbyr verktøy for søk, dashbord og varsling.
 
