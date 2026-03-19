@@ -18,9 +18,10 @@ håndteres, uavhengig av applikasjon, team eller divisjon. Innebygd tilgangsstyr
 oss å opprettholde et høyt minimumsnivå av sikkerhet i alle applikasjoner.
 
 ### Funksjonalitet vi tilbyr
-- [Klientregistrering](01-klientregistrering/index.mdx) mot relevante identitetstilbydere
-- [Ztoperator](02-ztoperator/index.mdx): en Kubernetes-ressurs for innlogging, sesjonshåndtering og claims-validering
-- [SPIFFE](03-SPIFFE/index.mdx): finkornet nettverkstilgangsstyring og sikker kommunikasjon innad i et 
+- [Dokumentasjon og anbefalinger](01-valg-av-identitetstilbyder/index.mdx) av relevante identitetstilbydere
+- [Klientregistrering](02-klientregistrering/index.mdx) mot relevante identitetstilbydere
+- [Ztoperator](03-ztoperator/index.mdx): en Kubernetes-ressurs for innlogging, sesjonshåndtering og claims-validering
+- [SPIFFE](04-SPIFFE/index.mdx): finkornet nettverkstilgangsstyring og sikker kommunikasjon innad i et 
   Kubernetes-cluster basert på SPIFFE-identiteter
 
 ### Funksjonalitet vi planlegger å tilby i nær fremtid
@@ -42,7 +43,7 @@ På generelt grunnlag anbefaler vi å ha flere lag med sikkerhet, og dermed impl
 validering både i plattformen og i applikasjonskoden.
 
 ### Token-validering og grovkornet tilgangsstyring i Ztoperator vs. applikasjonskode
-Med bruk av [test-authpolicy-action](02-ztoperator/04-test-authpolicy.mdx) er det mulig å teste i CI/CD at en
+Med bruk av [test-authpolicy-action](03-ztoperator/04-test-authpolicy.mdx) er det mulig å teste i CI/CD at en
 Ztoperator-`AuthPolicy` er konfigurert til å utføre deny/redirect/allow slik som forventet. Det eksisterer derimot ikke
 noe testverktøy som tester selve applikasjonskoden sitt samspill med Ztoperator. Basert på dette anbefaler vi at teamene
 selv tar stilling til hvorvidt de er komfortable med å kun stole på Ztoperator for token-validering, eller om de ønsker
