@@ -28,7 +28,7 @@ Teamet står fritt til å konfigurere prosjektet etter behov, innenfor [retnings
 Det er derimot en rekke instillinger som er definert via Terraform som ikke kan endres av teamene, de er:
 - navn på prosjekt
 - tidssone
-- default tilgangsnivå
+- standard tilgangsnivå
 - tilgangsnivå for team-rollen
 
 Dersom du har behov for å endre noen av disse, kontakt SKOOP via [#gen-posthog](https://kartverketgroup.slack.com/archives/C0AED5A698X) kanalen på Slack. 
