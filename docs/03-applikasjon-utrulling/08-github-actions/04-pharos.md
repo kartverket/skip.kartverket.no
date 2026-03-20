@@ -40,7 +40,8 @@ jobs:
 
     steps:
       - name: Run Pharos
-        uses: kartverket/pharos@v0.2.5
+        # NB: Bump til nyeste versjon av pharos, se siste commit-hash i repo https://github.com/kartverket/pharos
+        uses: kartverket/pharos@112c1589d5022bc0cdf3353cb4c6047aa4a3a26f # v0.6.2
         with:
           trivy_category: ${{ matrix.package-name }}
           image_url: ${{ env.registry }}/${{ github.repository_owner }}/${{ matrix.package-name }}:latest
@@ -87,7 +88,8 @@ jobs:
       security-events: write
     steps:
       - name: "Run Pharos"
-        uses: kartverket/pharos@v0.2.5
+        # NB: Bump til nyeste versjon av pharos, se siste commit-hash i repo https://github.com/kartverket/pharos
+        uses: kartverket/pharos@112c1589d5022bc0cdf3353cb4c6047aa4a3a26f # v0.6.2
         with:
           image_url: ${{ env.image_name }}@${{ needs.build.outputs.image_digest }}
 ```
