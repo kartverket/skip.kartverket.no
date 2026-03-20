@@ -19,7 +19,7 @@ Etter `posthog_enabled` er lagt til for teamet må brukere og roller synces, det
 :::
 
 Når dette er gjort vil medlemmer av teamet få brukere i PostHog og admin-tilgang til prosjektet.
-Øvrige brukere vil få member tilgang som gir editor på ressursene. 
+Øvrige brukere vil få member-tilgang som gir editor-rettigheter på ressursene, med mindre dette er overstyrt et annet sted. 
 En del innstillinger på prosjektnivå trenger admin-tilgang, og dette vil nå begrenses til teamet som eier prosjektet.
 
 ## Administrer prosjekt
