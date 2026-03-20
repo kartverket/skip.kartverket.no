@@ -3,7 +3,7 @@
 PostHog er et analyseverktøy som kan brukes til å forstå bruksmønstre i tjenester. 
 Se [Retningslinjer for bruk av PostHog i Kartverket](https://kartverket.atlassian.net/wiki/spaces/DT/pages/1954676765/Retningslinjer+for+bruk+av+PostHog+i+Kartverket) for mer informasjon.
 
-Gå til [eu.posthog.com](https://eu.posthog.com) og logg inn med kartverket epost
+Gå til [eu.posthog.com](https://eu.posthog.com) og logg inn med din e-post (`@kartverket.no`).
 
 ## Onboarding
 
