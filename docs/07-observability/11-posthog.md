@@ -29,6 +29,6 @@ Det er derimot en rekke instillinger som er definert via Terraform som ikke kan 
 - navn på prosjekt
 - tidssone
 - default tilgangsnivå
-- tilgangsnivå for team rollen
+- tilgangsnivå for team-rollen
 
 Dersom du har behov for å endre noen av disse, kontakt SKOOP via [#gen-posthog](https://kartverketgroup.slack.com/archives/C0AED5A698X) kanalen på Slack. 
