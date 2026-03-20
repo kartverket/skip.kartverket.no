@@ -15,7 +15,7 @@ Gå til [eu.posthog.com](https://eu.posthog.com) og logg inn med din e-post (`@k
 ![PostHog onboarding workflow](images/posthog-onboarding.png)
 
 :::info
-etter posthog_enabled er lagt til for teamet må brukere og roller synces, dette skjer automatisk hvert 40. minutt og må være på plass før prosjektet kan opprettes
+Etter `posthog_enabled` er lagt til for teamet må brukere og roller synces, dette skjer automatisk hvert 40. minutt og må være på plass før prosjektet kan opprettes.
 :::
 
 Når dette er gjort vil medlemmer av teamet få brukere i posthog og admin tilgang til prosjektet. 
