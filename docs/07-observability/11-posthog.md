@@ -9,7 +9,7 @@ Gå til [eu.posthog.com](https://eu.posthog.com) og logg inn med kartverket epos
 
 1. Legg til `enable_posthog: true` for team i [`entra-id-config`](https://github.com/kartverket/entra-id-config/blob/main/org.yaml)
 2. Kjør onboarding workflow i [posthog-infrastructure](https://github.com/kartverket/posthog-infrastructure/actions/workflows/onboarding.yaml) med
-    - **Prosjektnavn**: navnet prosjektet i posthog får
+    - **Prosjektnavn**: navnet prosjektet i PostHog skal få
     - **Teamnavn**: team navn som gitt i `name` feltet i [`entra-id-config`](https://github.com/kartverket/entra-id-config/blob/main/org.yaml)
 
 ![PostHog onboarding workflow](images/posthog-onboarding.png)
