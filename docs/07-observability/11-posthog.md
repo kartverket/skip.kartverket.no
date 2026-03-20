@@ -24,7 +24,7 @@ En del innstillinger på prosjektnivå trenger admin-tilgang, og dette vil nå b
 
 ## Administrer prosjekt
 
-Teamet står fritt til å konfigurere prosjektet etter behov. 
+Teamet står fritt til å konfigurere prosjektet etter behov, innenfor [retningslinjene](https://kartverket.atlassian.net/wiki/spaces/DT/pages/1954676765/Retningslinjer+for+bruk+av+PostHog+i+Kartverket).
 Det er derimot en rekke instillinger som er definert via Terraform som ikke kan endres av teamene, de er:
 - navn på prosjekt
 - tidssone
