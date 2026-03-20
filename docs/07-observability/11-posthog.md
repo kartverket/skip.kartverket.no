@@ -12,7 +12,7 @@ Gå til [eu.posthog.com](https://eu.posthog.com) og logg inn med din e-post (`@k
     - **Prosjektnavn**: navnet prosjektet i PostHog skal få
     - **Teamnavn**: team navn som gitt i `name` feltet i [`entra-id-config`](https://github.com/kartverket/entra-id-config/blob/main/org.yaml)
 
-![PostHog onboarding workflow](images/posthog-onboarding.png)
+<img src={require("./images/posthog-onboarding.png").default} alt="PostHog onboarding workflow" style={{ width: "40%", margin: "12px auto" }} />
 
 :::info
 Etter `posthog_enabled` er lagt til for teamet må brukere og roller synces, dette skjer automatisk hvert 40. minutt og må være på plass før prosjektet kan opprettes.

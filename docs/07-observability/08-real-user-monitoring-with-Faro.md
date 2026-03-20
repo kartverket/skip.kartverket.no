@@ -11,7 +11,7 @@ Det er flere typer hendelser som støttes av Faro:
 - Sidebesøk telles slik at du kan se hvilke sider som besøkes av brukere
 - Metadata som nettlesertype gjør det mulig å se hvilke nettlesere som er i bruk, og hvilke du ikke lenger trenger å støtte
 
-Du har kanskje hørt om lignende tjenester som [Sentry.io](http://sentry.io/). Faro skal ikke forveksles med en analysetjeneste, og det anbefales å ha en egen instans for brukerinnsikt som Google Analytics eller Posthog. En analysetjeneste kan fortelle deg mer om brukeratferd, mens tjenester som Faro og Sentry er mer beregnet på overvåking og feilsøking.
+Du har kanskje hørt om lignende tjenester som [Sentry.io](http://sentry.io/). Faro skal ikke forveksles med en analysetjeneste, og det anbefales å ha en egen instans for brukerinnsikt som Google Analytics eller PostHog. En analysetjeneste kan fortelle deg mer om brukeratferd, mens tjenester som Faro og Sentry er mer beregnet på overvåking og feilsøking.
 
 ## Kom i gang
 
