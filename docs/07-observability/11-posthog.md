@@ -31,4 +31,4 @@ Det er derimot en rekke instillinger som er definert via Terraform som ikke kan 
 - standard tilgangsnivå
 - tilgangsnivå for team-rollen
 
-Dersom du har behov for å endre noen av disse, kontakt SKOOP via [#gen-posthog](https://kartverketgroup.slack.com/archives/C0AED5A698X) kanalen på Slack. 
+Dersom du har behov for å endre noen av disse, kontakt SKOOP via [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) kanalen på Slack. 
