@@ -32,6 +32,23 @@ _Valg av identitetstilbyder som API-tilbyder._
 Dersom samme API skal brukes av flere typer konsumenter, for eksempel et internt system i Kartverket som blir kalt både
 i en sluttbrukerflyt og i en frittstående flyt (f.eks av en `Job`), anbefaler vi å eksponere de ulike tjeneste på ulike
 rotstier, f.eks `/api/user/..` og `/api/m2m/..`, fremfor å benytte de samme endepunktene.
+
+### Sikkerhetsnivå for identifikasjon av innbyggere
+I følge [veilederen for identifikasjon og sporbarhet i elektronisk kommunikasjon](https://www.digdir.no/digital-samhandling/veileder-identifikasjon-og-sporbarhet-i-elektronisk-kommunikasjon-med-og-i-offentlig-sektor/2992)
+skal sikkerhetsnivå velges basert på en risikovurdering. Du må altså ta stilling til hva som er nødvendig sikkerhetsnivå
+i din tjeneste. Det defineres tre nivåer av sikkerhet:
+- Høy: brukes ved særlig høye krav til sikkerhet. Tofaktorautentisering med identitetskontroll, f.eks BankID, Buypass, Commfides, eller eIDAS
+- Betydelig: tilfredsstiller behovet for de fleste tjenester. Tofaktorautentisering basert på kontaktinformasjon i Folkeregistret, f.eks MinID
+- Lav: enkel pålogging med en viss sikkerhet. Autentisering f.eks basert på kontaktinformasjon (epost eller telefonnummer) i Kontakt- og reservasjonsregisteret
+
+### Utenlandske brukere
+[Her finner du Digdir sin dokumentasjon om utenlanske brukere i ID-porten.](https://docs.digdir.no/docs/idporten/oidc/oidc_func_utanlandske_brukarar.html)
+Anno mars 2026 er det kun eIDAS, som er EU sin standard for elektronisk identifikasjon, som støtter sikkerhetsnivå "Høy"
+eller "Betydelig" for utenlandske brukere. For brukere utenfor EU, eller fra land som ikke støtter eIDAS, er det kun
+bruk av egenregistrerte brukere basert på epost-adresse som kan benyttes. Dette tilsvarer sikkerhetsnivå "Lav". Digdir
+har antydet at det vil komme en løsning basert på skanning av pass i løpet av 2026, som tilsvarer sikkerhetsnivå
+"Betydelig".
+
 ## Som API-konsument
 ```mermaid
 flowchart LR;
