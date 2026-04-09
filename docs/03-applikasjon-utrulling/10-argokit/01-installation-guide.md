@@ -21,7 +21,7 @@ For å gjøre dette, legg til følgende i din `.github/dependabot.yml` fil:
 ```yaml
 version: 2
 updates:
-  - package-ecosystem: git-submodules
+  - package-ecosystem: gitsubmodule
     directory: /
     schedule:
       interval: daily
