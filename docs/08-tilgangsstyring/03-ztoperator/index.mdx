@@ -11,7 +11,9 @@ Ztoperator har aktive deprecation warnings, se [deprecation warnings](#deprecati
 
 <Columns>
   <Column className='col--8'>
-    Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons endepunkter skal styres. Den gir støtte for å
+    Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons
+      endepunkter skal styres. Dette gjøres med en `AuthPolicy`-ressurs, som peker på en tilhørende
+      Skiperator-applikasjon. Den gir støtte for å
     
     - definere hvilke endepunkter som skal være åpne.
     - definere hvilke endepunkter som krever et gyldig OAuth 2.0-token.
