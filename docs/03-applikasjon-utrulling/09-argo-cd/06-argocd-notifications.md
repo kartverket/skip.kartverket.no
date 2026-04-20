@@ -2,7 +2,7 @@
 
 ArgoCD har støtte for å sende notifikasjoner basert på forhåndsdefinerte triggers gjennom en rekke kanaler, deriblant Slack og Github. Eksempelvis kan dette være triggers basert på at synkroniseringen av en applikasjon feilet, eller at en applikasjon har blitt liggende i OutOfSync over et visst tidsrom.
 
-[ArgoCD Notifications er dokumentert her](https://argocd-notifications.readthedocs.io/en/stable/).
+[ArgoCD Notifications er dokumentert her](https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/).
 
 Vår ArgoCD installasjon kommer med en rekke triggers og templates for utseende forhåndsinstallert.
 
@@ -42,7 +42,7 @@ Følgende triggers er lagt til som standard for alle apps-repoer:
 
 ### Ekstra triggers
 
-I tillegg er det mulig å spesifisere andre triggers (så lenge disse er lagt inn i ArgoCD) per team i objektet triggerSubscriptions i [https://github.com/kartverket/skip-apps/blob/main/lib/argocd/argocd.libsonnet](https://github.com/kartverket/skip-apps/blob/main/lib/argocd/argocd.libsonnet) .
+I tillegg er det mulig å spesifisere andre triggers (så lenge disse er lagt inn i ArgoCD) per team i objektet triggerSubscriptions i [https://github.com/kartverket/skip-apps/blob/65aaad8bba1f32c5b2942bdf7522cbde3100aa60/lib/argocd/teams.json](https://github.com/kartverket/skip-apps/blob/65aaad8bba1f32c5b2942bdf7522cbde3100aa60/lib/argocd/teams.json).
 
 :::info
 Husk å spesifisere om det er slack eller github notifikasjon man ønsker ved å legge til suffikset .slack eller .github på slutten av trigger, og husk å spesifisere kanalnavn ved bruk av slack notifikasjon

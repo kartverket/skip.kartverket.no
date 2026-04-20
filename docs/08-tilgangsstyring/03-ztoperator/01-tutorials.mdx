@@ -85,8 +85,11 @@ spec:
     matchLabels:
       app: entraid-demo-app
   wellKnownURI: https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration
-  audience:
-    - 51525343-f969-4820-9ddc-4c41526f6aae
+  allowedAudiences:
+    - valueFrom:
+        secretKeyRef:
+          name: entraid-secret
+          key: AZURE_APP_CLIENT_ID
   ignoreAuthRules:
     - paths:
         - /
@@ -96,7 +99,7 @@ spec:
     logoutPath: /logout
     redirectPath: /oauth2/callback
     scopes:
-      - 51525343-f969-4820-9ddc-4c41526f6aae/.default
+      - api://<cluster>.<namespace>.<azure-ad-application-name>/.default
   oAuthCredentials:
     clientIDKey: AZURE_APP_CLIENT_ID
     clientSecretKey: AZURE_APP_CLIENT_SECRET
@@ -241,8 +244,11 @@ spec:
     matchLabels:
       app: idporten-demo-app
   wellKnownURI: https://test.idporten.no/.well-known/openid-configuration
-  audience:
-    - 8ad04c24-ac32-4252-9491-763d83d2cfad
+  allowedAudiences:
+    - valueFrom:
+        secretKeyRef:
+          name: idporten-secrets
+          key: CLIENT_ID
   acceptedResources:
     - https://idporten-ztoperator.atgcp1-sandbox.kartverket.cloud
   ignoreAuthRules:
@@ -397,8 +403,11 @@ spec:
     matchLabels:
       app: ansattporten-demo-app
   wellKnownURI: https://test.ansattporten.no/.well-known/openid-configuration
-  audience:
-    - a2b58353-e3b5-4f69-a453-3f180c1f00de
+  allowedAudiences:
+    - valueFrom:
+        secretKeyRef:
+          name: ansattporten-secrets
+          key: CLIENT_ID
   acceptedResources:
     - https://ansattporten-ztoperator.atgcp1-sandbox.kartverket.cloud
   ignoreAuthRules:

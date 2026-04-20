@@ -13,23 +13,18 @@ Før dette kan gjøres må man gå igjennom denne sjekklisten:
 
 - Gjør dere kjent med [Overordnede føringer](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/599130113/Overordnede+f+ringer) og spesielt [Ansvarsfordeling](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/770113537/Ansvarsfordeling) fra Sikkerhetshåndboka
 - Opprett metadata i GitHub-repoene tilknyttet applikasjonen i henhold til [sikkerhet i repoet](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/732397586/Sikkerhet+i+repoet). Dette sikrer at applikasjonen blir integrert i Utviklerportalen og får tilgang til sikkerhetsmetrikker.
-- Foranalyse må være gjennomført (det kommer løype for dette i PureService)
+- Verdivurdering er utført.
 - Det er gjort IP (Innledende Personvernsvurdering) og eventuelt DPIA. Kopier malen [IP, DPIA og ROS-analyse for [det som vurderes]](https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338719/IP+DPIA+og+ROS-analyse+for+det+som+vurderes+.+IKKE+SKRIV+INN+I+MALEN+men+kopier+sidene.) til deres område og fyll ut informasjonen der.
 - ROS-analyse gjennomført og godkjent av risikoeier/systemeier
+- Systemet er registrert i systemoversikten ( Pureservice->Tilganger, sikkerhet og systemforvaltning->Registrer nytt system ).
 - Codeowners definert i koderepo [CODEOWNERS](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/561348667/CODEOWNERS)
 - Gjennomfør en sikkerhetssjekk
   - Se over hvilke endepunkter som er eksponert og at debug endepunkter og liknende interne endepunkter ikke er eksponert
   - Sørg for at alle endepunkter som krever autentisering faktisk krever det
   - Vi anbefaler i tillegg å bruke [OWASP ZAP](https://www.zaproxy.org/) for å kjøre en scan
 
-- Følgende headere blir sendt på alle kall:
-  - [HTTP Strict Transport Security](https://scotthelme.co.uk/hsts-the-missing-link-in-tls/)
-  - [Content Security Policy](https://scotthelme.co.uk/content-security-policy-an-introduction/)
-  - [X-Frame-Options](https://scotthelme.co.uk/hardening-your-http-response-headers/#x-frame-options)
-  - [X-Content-Type-Options](https://scotthelme.co.uk/hardening-your-http-response-headers/#x-content-type-options)
-  - [Referrer Policy](https://scotthelme.co.uk/a-new-security-header-referrer-policy/)
-  - [Permissions Policy](https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/)
-- Når appen er eksponert skal sikkerhetsheaders testes med [https://securityheaders.com](https://securityheaders.com/) og [https://observatory.mozilla.org](https://observatory.mozilla.org/)
+
+- Når appen er eksponert skal sikkerhetsheaders testes med [https://securityheaders.com](https://securityheaders.com/) og [https://observatory.mozilla.org](https://observatory.mozilla.org/). Gå gjennom resultatene og sørg for at relevante header-typer er på plass.
 - Monitorering og varsling er satt opp i [Grafana](https://monitoring.kartverket.cloud), og vaktlaget er onboardet disse alarmene
   - [Metrics with Grafana](../07-observability/metrikker.md)
   - [Logs with Loki](../07-observability/05-logs-with-Loki.md)

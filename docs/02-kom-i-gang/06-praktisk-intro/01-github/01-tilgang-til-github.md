@@ -20,6 +20,11 @@ Ved spørsmål vedrørende tilgang eller behov for støtte, ta kontakt på [#gen
 - [Legg til en SSH-nøkkel på brukeren din](https://docs.github.com/en/enterprise-cloud@latest/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) så du kan pushe kode fra maskinen din. Sørg også for at den er [autorisert for bruk med kartverket](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-an-ssh-key-for-use-with-saml-single-sign-on) .
 - Du har nå tilgang til GitHub!
 
+:::note
+Opprettelse og administrasjon av team på Github skjer foreløpig manuelt. Dersom du har behov for et nytt team er dette
+noe du selv må opprette [her](https://github.com/orgs/kartverket/new-team)
+:::
+
 ## Bistand og diskusjon rundt GitHub
 
 - Logg på slack ved å laste ned programmet fra [http://slack.com](http://slack.com/) og bruk [kartverketgroup.slack.com](http://kartverketgroup.slack.com/) som workspace

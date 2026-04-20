@@ -1,0 +1,54 @@
+# Autorisasjonsregler
+
+## Introduksjon til autorisasjonsregler i Ztoperator
+Ztoperator lar deg spesifisere autorisasjonsregler i tre lag:
+- `authRules`: ytterligere regler (utover gyldig token) som gjelder for spesifikke paths og HTTP-metoder. Regler definert i `authRules` overstyrer kolliderende regler i `ignoreAuthRules`
+- `ignoreAuthRules`: regler som spesifiserer paths og HTTP-metoder som skal være tilgjengelig _uten_ gyldig token.
+- `baselineAuth`: ytterligere regler (utover gyldig token) som gjelder for alle paths, unntatt de som omfattes av `ignoreAuthRules`.
+
+Definisjonen av "gyldig token" her er:
+- Tokenet må være signert av identitetstilbyderen som er konfigurert i `spec.wellKnownURI`
+- Tokenet må ha et audience som matcher en av de som er definert i `spec.allowedAudiences`
+- Tokenet må ikke være utløpt iht. `exp`-claimet
+- Tokenet må ikke være utstedt i fremtiden iht. `nbf`-claimet
+
+Ytterligere claims-baserte regler definert i `authRules` og `baselineAuth` vil bli validert i tillegg til nevnte krav
+til gyldig token.
+
+## Komplett eksempel
+```yaml
+apiVersion: ztoperator.kartverket.no/v1alpha1
+kind: AuthPolicy
+spec:
+  ignoreAuthRules:
+    - paths:
+        - /public{**}
+    - paths:
+        - /feedback
+      methods:
+        - GET
+        - POST
+  authRules:
+    - paths:
+        - /admin{**}
+      when:
+        - claim: role
+          values:
+            - admin
+        - claim: groups
+          values:
+            - my-admin-group
+  baselineAuth:
+    claims:
+      - claim: groups
+        values:
+          - my-user-group
+  ... # øvrige påkrevde/valgfrie felter
+```
+
+I dette eksemplet vil følgende autorisasjonsregler gjelde:
+- Forespørsler til `/public` og alle underliggende stier vil være tilgjengelig uten gyldig token.
+- GET- og POST-forespørsler til `/feedback` vil være tilgjengelig uten gyldig token.
+- PUT-, PATCH- og DELETE-forespørsler til `/feedback` vil kreve et gyldig token med et claim `groups` med verdien `my-user-group`, siden `ignoreAuthRules` kun gjelder for GET- og POST-forespørsler.
+- Forespørsler til `/admin` og alle underliggende stier må ha et gyldig token med claimet `role: admin` _og_ et claim `groups` med begge verdiene `my-user-group` og `my-admin-group`. Altså vil `authRules` og `baselineAuth` for samme claim bli kombinert - førstnevnte vil _ikke_ overskrive sistnevnte.
+- Forespørsler mot alle andre paths må ha et gyldig token med et claim `groups` med verdien `my-user-group`.

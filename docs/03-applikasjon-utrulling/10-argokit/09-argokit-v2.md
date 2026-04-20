@@ -33,10 +33,34 @@ Sett replikaer for en applikasjon med autoskalering basert på CPU og minne.
 |-|-|-|-|-|
 |`initial`|`number`|`true`|-|initialt antall replikaer (2 er anbefalt)|
 |`max`|`number`|`false`|-|maksimum antall replikaer (hvis satt, aktiverer autoskalering)|
-|`targetCpuUtilization`|`number`|`false`|80|CPU-terskel i prosent før autoskalering|
+|`targetCpuUtilization`|`number`|`false`|-|CPU-terskel i prosent før autoskalering|
 |`targetMemoryUtilization`|`number`|`false`|-|Minneterskel i prosent før autoskalering|
 
 **Eksempel:** [examples/replicas.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/replicas.jsonnet)
+
+## ArgoKit's Resources API
+
+Konfigurer CPU og minneressurser for applikasjoner. Requests definerer minimumsressurser containeren trenger, mens limits definerer maksimalressurser containeren kan bruke.
+
+### `argokit.appAndObjects.application.resources.withRequests()`
+Sett ressurskrav (requests) for applikasjonscontaineren.
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`cpu`|`string` or `number`|`false`|-|CPU-krav. Kan være tall (f.eks. `1`, `0.5`) eller string med "m" suffiks (f.eks. `"100m"`)|
+|`memory`|`string` or `number`|`false`|-|Minnekrav. Kan være tall (bytes) eller string med suffiks (f.eks. `"128Mi"`, `"1Gi"`). Støttede suffikser: `Ei`, `Pi`, `Ti`, `Gi`, `Mi`, `Ki`, `E`, `P`, `T`, `G`, `M`, `k`|
+
+**Eksempel:** [examples/appWithResources.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/appWithResources.jsonnet)
+
+### `argokit.appAndObjects.application.resources.withLimits()`
+Sett ressursgrenser (limits) for applikasjonscontaineren.
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`cpu`|`string` or `number`|`false`|-|CPU-grense. Kan være tall (f.eks. `1`, `2.0`) eller string med "m" suffiks (f.eks. `"500m"`)|
+|`memory`|`string` or `number`|`false`|-|Minnegrense. Kan være tall (bytes) eller string med suffiks (f.eks. `"512Mi"`, `"2Gi"`). Støttede suffikser: `Ei`, `Pi`, `Ti`, `Gi`, `Mi`, `Ki`, `E`, `P`, `T`, `G`, `M`, `k`|
+
+**Eksempel:** [examples/appWithResources.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/appWithResources.jsonnet)
 
 ## ArgoKit's Environment API
 
@@ -209,6 +233,34 @@ Legger til en startup‑probe (blokkerer andre prober til den lykkes).
 
 **Eksempel:** [examples/probes.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/probes.jsonnet)
 
+## ArgoKit's Prometheus API
+Konfigurer Prometheus metrics scraping for applikasjoner.
+
+### `argokit.appAndObjects.application.withPrometheus()`
+Konfigurer hvordan Prometheus‑kompatible metrics skal hentes (scraped).
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`path`|`string`|`true`| - |sti hvor metrics er eksponert (f.eks. `/metrics`, `/actuator/prometheus`)|
+|`port`|`number`|`true`| - |portnummer hvor metrics er eksponert|
+|`allowAllMetrics`|`boolean`|`false`|false|hvis `true`, vil alle eksponerte metrics bli skrapet. Ellers vil en forhåndsdefinert liste med metrics bli droppet. Ref: https://github.com/kartverket/skiperator/blob/main/pkg/util/constants.go#L19-L23 |
+
+**Eksempel:** [examples/application-with-prometheus.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/application-with-prometheus.jsonnet)
+
+**Alternativ syntaks:** Du kan også sette prometheus direkte via objektsyntaks:
+```jsonnet
++ {
+  application+: {
+    spec+: {
+      prometheus: {
+        path: '/kommuneinfo/v1/metrics',
+        port: 5000,
+      },
+    },
+  },
+}
+```
+
 ## ArgoKit's routing API
 
 Konfigurer ruting for applikasjoner på SKIP.
@@ -344,9 +396,11 @@ Opprett en `ExternalSecret` og legg til miljøvariabler fra den i applikasjonen.
 |navn|type|obligatorisk|standardverdi|beskrivelse|
 |-|-|-|-|-|
 |`name`|`string`|`true`| - |navn på `ExternalSecret`|
-|`secrets`|`array`|`false`|[]|array av secret objekter med {`toKey`, `fromSecret`}|
+| `creationPolicy` | `string` | `null` | `false` | `null` | styrer `spec.target.creationPolicy`. Når `null`/utelatt blir feltet **ikke** med i manifestet. |
+|`secrets`|`array`|`false`|[]|array av secret objekter med &#123;`toKey` (påkrevd), `fromSecret` (påkrevd), `property`, `decodingStrategy`, `conversionStrategy`, `metadataPolicy`&#125;|
 |`allKeysFrom`|`array`|`false`|[]|array av secret objekter med {`fromSecret`} for å hente alle `keys`|
 |`secretStoreRef`|`string`|`false`|'gsm'|navn på `store`|
+
 
 **OBS:** Enten `secrets` eller `allKeysFrom` må inneholde minst ett element.
 
@@ -387,3 +441,35 @@ Legg til en `AzureADApplication`-ressurs og konfigurerer applikasjonen.
 |`preAuthorizedApplications`|`array`|`false`|[]|liste over forhåndsautoriserte applikasjoner|
 
 **Eksempel:** [examples/withAzureAdApplication.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/withAzureAdApplication.jsonnet)
+
+## ArgoKit's Mounts API
+
+### `argokit.appAndObjects.application.withSecretAsMount()`
+Monter en eksisterende hemmelighet som filer på angitt sti.
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`secretName`|`string`|`true`| - |navn på hemmeligheten som skal monteres|
+|`mountPath`|`string`|`true`| - |stien hvor hemmeligheten skal monteres|
+
+**Eksempel:** [examples/mounts.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/mounts.jsonnet)
+
+### `argokit.appAndObjects.application.withPersistentVolumeClaimAsMount()`
+Monter en Persistent Volume Claim (PVC) på angitt sti.
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`pvcName`|`string`|`true`| - |navn på PVC som skal monteres|
+|`mountPath`|`string`|`true`| - |stien for montering|
+
+**Eksempel:** [examples/mounts.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/mounts.jsonnet)
+
+### `argokit.appAndObjects.application.withEmptyDirAsMount()`
+Monter en emptyDir-volum på angitt sti.
+
+|navn|type|obligatorisk|standardverdi|beskrivelse|
+|-|-|-|-|-|
+|`mountPath`|`string`|`true`| - |stien for montering|
+|`emptyDir`|`string`|`true`| - |navn på volum|
+
+**Eksempel:** [examples/mounts.jsonnet](https://github.com/kartverket/argokit/blob/main/v2/examples/mounts.jsonnet)

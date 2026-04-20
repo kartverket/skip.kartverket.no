@@ -2,7 +2,7 @@ import Admonition from '@theme/Admonition';
 
 # Test din Ztoperator-`AuthPolicy`
 
-Ztoperator følger en deklarativ tilnærming, der tilgangsstyringen flyttes ut av applikasjonskoden og inn i teamets infrastrukturkode (IaC) – typisk i et [apps-repo](../../09-argo-cd/02-hva-er-et-apps-repo.md).
+Ztoperator følger en deklarativ tilnærming, der tilgangsstyringen flyttes ut av applikasjonskoden og inn i teamets infrastrukturkode (IaC) – typisk i et [apps-repo](/docs/03-applikasjon-utrulling/09-argo-cd/02-hva-er-et-apps-repo.md).
 Denne tilnærmingen gir mange fordeler, men kan gjøre det mer utfordrende å teste tilgangsstyringen i integrasjonstester.
 For å håndtere dette kan du bruke GitHub Actionen [`test-authpolicy-action`](https://github.com/kartverket/test-authpolicy-action),
 som lar deg verifisere at en `AuthPolicy` du har definert for å styre tilgangen til applikasjonen faktisk fungerer som forventet.
@@ -26,16 +26,17 @@ spec:
   enabled: true
   ignoreAuthRules:
     - paths:
-        - /public*
+        - /public{**}
   authRules:
     - paths:
-        - /admin*
+        - /admin{**}
       when:
         - claim: role
           values:
             - admin
       denyRedirect: true
-  audience: some-audience
+  allowedAudiences:
+    - value: some-audience
   oAuthCredentials:
     secretRef: oauth-secret
     clientIDKey: CLIENT_ID_KEY
@@ -56,7 +57,7 @@ spec:
 
 ### 🚀 `test-authpolicy-action`
 
-Du kan teste nevnte `AuthPolicy` direkte i repoet der den er definert (typisk et [apps-repo](../../09-argo-cd/02-hva-er-et-apps-repo.md)) ved å inkludere den i en GitHub Workflow-jobb.
+Du kan teste nevnte `AuthPolicy` direkte i repoet der den er definert (typisk et [apps-repo](/docs/03-applikasjon-utrulling/09-argo-cd/02-hva-er-et-apps-repo.md)) ved å inkludere den i en GitHub Workflow-jobb.
 Før `test-authpolicy-action` kjøres, **må** [`setup-skip-action`](https://github.com/kartverket/setup-skip-action) være kjørt for å sette opp det nødvendige miljøet som kreves for å gjennomføre testene.
 
 ```yaml
@@ -69,10 +70,10 @@ steps:
 
   # 🚨 Må kjøres først 🚨
   - name: Setup SKIP
-    uses: kartverket/setup-skip-action@v0.0.3
+    uses: kartverket/setup-skip-action@latest
 
   - name: Test AuthPolicy
-    uses: kartverket/test-authpolicy-action@v0.0.2
+    uses: kartverket/test-authpolicy-action@latest
     with:
       test: test.yaml
       authpolicy: authpolicy.yaml
@@ -82,7 +83,7 @@ steps:
 ### 🧪 Test-fil
 
 `test-authpolicy-action` har to input: filstien til `AuthPolicy`-ressursen som skal testes, og filstien til en _testfil_ som beskriver selve testene.
-Testfilen må følge JSON-skjemaet definert [her](https://kartverket.github.io/test-authpolicy-action/v0.0.1/schema.json).
+Testfilen må følge JSON-skjemaet definert [her](https://kartverket.github.io/test-authpolicy-action/latest/schema.json).
 
 Testfilen består av et navn (`name`) og en samling forespørsler (`requests`). Hver forespørsel definerer:
 - Én eller flere URL-stier.

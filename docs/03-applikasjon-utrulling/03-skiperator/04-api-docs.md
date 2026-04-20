@@ -3385,11 +3385,29 @@ By default, tracing is enabled with a random sampling percentage of 10%.<br/>
         </td>
         <td>false</td>
       </tr><tr>
+        <td><b>labels</b></td>
+        <td>map[string]string</td>
+        <td>
+          Labels can be used if you want every resource created by your SKIPJob to
+have the same labels, including the Job/CronJob itself. This could for example be useful for
+metrics, where a certain label and the corresponding resources liveliness can be combined.
+Any amount of labels can be added as wanted, and they will all cascade down to all resources.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b><a href="#skipjobspecprometheus">prometheus</a></b></td>
         <td>object</td>
         <td>
           Prometheus settings for pod running in job. Fields are identical to Application and if set,
 a podmonitoring object is created.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>team</b></td>
+        <td>string</td>
+        <td>
+          Team specifies the team who owns this particular SKIPJob.
+Usually sourced from the namespace label.<br/>
         </td>
         <td>false</td>
       </tr></tbody>
