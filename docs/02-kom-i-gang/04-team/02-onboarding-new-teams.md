@@ -56,7 +56,7 @@ Produktteamet har ansvaret for å fordele disse oppgavene internt.
 - Invitere til et kickoff-møte hvor kontaktpunkter, ansvarsfordeling, support, veikart og andre relevante saker diskuteres.
 - Opprette grupper ved å legge dem til [entra-id-config](https://github.com/kartverket/entra-id-config/blob/main/org.yaml) (gruppe synces fra Entra ID til GCP hver time)
 - Teamet må merkes med security i admin.google.com ([workflow](https://github.com/kartverket/skip-core-infrastructure/actions/workflows/security-groups.yaml) kjøres hver dag kl. 8 UTC)
-- Opprett produkt/prosjekt i [skip-core-infra](https://github.com/kartverket/skip-core-infrastructure/blob/main/dynamic/env/teams/modules.tf)
+- Opprett produkt/prosjekt i [skip-core-infra](https://github.com/kartverket/skip-core-infrastructure/tree/main/03_dynamic/env/teams)
 - Workflow for å kjøre terraform apply i skip-core-infra må kjøres av et SKIP-medlem med tilgang.
 - Teamet og app-repositoriet settes opp i henhold til Komme i gang med Argo CD [Komme i gang med Argo CD](../../03-applikasjon-utrulling/09-argo-cd/01-komme-i-gang-med-argocd.md)
 - Hvis teamet krever Terraform:
