@@ -55,9 +55,11 @@ kind: Application
 metadata:
   name: my-app
 spec:
+//diff-add-start
   podSettings:
     annotations:
       ztoperator.kartverket.no/verify-authpolicy: "true"
+//diff-add-end
   ...
 ```
 
