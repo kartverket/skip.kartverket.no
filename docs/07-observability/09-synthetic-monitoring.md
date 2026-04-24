@@ -63,6 +63,12 @@ Syntetisk overvåking konfigureres i filen `synthetic-monitoring.yaml` i roten a
     service: min-tjeneste
 ```
 
+### Intern syntetisk overvåking
+
+Bruk `internal: true` når target ikke er offentlig eksponert, men kun tilgjengelig på internt nett.
+Da kjøres sjekkene fra SKIP-clustre, som har tilgang til interne domener.
+For eksterne adresser anbefales det å ikke bruke `internal: true`.
+
 ### Felter
 
 | Felt | Påkrevd | Beskrivelse |
@@ -71,6 +77,7 @@ Syntetisk overvåking konfigureres i filen `synthetic-monitoring.yaml` i roten a
 | `labels.team` | Ja | Navnet på teamet som eier tjenesten. |
 | `labels.env` | Ja | Miljøet tjenesten kjører i (f.eks. `prod`, `dev`). |
 | `labels.service` | Ja | Navnet på tjenesten. Dette bør tilsvare navnet i [utviklerportalen](https://kartverket.dev). |
+| `labels.internal` | Nei | Sett til `true` for intern syntetisk overvåking (fra SKIP-clustre). |
 
 Du kan definere flere blokker i samme fil for å gruppere targets med ulike labels:
 
@@ -81,6 +88,14 @@ Du kan definere flere blokker i samme fil for å gruppere targets med ulike labe
     team: mitt-team
     env: prod
     service: kartverket.no
+
+- targets:
+    - https://min-app.atgcp1-prod.kartverket-intern.cloud/health
+  labels:
+    team: mitt-team
+    env: prod
+    service: min-app
+    internal: true
 
 - targets:
     - https://kartverket.atkv3-dev.kartverket.cloud/health
