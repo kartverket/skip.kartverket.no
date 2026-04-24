@@ -65,7 +65,7 @@ Syntetisk overvåking konfigureres i filen `synthetic-monitoring.yaml` i roten a
 
 ### Intern syntetisk overvåking
 
-Bruk `internal: true` når target ikke er offentlig eksponert, men kun tilgjengelig på internt nett.
+Bruk label `internal: true` når target ikke er offentlig eksponert, men kun tilgjengelig på internt nett (eks. for `statkart.no` og `kartverket-intern.cloud`-domener).
 Da kjøres sjekkene fra SKIP-clustre, som har tilgang til interne domener.
 For eksterne adresser anbefales det å ikke bruke `internal: true`.
 
