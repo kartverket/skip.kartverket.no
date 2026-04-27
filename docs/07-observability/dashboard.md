@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Dashboards
 
-Grafana har mange visualiseringsmuligheter i dashboards. I dashboards kan du kombinerre data fra ulike datakilder (f.eks. både logger og metrikker, eller logger fra ulike miljøer), visualisere med over 20 ulike innebygde [visualiseringstyper](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/) og ha dynamiske visualiseringer med variabler.
+Grafana har mange visualiseringsmuligheter i dashboards. I dashboards kan du kombinere data fra ulike datakilder (f.eks. både logger og metrikker, eller logger fra ulike miljøer), visualisere med over 20 ulike innebygde [visualiseringstyper](https://grafana.com/docs/grafana/latest/panels-visualizations/visualizations/) og ha dynamiske visualiseringer med variabler.
 
 
 ## Rask intro til dashboards
@@ -82,7 +82,7 @@ Nå kan variablene brukes i dashboard-panelene:
 
 Det er mulig å lage dashboards som kode, enten egenlaget eller hentet fra eksterne kilder, som f.eks. [Grafanas dashboardside](https://grafana.com/grafana/dashboards/). Du kan se eksempler på dette i [skip-dashboards](https://github.com/kartverket/skip-dashboards).
 
-Dashboards om lages som kode bør ikke endres i GUI-et. For å eksperimentere med slike dashboards anbefaler vi å lage en kopi av dashboardet, eksperimentere og deretter gjøre tilsvarende endringer i kode-repoet. Dette kan gjøres f.eks. ved å trykke "Export > Export as JSON" oppe til høyre i dashboard UI-et.
+Dashboards som lages som kode bør ikke endres i GUI-et. For å eksperimentere med slike dashboards anbefaler vi å lage en kopi av dashboardet, eksperimentere og deretter gjøre tilsvarende endringer i kode-repoet. Dette kan gjøres f.eks. ved å trykke "Export > Export as JSON" oppe til høyre i dashboard UI-et.
 
 ## Andre ressurser
 
@@ -91,9 +91,5 @@ Det er mange måter å lage dashboards på, og det finnes gode artikler på det:
 * 📚 [Enkel introduksjon fra Grafana for å lage dashboards](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/create-dashboard/)
 * 📚 [Grafanas egne "best practices" for å lage dashboards](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/)
 * 📚 [The Four Golden Signals](https://sre.google/sre-book/monitoring-distributed-systems/#xref_monitoring_golden-signals) fra Googles SRE Book diskuterer de viktigste metrikkene å monitorere
-
-
-
-
 
 

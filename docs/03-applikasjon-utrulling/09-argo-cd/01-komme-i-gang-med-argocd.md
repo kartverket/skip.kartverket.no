@@ -28,7 +28,7 @@ For å starte med Argo CD må du gjøre følgende:
   - Vanligvis er dette navnet på applikasjonen som skal deploye til SKIP
   - Dere kan administrere alle Kubernetes namespacer som starter med dette prefikset
 - SKIP må konfigurere Argo til å lese og synkronisere fra apps-repoet
-  - SKIP gjør en endring i [skip-apps repoet](https://github.com/kartverket/skip-apps/blob/main/lib/argocd/argocd.libsonnet)
+  - SKIP gjør en endring i [skip-apps repoet](https://github.com/kartverket/skip-apps/blob/main/lib/argocd/teams.json)
 - Nå skal du kunne logge inn på Argo CD og se applikasjonen din! 🚀
   - Du finner lenker til Argo på [Argo CD](index.md)
   - Videre dokumentasjon finnes på [Hvordan bruke Argo CD](./03-hvordan-bruke-argocd.md)

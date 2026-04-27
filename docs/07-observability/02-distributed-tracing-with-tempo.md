@@ -1,93 +1,102 @@
-# Distributed tracing with Tempo
+# Distribuert tracing med Tempo
 
-## What is distributed tracing?
+## Hva er distribuert tracing?
 
-In complex (and distributed) systems there are at any time many ongoing parallel processes. Some of these are interlinked or trigger each other. In order to find out which operations that originate from the same request, it is common in many systems to have a so-called Trace ID. With modern distributed tracing this is standardized, and in addition sub-operations (spans) per Trace ID are also supported. When you use a standardized setup to trace applications you also gain access to a large and exciting toolbox.
+I distribuerte systemer er det til enhver tid mange parallelle prosesser som kjører. Noen av disse henger sammen eller utløser hverandre. Distribuert tracing lar deg følge en forespørsel gjennom hele systemet – på tvers av tjenester og komponenter. Hver forespørsel får en unik **Trace ID**, og deloperasjoner registreres som **spans**. Dette gir deg innsikt i hvor tid brukes, hvor feil oppstår, og hvordan tjenestene samhandler.
 
-Further reading:
+## Hvordan fungerer distribuert tracing på SKIP?
 
-- [OpenTelemetry](https://opentelemetry.io/)
-- [Zipkin](https://zipkin.io/) (interesting from a historical perspective)
-- [A general guide to getting started with distributed tracing](https://www.honeycomb.io/getting-started/getting-started-distributed-tracing)
+Som en del av LGTM-stacken (Loki, Grafana, Tempo, Mimir) brukes [Grafana Tempo](https://grafana.com/oss/tempo/) for distribuert tracing. Tempo er fullt integrert med resten av observerbarhetsstacken og deler brukergrensesnitt og autentisering med Grafana, Mimir og Loki.
 
-## What does SKIP offer?
+Applikasjoner må selv sende traces til Tempo. Dette gjøres ved å instrumentere applikasjonen med OpenTelemetry og konfigurere den til å eksportere traces via OTLP til Tempo (via Grafana Alloy). Deretter kan du se og analysere traces i Grafana.
 
-As part of our implementation of the LGTM stack, SKIP has chosen to offer [Grafana Tempo](https://grafana.com/oss/tempo/) as as service. This is a component that is fully integrated with the rest of this modern observability stack, and shares the same user interface and authentication as Grafana, Mimir and Loki.
+## Kom i gang
 
-## How do I get started?
+### Instrumentering
 
-### Instrumentation
+For å generere og sende traces må applikasjonen instrumenteres. [OpenTelemetry](https://opentelemetry.io/) er standarden for instrumentering og støttes av SKIP.
 
-:::warning
-A known limitation in the way we have collected trace data is that we up until recently have had no way of excluding certain traces automatically. This means that all Prometheus scrapes (metrics collection) and automatic health checks will also be collected.
+Det finnes to tilnærminger:
 
-Now that issue [#4628](https://github.com/grafana/agent/issues/4628)
-has been implemented, this can finally be rectified. Follow [SKIP-1250](https://kartverket.atlassian.net/browse/SKIP-1250) for updates to when this is implemented in our setup.
-:::
+- **Automatisk instrumentering (anbefalt):** Krever minimale kodeendringer. For Java brukes [OpenTelemetry Java-agenten](https://opentelemetry.io/docs/zero-code/java/agent/). For andre språk, se [OpenTelemetry zero-code instrumentation](https://opentelemetry.io/docs/zero-code/).
+- **Manuell instrumentering:** Gir mer kontroll, men krever mer arbeid. Bruk [OpenTelemetry SDK-ene](https://opentelemetry.io/docs/languages/) for ditt programmeringsspråk. Vi anbefaler sterkt å starte med automatisk instrumentering.
 
-In order to generate, propagate and send traces the application must be instrumented.
+### Konfigurasjon
 
-Instrumentation can be achieved in several ways, of which 2 are relevant to us: manual and automatic instrumentation.
+Applikasjoner sender traces via OTLP til den cluster-interne tjenesten `otlp.grafana-alloy`. Du kan bruke gRPC på port **4317** (anbefalt) eller HTTP på port **4318**.
 
-Manual instrumentation requires the use of a [library](https://opentelemetry.io/docs/instrumentation/java/manual/) which knows how a given integration behaves, and which enables it to connect to hooks in that integrations in order to generate new traces and/or spans if those do not already exist.
+Legg til følgende miljøvariabler i Skiperator-manifestet:
 
-The other (and recommended) method is to use an automated approach. In the case of Java applications (the only type that has been tested as of now), you will need to bundle a java agent in your Docker image, as well as set up some extra configuration when the application is run (for example through Skiperator).
-
-:::info
-It’s worth mentioning that the Spring ecosystem offers a form of automatic instrumentation via Micrometer Tracing and OpenTelemetry OTLP exporters. Per october 2023 this is still under development and not considered a mature enough solution to utilize in our systems.
-:::
-
-### Example Dockerfile
-
-```dockerfile
-FROM alpine:3.18.3@sha256:c5c5fda71656f28e49ac9c5416b3643eaa6a108a8093151d6d1afc9463be8e33 AS builder
-ARG OTEL_AGENT_VERSION=1.29.0
-
-# 1. Last ned påkrevd java-agent
-RUN apk add --no-cache curl \
-    && mkdir /agents \
-    && curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${OTEL_AGENT_VERSION}/opentelemetry-javaagent.jar > /agents/opentelemetry.jar
-
-ADD build/distributions/gbok-run*.tar /gbok
-
-FROM eclipse-temurin:11-jdk-alpine
-COPY cert/kartverket_root_ca.crt /usr/local/share/ca-certificates/kartverket_root_ca.crt
-
-ENV USER_ID=150
-ENV USER_NAME=apprunner
-
-RUN apk add --no-cache tzdata \
-    && addgroup -g ${USER_ID} ${USER_NAME} \
-    && adduser -u ${USER_ID} -G ${USER_NAME} -D ${USER_NAME} \
-    && keytool -import -v -noprompt -trustcacerts -alias kartverketrootca -file /usr/local/share/ca-certificates/kartverket_root_ca.crt -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit
-
-ENV TZ=Europe/Oslo
-COPY --from=builder --chown=${USER_ID}:${USER_ID} /gbok /gbok
-# 2. Kopier inn nedlastet agent
-COPY --from=builder --chown=${USER_ID}:${USER_ID} /agents /agents
-
-USER ${USER_NAME}
-EXPOSE 8081
-ENTRYPOINT ["sh", "-c", "/gbok/gbok-run*/bin/gbok-run"]
+```yaml
+env:
+  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+    value: "http://otlp.grafana-alloy:4317"
+  - name: OTEL_EXPORTER_OTLP_PROTOCOL
+    value: "grpc"
+  - name: OTEL_SERVICE_NAME
+    value: "min-tjeneste"
 ```
 
-### Runtime configuration
+### Java-oppsett
 
-In order to use the Java agent, it needs to be configured and loaded. Through testing with Grunnboken, we have arrived at [the first version of configuration which can be seen here](https://github.com/kartverket/digibok-apps/blob/879d3d34b4c1f6f28d961c59193cb965a922f71f/applications/gbok2.libsonnet#L6-L14) .
+For Java-applikasjoner brukes OpenTelemetry Java-agenten. Last ned agenten i et multi-stage Dockerfile-bygg og legg den til i det endelige imaget:
 
-When this configuration is done, it is then passed to `JAVA_TOOL_OPTIONS` [like this](https://github.com/kartverket/digibok-apps/blob/879d3d34b4c1f6f28d961c59193cb965a922f71f/applications/gbok2.libsonnet#L38) .
+```dockerfile
+FROM eclipse-temurin:21-alpine AS otel
+ARG OTEL_AGENT_VERSION=2.12.0
+RUN wget -q -O /opentelemetry-javaagent.jar \
+    https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${OTEL_AGENT_VERSION}/opentelemetry-javaagent.jar
 
-There is currently no inbuilt mechanism in [ArgoKit](https://github.com/kartverket/argokit) to achieve this. We are open for PRs on this topic if anyone would like to contribute.
+FROM eclipse-temurin:21-alpine
+COPY --from=otel /opentelemetry-javaagent.jar /agents/opentelemetry.jar
+COPY target/app.jar /app.jar
 
-### View traces
+USER 1000
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+```
 
-Traces can be viewed through our Grafana instance at [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud/) . From here, choose **Explore** in the menu and then the correct **Tempo** data source corresponding to the environment you wish to view traces for.
+Aktiver agenten og konfigurer OpenTelemetry ved å sette `JAVA_TOOL_OPTIONS` i Skiperator-manifestet. Her er et komplett eksempel:
 
+```yaml
+env:
+  - name: JAVA_TOOL_OPTIONS
+    value: >-
+      -javaagent:/agents/opentelemetry.jar
+      -Dotel.exporter.otlp.protocol=grpc
+      -Dotel.exporter.otlp.traces.endpoint=http://otlp.grafana-alloy:4317
+      -Dotel.resource.attributes=service.name=min-tjeneste
+      -Dotel.propagators=tracecontext,baggage,b3,b3multi
+      -Dotel.traces.exporter=otlp
+      -Dotel.metrics.exporter=none
+      -Dotel.logs.exporter=none
+      -Dotel.traces.sampler=parentbased_traceidratio
+      -Dotel.traces.sampler.arg=0.10
+```
 
-After that, you have the choice of using the **Search** (graphical build tool for queries) or **TraceQL** (manual query specification) tools.
+| Property | Beskrivelse |
+|----------|-------------|
+| `otel.exporter.otlp.protocol` | Protokoll for eksport. `grpc` er anbefalt. |
+| `otel.exporter.otlp.traces.endpoint` | Endepunkt for trace-eksport. |
+| `otel.resource.attributes` | Sett `service.name` til navnet på tjenesten din. |
+| `otel.propagators` | Kontekstpropageringsformater. Inkluderer `b3`/`b3multi` for bakoverkompatibilitet. |
+| `otel.traces.exporter` | Eksporter-type. Bruk `otlp`. |
+| `otel.metrics.exporter` / `otel.logs.exporter` | Satt til `none` da metrikker og logger håndteres separat. |
+| `otel.traces.sampler` | Samplingstrategi. `parentbased_traceidratio` gjør hodebasert sampling. |
+| `otel.traces.sampler.arg` | Samplingrate mellom `0.0` og `1.0`. `0.10` betyr at 10% av traces samles inn. |
 
-![The “Search” tab is active, and fields have been filled through the use of dropdowns.](images/temposearchtab.png)
-Above: The “Search” tab is active, and fields have been filled through the use of dropdowns.
+Når du bruker Java-agenten med `JAVA_TOOL_OPTIONS` trenger du ikke sette `OTEL_EXPORTER_OTLP_ENDPOINT` og `OTEL_SERVICE_NAME` som separate miljøvariabler — disse konfigureres via system properties i `JAVA_TOOL_OPTIONS` i stedet.
 
-![The “TraceQL” tab lets you specify a user-defined query. Here is shown a query for “gbok2-server” traces, filtering out health checks](images/tempotraceqltab.png)
-Above: The “TraceQL” tab lets you specify a user-defined query. Here is shown a query for “gbok2-server” traces, filtering out health checks
+### Se traces i Grafana
+
+Traces kan ses i Grafana på [monitoring.kartverket.cloud](https://monitoring.kartverket.cloud/). Velg **Explore** i menyen og deretter riktig **Tempo**-datakilde for miljøet du vil se traces fra.
+
+Du kan bruke enten **Search**-fanen (grafisk spørringsverktøy) eller **TraceQL**-fanen (manuell spørring):
+
+![Search-fanen i Tempo med felt fylt inn via nedtrekkslister.](images/temposearchtab.png)
+
+![TraceQL-fanen lar deg skrive egendefinerte spørringer mot Tempo.](images/tempotraceqltab.png)
+
+## Videre lesning
+
+- [OpenTelemetry](https://opentelemetry.io/)
+- [Grafana Tempo-dokumentasjon](https://grafana.com/docs/tempo/latest/)

@@ -142,6 +142,18 @@ const darkCodeTheme = themes.dracula;
               to: '/docs/observability/metrikker',
               from: '/docs/observability/metrics-with-Grafana',
             },
+            {
+              to: '/docs/observability',
+              from: '/docs/observability/grafana-and-GCP',
+            },
+            {
+              to: '/docs/observability',
+              from: '/docs/observability/recording-and-alerting-rules',
+            },
+            {
+              to: '/docs/observability',
+              from: '/docs/observability/grafana-cheat-sheet',
+            },
           ],
         },
       ],

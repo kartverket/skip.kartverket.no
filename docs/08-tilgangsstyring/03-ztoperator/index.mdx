@@ -5,14 +5,15 @@ import Column from '@site/src/components/Column';
 # Ztoperator
 
 :::danger[Deprecation warnings]
-Ztoperator har aktive deprecation warnings, se [deprecation warnings](#deprecation-warnings) for mer informasjon.
-- `audience` vil fjernes til fordel for `allowedAudiences`
+Ztoperator har aktive deprecation warnings, se [deprecation warnings](#%EF%B8%8F-deprecation-warnings) for mer informasjon.
 - Bruk av wildcards `*` i `paths` vil fjernes til fordel for eksplisitt syntaks med `{*}` og `{**}`
 :::
 
 <Columns>
   <Column className='col--8'>
-    Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons endepunkter skal styres. Den gir støtte for å
+    Ztoperator er en Kubernetes-operator som lar deg deklarativt definere hvordan tilgang til en applikasjons
+      endepunkter skal styres. Dette gjøres med en `AuthPolicy`-ressurs, som peker på en tilhørende
+      Skiperator-applikasjon. Den gir støtte for å
     
     - definere hvilke endepunkter som skal være åpne.
     - definere hvilke endepunkter som krever et gyldig OAuth 2.0-token.
@@ -43,6 +44,36 @@ Før du kan bruke Ztoperator til å beskytte tjenesten din må følgende være p
 Ztoperator registrerer ikke en OIDC-klient for deg. Du må selv ha etablert en integrasjon mot valgt identitetstilbyder, og Ztoperator brukes kun til å beskrive hvordan appen skal beskyttes og håndtere eventuelle innloggingsflyter.
 :::
 
+## 🔐 Verifiser at Ztoperator beskytter din Skiperator-applikasjon
+Siden Ztoperator er en kritisk komponent mtp. sikkerheten og tilgangsstyringen til en applikasjon finnes det mekanismer
+på SKIP som hindrer oppstart av applikasjonen dersom tilhørende `AuthPolicy`-ressurs ikke er klar. Du aktiverer dette
+ved å legge en annotasjon på din Skiperator-applikasjon:
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+spec:
+  podSettings:
+    annotations:
+      ztoperator.kartverket.no/verify-authpolicy: "true"
+  ...
+```
+
+:::caution
+Den nevnte mekanismen ligger foreløpig bak en feature-toggle. For at annotasjonen skal ha effekt må du legge til
+`"tilgangsstyring": true` i din [config.json-fil](./../../03-applikasjon-utrulling/09-argo-cd/07-configuring-apps-repositories-with-configjson.md).
+Vi vil fjerne behovet for feature-toggle på sikt.
+:::
+
+Tilfeller der mekanismen hindrer oppstart vil utarte seg ved at Skiperator-applikasjonen sitt `ReplicaSet` er _unhealthy_,
+og det ikke dukker opp noen `Pod`-ressurser for applikasjonen.
+
+Merk at dette kun vil hindre oppstart av _nye_ pods, og ikke hindre _eksisterende_ pods fra å fungere som før. Dette er
+altså mest nyttig i tilfeller der en applikasjon spinnes opp for første gang. Team Tilgangsstyring håper å utvide
+valideringen i fremtiden til å verifisere kontinuerlig, også under kjøring, at en pod har
+korreket konfigurasjon i henhold til dens tilhørende `AuthPolicy`-ressurs.
 
 ## 🚀 Innlogging og utlogging med Ztoperator
 
@@ -119,29 +150,9 @@ I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator
 | `TEST` | Ansattporten | [https://test.ansattporten.no/.well-known/openid-configuration](https://test.ansattporten.no/.well-known/openid-configuration) |
 | `PROD` | Ansattporten | [https://ansattporten.no/.well-known/openid-configuration](https://ansattporten.no/.well-known/openid-configuration) |
 
-## Deprecation warnings
+## ⚠️ Deprecation warnings
 
-### Nytt felt for audience med støtte for både statiske og dynamiske referanser
-Feltet `audience` vil fjernes innen kort tid. Bruk `allowedAudiences`, med enten statisk eller dynamisk referanse:
-```
-kind: AuthPolicy
-spec:
-  allowedAudiences:
-    # statisk
-    - value: <AUDIENCE>
-    # dynamisk via secret
-    - valueFrom:
-        secretKeyRef:
-          name: <SECRET_NAME>
-          key: <SECRET_KEY>
-    # dynamisk via configmap
-    - valueFrom:
-        configMapKeyRef:
-          name: <CONFIGMAP_NAME>
-          key: <CONFIGMAP_KEY>
-```
-
-## Ny syntaks for wildcards i `paths`
+### Ny syntaks for wildcards i `paths`
 Støtte for frittstående wildcards `*` i `paths` vil fjernes innen kort tid. Bruk eksplisitt syntaks som enten matcher
 èn `{*}` eller flere `{**}` path-segmenter:
 ```
