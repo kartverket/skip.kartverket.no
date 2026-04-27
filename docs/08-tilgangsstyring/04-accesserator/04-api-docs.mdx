@@ -4,7 +4,7 @@ Packages:
 
 - [accesserator.kartverket.no/v1alpha](#accesseratorkartverketnov1alpha)
 
-# accesserator.kartverket.no/v1alpha
+## accesserator.kartverket.no/v1alpha
 
 Resource Types:
 
@@ -14,7 +14,7 @@ Resource Types:
 
 
 ## SecurityConfig
-<sup><sup>[↩ Parent](#accesseratorkartverketnov1alpha )</sup></sup>
+<sup><sup>[↩ Parent](#accesseratorkartverketnov1alpha)</sup></sup>
 
 
 
@@ -25,44 +25,44 @@ SecurityConfig is the Schema for the securityconfigs API
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>apiVersion</b></td>
         <td>string</td>
         <td>accesserator.kartverket.no/v1alpha</td>
         <td>true</td>
-    </tr>
-    <tr>
+        </tr>
+        <tr>
         <td><b>kind</b></td>
         <td>string</td>
         <td>SecurityConfig</td>
         <td>true</td>
-    </tr>
-    <tr>
+        </tr>
+        <tr>
         <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#objectmeta-v1-meta">metadata</a></b></td>
         <td>object</td>
         <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
         <td>true</td>
-    </tr><tr>
-        <td><b><a href="#securityconfigspec">spec</a></b></td>
-        <td>object</td>
-        <td>
-            spec defines the desired state of SecurityConfig<br/>
-        </td>
-        <td>true</td>
-    </tr><tr>
-        <td><b><a href="#securityconfigstatus">status</a></b></td>
-        <td>object</td>
-        <td>
-            status defines the observed state of SecurityConfig<br/>
-        </td>
-        <td>false</td>
+        </tr><tr>
+            <td><b><a href="#securityconfigspec">spec</a></b></td>
+            <td>object</td>
+            <td>
+                spec defines the desired state of SecurityConfig<br/>
+            </td>
+            <td>true</td>
+        </tr><tr>
+            <td><b><a href="#securityconfigstatus">status</a></b></td>
+            <td>object</td>
+            <td>
+                status defines the observed state of SecurityConfig<br/>
+            </td>
+            <td>false</td>
     </tr></tbody>
 </table>
 
@@ -76,12 +76,12 @@ spec defines the desired state of SecurityConfig
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>applicationRef</b></td>
@@ -90,7 +90,7 @@ spec defines the desired state of SecurityConfig
             ApplicationRef is a reference to the name of the SKIP application for which this SecurityConfig applies.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspecmaskinporten">maskinporten</a></b></td>
         <td>object</td>
         <td>
@@ -100,7 +100,7 @@ spec defines the desired state of SecurityConfig
             or by sourcing credentials from existing Kubernetes secrets via the `secretRef` field.<br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspectokenx">tokenx</a></b></td>
         <td>object</td>
         <td>
@@ -109,7 +109,7 @@ spec defines the desired state of SecurityConfig
             will be used to restrict which applications can exchange tokens where the specified application is the intended audience.<br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -125,12 +125,12 @@ or by sourcing credentials from existing Kubernetes secrets via the `secretRef` 
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>enabled</b></td>
@@ -139,7 +139,7 @@ or by sourcing credentials from existing Kubernetes secrets via the `secretRef` 
             Enabled indicates whether Maskinporten should be configured for the application.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspecmaskinportenclient">client</a></b></td>
         <td>object</td>
         <td>
@@ -147,7 +147,7 @@ or by sourcing credentials from existing Kubernetes secrets via the `secretRef` 
             Use this when you want to configure the client directly.<br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspecmaskinportenclientref">clientRef</a></b></td>
         <td>object</td>
         <td>
@@ -155,7 +155,7 @@ or by sourcing credentials from existing Kubernetes secrets via the `secretRef` 
             Use this when a MaskinportenClient exists, and you want to reference it.<br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspecmaskinportensecretref">secretRef</a></b></td>
         <td>object</td>
         <td>
@@ -164,7 +164,7 @@ or by sourcing credentials from existing Kubernetes secrets via the `secretRef` 
             and MaskinportenClient CRD (e.g. manually registered at DigDir).<br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -178,12 +178,12 @@ Use this when you want to configure the client directly.
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>clientName</b></td>
@@ -193,14 +193,14 @@ Use this when you want to configure the client directly.
             It is shown during login for user-centric flows, and is otherwise a human-readable way to differentiate between clients at DigDir's self-service portal.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspecmaskinportenclientscopes">scopes</a></b></td>
         <td>object</td>
         <td>
             Scopes is an object of consumed scopes.<br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -213,12 +213,12 @@ Scopes is an object of consumed scopes.
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b><a href="#securityconfigspecmaskinportenclientscopesconsumesindex">consumes</a></b></td>
@@ -227,7 +227,7 @@ Scopes is an object of consumed scopes.
             `consumes` is a list of scopes that your client can request access to.<br/>
         </td>
         <td>true</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -240,12 +240,12 @@ Scopes is an object of consumed scopes.
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>name</b></td>
@@ -255,7 +255,7 @@ Scopes is an object of consumed scopes.
             Ensure that the NAV organization has been granted access to the scope prior to requesting access.<br/>
         </td>
         <td>true</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -269,12 +269,12 @@ Use this when a MaskinportenClient exists, and you want to reference it.
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>name</b></td>
@@ -283,7 +283,7 @@ Use this when a MaskinportenClient exists, and you want to reference it.
             Name of the referenced MaskinportenClient.<br/>
         </td>
         <td>true</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -298,12 +298,12 @@ and MaskinportenClient CRD (e.g. manually registered at DigDir).
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b><a href="#securityconfigspecmaskinportensecretrefclientid">clientID</a></b></td>
@@ -312,14 +312,14 @@ and MaskinportenClient CRD (e.g. manually registered at DigDir).
             ClientID references the secret key containing the Maskinporten client ID (MASKINPORTEN_CLIENT_ID).<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspecmaskinportensecretrefclientjwk">clientJWK</a></b></td>
         <td>object</td>
         <td>
             ClientJWK references the secret key containing the Maskinporten client JWK (MASKINPORTEN_CLIENT_JWK).<br/>
         </td>
         <td>true</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -332,12 +332,12 @@ ClientID references the secret key containing the Maskinporten client ID (MASKIN
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>key</b></td>
@@ -346,14 +346,14 @@ ClientID references the secret key containing the Maskinporten client ID (MASKIN
             Key is the key within the secret whose value should be used.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
             Name is the name of the Kubernetes secret.<br/>
         </td>
         <td>true</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -366,12 +366,12 @@ ClientJWK references the secret key containing the Maskinporten client JWK (MASK
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>key</b></td>
@@ -380,14 +380,14 @@ ClientJWK references the secret key containing the Maskinporten client JWK (MASK
             Key is the key within the secret whose value should be used.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
             Name is the name of the Kubernetes secret.<br/>
         </td>
         <td>true</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -402,12 +402,12 @@ will be used to restrict which applications can exchange tokens where the specif
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>enabled</b></td>
@@ -416,7 +416,7 @@ will be used to restrict which applications can exchange tokens where the specif
             Enabled indicates whether token exchange should be configured for the application.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigspectokenxaccesspolicy">accessPolicy</a></b></td>
         <td>object</td>
         <td>
@@ -424,7 +424,7 @@ will be used to restrict which applications can exchange tokens where the specif
             token exchange is enabled. If not specified, no clients are allowed.<br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -438,12 +438,12 @@ token exchange is enabled. If not specified, no clients are allowed.
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b><a href="#securityconfigspectokenxaccesspolicyclientsindex">clients</a></b></td>
@@ -452,7 +452,7 @@ token exchange is enabled. If not specified, no clients are allowed.
             Clients which may perform token exchange with your application as target.<br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>inheritInboundRules</b></td>
         <td>boolean</td>
         <td>
@@ -461,7 +461,7 @@ token exchange is enabled. If not specified, no clients are allowed.
             will be the union of the explicitly specified clients in Clients and the clients resolved from inbound rules.<br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -474,12 +474,12 @@ AccessPolicyClient define client applications which may perform token exchange w
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>application</b></td>
@@ -488,7 +488,7 @@ AccessPolicyClient define client applications which may perform token exchange w
             Application is the name of the client application that can exchange tokens with the target application.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>namespace</b></td>
         <td>string</td>
         <td>
@@ -496,7 +496,7 @@ AccessPolicyClient define client applications which may perform token exchange w
             SecurityConfig's referenced application will be used.<br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -509,12 +509,12 @@ status defines the observed state of SecurityConfig
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>ready</b></td>
@@ -523,35 +523,35 @@ status defines the observed state of SecurityConfig
             <br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b><a href="#securityconfigstatusconditionsindex">conditions</a></b></td>
         <td>[]object</td>
         <td>
             <br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>jwkerSecretName</b></td>
         <td>string</td>
         <td>
             <br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>maskinportenSecretName</b></td>
         <td>string</td>
         <td>
             <br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
             <br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>observedGeneration</b></td>
         <td>integer</td>
         <td>
@@ -560,14 +560,14 @@ status defines the observed state of SecurityConfig
             <i>Format</i>: int64<br/>
         </td>
         <td>false</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>phase</b></td>
         <td>string</td>
         <td>
             <br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
 
 
@@ -580,12 +580,12 @@ Condition contains details for one aspect of the current state of this API Resou
 
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Required</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
     </thead>
     <tbody><tr>
         <td><b>lastTransitionTime</b></td>
@@ -597,7 +597,7 @@ Condition contains details for one aspect of the current state of this API Resou
             <i>Format</i>: date-time<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -605,7 +605,7 @@ Condition contains details for one aspect of the current state of this API Resou
             This may be an empty string.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>reason</b></td>
         <td>string</td>
         <td>
@@ -616,7 +616,7 @@ Condition contains details for one aspect of the current state of this API Resou
             This field may not be empty.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>status</b></td>
         <td>enum</td>
         <td>
@@ -625,14 +625,14 @@ Condition contains details for one aspect of the current state of this API Resou
             <i>Enum</i>: True, False, Unknown<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>type</b></td>
         <td>string</td>
         <td>
             type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
-    </tr><tr>
+      </tr><tr>
         <td><b>observedGeneration</b></td>
         <td>integer</td>
         <td>
@@ -644,5 +644,5 @@ Condition contains details for one aspect of the current state of this API Resou
             <i>Minimum</i>: 0<br/>
         </td>
         <td>false</td>
-    </tr></tbody>
+      </tr></tbody>
 </table>
