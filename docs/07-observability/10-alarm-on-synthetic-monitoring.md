@@ -14,7 +14,7 @@ Bekreft at du er on-board'et i `grafana-alerts`-repoet. Hvis du ikke er det, ta 
 
 I teamets alarm-oppsett legges følgende kodeblokk:
 
-```terraform
+```hcl
 resource "grafana_folder" "teamX_uptime_alerts" {
   title    = "Uptime alerts teamX"
 }
@@ -50,7 +50,7 @@ module "teamx_uptime_alert_tjenestex_api" {
 
 Du definerer én blokk for hver tjeneste i hvert miljø som du vil ha alarm på:
 
-```terraform
+```hcl
 resource "grafana_folder" "teamX_uptime_alerts" {
   title    = "Uptime alerts teamX"
 }
