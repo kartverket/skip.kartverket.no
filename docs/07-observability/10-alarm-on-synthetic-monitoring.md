@@ -23,7 +23,7 @@ module "teamx_uptime_alert_tjenestex_api" {
   source           = "../../modules/uptime_alerts"
   team             = "Team X"
   alert_name       = "uptime_alerts_teamx_tjenestex_api"
-  runbook_base_url = var.runbook_base_url
+  runbook_base_url = var.runbook_base_url # Optional
   folder_uid       = grafana_folder.teamX_uptime_alerts.uid
   label_team       = "teamX"
   label_env        = "prod"
