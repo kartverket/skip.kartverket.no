@@ -6,15 +6,15 @@ tjenester som blir tilgjengelig for din applikasjon via såkalte _sidecars_ i Ku
 kjører inne i samme Kubernetes-pod som applikasjonen din, og som applikasjonen kan kommunisere med på `localhost`.
 
 ## 💱 Token Exchange
-Vi tilbyr en token exchange-server, kalt _Tokendings_, på SKIP. Token exchange er en mekanisme for å
-velske inn et token, f.eks et Entra ID-, ID-porten- eller Maskinporten-token, og få et nytt token tilbake som kan brukes
-for autentisering og autorisasjon mot underliggende tjenester. Token exchange har flere sikkerhetsmessige fordeler sammenliknet
-med alternativene (f.eks _token forwarding_, der sluttbrukers token sendes med videre), blant annet:
+Vi tilbyr en token exchange-server, kalt _Tokendings_, på SKIP. Token exchange er en mekanisme for å veksle inn et
+token, f.eks et Entra ID-, ID-porten- eller Maskinporten-token, og få et nytt token tilbake som kan brukes for
+autentisering og autorisasjon mot underliggende tjenester. Token exchange har flere sikkerhetsmessige fordeler
+sammenliknet med alternativene (f.eks _token forwarding_, der sluttbrukers token sendes med videre), blant annet:
 
 - Begrenset sannsynlighet for, og risiko ved, lekkasje av (sluttbruker-)tokens
-- `client`-claim i innvelsket token kan brukes for å verifisere at tokenet er utstedt til applikasjonen som utfører et
+- `client`-claim i innvekslet token kan brukes for å verifisere at tokenet er utstedt til applikasjonen som utfører et
   kall mot en underliggende tjeneste
-- `aud`-claim i innvelsket token kan brukes for å verifisere at tokenet er ment brukt mot den tjenesten det presenteres
+- `aud`-claim i innvekslet token kan brukes for å verifisere at tokenet er ment brukt mot den tjenesten det presenteres
   for
 
 [Les mer om token exchange og hvordan du tar dette i bruk her](./01-token-exchange.mdx).

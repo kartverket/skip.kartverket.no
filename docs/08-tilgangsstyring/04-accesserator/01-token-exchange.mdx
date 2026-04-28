@@ -64,7 +64,7 @@ Responsen vil være på json-format. Token ligger i `access_token`-feltet.
 
 ```
 
-## Validere velskede tokens
+## Validere vekslede tokens
 Innvekslede tokens, dvs. tokens utstedt av Tokendings, kan valideres med Texas på lik linje med andre tokens. Se
 [dokumentasjon for validering av tokens](./03-token-validering.mdx). I tillegg må du validere at `aud`-claimet
 tilsvarer din applikasjon, og at `client`-claimet tilsvarer applikasjonen som utfører kallet mot deg (f.eks ved å
