@@ -38,7 +38,7 @@ module "teamx_uptime_alert_tjenestex_api" {
 | Felt | Påkrevd | Beskrivelse |
 |------|---------|-------------|
 | `source` | Ja | Hvor modulen ligger. Ikke endre denne. |
-| `team` | Ja | Navnet på teamet ditt slik det vises i Grafana. |
+| `team` | Ja | Navnet på teamet ditt slik det vises i Grafana. Dette må være det samme som for andre alarmer slik at varsler rutes til riktig Slack-kanal. |
 | `alert_name` | Ja | Unik identifikator for alarmen. Brukes for å finne riktig oppføring i runbook om man har det. |
 | `runbook_base_url` | Nei | URL-en til en runbook med feilsøkingstips. |
 | `folder_uid` | Ja | Navn på mappen hvor alarmen lagres. Her utledet fra ressursen `grafana_folder.teamX_uptime_alerts.uid` |
