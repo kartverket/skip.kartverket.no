@@ -12,7 +12,7 @@ Bekreft at du er onboardet i `grafana-alerts`-repoet. Hvis du ikke er det, ta ko
 
 ## Konfigurasjon
 
-I teamets alarm-oppsett legges følgende kodeblokk:
+I teamets alarmoppsett legges følgende kodeblokk:
 
 ```hcl
 resource "grafana_folder" "teamX_uptime_alerts" {
