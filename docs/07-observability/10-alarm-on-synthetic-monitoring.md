@@ -8,7 +8,7 @@ Når syntetisk overvåking er satt opp kan man konfigurere alarmering hvis en pr
 
 ## Kom i gang
 
-Bekreft at du er on-board'et i `grafana-alerts`-repoet. Hvis du ikke er det, ta kontakt i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack.
+Bekreft at du er onboardet i `grafana-alerts`-repoet. Hvis du ikke er det, ta kontakt i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack.
 
 ## Konfigurasjon
 
