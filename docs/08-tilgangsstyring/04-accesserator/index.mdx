@@ -1,0 +1,85 @@
+# Accesserator
+
+:::info[Foreløpig kun tilgjengelig i _dev_ - ETA prod ila. mai 2026]
+Accesserator er fremdeles under utvikling, og kun tilgjengelig i _dev_-miljøet i _atgcp1_-clusteret. Ta kontakt med Team
+Tilgangsstyring dersom du ønsker å være med på en pilot for Token Exchange, token-uthenting, token-validering, eller
+OpenPolicyAgent.
+:::
+
+Accesserator er en Kubernetes-operator som skal hjelpe deg med et bredt spekter av tilgangsstyringsrelaterte
+utfordringer. Dette gjøres med en kombinasjon av Kubernetes-ressurser, tjenester Team Tilgangsstyring tilbyr på SKIP, og
+tjenester som blir tilgjengelig for din applikasjon via såkalte _sidecars_ i Kubernetes. Sidecars er tjenester som
+kjører inne i samme Kubernetes-pod som applikasjonen din, og som applikasjonen kan kommunisere med på `localhost`.
+
+## 💱 Token Exchange
+Vi tilbyr en token exchange-server, kalt _Tokendings_, på SKIP. Token exchange er en mekanisme for å veksle inn et
+token, f.eks et Entra ID-, ID-porten- eller Maskinporten-token, og få et nytt token tilbake som kan brukes for
+autentisering og autorisasjon mot underliggende tjenester. Token exchange har flere sikkerhetsmessige fordeler
+sammenliknet med alternativene (f.eks _token forwarding_, der sluttbrukers token sendes med videre), blant annet:
+
+- Begrenset sannsynlighet for, og risiko ved, lekkasje av (sluttbruker-)tokens
+- `client`-claim i innvekslet token kan brukes for å verifisere at tokenet er utstedt til applikasjonen som utfører et
+  kall mot en underliggende tjeneste
+- `aud`-claim i innvekslet token kan brukes for å verifisere at tokenet er ment brukt mot den tjenesten det presenteres
+  for
+
+[Les mer om token exchange og hvordan du tar dette i bruk her](./01-token-exchange.mdx).
+
+## 🔑 Uthenting og validering av tokens
+Vi forenkler uthenting og grovkornet validering av tokens i din applikasjon. Dette gjøres med en _sidecar_ kalt _Texas_
+(Token Exchange as a Service), og kan brukes uavhengig av programmeringsspråk og rammeverk; hvis du kan kalle en
+tjeneste på `localhost`, så kan du bruke Texas.
+
+Les mer om hhv. [uthenting av tokens](./02-token-uthenting.mdx) og [validering av tokens](./03-token-validering.mdx).
+
+## 🎛️ OpenPolicyAgent: finkornet autorisasjon
+Støtte for OpenPolicyAgent (OPA) er under utvikling. Ta gjerne kontakt med Team Tilgangsstyring dersom du ønsker å være
+med på en pilot innen bruk av OPA! Løsningen vil innebære:
+- OpenPolicyAgent som en sidecar-tjeneste i applikasjonen din
+- Mekanismer for utrulling og dynamisk oppdatering av OPA-regler
+
+## 📣 Spesifisere tilgjengelige sidecar-tjenester for din Skiperator-applikasjon
+Hvilke sidecar-tjenester som skal være tilgjengelig for din applikasjon spesifiseres med annotasjoner i applikasjonen
+sitt manifest:
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+spec:
+  podSettings:
+    annotations:
+      accesserator.kartverket.no/services: "<kommaseparert-liste>"
+  ...
+```
+
+Mulige verdier i lista over tjenester er:
+- `texas`: kjører opp Texas-tjenesten sammen med din applikasjon, som kan brukes til token exchange, henting av tokens
+  og/eller validering av tokens
+- 🔜™ `opa`: kjører opp OpenPolicyAgent-tjenesten sammen med din applikasjon, som kan brukes til finkornet autorisasjon
+  basert på OPA-regler
+
+## 🔐 Verifiser at Accesserator eksisterer for din Skiperator-applikasjon
+Siden Accesserator er viktig for applikasjonens funksjonalitet finnes det mekanismer på SKIP som hindrer oppstart av
+applikasjonen dersom tilhørende `SecurityConfig`-ressurs ikke er klar. Du aktiverer dette ved å legge en annotasjon på
+din Skiperator-applikasjon:
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+spec:
+  podSettings:
+    annotations:
+      accesserator.kartverket.no/verify-securityconfig: "true"
+  ...
+```
+
+Dersom du har [spesifisert tilgjengelige sidecar-tjenester for din applikasjon](#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon)
+trenger du _ikke_ `verify-securityconfig`-annotasjonen i tillegg.
+
+## ⚠️ Deprecation warnings
+
+Accesserator har ingen deprecation warnings per nå.

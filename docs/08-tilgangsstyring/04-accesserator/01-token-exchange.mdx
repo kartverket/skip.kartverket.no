@@ -1,0 +1,98 @@
+# Token Exchange
+Team Tilgangsstyring tilbyr en tjeneste på SKIP for token exchange. Den baserer seg blant annet på komponenter utviklet
+av [applikasjonsplattformen i Nav, Nais](https://nais.io/):
+- [Tokendings](https://github.com/nais/tokendings), en token exchange-server
+- [Jwker](https://github.com/nais/jwker), en Kubernetes-operator for klientregistrering i Tokendings
+- [Texas](https://github.com/nais/texas), en sidecar-tjeneste for veksling av tokens mot Tokendings og validering av
+  tokens i applikasjonen din
+
+## Nødvendig oppsett
+
+Enkleste måte å ta i bruk Token Exchange på er ved å [spesifisere "texas" som tilgjengelig sidecar-tjeneste](./index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon),
+samt bruke `SecurityConfig`-ressursen for relevante tokenx-oppsett:
+
+```yaml title="Eksempel på SecurityConfig for Token Exchange"
+apiVersion: security.skip.kartverket.no/v1alpha
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  tokenx:
+    enabled: true
+    accessPolicy:
+      ...
+  ...
+```
+
+Ved å sette `enabled: true` vil `SecurityConfig` opprette en klientregistrering i Tokendings for applikasjonen din,
+inkludert nødvendige nettverksåpninger.
+
+Innhold i `accessPolicy`-feltet vil avhenge av hvilken rolle den aktuelle applikasjonen har:
+- **Sluttbrukertjenester**: utelat `accessPolicy`-feltet, ettersom ingen skal kunne veksle tokens med din applikasjon som
+  audience
+- **Underliggende tjenester**: definer `accessPolicy`-feltet, enten ved å arve fra applikasjonens nettverksregler ved å
+  sette `inheritInboundRules: true`, eller ved å spesifisere eksplisitte klienter med `clients`-feltet.
+
+
+
+Det er mulig, men ikke anbefalt, å bruke Tokendings _uten_ bruk av Texas-sidecar og/eller `SecurityConfig`-ressurtypen.
+Ta kontakt med Team Tilgangsstyring dersom du mener dette er aktuelt for deg.
+
+## Request
+Token exchange utgøres ved å gjøre et HTTP-kall som følger:
+
+```json
+POST <TEXAS_URL>/api/v1/token/exchange
+Content-Type: application/json
+
+{
+  "identity_provider": "tokenx",
+  "user_token": "<sluttbruker-token>",
+  "target": "<cluster>:<namespace>:<app>"
+}
+```
+
+gitt at `target`-applikasjonen har en klientregistrering i Tokendings med din applikasjon som godkjent klient.
+
+## Respons
+Responsen vil være på json-format. Token ligger i `access_token`-feltet.
+```json
+{
+  "access_token": "<access-token>",
+  "expires_in": <antall sekunder (int)>,
+  "token_type": "Bearer"
+}
+
+```
+
+## Validere vekslede tokens
+Innvekslede tokens, dvs. tokens utstedt av Tokendings, kan valideres med Texas på lik linje med andre tokens. Se
+[dokumentasjon for validering av tokens](./03-token-validering.mdx). I tillegg må du validere at `aud`-claimet
+tilsvarer din applikasjon, og at `client`-claimet tilsvarer applikasjonen som utfører kallet mot deg (f.eks ved å
+sammenlikne med SPIFFE-identitet i `X-Forwarded-Client-Cert`-headeren).
+
+## Direkte testing av tokenx-beskyttede applikasjoner
+Det kan være tungvint å teste underliggende applikasjoner dersom disse kun kan kalles fra fremforliggende
+sluttbrukertjenester. Derfor tilbyr vi [en web-tjeneste](https://tokenx-token-generator.atgcp1-dev.kartverket-intern.cloud/)
+for å utføre token exchange med et sluttbruker-token.
+
+For at tjenesten skal kunne veksle tokens med din applikasjon som audience må du legge til
+`tokenx-token-generator`-appen som en gyldig klient i `SecurityConfig`-ressursen:
+
+```yaml title="Eksempel på SecurityConfig med tokenx-token-generator som gyldig klient"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  tokenx:
+    enabled: true
+    accessPolicy:
+      clients:
+        - application: tokenx-token-generator-backend
+          namespaces: tokenx-token-generator
+  ...
+```
+
+Husk at denne klienten kun bør godkjennes i `dev`-miljøet - aldri i produksjon!
+
+Hvilke brukere som kan veksle tokens med hvilke audiences er begrenset basert på Entra ID-grupper. Kontakt Team
+Tilgangsstyring via #gen-tilgangsstyring på Slack for å få gi ditt team tillatelse til et gitt audience.
