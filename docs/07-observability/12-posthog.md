@@ -1,3 +1,6 @@
+---
+sidebar_position: 12
+---
 # PostHog
 
 PostHog er et analyseverktøy som kan brukes til å forstå bruksmønstre i tjenester. 
