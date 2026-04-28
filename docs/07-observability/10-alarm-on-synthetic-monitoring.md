@@ -46,7 +46,7 @@ module "teamx_uptime_alert_tjenestex_api" {
 | `label_env` | Ja | Samme som `label.env` fra din `synthetic-monitoring.yaml`. |
 | `label_service` | Ja | Samme som `label.service` fra din `synthetic-monitoring.yaml`. |
 | `for` | Ja | Definerer hvor lenge problemet skal vare før alarmen sendes. |
-| `severity` | Ja | Setter alvorlighetsgrad for alarmen. `warning` gir typisk en alarm i Slack, `critical`sender alarmen til vaktlaget (brukes _kun_ etter avtale med IT-vaktordningen). |
+| `severity` | Ja | Setter alvorlighetsgrad for alarmen. `warning` gir typisk en alarm i Slack, `critical` kan sende alarmen til vaktlaget (brukes _kun_ etter avtale med IT-vaktordningen). |
 
 Du definerer én blokk for hver tjeneste i hvert miljø som du vil ha alarm på:
 
