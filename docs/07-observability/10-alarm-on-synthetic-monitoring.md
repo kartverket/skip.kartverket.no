@@ -8,22 +8,26 @@ Når syntetisk overvåking er satt opp kan man konfigurere alarmering hvis en pr
 
 ## Kom i gang
 
-Bekreft at du er on-board'et i `grafana-alerts`-repoet. Hvis du ikke er det, ta kontakt i #gen-skoop på Slack.
+Bekreft at du er on-board'et i `grafana-alerts`-repoet. Hvis du ikke er det, ta kontakt i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack.
 
 ## Konfigurasjon
 
-Syntetisk overvåking konfigureres i filen `synthetic-monitoring.yaml` i roten av repoet ditt. Filen inneholder en liste med targets og tilhørende labels:
+I teamets alarm-oppsett legges følgende kodeblokk:
 
 ```terraform
-module "<deskriptivt navn>" {
+resource "grafana_folder" "teamX_uptime_alerts" {
+  title    = "Uptime alerts teamX"
+}
+
+module "teamx_uptime_alert_tjenestex_api" {
   source           = "../../modules/uptime_alerts"
-  team             = <team-navn>
-  alert_name       = "uptime_alerts_<teamnavn>_<tjeneste>"
+  team             = "Team X"
+  alert_name       = "uptime_alerts_teamx_tjenestex_api"
   runbook_base_url = var.runbook_base_url
-  folder_uid       = <teamnavn>_uptime_alerts
-  label_team       = "<label.team fra din synthertic-monitoring.yaml>"
-  label_env        = "<label.env fra din synthertic-monitoring.yaml>"
-  label_service    = "<label.service fra din synthertic-monitoring.yaml>"
+  folder_uid       = grafana_folder.teamX_uptime_alerts.uid
+  label_team       = "teamX"
+  label_env        = "prod"
+  label_service    = "tjenestex-api"
   for              = "2m"
   severity         = "warning"
 }
@@ -37,9 +41,9 @@ module "<deskriptivt navn>" {
 | `team` | Ja | Navnet på teamet ditt slik det vises i Grafana. |
 | `alert_name` | Ja | Unik identifikator for alarmen. Brukes for å finne riktig oppføring i runbook om man har det. |
 | `runbook_base_url` | Nei | URL-en til en runbook med feilsøkingstips. |
-| `folder_uid` | Ja | Navn på mappen hvor alarmen lagres. |
+| `folder_uid` | Ja | Navn på mappen hvor alarmen lagres. Her utledet fra ressursen `grafana_folder.teamX_uptime_alerts.uid` |
 | `label_team` | Ja | Samme som `label.team` fra din `synthertic-monitoring.yaml`. |
-| `label_env` | Ja | Samme som `label.env` fra din `synthertic-monitoring.yaml` (f.eks. `prod`, `dev`). |
+| `label_env` | Ja | Samme som `label.env` fra din `synthertic-monitoring.yaml`. |
 | `label_service` | Ja | Samme som `label.service` fra din `synthertic-monitoring.yaml`. |
 | `for` | Ja | Definerer hvor lenge problemet skal vare før alarmen sendes. |
 | `severity` | Ja | Setter alvorlighetsgrad for alarmen. `warning` gir typisk en alarm i Slack, `critical`sender alarmen til vaktlaget (brukes _kun_ etter avtale med IT-vaktordningen). |
@@ -47,28 +51,32 @@ module "<deskriptivt navn>" {
 Du definerer én blokk for hver tjeneste i hvert miljø som du vil ha alarm på:
 
 ```terraform
-module "skoop_uptime_alert_status_kartverket_no_dev" {
+resource "grafana_folder" "teamX_uptime_alerts" {
+  title    = "Uptime alerts teamX"
+}
+
+module "teamx_uptime_alert_tjenestex_api" {
   source           = "../../modules/uptime_alerts"
-  team             = "SKOOP"
-  alert_name       = "uptime_alerts_skoop_status_kartverket_no"
+  team             = "Team X"
+  alert_name       = "uptime_alerts_teamx_tjenestex_api"
   runbook_base_url = var.runbook_base_url
-  folder_uid       = skoop_uptime_alerts
-  label_team       = "skoop"
-  label_env        = "dev"
-  label_service    = "status.kartverket.no"
+  folder_uid       = grafana_folder.teamX_uptime_alerts.uid
+  label_team       = "teamX"
+  label_env        = "prod"
+  label_service    = "tjenestex-api"
   for              = "2m"
   severity         = "warning"
 }
 
-module "skoop_uptime_alert_grafana_prod" {
+module "teamx_uptime_alert_tjenestex_prod" {
   source           = "../../modules/uptime_alerts"
-  team             = "SKOOP"
-  alert_name       = "uptime_alerts_skoop_status_kartverket_no"
+  team             = "Team X"
+  alert_name       = "uptime_alerts_tjenestex_prod"
   runbook_base_url = var.runbook_base_url
-  folder_uid       = skoop_uptime_alerts
-  label_team       = "skoop"
+  folder_uid       = grafana_folder.teamX_uptime_alerts.uid
+  label_team       = "teamx"
   label_env        = "prod"
-  label_service    = "grafana"
+  label_service    = "tjenestex.kartverket.no"
   for              = "2m"
   severity         = "warning"
 }
