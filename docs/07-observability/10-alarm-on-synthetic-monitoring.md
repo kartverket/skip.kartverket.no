@@ -42,9 +42,9 @@ module "teamx_uptime_alert_tjenestex_api" {
 | `alert_name` | Ja | Unik identifikator for alarmen. Brukes for å finne riktig oppføring i runbook om man har det. |
 | `runbook_base_url` | Nei | URL-en til en runbook med feilsøkingstips. |
 | `folder_uid` | Ja | UID for mappen hvor alarmen lagres. Her utledet fra ressursen `grafana_folder.teamX_uptime_alerts.uid` |
-| `label_team` | Ja | Samme som `label.team` fra din `synthertic-monitoring.yaml`. |
-| `label_env` | Ja | Samme som `label.env` fra din `synthertic-monitoring.yaml`. |
-| `label_service` | Ja | Samme som `label.service` fra din `synthertic-monitoring.yaml`. |
+| `label_team` | Ja | Samme som `label.team` fra din `synthetic-monitoring.yaml`. |
+| `label_env` | Ja | Samme som `label.env` fra din `synthetic-monitoring.yaml`. |
+| `label_service` | Ja | Samme som `label.service` fra din `synthetic-monitoring.yaml`. |
 | `for` | Ja | Definerer hvor lenge problemet skal vare før alarmen sendes. |
 | `severity` | Ja | Setter alvorlighetsgrad for alarmen. `warning` gir typisk en alarm i Slack, `critical`sender alarmen til vaktlaget (brukes _kun_ etter avtale med IT-vaktordningen). |
 
