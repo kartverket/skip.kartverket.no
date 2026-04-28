@@ -1,0 +1,80 @@
+# Validere tokens
+Grovkornet validering av JWT-tokens kan gjøres med _introspect_-endepunktet i Texas
+
+:::warning[Finkornet validering må gjøres i applikasjonskode]
+Texas validerer kun JWT'ens gyldighet opp mot relevant identity provider. Du må fremdeles utføre relevant validering for
+din applikasjon i egen applikasjoskode, f.eks validering av claims som `scope`, `aud`, `consumer`, `supplier`, `client`,
+`groups`, med mer.
+:::
+
+## Nødvendig oppsett
+For å få Texas som sidecar må du [spesifisere "texas" som tilgjengelig sidecar-tjeneste](./index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon).
+I tillegg må Texas ha nødvendig konfigurasjon og nettverksåpning for å nå den aktuelle identity provider'en. Dette
+gjøres med en `SecurityConfig`-ressurs.
+
+Du finner API-spesifikasjon inkludert detaljerte feltbeskrivelser for `SecurityConfig`-ressursen i [API-dokumentasjonen](./04-api-docs.mdx).
+
+### Tokenx
+```yaml title="Eksempel på SecurityConfig for Tokenx-validering"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  tokenx:
+    enabled: true
+  ...
+```
+
+### Maskinporten
+```yaml title="Eksempel på SecurityConfig for Maskinporten-validering"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  maskinporten:
+    enabled: true
+  ...
+```
+
+### Entra ID
+Støtte for Entra ID kommer snart.
+
+### ID-porten / Ansattporten
+Støtte for ID-porten og Ansattporten kommer snart.
+
+## Request
+```json
+POST <TEXAS_URL>/api/v1/introspect
+Content-Type: application/json
+
+Body:
+{
+  "identity_provider": "<identity provider, f.eks entra_id>",
+  "token": "<access-token>"
+}
+```
+Gyldige verdier for `identity_provider`-feltet er: `entra_id`, `tokenx`, `maskinporten`, og `idporten`. NB: Ansattporten
+er p.t. ikke støttet.
+
+## Respons
+Responsen vil være på `json`-format. Dersom tokenet ikke er gyldig vil `active`-feltet i responsen være `false`, og
+`error`-feltet vil inneholde en tekstbeskrivelse av feilen. Eksempel:
+```json
+{
+  "active": false,
+  "error": "Token is expired"
+}
+```
+
+Dersom tokenet er gyldig vil `active`-feltet i responsen være `true`, og responsen vil inneholde alle relevante claims
+i tokenet. Eksempel:
+```json
+{
+  "active": true,
+  "aud": ...,
+  "client": ...,
+  "iat": ...,
+  "exp": ...,
+  ...
+}
+```

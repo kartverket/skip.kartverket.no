@@ -1,0 +1,58 @@
+# Hente tokens
+Uthenting av tokens kan gjøres med _token_-endepunktet i Texas.
+
+## Nødvendig oppsett
+
+For å få Texas som sidecar må du [spesifisere "texas" som tilgjengelig sidecar-tjeneste](./index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon).
+I tillegg må Texas ha tilgang til nødvendige hemmeligheter for den aktuelle tjenesten. Disse må entes opprettes med,
+eller pekes til, i en `SecurityConfig`-ressurs.
+
+Du finner API-spesifikasjon inkludert detaljerte feltbeskrivelser for `SecurityConfig`-ressursen i [API-dokumentasjonen](./04-api-docs.mdx).
+
+### Maskinporten
+```yaml title="Eksempel på SecurityConfig for Maskinporten-uthenting"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  maskinporten:
+    enabled: true
+    ...
+```
+
+Under `maskinporten`-feltet **må** du spesifisere én av følgende:
+- `client`: detaljer for klientregistrering, inkludert konsumerte scopes. Accesserator vil opprette en
+  klientregistrering basert på disse detaljene
+- `clientRef`: referanse til en eksisterende `MaskinportenClient`-ressurs, f.eks opprettet med Digdirator
+- `secretRef`: referanse til en Kubernetes Secret som inneholder nødvendige hemmeligheter, f.eks opprettet basert på
+  klientregistrering direkte i Samarbeidsportalen
+
+### Entra ID
+Støtte for Entra ID kommer snart.
+
+## Request
+```json
+POST <TEXAS_URL>/api/v1/token
+Content-Type: application/json
+
+Body:
+{
+  "identity_provider": "<identity provider, f.eks entra_id>",
+  "target": "<scope eller client-id>",
+  ...
+}
+```
+
+Gyldige verdier for `identity_provider`-feltet er: `entra_id` og `maskinporten`.
+
+Request'en kan også inneholde et `resource` og/eller `authorization_details`-feltet for mer avanserte bruksområder.
+
+## Respons
+Responsen vil være på `json`-format. Token ligger i `access_token`-feltet.
+```json
+{
+  "access_token": "<access-token>",
+  "expires_in": <antall sekunder (int)>,
+  "token_type": "Bearer"
+}
+```

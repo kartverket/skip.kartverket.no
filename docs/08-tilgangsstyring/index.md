@@ -21,7 +21,7 @@ oss å opprettholde et høyt minimumsnivå av sikkerhet i alle applikasjoner.
 - [Dokumentasjon og anbefalinger](01-valg-av-identitetstilbyder/index.mdx) av relevante identitetstilbydere
 - [Klientregistrering](02-klientregistrering/index.mdx) mot relevante identitetstilbydere
 - [Ztoperator](03-ztoperator/index.mdx): en Kubernetes-ressurs for innlogging, sesjonshåndtering og claims-validering
-- [SPIFFE](04-SPIFFE/index.mdx): finkornet nettverkstilgangsstyring og sikker kommunikasjon innad i et 
+- [SPIFFE](05-SPIFFE/index.mdx): finkornet nettverkstilgangsstyring og sikker kommunikasjon innad i et 
   Kubernetes-cluster basert på SPIFFE-identiteter
 
 ### Funksjonalitet vi planlegger å tilby i nær fremtid
