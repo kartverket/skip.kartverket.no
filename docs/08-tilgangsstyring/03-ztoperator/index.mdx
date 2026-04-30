@@ -55,17 +55,13 @@ kind: Application
 metadata:
   name: my-app
 spec:
+//diff-add-start
   podSettings:
     annotations:
       ztoperator.kartverket.no/verify-authpolicy: "true"
+//diff-add-end
   ...
 ```
-
-:::caution
-Den nevnte mekanismen ligger foreløpig bak en feature-toggle. For at annotasjonen skal ha effekt må du legge til
-`"tilgangsstyring": true` i din [config.json-fil](./../../03-applikasjon-utrulling/09-argo-cd/07-configuring-apps-repositories-with-configjson.md).
-Vi vil fjerne behovet for feature-toggle på sikt.
-:::
 
 Tilfeller der mekanismen hindrer oppstart vil utarte seg ved at Skiperator-applikasjonen sitt `ReplicaSet` er _unhealthy_,
 og det ikke dukker opp noen `Pod`-ressurser for applikasjonen.
