@@ -105,6 +105,18 @@ Denne listen blir lagt inn i repoet skip-apps i filen lib/argocd/teams.json i en
 }
 
 ```
+
+:::info
+Det er samme namespace-prefikser og gcp-annotasjoner som vil gjelde for begge config-kilder og man er selv ansvarlig for å ikke skape konflikt.
+Det er også viktig å merke seg at strukturen for alternative apps-repoer må følge samme struktur som standard apps-repo, dvs.:
+
+```code
+env/
+  atgcp1-foo
+    foo.jsonnet
+```
+:::
+
 ### Eksempel på Github Actions
 
 ```yaml
