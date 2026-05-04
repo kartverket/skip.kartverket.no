@@ -112,8 +112,9 @@ Det er også viktig å merke seg at strukturen for alternative apps-repoer må f
 
 ```code
 env/
-  atgcp1-foo
-    foo.jsonnet
+  atgcp1-foo/
+    mitt-namespace/
+        foo.jsonnet
 ```
 :::
 
