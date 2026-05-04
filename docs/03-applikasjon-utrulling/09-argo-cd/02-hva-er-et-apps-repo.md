@@ -54,7 +54,7 @@ Vi på SKIP anbefaler at dere starter med å sjekke inn vanlige YAML-filer mens 
 
 ## Kildekode-repoer
 
-Apps-repoer skal **ikke** inneholde kildekode. Apps-repoer har kun metadata om applikasjonen i form av manifest-filer. Dette kan man også lese om i [Best Practices for Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#separating-config-vs-source-code-repositories).
+Apps-repoer bør **ikke** inneholde kildekode. Apps-repoer har kun metadata om applikasjonen i form av manifest-filer. Dette kan man også lese om i [Best Practices for Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#separating-config-vs-source-code-repositories).
 
 Dette gjør at man får et tydelig skille mellom kildekoderepoer og apps-repoer. Kildekoderepoer har ansvaret for å lagre kode, bygge artefakter og container-imager. Apps-repoer beskriver den ønskede staten til applikasjonen på clusteret og Argo jobber mot å bringe clusteret i synk med denne staten. Dette gjør det også enkelt å forholde seg til apps-repoene som en “single source of truth” til applikasjonsstaten på clusteret.
 
@@ -74,6 +74,47 @@ For å logge inn på apps-repoet brukes metoden som beskrives i [Tilgang til rep
 
 :::info
 Dersom man bruker Argo CD til å opprette namespacer for alle branches og pull requests er det viktig å slette branchene når de ikke lenger er i bruk. Det er begrenset med kapasitet på clusterene og å anskaffe hardware, både on-prem og i sky, er ekstremt kostbart. Det holder å slette filene i apps-repoet for å rydde opp, noe som kan gjøres automatisk ved sletting av branches.
+:::
+
+## Alternative apps-repoer
+Dersom man likevel skulle ha behov for å ha manifestfiler sammen med kildekode (selv om dette går mot etablert best practice), eller har behov for å ha manifestfiler andre steder enn standard apps-repo, så kan man sette opp dette i https://github.com/kartverket/skip-apps repoet.
+Måten det fungerer er at i tillegg til standard -apps repo så vil dere kunne spesifisere en liste med ekstra repoer som vil fungere som supplerende apps-repoer.
+For hver av disse blir det generert et nytt ApplicationSet for å skille disse fra det som allerede er satt opp gjennom eksisterende standard apps-repo.
+Denne listen blir lagt inn i repoet skip-apps i filen lib/argocd/teams.json i en liste kalt "extraManifestRepos" med følgende struktur:
+
+```json
+
+{
+  "teamnavn": {
+    "allowlistedPrefixes": [
+      {
+        "gcpProject": {
+          "dev": "project-dev-123",
+          "prod": "project-prod-456"
+        },
+        "name": "prosjektnavn"
+      }
+    ],
+    "extraManifestRepos": [
+      {
+        "name": "ekstra-app-repo-navn",
+        "repo": "github-navn-paa-repo"
+      }
+    ]
+  }
+}
+
+```
+
+:::info
+Det er samme namespace-prefikser og gcp-annotasjoner som vil gjelde for begge config-kilder og man er selv ansvarlig for å ikke skape konflikt.
+Det er også viktig å merke seg at strukturen for alternative apps-repoer må følge samme struktur som standard apps-repo, dvs.:
+
+```code
+env/
+  atgcp1-foo
+    foo.jsonnet
+```
 :::
 
 ### Eksempel på Github Actions
