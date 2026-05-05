@@ -2,7 +2,7 @@
 sidebar_position: 11
 ---
 
-# Alarmer på syntetisk overvåking
+# Alarmer ved utløpende SSL-sertifikat
 
 Når syntetisk overvåking er satt opp kan man konfigurere alarmering hvis en probe ikke får kontakt med endepunktet sitt.
 
