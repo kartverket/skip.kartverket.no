@@ -4,7 +4,7 @@ sidebar_position: 11
 
 # Alarmer ved utløpende SSL-sertifikat
 
-Når syntetisk overvåking er satt opp kan man konfigurere alarmering hvis en probe ikke får kontakt med endepunktet sitt.
+Når syntetisk overvåking er satt opp kan man konfigurere alarmering hvis et SSL-sertifikat er på vei til å utløpe.
 
 ## Kom i gang
 
