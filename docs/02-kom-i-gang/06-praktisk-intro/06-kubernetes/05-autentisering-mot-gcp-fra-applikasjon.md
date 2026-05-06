@@ -55,19 +55,5 @@ Når dette er gjort kan applikasjonen snakke med GCP under runtime.
 
 ## Alternativ til 1 / 2
 
-Dersom man ikke ønsker å legge til roller manuelt har SKIP lagt til en ny måte å legge til Workload Identity User på en service account, ved hjelp av Crossplane.
-
-```yaml
-apiVersion: 'skip.kartverket.no/v1alpha1'
-kind: 'WorkloadIdentityInstance'
-metadata:
-  name: 'service-account-wi'
-spec:
-  parameters:
-    gcpKubernetesProject: 'some-kubernetes-project' #eks: 'kubernetes-dev-94b9'
-    gcpProject: 'gcp-project-where-service-account-is' #eks: 'dsa-dev-e32c'
-    gcpServiceAccount: 'name-of-service-account-in-gcp' #eks: 'dsa-runtime@dsa-dev-e32c.iam.gserviceaccount.com'
-    serviceAccount: 'name-of-service-account-in-kubernetes' #eks 'dsa-backend', typically same name as your Application
-```
-
-Se [Provisjonere infrastruktur med Crossplane](../../../03-applikasjon-utrulling/09-argo-cd/05-provisjonere-infrastruktur-med-crossplane.md) om du ikke har brukt Crossplane tidligere.
+Dersom man ikke ønsker å legge til roller manuelt har SKIP lagt til en ny måte å legge til Workload Identity User på en service account, ved hjelp av Terraform. 
+Se [Provisjonere infrastruktur med Terraform](../../../03-applikasjon-utrulling/09-argo-cd/05-provisjonere-infrastruktur-med-terraform.md) for mer info og nyttige linker.
