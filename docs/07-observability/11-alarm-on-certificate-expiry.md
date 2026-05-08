@@ -4,7 +4,7 @@ sidebar_position: 11
 
 # Alarmer ved utløpende SSL-sertifikat
 
-Når syntetisk overvåking er satt opp kan man konfigurere alarmering hvis et SSL-sertifikat er på vei til å utløpe.
+Når syntetisk overvåking er satt opp kan man konfigurere alarmering for SSL-sertifikater som er på vei til å utløpe.
 
 ## Kom i gang
 
@@ -12,11 +12,11 @@ Bekreft at du er onboardet i `grafana-alerts`-repoet. Hvis du ikke er det, ta ko
 
 ## Konfigurasjon
 
-I teamets alarmoppsett legges følgende kodeblokk:
+Legg følgende kodeblokk i teamets alarmoppsett:
 
 ```hcl
 resource "grafana_folder" "teamX_certexpiry_alerts" {
-  title    = "Certificate expiry alerts teamX"
+  title    = "SSL-sertifikat alarmer teamX"
 }
 
 module "teamx_certexpiry_alert_environment" {
@@ -26,7 +26,8 @@ module "teamx_certexpiry_alert_environment" {
   runbook_base_url  = var.runbook_base_url # Valgfri
   folder_uid        = grafana_folder.teamX_certexpiry_alerts.uid
   label_team        = "teamX"
-  label_env         = "prod"
+  label_env         = "envX"
+  label_service     = "serviceX"
   warning_days      = 28 # Valgfri
   critical_days     = 14 # Valgfri, kun etter avtale med vaktlaget!
 }
@@ -43,35 +44,50 @@ module "teamx_certexpiry_alert_environment" {
 | `folder_uid` | Ja | | UID for mappen hvor alarmen lagres. Her utledet fra ressursen `grafana_folder.teamX_certexpiry_alerts.uid` |
 | `label_team` | Ja | | Samme som `label.team` fra din `synthetic-monitoring.yaml`. |
 | `label_env` | Ja | | Samme som `label.env` fra din `synthetic-monitoring.yaml`. |
+| `label_service` | Ja | | Samme som `label.service` fra din `synthetic-monitoring.yaml`. |
 | `warning_days` | Nei | 21 | Definerer hvor mange dager før setifikatutløp at "advarsel"-alarmen sendes. |
 | `critical_days` | Nei | | Definerer hvor mange dager før setifikatutløp at "kritisk"-alarmen sendes. Denne skal _kun_ settes etter avtale med vaktlaget! |
 
-Du definerer én blokk for hvert miljø som du vil ha alarm på:
+Definer én blokk for hver tjeneste i hvert miljø som du vil ha alarm på:
 
 ```hcl
 resource "grafana_folder" "teamX_certexpiry_alerts" {
   title    = "SSL-sertifikat alarmer teamX"
 }
 
-module "teamx_certexpiry_alert_prod" {
+module "teamx_certexpiry_alert_servicex_prod" {
   source            = "../../modules/certexpiry_alerts"
   team              = "Team X"
-  alert_name        = "certexpiry_alerts_teamx_prod"
+  alert_name        = "certexpiry_alerts_teamx_serviceX_prod"
   runbook_base_url  = var.runbook_base_url
   folder_uid        = grafana_folder.teamX_certexpiry_alerts.uid
   label_team        = "teamX"
   label_env         = "prod"
+  label_service     = "prodServiceX"
   warning_days      = 28
 }
 
-module "teamx_certexpiry_alert_dev" {
+module "teamx_certexpiry_alert_servicey_prod" {
   source            = "../../modules/certexpiry_alerts"
   team              = "Team X"
-  alert_name        = "certexpiry_alerts_teamx_dev"
+  alert_name        = "certexpiry_alerts_teamx_serviceY_prod"
+  runbook_base_url  = var.runbook_base_url
+  folder_uid        = grafana_folder.teamX_certexpiry_alerts.uid
+  label_team        = "teamX"
+  label_env         = "prod"
+  label_service     = "prodServiceY"
+  critical_days     = 7 # Kun etter avtale med vaktlaget
+}
+
+module "teamx_certexpiry_alert_servicex_dev" {
+  source            = "../../modules/certexpiry_alerts"
+  team              = "Team X"
+  alert_name        = "certexpiry_alerts_teamx_serviceX_dev"
   runbook_base_url  = var.runbook_base_url
   folder_uid        = grafana_folder.teamX_certexpiry_alerts.uid
   label_team        = "teamX"
   label_env         = "dev"
+  label_service     = "devServiceX"
 }
 ```
 
