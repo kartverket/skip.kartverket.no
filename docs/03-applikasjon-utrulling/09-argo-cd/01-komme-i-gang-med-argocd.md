@@ -8,7 +8,6 @@ Så du ønsker å komme i gang med å deploye til SKIP. Det er bra! Vi bruker et
 - [GitHub Actions](../08-github-actions/index.md) – Bygging av artefakter og containere
 - [Argo CD](index.md) – Deploye til SKIP
 - [External Secrets](04-hente-hemmeligheter-fra-hemmelighetsvelv.md) – Synkronisere hemmeligheter til Kubernetes
-- [Infrastruktur](./05-provisjonere-infrastruktur-med-terraform.md) – Provisjonere infrastruktur
 - [Skiperator](https://github.com/kartverket/skiperator) – Beskrive en applikasjon i et manifest
 
 Her skal vi beskrive hvordan du kommer i gang med å synke ut applikasjonene dine til clusteret ved hjelp av Argo CD. For beskrivelser av hvordan man kommer i gang med det andre teknologiene se lenkene over.

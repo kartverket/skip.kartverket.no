@@ -56,4 +56,4 @@ Når dette er gjort kan applikasjonen snakke med GCP under runtime.
 ## Alternativ til 1 / 2
 
 Dersom man ikke ønsker å legge til roller manuelt har SKIP lagt til en ny måte å legge til Workload Identity User på en service account, ved hjelp av Terraform. 
-Se [Provisjonere infrastruktur med Terraform](../../../03-applikasjon-utrulling/09-argo-cd/05-provisjonere-infrastruktur-med-terraform.md) for mer info og nyttige linker.
+Se [Provisjonere infrastruktur med Terraform](../../../03-applikasjon-utrulling/08-github-actions/14-provisjonere-infrastruktur-med-terraform.md) for mer info og nyttige linker.

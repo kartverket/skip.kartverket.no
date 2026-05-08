@@ -1,6 +1,6 @@
 # Provisjonere infrastruktur med Terraform
 
-Når man deployer en applikasjon til SKIP er det også tilfeller hvor man ønsker å provisjonere infrastruktur.
+Et vanlig brukstilfelle med Terraform i Github Actions er å provisjonere infrastruktur.
 For eksempel kan dette være å opprette servicekontoer i GCP, lage lagringsbøtter og gi servicekontoer tilgang til disse. 
 Dette er noe som tidligere har vært gjort med Crossplane, 
 men dette verktøyet fases nå ut og vi oppfordrer til bruk av Terraform som allerede har denne funksjonaliteten i tillegg til mye annet, 
