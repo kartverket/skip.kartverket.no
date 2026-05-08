@@ -54,8 +54,8 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="SKIP – Statens Kartverks Infrastrukturplatform"
-      description="Statens Kartverks Infrastrukturplatform">
+      title="SKIP – Statens Kartverks Infrastrukturplattform"
+      description="Statens Kartverks Infrastrukturplattform">
       <Head>
         <html lang="no" />
       </Head>
