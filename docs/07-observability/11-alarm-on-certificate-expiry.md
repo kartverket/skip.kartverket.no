@@ -40,7 +40,7 @@ module "teamx_certexpiry_alert_environment" {
 | `team` | Ja | | Navnet på teamet ditt slik det vises i Grafana. Dette må være det samme som for andre alarmer slik at varsler rutes til riktig Slack-kanal. |
 | `alert_name` | Ja | | Unik identifikator for alarmen. Brukes for å finne riktig oppføring i runbook om man har det. |
 | `runbook_base_url` | Nei | | URL-en til en runbook med feilsøkingstips. |
-| `folder_uid` | Ja | | UID for mappen hvor alarmen lagres. Her utledet fra ressursen `grafana_folder.teamX_uptime_alerts.uid` |
+| `folder_uid` | Ja | | UID for mappen hvor alarmen lagres. Her utledet fra ressursen `grafana_folder.teamX_certexpiry_alerts.uid` |
 | `label_team` | Ja | | Samme som `label.team` fra din `synthetic-monitoring.yaml`. |
 | `label_env` | Ja | | Samme som `label.env` fra din `synthetic-monitoring.yaml`. |
 | `warning_days` | Nei | 21 | Definerer hvor mange dager før setifikatutløp at "advarsel"-alarmen sendes. |
