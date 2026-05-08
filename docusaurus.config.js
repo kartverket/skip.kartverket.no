@@ -7,7 +7,7 @@ const darkCodeTheme = themes.dracula;
 (
   module.exports = {
     title: "SKIP",
-    tagline: "Statens Kartverks Infrastrukturplatform",
+    tagline: "Statens Kartverks Infrastrukturplattform",
     url: "https://skip.kartverket.no",
     baseUrl: "/",
     projectName: 'skip-docs',

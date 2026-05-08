@@ -5,7 +5,7 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'Fremtidsrettet platform',
+    title: 'Fremtidsrettet plattform',
     Svg: require('../../static/img/undraw_code_review.svg').default,
     description: (
       <>
@@ -39,7 +39,7 @@ const FeatureList = [
     Svg: require('../../static/img/undraw_programmer.svg').default,
     description: (
       <>
-        Platformen vil i bakgrunnen sørge for at applikasjonen skalerer opp ved
+        Plattformen vil i bakgrunnen sørge for at applikasjonen skalerer opp ved
         mye traffikk og ned når det ikke lenger er nødvendig.
         I tillegg sørger den for at applikasjonene restartes ved ustabilitet og
         gir deg data og metrikker til å overvåke tjenesten din.
