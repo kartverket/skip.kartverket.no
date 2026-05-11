@@ -32,7 +32,7 @@ Du kan bruke Googles dokumentasjon [på denne siden](https://docs.cloud.google.c
 Hvis du trenger å teste terraform-koden ved å kjøre `terraform plan` lokalt, så vil dette i utgangspunktet feile fordi du kjører som egen bruker istedenfor deploykontoen.
 Du kan impersonate deploykontoen ved å sette en env-variabel for dette på denne måten: `GOOGLE_IMPERSONATE_SERVICE_ACCOUNT="<team/produkt>-deploy@<prosjekt-id>.iam.gserviceaccount.com terraform plan`
 Husk at du må være autentisert mot gcloud for å kjøre Terraform-kommandoer, så sørg for å¨ logg deg inn med `gcloud auth application-default login`.
-Man må også bruke aktivere deploy-sa-user under PAM i prosjektet som tilhører deploy-kontoen for at det skal fungere - se [Hvordan bruke PAM](https://skip.kartverket.no/docs/kom-i-gang/team/pam-google-cloud#hvordan-bruke-pam)
+Man må også bruke `deploy-sa-user` under PAM i prosjektet som tilhører deploy-kontoen for at det skal fungere - se [Hvordan bruke PAM](https://skip.kartverket.no/docs/kom-i-gang/team/pam-google-cloud#hvordan-bruke-pam)
 
 For eksempler på hvordan dette kan settes opp med tanke på opprettelse av bl.a. lagringsbøtter i GCP, se vårt [terraform-modules](https://github.com/kartverket/terraform-modules/tree/main/cloud_storage) repository på Github - modulen cloud_storage inneholder noen gode eksempler og kan også brukes i egen kildekode som modul.
 Se også [Googles dokumentasjon av terraform-provider](https://registry.terraform.io/providers/hashicorp/google/latest/docs) for utvidet dokumentasjon og eksempler.
