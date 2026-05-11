@@ -22,3 +22,7 @@ For at backenden over skal kunne nå denne bucketen må service-kontoen den kjø
 ## Kjøre Terraform i GitHub Actions
 
 Se [https://github.com/kartverket/github-workflows](https://github.com/kartverket/github-workflows) for hvordan man bruker Terraform som en del av GitHub Actions.
+
+## Opprette service accounts og annen infrastruktur i Terraform
+
+Se [Provisjonere infrastruktur med Terraform](./14-provisjonere-infrastruktur-med-terraform.md)
