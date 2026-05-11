@@ -11,6 +11,7 @@ autorisasjonsmekanismer. Dette innebærer blant annet:
 - Finkornet tilgangsstyring basert på Open Policy Agent
 - Finkornede nettverksregler og sikker kommunikasjon med andre SKIP-applikasjoner basert på SPIFFE
 - Token exchange for bevaring av sluttbrukerkontekst i tjeneste-til-tjeneste-kommunikasjon
+- Verktøystøtte for uthenting av OAuth-tokens
 
 En fordel med å tilby slik funksjonaliteten på plattformnivå er at de samme mekanismene kan brukes, på samme måte,
 uavhengig av applikasjonen den skal beskytte. Dette gir Kartverket målbarhet og konsistens i hvordan tilgangsstyring
@@ -21,15 +22,13 @@ oss å opprettholde et høyt minimumsnivå av sikkerhet i alle applikasjoner.
 - [Dokumentasjon og anbefalinger](01-valg-av-identitetstilbyder/index.mdx) av relevante identitetstilbydere
 - [Klientregistrering](02-klientregistrering/index.mdx) mot relevante identitetstilbydere
 - [Ztoperator](03-ztoperator/index.mdx): en Kubernetes-ressurs for innlogging, sesjonshåndtering og claims-validering
-- [SPIFFE](05-SPIFFE/index.mdx): finkornet nettverkstilgangsstyring og sikker kommunikasjon innad i et 
-  Kubernetes-cluster basert på SPIFFE-identiteter
+- [Accesserator](04-accesserator/index.mdx): en Kubernetes-ressurs for token exchange, token-uthenting av m2m-tokens og
+  token-validering
+- [SPIFFE](05-SPIFFE/index.mdx): finkornet nettverkstilgangsstyring og sikker kommunikasjon innad i et Kubernetes-cluster basert på
+  SPIFFE-identiteter
 
 ### Funksjonalitet vi planlegger å tilby i nær fremtid
-- Token exchange: bevaring av sluttbrukerkontekst i tjeneste-til-tjeneste-kommunikasjon
 - Open Policy Agent: finkornet tilgangsstyring
-
-### Annen funksjonalitet vi vurderer å tilby på sikt
-- Tilby grensesnitt for interne maskin-til-maskin-tokens, istedenfor Microsoft Entra ID
 
 ## 🔥 Plattform- vs. applikasjonssikkerhet
 Plattformfunksjonalitet _kan_, men _bør_ ikke nødvendigvis, erstatte all tilsvarende funksjonalitet i de underliggende
