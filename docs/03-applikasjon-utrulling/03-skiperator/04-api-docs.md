@@ -2546,9 +2546,6 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Validations</i>:
-              <li>self == '' || self.matches('^([0-9]+[sm])+$'): </li>
-              <li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
             <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
@@ -3495,10 +3492,6 @@ SKIPJob is the Schema for the skipjobs API
 
 A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.
 The Container field of a SKIPJob is only mutable if the Cron field is set. If unset, you must delete your SKIPJob to change container settings.<br/>
-          <br/>
-            <i>Validations</i>:
-              <li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li>
-              <li>((!has(self.cron) && (oldSelf.container == self.container)) || has(self.cron)): The field Container is immutable for one-off jobs. Please delete your SKIPJob to change the containers settings.</li>
         </td>
         <td>true</td>
       </tr>
@@ -5504,9 +5497,6 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Validations</i>:
-              <li>self == '' || self.matches('^([0-9]+[sm])+$'): </li>
-              <li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
             <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
@@ -5796,10 +5786,6 @@ SKIPJob is the Schema for the skipjobs API
           SKIPJobSpec defines the desired state of SKIPJob
 
 A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.<br/>
-          <br/>
-            <i>Validations</i>:
-              <li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li>
-              <li>((!has(self.cron) && oldSelf.image == self.image && oldSelf.priority == self.priority && (has(oldSelf.command) == has(self.command)) && (!has(self.command) || oldSelf.command == self.command) && (has(oldSelf.resources) == has(self.resources)) && (!has(self.resources) || oldSelf.resources == self.resources) && (has(oldSelf.env) == has(self.env)) && (!has(self.env) || oldSelf.env == self.env) && (has(oldSelf.envFrom) == has(self.envFrom)) && (!has(self.envFrom) || oldSelf.envFrom == self.envFrom) && (has(oldSelf.filesFrom) == has(self.filesFrom)) && (!has(self.filesFrom) || oldSelf.filesFrom == self.filesFrom) && (has(oldSelf.additionalPorts) == has(self.additionalPorts)) && (!has(self.additionalPorts) || oldSelf.additionalPorts == self.additionalPorts) && (has(oldSelf.liveness) == has(self.liveness)) && (!has(self.liveness) || oldSelf.liveness == self.liveness) && (has(oldSelf.readiness) == has(self.readiness)) && (!has(self.readiness) || oldSelf.readiness == self.readiness) && (has(oldSelf.startup) == has(self.startup)) && (!has(self.startup) || oldSelf.startup == self.startup) && (has(oldSelf.accessPolicy) == has(self.accessPolicy)) && (!has(self.accessPolicy) || oldSelf.accessPolicy == self.accessPolicy) && (has(oldSelf.gcp) == has(self.gcp)) && (!has(self.gcp) || oldSelf.gcp == self.gcp) && (has(oldSelf.restartPolicy) == has(self.restartPolicy)) && (!has(self.restartPolicy) || oldSelf.restartPolicy == self.restartPolicy) && (has(oldSelf.podSettings) == has(self.podSettings)) && (!has(self.podSettings) || oldSelf.podSettings == self.podSettings)) || has(self.cron)): The container configuration is immutable for one-off jobs. Please delete your SKIPJob to change image, command, resources, networking, probes, env/files, or pod settings.</li>
         </td>
         <td>true</td>
       </tr>
@@ -7538,9 +7524,6 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Validations</i>:
-              <li>self == '' || self.matches('^([0-9]+[sm])+$'): </li>
-              <li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
             <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
