@@ -3,6 +3,7 @@
 Packages:
 
 - skiperator.kartverket.no/v1alpha1
+- skiperator.kartverket.no/v1beta1
 
 # skiperator.kartverket.no/v1alpha1
 
@@ -2831,7 +2832,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `hello`<br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2840,7 +2841,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `Synced`<br/>
+            <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2848,8 +2849,6 @@ Status
         <td>string</td>
         <td>
           <br/>
-          <br/>
-            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -2878,7 +2877,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `hello`<br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2887,7 +2886,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `Synced`<br/>
+            <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -2895,8 +2894,6 @@ Status
         <td>string</td>
         <td>
           <br/>
-          <br/>
-            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -3201,7 +3198,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `hello`<br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3210,7 +3207,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `Synced`<br/>
+            <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3218,8 +3215,6 @@ Status
         <td>string</td>
         <td>
           <br/>
-          <br/>
-            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -3248,7 +3243,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `hello`<br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3257,7 +3252,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `Synced`<br/>
+            <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -3265,8 +3260,6 @@ Status
         <td>string</td>
         <td>
           <br/>
-          <br/>
-            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -5382,7 +5375,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `hello`<br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5391,7 +5384,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `Synced`<br/>
+            <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5399,8 +5392,6 @@ Status
         <td>string</td>
         <td>
           <br/>
-          <br/>
-            <i>Default</i>: `hello`<br/>
         </td>
         <td>true</td>
       </tr></tbody>
@@ -5429,7 +5420,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `hello`<br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5438,7 +5429,7 @@ Status
         <td>
           <br/>
           <br/>
-            <i>Default</i>: `Synced`<br/>
+            <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
       </tr><tr>
@@ -5446,8 +5437,2161 @@ Status
         <td>string</td>
         <td>
           <br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+# skiperator.kartverket.no/v1beta1
+
+Resource Types:
+
+- [SKIPJob](#skipjob)
+
+
+
+
+## SKIPJob
+
+
+
+
+
+
+SKIPJob is the Schema for the skipjobs API
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+      <td><b>apiVersion</b></td>
+      <td>string</td>
+      <td>skiperator.kartverket.no/v1beta1</td>
+      <td>true</td>
+      </tr>
+      <tr>
+      <td><b>kind</b></td>
+      <td>string</td>
+      <td>SKIPJob</td>
+      <td>true</td>
+      </tr>
+      <tr>
+      <td><b><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#objectmeta-v1-meta">metadata</a></b></td>
+      <td>object</td>
+      <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
+      <td>true</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspec-1">spec</a></b></td>
+        <td>object</td>
+        <td>
+          SKIPJobSpec defines the desired state of SKIPJob
+
+A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.<br/>
           <br/>
-            <i>Default</i>: `hello`<br/>
+            <i>Validations</i>:<li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li><li>((!has(self.cron) && oldSelf.image == self.image && oldSelf.priority == self.priority && (has(oldSelf.command) == has(self.command)) && (!has(self.command) || oldSelf.command == self.command) && (has(oldSelf.resources) == has(self.resources)) && (!has(self.resources) || oldSelf.resources == self.resources) && (has(oldSelf.env) == has(self.env)) && (!has(self.env) || oldSelf.env == self.env) && (has(oldSelf.envFrom) == has(self.envFrom)) && (!has(self.envFrom) || oldSelf.envFrom == self.envFrom) && (has(oldSelf.filesFrom) == has(self.filesFrom)) && (!has(self.filesFrom) || oldSelf.filesFrom == self.filesFrom) && (has(oldSelf.additionalPorts) == has(self.additionalPorts)) && (!has(self.additionalPorts) || oldSelf.additionalPorts == self.additionalPorts) && (has(oldSelf.liveness) == has(self.liveness)) && (!has(self.liveness) || oldSelf.liveness == self.liveness) && (has(oldSelf.readiness) == has(self.readiness)) && (!has(self.readiness) || oldSelf.readiness == self.readiness) && (has(oldSelf.startup) == has(self.startup)) && (!has(self.startup) || oldSelf.startup == self.startup) && (has(oldSelf.accessPolicy) == has(self.accessPolicy)) && (!has(self.accessPolicy) || oldSelf.accessPolicy == self.accessPolicy) && (has(oldSelf.gcp) == has(self.gcp)) && (!has(self.gcp) || oldSelf.gcp == self.gcp) && (has(oldSelf.restartPolicy) == has(self.restartPolicy)) && (!has(self.restartPolicy) || oldSelf.restartPolicy == self.restartPolicy) && (has(oldSelf.podSettings) == has(self.podSettings)) && (!has(self.podSettings) || oldSelf.podSettings == self.podSettings)) || has(self.cron)): The container configuration is immutable for one-off jobs. Please delete your SKIPJob to change image, command, resources, networking, probes, env/files, or pod settings.</li>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b><a href="#skipjobstatus-1">status</a></b></td>
+        <td>object</td>
+        <td>
+          SkiperatorStatus
+
+A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec
+<sup><sup>[↩ Parent](#skipjob-1)</sup></sup>
+
+
+
+SKIPJobSpec defines the desired state of SKIPJob
+
+A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>image</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecaccesspolicy">accessPolicy</a></b></td>
+        <td>object</td>
+        <td>
+          AccessPolicy
+
+Zero trust dictates that only applications with a reason for being able
+to access another resource should be able to reach it. This is set up by
+default by denying all ingress and egress traffic from the Pods in the
+Deployment. The AccessPolicy field is an allowlist of other applications and hostnames
+that are allowed to talk with this Application and which resources this app can talk to<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecadditionalportsindex">additionalPorts</a></b></td>
+        <td>[]object</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>command</b></td>
+        <td>[]string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspeccron-1">cron</a></b></td>
+        <td>object</td>
+        <td>
+          Settings for the Job if you are running a scheduled job. Optional as Jobs may be one-off.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecenvindex">env</a></b></td>
+        <td>[]object</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecenvfromindex">envFrom</a></b></td>
+        <td>[]object</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecfilesfromindex">filesFrom</a></b></td>
+        <td>[]object</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecgcp">gcp</a></b></td>
+        <td>object</td>
+        <td>
+          GCP
+
+Configuration for interacting with Google Cloud Platform<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecistiosettings-1">istioSettings</a></b></td>
+        <td>object</td>
+        <td>
+          IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
+interval for tracing is the only supported option.
+By default, tracing is enabled with a random sampling percentage of 10%.<br/>
+          <br/>
+            <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecjob-1">job</a></b></td>
+        <td>object</td>
+        <td>
+          Settings for the actual Job. If you use a scheduled job, the settings in here will also specify the template of the job.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>labels</b></td>
+        <td>map[string]string</td>
+        <td>
+          Labels can be used if you want every resource created by your SKIPJob to
+have the same labels, including the Job/CronJob itself. This could for example be useful for
+metrics, where a certain label and the corresponding resources liveliness can be combined.
+Any amount of labels can be added as wanted, and they will all cascade down to all resources.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecliveness">liveness</a></b></td>
+        <td>object</td>
+        <td>
+          Probe
+
+Type configuration for all types of Kubernetes probes.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecpodsettings">podSettings</a></b></td>
+        <td>object</td>
+        <td>
+          PodSettings<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>priority</b></td>
+        <td>enum</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Enum</i>: low, medium, high<br/>
+            <i>Default</i>: `medium`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecprometheus-1">prometheus</a></b></td>
+        <td>object</td>
+        <td>
+          Prometheus settings for pod running in job. Fields are identical to Application and if set,
+a podmonitoring object is created.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecreadiness">readiness</a></b></td>
+        <td>object</td>
+        <td>
+          Probe
+
+Type configuration for all types of Kubernetes probes.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecresources">resources</a></b></td>
+        <td>object</td>
+        <td>
+          ResourceRequirements
+
+A simplified version of the Kubernetes native ResourceRequirement field, in which only Limits and Requests are present.
+For the units used for resources, see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>restartPolicy</b></td>
+        <td>enum</td>
+        <td>
+          RestartPolicy describes how the container should be restarted.
+Only one of the following restart policies may be specified.
+If none of the following policies is specified, the default one
+is RestartPolicyAlways.<br/>
+          <br/>
+            <i>Enum</i>: OnFailure, Never<br/>
+            <i>Default</i>: `Never`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecstartup">startup</a></b></td>
+        <td>object</td>
+        <td>
+          Probe
+
+Type configuration for all types of Kubernetes probes.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>team</b></td>
+        <td>string</td>
+        <td>
+          Team specifies the team who owns this particular SKIPJob.
+Usually sourced from the namespace label.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+AccessPolicy
+
+Zero trust dictates that only applications with a reason for being able
+to access another resource should be able to reach it. This is set up by
+default by denying all ingress and egress traffic from the Pods in the
+Deployment. The AccessPolicy field is an allowlist of other applications and hostnames
+that are allowed to talk with this Application and which resources this app can talk to
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecaccesspolicyinbound">inbound</a></b></td>
+        <td>object</td>
+        <td>
+          Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecaccesspolicyoutbound">outbound</a></b></td>
+        <td>object</td>
+        <td>
+          Outbound specifies egress rules. Which apps on the cluster and the
+internet is the Application allowed to send requests to?<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.inbound
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicy)</sup></sup>
+
+
+
+Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecaccesspolicyinboundrulesindex">rules</a></b></td>
+        <td>[]object</td>
+        <td>
+          The rules list specifies a list of applications. When no namespace is
+specified it refers to an app in the current namespace. For apps in
+other namespaces namespace is required<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.inbound.rules[index]
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicyinbound)</sup></sup>
+
+
+
+InternalRule
+
+The rules list specifies a list of applications. When no namespace is
+specified it refers to an app in the current namespace. For apps in
+other namespaces, namespace is required.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>application</b></td>
+        <td>string</td>
+        <td>
+          The name of the Application you are allowing traffic to/from. If you wish to allow traffic from a SKIPJob, this field should
+be suffixed with -skipjob<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>namespace</b></td>
+        <td>string</td>
+        <td>
+          The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>namespacesByLabel</b></td>
+        <td>map[string]string</td>
+        <td>
+          Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecaccesspolicyinboundrulesindexportsindex">ports</a></b></td>
+        <td>[]object</td>
+        <td>
+          The ports to allow for the above application.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.inbound.rules[index].ports[index]
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicyinboundrulesindex)</sup></sup>
+
+
+
+NetworkPolicyPort describes a port to allow traffic on
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>endPort</b></td>
+        <td>integer</td>
+        <td>
+          endPort indicates that the range of ports from port to endPort if set, inclusive,
+should be allowed by the policy. This field cannot be defined if the port field
+is not defined or if the port field is defined as a named (string) port.
+The endPort must be equal or greater than port.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          port represents the port on the given protocol. This can either be a numerical or named
+port on a pod. If this field is not provided, this matches all port names and
+numbers.
+If present, only traffic on the specified protocol AND port will be matched.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>protocol</b></td>
+        <td>string</td>
+        <td>
+          protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match.
+If not specified, this field defaults to TCP.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.outbound
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicy)</sup></sup>
+
+
+
+Outbound specifies egress rules. Which apps on the cluster and the
+internet is the Application allowed to send requests to?
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecaccesspolicyoutboundexternalindex">external</a></b></td>
+        <td>[]object</td>
+        <td>
+          External specifies which applications on the internet the application
+can reach. Only host is required unless it is on another port than HTTPS port 443.
+If other ports or protocols are required then `ports` must be specified as well<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecaccesspolicyoutboundrulesindex">rules</a></b></td>
+        <td>[]object</td>
+        <td>
+          Rules apply the same in-cluster rules as InboundPolicy<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.outbound.external[index]
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutbound)</sup></sup>
+
+
+
+ExternalRule
+
+Describes a rule for allowing your Application to route traffic to external applications and hosts.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>host</b></td>
+        <td>string</td>
+        <td>
+          The allowed hostname. Note that this does not include subdomains.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>ip</b></td>
+        <td>string</td>
+        <td>
+          Non-HTTP requests (i.e. using the TCP protocol) need to use IP in addition to hostname
+Only required for TCP requests.
+
+Note: Hostname must always be defined even if IP is set statically<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecaccesspolicyoutboundexternalindexportsindex">ports</a></b></td>
+        <td>[]object</td>
+        <td>
+          The ports to allow for the above hostname. When not specified HTTP and
+HTTPS on port 80 and 443 respectively are put into the allowlist<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.outbound.external[index].ports[index]
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutboundexternalindex)</sup></sup>
+
+
+
+ExternalPort
+
+A custom port describing an external host
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name is required and is an arbitrary name. Must be unique within all ExternalRule ports.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>port</b></td>
+        <td>integer</td>
+        <td>
+          The port number of the external host<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>protocol</b></td>
+        <td>enum</td>
+        <td>
+          The protocol to use for communication with the host. Supported protocols are: HTTP, HTTPS, TCP and TLS.<br/>
+          <br/>
+            <i>Enum</i>: HTTP, HTTPS, TCP, TLS<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.outbound.rules[index]
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutbound)</sup></sup>
+
+
+
+InternalRule
+
+The rules list specifies a list of applications. When no namespace is
+specified it refers to an app in the current namespace. For apps in
+other namespaces, namespace is required.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>application</b></td>
+        <td>string</td>
+        <td>
+          The name of the Application you are allowing traffic to/from. If you wish to allow traffic from a SKIPJob, this field should
+be suffixed with -skipjob<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>namespace</b></td>
+        <td>string</td>
+        <td>
+          The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>namespacesByLabel</b></td>
+        <td>map[string]string</td>
+        <td>
+          Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecaccesspolicyoutboundrulesindexportsindex">ports</a></b></td>
+        <td>[]object</td>
+        <td>
+          The ports to allow for the above application.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.accessPolicy.outbound.rules[index].ports[index]
+<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutboundrulesindex)</sup></sup>
+
+
+
+NetworkPolicyPort describes a port to allow traffic on
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>endPort</b></td>
+        <td>integer</td>
+        <td>
+          endPort indicates that the range of ports from port to endPort if set, inclusive,
+should be allowed by the policy. This field cannot be defined if the port field
+is not defined or if the port field is defined as a named (string) port.
+The endPort must be equal or greater than port.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          port represents the port on the given protocol. This can either be a numerical or named
+port on a pod. If this field is not provided, this matches all port names and
+numbers.
+If present, only traffic on the specified protocol AND port will be matched.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>protocol</b></td>
+        <td>string</td>
+        <td>
+          protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match.
+If not specified, this field defaults to TCP.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.additionalPorts[index]
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>port</b></td>
+        <td>integer</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>protocol</b></td>
+        <td>enum</td>
+        <td>
+          Protocol defines network protocols supported for things like container ports.<br/>
+          <br/>
+            <i>Enum</i>: TCP, UDP, SCTP<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.cron
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+Settings for the Job if you are running a scheduled job. Optional as Jobs may be one-off.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>schedule</b></td>
+        <td>string</td>
+        <td>
+          A CronJob string for denoting the schedule of this job. See https://crontab.guru/ for help creating CronJob strings.
+Kubernetes CronJobs also include the extended "Vixie cron" step values: https://man.freebsd.org/cgi/man.cgi?crontab%285%29.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>allowConcurrency</b></td>
+        <td>enum</td>
+        <td>
+          Denotes how Kubernetes should react to multiple instances of the Job being started at the same time.
+Allow will allow concurrent jobs. Forbid will not allow this, and instead skip the newer schedule Job.
+Replace will replace the current active Job with the newer scheduled Job.<br/>
+          <br/>
+            <i>Enum</i>: Allow, Forbid, Replace<br/>
+            <i>Default</i>: `Allow`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>startingDeadlineSeconds</b></td>
+        <td>integer</td>
+        <td>
+          Denotes the deadline in seconds for starting a job on its schedule, if for some reason the Job's controller was not ready upon the scheduled time.
+If unset, Jobs missing their deadline will be considered failed jobs and will not start.<br/>
+          <br/>
+            <i>Format</i>: int64<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>suspend</b></td>
+        <td>boolean</td>
+        <td>
+          If set to true, this tells Kubernetes to suspend this Job till the field is set to false. If the Job is active while this field is set to true,
+all running Pods will be terminated.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>timeZone</b></td>
+        <td>string</td>
+        <td>
+          The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified,
+this will default to the time zone of the cluster.
+
+Example: "Europe/Oslo"<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.env[index]
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+EnvVar represents an environment variable present in a Container.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name of the environment variable.
+May consist of any printable ASCII characters except '='.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>value</b></td>
+        <td>string</td>
+        <td>
+          Variable references $(VAR_NAME) are expanded
+using the previously defined environment variables in the container and
+any service environment variables. If a variable cannot be resolved,
+the reference in the input string will be unchanged. Double $$ are reduced
+to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e.
+"$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)".
+Escaped references will never be expanded, regardless of whether the variable
+exists or not.
+Defaults to "".<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecenvindexvaluefrom">valueFrom</a></b></td>
+        <td>object</td>
+        <td>
+          Source for the environment variable's value. Cannot be used if value is not empty.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.env[index].valueFrom
+<sup><sup>[↩ Parent](#skipjobspecenvindex)</sup></sup>
+
+
+
+Source for the environment variable's value. Cannot be used if value is not empty.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecenvindexvaluefromconfigmapkeyref">configMapKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a key of a ConfigMap.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecenvindexvaluefromfieldref">fieldRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`,
+spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecenvindexvaluefromfilekeyref">fileKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          FileKeyRef selects a key of the env file.
+Requires the EnvFiles feature gate to be enabled.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecenvindexvaluefromresourcefieldref">resourceFieldRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a resource of the container: only resources limits and requests
+(limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecenvindexvaluefromsecretkeyref">secretKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a key of a secret in the pod's namespace<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.env[index].valueFrom.configMapKeyRef
+<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
+
+
+
+Selects a key of a ConfigMap.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          The key to select.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name of the referent.
+This field is effectively required, but due to backwards compatibility is
+allowed to be empty. Instances of this type with an empty value here are
+almost certainly wrong.
+More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
+          <br/>
+            <i>Default</i>: ``<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>optional</b></td>
+        <td>boolean</td>
+        <td>
+          Specify whether the ConfigMap or its key must be defined<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.env[index].valueFrom.fieldRef
+<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
+
+
+
+Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`,
+spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>fieldPath</b></td>
+        <td>string</td>
+        <td>
+          Path of the field to select in the specified API version.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>apiVersion</b></td>
+        <td>string</td>
+        <td>
+          Version of the schema the FieldPath is written in terms of, defaults to "v1".<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.env[index].valueFrom.fileKeyRef
+<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
+
+
+
+FileKeyRef selects a key of the env file.
+Requires the EnvFiles feature gate to be enabled.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          The key within the env file. An invalid key will prevent the pod from starting.
+The keys defined within a source may consist of any printable ASCII characters except '='.
+During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path within the volume from which to select the file.
+Must be relative and may not contain the '..' path or start with '..'.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>volumeName</b></td>
+        <td>string</td>
+        <td>
+          The name of the volume mount containing the env file.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>optional</b></td>
+        <td>boolean</td>
+        <td>
+          Specify whether the file or its key must be defined. If the file or key
+does not exist, then the env var is not published.
+If optional is set to true and the specified key does not exist,
+the environment variable will not be set in the Pod's containers.
+
+If optional is set to false and the specified key does not exist,
+an error will be returned during Pod creation.<br/>
+          <br/>
+            <i>Default</i>: `false`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.env[index].valueFrom.resourceFieldRef
+<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
+
+
+
+Selects a resource of the container: only resources limits and requests
+(limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>resource</b></td>
+        <td>string</td>
+        <td>
+          Required: resource to select<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>containerName</b></td>
+        <td>string</td>
+        <td>
+          Container name: required for volumes, optional for env vars<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>divisor</b></td>
+        <td>int or string</td>
+        <td>
+          Specifies the output format of the exposed resources, defaults to "1"<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.env[index].valueFrom.secretKeyRef
+<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
+
+
+
+Selects a key of a secret in the pod's namespace
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          The key of the secret to select from.  Must be a valid secret key.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name of the referent.
+This field is effectively required, but due to backwards compatibility is
+allowed to be empty. Instances of this type with an empty value here are
+almost certainly wrong.
+More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
+          <br/>
+            <i>Default</i>: ``<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>optional</b></td>
+        <td>boolean</td>
+        <td>
+          Specify whether the Secret or its key must be defined<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.envFrom[index]
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>configMap</b></td>
+        <td>string</td>
+        <td>
+          Name of Kubernetes ConfigMap in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>secret</b></td>
+        <td>string</td>
+        <td>
+          Name of Kubernetes Secret in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.filesFrom[index]
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+FilesFrom
+
+Struct representing information needed to mount a Kubernetes resource as a file to a Pod's directory.
+One of ConfigMap, Secret, EmptyDir or PersistentVolumeClaim must be present, and just represent the name of the resource in question
+NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>mountPath</b></td>
+        <td>string</td>
+        <td>
+          The path to mount the file in the Pods directory. Required.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>configMap</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>defaultMode</b></td>
+        <td>integer</td>
+        <td>
+          defaultMode is optional: mode bits used to set permissions on created files by default.
+Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511.
+YAML accepts both octal and decimal values, JSON requires decimal values for mode bits.
+Defaults to 0644.
+Directories within the path are not affected by this setting.
+This might be in conflict with other options that affect the file
+mode, like fsGroup, and the result can be other mode bits set.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>emptyDir</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>persistentVolumeClaim</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>secret</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.gcp
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+GCP
+
+Configuration for interacting with Google Cloud Platform
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecgcpauth">auth</a></b></td>
+        <td>object</td>
+        <td>
+          Configuration for authenticating a Pod with Google Cloud Platform
+For authentication with GCP, to use services like Secret Manager and/or Pub/Sub we need
+to set the GCP Service Account Pods should identify as. To allow this, we need the IAM role iam.workloadIdentityUser set on a GCP
+service account and bind this to the Pod's Kubernetes SA.
+Documentation on how this is done can be found here (Closed Wiki):
+https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentisering+mot+GCP+som+Kubernetes+SA<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#skipjobspecgcpcloudsqlproxy">cloudSqlProxy</a></b></td>
+        <td>object</td>
+        <td>
+          CloudSQL is used to deploy a CloudSQL proxy sidecar in the pod.
+This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.gcp.auth
+<sup><sup>[↩ Parent](#skipjobspecgcp)</sup></sup>
+
+
+
+Configuration for authenticating a Pod with Google Cloud Platform
+For authentication with GCP, to use services like Secret Manager and/or Pub/Sub we need
+to set the GCP Service Account Pods should identify as. To allow this, we need the IAM role iam.workloadIdentityUser set on a GCP
+service account and bind this to the Pod's Kubernetes SA.
+Documentation on how this is done can be found here (Closed Wiki):
+https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentisering+mot+GCP+som+Kubernetes+SA
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>serviceAccount</b></td>
+        <td>string</td>
+        <td>
+          Name of the service account in which you are trying to authenticate your pod with
+Generally takes the form of some-name@some-project-id.iam.gserviceaccount.com<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.gcp.cloudSqlProxy
+<sup><sup>[↩ Parent](#skipjobspecgcp)</sup></sup>
+
+
+
+CloudSQL is used to deploy a CloudSQL proxy sidecar in the pod.
+This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>connectionName</b></td>
+        <td>string</td>
+        <td>
+          Connection name for the CloudSQL instance. Found in the Google Cloud Console under your CloudSQL resource.
+The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-north1:my-db".<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>ip</b></td>
+        <td>string</td>
+        <td>
+          The IP address of the CloudSQL instance. This is used to create a serviceentry for the CloudSQL proxy.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>serviceAccount</b></td>
+        <td>string</td>
+        <td>
+          Service account used by cloudsql auth proxy. This service account must have the roles/cloudsql.client role.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>publicIP</b></td>
+        <td>boolean</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Default</i>: `false`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>version</b></td>
+        <td>string</td>
+        <td>
+          Image version for the CloudSQL proxy sidecar.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.istioSettings
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
+interval for tracing is the only supported option.
+By default, tracing is enabled with a random sampling percentage of 10%.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecistiosettingstelemetry-1">telemetry</a></b></td>
+        <td>object</td>
+        <td>
+          Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.<br/>
+          <br/>
+            <i>Default</i>: `map[tracing:[map[randomSamplingPercentage:10]]]`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.istioSettings.telemetry
+<sup><sup>[↩ Parent](#skipjobspecistiosettings-1)</sup></sup>
+
+
+
+Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#skipjobspecistiosettingstelemetrytracingindex-1">tracing</a></b></td>
+        <td>[]object</td>
+        <td>
+          Tracing is a list of tracing configurations for the telemetry resource. Normally only one tracing configuration is needed.<br/>
+          <br/>
+            <i>Default</i>: `[map[randomSamplingPercentage:10]]`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.istioSettings.telemetry.tracing[index]
+<sup><sup>[↩ Parent](#skipjobspecistiosettingstelemetry-1)</sup></sup>
+
+
+
+Tracing contains relevant settings for tracing in the telemetry configuration
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>randomSamplingPercentage</b></td>
+        <td>integer</td>
+        <td>
+          RandomSamplingPercentage is the percentage of requests that should be sampled for tracing, specified by a whole number between 0-100.
+Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
+          <br/>
+            <i>Default</i>: `10`<br/>
+            <i>Minimum</i>: 0<br/>
+            <i>Maximum</i>: 100<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.job
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+Settings for the actual Job. If you use a scheduled job, the settings in here will also specify the template of the job.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>activeDeadlineSeconds</b></td>
+        <td>integer</td>
+        <td>
+          ActiveDeadlineSeconds denotes a duration in seconds started from when the job is first active. If the deadline is reached during the job's workload
+the job and its Pods are terminated. If the job is suspended using the Suspend field, this timer is stopped and reset when unsuspended.<br/>
+          <br/>
+            <i>Format</i>: int64<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>backoffLimit</b></td>
+        <td>integer</td>
+        <td>
+          Specifies the number of retry attempts before determining the job as failed. Defaults to 6.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>suspend</b></td>
+        <td>boolean</td>
+        <td>
+          If set to true, this tells Kubernetes to suspend this Job till the field is set to false. If the Job is active while this field is set to false,
+all running Pods will be terminated.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>ttlSecondsAfterFinished</b></td>
+        <td>integer</td>
+        <td>
+          The number of seconds to wait before removing the Job after it has finished. If unset, Job will not be cleaned up.
+It is recommended to set this to avoid clutter in your resource tree.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.liveness
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+Probe
+
+Type configuration for all types of Kubernetes probes.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path to access on the HTTP server<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          Number of the port to access on the container<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>failureThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive failures for the probe to be considered failed after
+having succeeded. Defaults to 3. Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `3`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>initialDelay</b></td>
+        <td>integer</td>
+        <td>
+          Delay sending the first probe by X seconds. Can be useful for applications that
+are slow to start.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `0`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>period</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `10`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>successThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive successes for the probe to be considered successful after having failed.
+Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>timeout</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds after which the probe times out. Defaults to 1 second.
+Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.podSettings
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+PodSettings
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>annotations</b></td>
+        <td>map[string]string</td>
+        <td>
+          Annotations that are set on Pods created by Skiperator. These annotations can for example be used to change the behaviour of sidecars and similar.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>disablePodSpreadTopologyConstraints</b></td>
+        <td>boolean</td>
+        <td>
+          DisablePodSpreadTopologyConstraints specifies whether to disable the addition of Pod Topology Spread Constraints to
+a given pod.<br/>
+          <br/>
+            <i>Default</i>: `false`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>terminationGracePeriodSeconds</b></td>
+        <td>integer</td>
+        <td>
+          TerminationGracePeriodSeconds determines how long Kubernetes waits after a SIGTERM signal sent to a Pod before terminating the pod. If your application uses longer than
+30 seconds to terminate, you should increase TerminationGracePeriodSeconds.<br/>
+          <br/>
+            <i>Format</i>: int64<br/>
+            <i>Default</i>: `30`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.prometheus
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+Prometheus settings for pod running in job. Fields are identical to Application and if set,
+a podmonitoring object is created.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          The port number or name where metrics are exposed (at the Pod level).<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>allowAllMetrics</b></td>
+        <td>boolean</td>
+        <td>
+          Setting AllowAllMetrics to true will ensure all exposed metrics are scraped. Otherwise, a list of predefined
+metrics will be dropped by default. See util/constants.go for the default list.<br/>
+          <br/>
+            <i>Default</i>: `false`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The HTTP path where Prometheus compatible metrics exists<br/>
+          <br/>
+            <i>Default</i>: `/metrics`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>scrapeInterval</b></td>
+        <td>string</td>
+        <td>
+          ScrapeInterval specifies the interval at which Prometheus should scrape the metrics.
+The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
+If minutes ("Xm") are used, the value must be at least 1m.<br/>
+          <br/>
+            <i>Validations</i>:<li>self == '' || self.matches('^([0-9]+[sm])+$'): </li><li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
+            <i>Default</i>: `60s`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.readiness
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+Probe
+
+Type configuration for all types of Kubernetes probes.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path to access on the HTTP server<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          Number of the port to access on the container<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>failureThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive failures for the probe to be considered failed after
+having succeeded. Defaults to 3. Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `3`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>initialDelay</b></td>
+        <td>integer</td>
+        <td>
+          Delay sending the first probe by X seconds. Can be useful for applications that
+are slow to start.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `0`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>period</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `10`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>successThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive successes for the probe to be considered successful after having failed.
+Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>timeout</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds after which the probe times out. Defaults to 1 second.
+Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.resources
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+ResourceRequirements
+
+A simplified version of the Kubernetes native ResourceRequirement field, in which only Limits and Requests are present.
+For the units used for resources, see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>limits</b></td>
+        <td>map[string]int or string</td>
+        <td>
+          Limits set the maximum the app is allowed to use. Exceeding this limit will
+make kubernetes kill the app and restart it.
+
+Limits can be set on the CPU and memory, but it is not recommended to put a limit on CPU, see: https://home.robusta.dev/blog/stop-using-cpu-limits<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>requests</b></td>
+        <td>map[string]int or string</td>
+        <td>
+          Requests set the initial allocation that is done for the app and will
+thus be available to the app on startup. More is allocated on demand
+until the limit is reached.
+
+Requests can be set on the CPU and memory.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.spec.startup
+<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
+
+
+
+Probe
+
+Type configuration for all types of Kubernetes probes.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path to access on the HTTP server<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          Number of the port to access on the container<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>failureThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive failures for the probe to be considered failed after
+having succeeded. Defaults to 3. Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `3`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>initialDelay</b></td>
+        <td>integer</td>
+        <td>
+          Delay sending the first probe by X seconds. Can be useful for applications that
+are slow to start.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `0`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>period</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `10`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>successThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive successes for the probe to be considered successful after having failed.
+Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>timeout</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds after which the probe times out. Defaults to 1 second.
+Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.status
+<sup><sup>[↩ Parent](#skipjob-1)</sup></sup>
+
+
+
+SkiperatorStatus
+
+A status field shown on a Skiperator resource which contains information regarding deployment of the resource.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>accessPolicies</b></td>
+        <td>string</td>
+        <td>
+          Indicates if access policies are valid<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b><a href="#skipjobstatusconditionsindex-1">conditions</a></b></td>
+        <td>[]object</td>
+        <td>
+          <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b><a href="#skipjobstatussubresourceskey-1">subresources</a></b></td>
+        <td>map[string]object</td>
+        <td>
+          <br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b><a href="#skipjobstatussummary-1">summary</a></b></td>
+        <td>object</td>
+        <td>
+          Status<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.status.conditions[index]
+<sup><sup>[↩ Parent](#skipjobstatus-1)</sup></sup>
+
+
+
+Condition contains details for one aspect of the current state of this API Resource.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>lastTransitionTime</b></td>
+        <td>string</td>
+        <td>
+          lastTransitionTime is the last time the condition transitioned from one status to another.
+This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.<br/>
+          <br/>
+            <i>Format</i>: date-time<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>message</b></td>
+        <td>string</td>
+        <td>
+          message is a human readable message indicating details about the transition.
+This may be an empty string.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>reason</b></td>
+        <td>string</td>
+        <td>
+          reason contains a programmatic identifier indicating the reason for the condition's last transition.
+Producers of specific condition types may define expected values and meanings for this field,
+and whether the values are considered a guaranteed API.
+The value should be a CamelCase string.
+This field may not be empty.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>status</b></td>
+        <td>enum</td>
+        <td>
+          status of the condition, one of True, False, Unknown.<br/>
+          <br/>
+            <i>Enum</i>: True, False, Unknown<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>type</b></td>
+        <td>string</td>
+        <td>
+          type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>observedGeneration</b></td>
+        <td>integer</td>
+        <td>
+          observedGeneration represents the .metadata.generation that the condition was set based upon.
+For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+with respect to the current state of the instance.<br/>
+          <br/>
+            <i>Format</i>: int64<br/>
+            <i>Minimum</i>: 0<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.status.subresources[key]
+<sup><sup>[↩ Parent](#skipjobstatus-1)</sup></sup>
+
+
+
+Status
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>message</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>status</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Default</i>: `Pending`<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>timestamp</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SKIPJob.status.summary
+<sup><sup>[↩ Parent](#skipjobstatus-1)</sup></sup>
+
+
+
+Status
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>message</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>status</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Default</i>: `Pending`<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>timestamp</b></td>
+        <td>string</td>
+        <td>
+          <br/>
         </td>
         <td>true</td>
       </tr></tbody>
