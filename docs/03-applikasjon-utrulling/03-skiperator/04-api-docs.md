@@ -1,13 +1,16 @@
 # API Reference
 
-Packages:
+## Packages
 
-- skiperator.kartverket.no/v1alpha1
-- skiperator.kartverket.no/v1beta1
+| Package | Resource types |
+| --- | --- |
+| `skiperator.kartverket.no/v1alpha1` | [Application](#application)<br/>[Routing](#routing)<br/>[SKIPJob](#skipjob)<br/> |
+| `skiperator.kartverket.no/v1beta1` | [SKIPJob](#skipjob-1)<br/> |
 
-# skiperator.kartverket.no/v1alpha1
 
-Resource Types:
+## Package `skiperator.kartverket.no/v1alpha1`
+
+Resource types in this package:
 
 - [Application](#application)
 
@@ -17,13 +20,14 @@ Resource Types:
 
 
 
+<a id="application"></a>
+### Application
 
-## Application
-
-
-
-
-
+| Field | Value |
+| --- | --- |
+| Package | `skiperator.kartverket.no/v1alpha1` |
+| API version | `skiperator.kartverket.no/v1alpha1` |
+| Kind | `Application` |
 
 Application
 
@@ -39,7 +43,8 @@ This allows product teams to avoid the need to set up networking on the cluster,
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
       <td><b>apiVersion</b></td>
       <td>string</td>
       <td>skiperator.kartverket.no/v1alpha1</td>
@@ -56,14 +61,16 @@ This allows product teams to avoid the need to set up networking on the cluster,
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspec">spec</a></b></td>
         <td>object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationstatus">status</a></b></td>
         <td>object</td>
         <td>
@@ -72,14 +79,13 @@ This allows product teams to avoid the need to set up networking on the cluster,
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspec"></a>
+#### Application.spec
 
-
-### Application.spec
-<sup><sup>[↩ Parent](#application)</sup></sup>
-
-
+<sup>[Parent](#application)</sup>
 
 
 
@@ -92,28 +98,32 @@ A status field shown on a Skiperator resource which contains information regardi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>image</b></td>
         <td>string</td>
         <td>
           The image the application will run. This image will be added to a Deployment resource<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
           The port the deployment exposes<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicy">accessPolicy</a></b></td>
         <td>object</td>
         <td>
           The root AccessPolicy for managing zero trust access to your Application. See AccessPolicy for more information.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecadditionalportsindex">additionalPorts</a></b></td>
         <td>[]object</td>
         <td>
@@ -121,7 +131,8 @@ A status field shown on a Skiperator resource which contains information regardi
 for example so Instana or other APM tools can reach it<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>appProtocol</b></td>
         <td>enum</td>
         <td>
@@ -131,14 +142,16 @@ for example so Instana or other APM tools can reach it<br/>
             <i>Default</i>: `http`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecauthorizationsettings">authorizationSettings</a></b></td>
         <td>object</td>
         <td>
           Used for allow listing certain default blocked endpoints, such as /actuator/ end points<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>command</b></td>
         <td>[]string</td>
         <td>
@@ -146,7 +159,8 @@ for example so Instana or other APM tools can reach it<br/>
 or running third-party containers where you don't have control over the Dockerfile<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>enablePDB</b></td>
         <td>boolean</td>
         <td>
@@ -155,14 +169,16 @@ or running third-party containers where you don't have control over the Dockerfi
             <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecenvindex">env</a></b></td>
         <td>[]object</td>
         <td>
           Environment variables that will be set inside the Deployment's Pod. See https://pkg.go.dev/k8s.io/api/core/v1#EnvVar for examples.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecenvfromindex">envFrom</a></b></td>
         <td>[]object</td>
         <td>
@@ -173,7 +189,8 @@ and secrets.
 For mounting as files see FilesFrom.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecfilesfromindex">filesFrom</a></b></td>
         <td>[]object</td>
         <td>
@@ -185,21 +202,24 @@ assumes these have already been created by you, and will fail if this is not the
 For mounting environment variables see EnvFrom.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecgcp">gcp</a></b></td>
         <td>object</td>
         <td>
           GCP is used to configure Google Cloud Platform specific settings for the application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecidporten">idporten</a></b></td>
         <td>object</td>
         <td>
           Settings for IDPorten integration with Digitaliseringsdirektoratet<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ingresses</b></td>
         <td>[]string</td>
         <td>
@@ -215,7 +235,8 @@ They can optionally be suffixed with a plus and name of a custom TLS secret loca
 E.g. "foo.atkv3-dev.kartverket-intern.cloud+env-wildcard-cert"<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecistiosettings">istioSettings</a></b></td>
         <td>object</td>
         <td>
@@ -226,7 +247,8 @@ By default, tracing is enabled with a random sampling percentage of 10%.<br/>
             <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>labels</b></td>
         <td>map[string]string</td>
         <td>
@@ -236,7 +258,8 @@ metrics, where a certain label and the corresponding resources liveliness can be
 Any amount of labels can be added as wanted, and they will all cascade down to all resources.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecliveness">liveness</a></b></td>
         <td>object</td>
         <td>
@@ -247,14 +270,16 @@ Liveness is optional, but when provided, path and port are required
 See Probe for structure definition.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecmaskinporten">maskinporten</a></b></td>
         <td>object</td>
         <td>
           Settings for Maskinporten integration with Digitaliseringsdirektoratet<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecpodsettings">podSettings</a></b></td>
         <td>object</td>
         <td>
@@ -262,7 +287,8 @@ See Probe for structure definition.<br/>
 things like annotations on the Pod to change the behaviour of sidecars, and set relevant Pod options such as TerminationGracePeriodSeconds.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>priority</b></td>
         <td>enum</td>
         <td>
@@ -276,14 +302,16 @@ do, please consult with SKIP beforehand.<br/>
             <i>Default</i>: `medium`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecprometheus">prometheus</a></b></td>
         <td>object</td>
         <td>
           Optional settings for how Prometheus compatible metrics should be scraped.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecreadiness">readiness</a></b></td>
         <td>object</td>
         <td>
@@ -293,7 +321,8 @@ marking the pod as Running and progressing with the deployment strategy.
 Readiness is optional, but when provided, path and port are required<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>redirectToHTTPS</b></td>
         <td>boolean</td>
         <td>
@@ -303,7 +332,8 @@ This redirect does not happen on the route /.well-known/acme-challenge/, as the 
             <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>replicas</b></td>
         <td>JSON</td>
         <td>
@@ -321,7 +351,8 @@ The default value for replicas is:
 Using autoscaling is the recommended configuration for replicas.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>resourceLabels</b></td>
         <td>map[string]map[string]string</td>
         <td>
@@ -330,7 +361,8 @@ the application. One such label could for example be set on a Deployment, such t
 the deployment avoids certain rules from Gatekeeper, or similar. Any amount of labels may be added per ResourceLabels item.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecresources">resources</a></b></td>
         <td>object</td>
         <td>
@@ -339,7 +371,8 @@ prevent the app from swelling in resource usage and consuming all the
 resources of other apps on the cluster.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecstartup">startup</a></b></td>
         <td>object</td>
         <td>
@@ -351,7 +384,8 @@ getting killed by Kubernetes before they are up and running.
 Startup is optional, but when provided, path and port are required<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecstrategy">strategy</a></b></td>
         <td>object</td>
         <td>
@@ -364,7 +398,8 @@ old ones.
 Valid values are: RollingUpdate, Recreate. Default is RollingUpdate<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>team</b></td>
         <td>string</td>
         <td>
@@ -372,14 +407,13 @@ Valid values are: RollingUpdate, Recreate. Default is RollingUpdate<br/>
 Usually sourced from the namespace label.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicy"></a>
+#### Application.spec.accessPolicy
 
-
-### Application.spec.accessPolicy
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 The root AccessPolicy for managing zero trust access to your Application. See AccessPolicy for more information.
 
@@ -392,14 +426,16 @@ The root AccessPolicy for managing zero trust access to your Application. See Ac
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyinbound">inbound</a></b></td>
         <td>object</td>
         <td>
           Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyoutbound">outbound</a></b></td>
         <td>object</td>
         <td>
@@ -407,14 +443,13 @@ The root AccessPolicy for managing zero trust access to your Application. See Ac
 internet is the Application allowed to send requests to?<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyinbound"></a>
+#### Application.spec.accessPolicy.inbound
 
-
-### Application.spec.accessPolicy.inbound
-<sup><sup>[↩ Parent](#applicationspecaccesspolicy)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicy)</sup>
 
 Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?
 
@@ -427,7 +462,8 @@ Inbound specifies the ingress rules. Which apps on the cluster can talk to this 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyinboundrulesindex">rules</a></b></td>
         <td>[]object</td>
         <td>
@@ -436,14 +472,13 @@ specified it refers to an app in the current namespace. For apps in
 other namespaces namespace is required<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyinboundrulesindex"></a>
+#### Application.spec.accessPolicy.inbound.rules[index]
 
-
-### Application.spec.accessPolicy.inbound.rules[index]
-<sup><sup>[↩ Parent](#applicationspecaccesspolicyinbound)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicyinbound)</sup>
 
 InternalRule
 
@@ -460,7 +495,8 @@ other namespaces, namespace is required.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>application</b></td>
         <td>string</td>
         <td>
@@ -468,35 +504,37 @@ other namespaces, namespace is required.
 be suffixed with -skipjob<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespace</b></td>
         <td>string</td>
         <td>
           The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespacesByLabel</b></td>
         <td>map[string]string</td>
         <td>
           Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyinboundrulesindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
           The ports to allow for the above application.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyinboundrulesindexportsindex"></a>
+#### Application.spec.accessPolicy.inbound.rules[index].ports[index]
 
-
-### Application.spec.accessPolicy.inbound.rules[index].ports[index]
-<sup><sup>[↩ Parent](#applicationspecaccesspolicyinboundrulesindex)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicyinboundrulesindex)</sup>
 
 NetworkPolicyPort describes a port to allow traffic on
 
@@ -509,7 +547,8 @@ NetworkPolicyPort describes a port to allow traffic on
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>endPort</b></td>
         <td>integer</td>
         <td>
@@ -521,7 +560,8 @@ The endPort must be equal or greater than port.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
@@ -531,7 +571,8 @@ numbers.
 If present, only traffic on the specified protocol AND port will be matched.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>string</td>
         <td>
@@ -539,14 +580,13 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
 If not specified, this field defaults to TCP.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyoutbound"></a>
+#### Application.spec.accessPolicy.outbound
 
-
-### Application.spec.accessPolicy.outbound
-<sup><sup>[↩ Parent](#applicationspecaccesspolicy)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicy)</sup>
 
 Outbound specifies egress rules. Which apps on the cluster and the
 internet is the Application allowed to send requests to?
@@ -560,7 +600,8 @@ internet is the Application allowed to send requests to?
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyoutboundexternalindex">external</a></b></td>
         <td>[]object</td>
         <td>
@@ -569,21 +610,21 @@ can reach. Only host is required unless it is on another port than HTTPS port 44
 If other ports or protocols are required then `ports` must be specified as well<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyoutboundrulesindex">rules</a></b></td>
         <td>[]object</td>
         <td>
           Rules apply the same in-cluster rules as InboundPolicy<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyoutboundexternalindex"></a>
+#### Application.spec.accessPolicy.outbound.external[index]
 
-
-### Application.spec.accessPolicy.outbound.external[index]
-<sup><sup>[↩ Parent](#applicationspecaccesspolicyoutbound)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicyoutbound)</sup>
 
 ExternalRule
 
@@ -598,14 +639,16 @@ Describes a rule for allowing your Application to route traffic to external appl
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>host</b></td>
         <td>string</td>
         <td>
           The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
@@ -615,7 +658,8 @@ Only required for TCP requests.
 Note: Hostname must always be defined even if IP is set statically<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyoutboundexternalindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
@@ -623,14 +667,13 @@ Note: Hostname must always be defined even if IP is set statically<br/>
 HTTPS on port 80 and 443 respectively are put into the allowlist<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyoutboundexternalindexportsindex"></a>
+#### Application.spec.accessPolicy.outbound.external[index].ports[index]
 
-
-### Application.spec.accessPolicy.outbound.external[index].ports[index]
-<sup><sup>[↩ Parent](#applicationspecaccesspolicyoutboundexternalindex)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicyoutboundexternalindex)</sup>
 
 ExternalPort
 
@@ -645,21 +688,24 @@ A custom port describing an external host
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
           Name is required and is an arbitrary name. Must be unique within all ExternalRule ports.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
           The port number of the external host<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
@@ -668,14 +714,13 @@ A custom port describing an external host
             <i>Enum</i>: HTTP, HTTPS, TCP, TLS<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyoutboundrulesindex"></a>
+#### Application.spec.accessPolicy.outbound.rules[index]
 
-
-### Application.spec.accessPolicy.outbound.rules[index]
-<sup><sup>[↩ Parent](#applicationspecaccesspolicyoutbound)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicyoutbound)</sup>
 
 InternalRule
 
@@ -692,7 +737,8 @@ other namespaces, namespace is required.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>application</b></td>
         <td>string</td>
         <td>
@@ -700,35 +746,37 @@ other namespaces, namespace is required.
 be suffixed with -skipjob<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespace</b></td>
         <td>string</td>
         <td>
           The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespacesByLabel</b></td>
         <td>map[string]string</td>
         <td>
           Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecaccesspolicyoutboundrulesindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
           The ports to allow for the above application.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecaccesspolicyoutboundrulesindexportsindex"></a>
+#### Application.spec.accessPolicy.outbound.rules[index].ports[index]
 
-
-### Application.spec.accessPolicy.outbound.rules[index].ports[index]
-<sup><sup>[↩ Parent](#applicationspecaccesspolicyoutboundrulesindex)</sup></sup>
-
-
+<sup>[Parent](#applicationspecaccesspolicyoutboundrulesindex)</sup>
 
 NetworkPolicyPort describes a port to allow traffic on
 
@@ -741,7 +789,8 @@ NetworkPolicyPort describes a port to allow traffic on
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>endPort</b></td>
         <td>integer</td>
         <td>
@@ -753,7 +802,8 @@ The endPort must be equal or greater than port.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
@@ -763,7 +813,8 @@ numbers.
 If present, only traffic on the specified protocol AND port will be matched.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>string</td>
         <td>
@@ -771,14 +822,13 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
 If not specified, this field defaults to TCP.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecadditionalportsindex"></a>
+#### Application.spec.additionalPorts[index]
 
-
-### Application.spec.additionalPorts[index]
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 
 
@@ -791,14 +841,16 @@ If not specified, this field defaults to TCP.<br/>
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
@@ -807,7 +859,8 @@ If not specified, this field defaults to TCP.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
@@ -816,14 +869,13 @@ If not specified, this field defaults to TCP.<br/>
             <i>Enum</i>: TCP, UDP, SCTP<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecauthorizationsettings"></a>
+#### Application.spec.authorizationSettings
 
-
-### Application.spec.authorizationSettings
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Used for allow listing certain default blocked endpoints, such as /actuator/ end points
 
@@ -836,7 +888,8 @@ Used for allow listing certain default blocked endpoints, such as /actuator/ end
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>allowAll</b></td>
         <td>boolean</td>
         <td>
@@ -846,7 +899,8 @@ If field is false, the contents of AllowList will be used instead if AllowList i
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>allowList</b></td>
         <td>[]string</td>
         <td>
@@ -855,14 +909,13 @@ If field is false, the contents of AllowList will be used instead if AllowList i
 Note that endpoints are matched specifically on the input, so if you allow /actuator/health, you will *not* allow /actuator/health/<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvindex"></a>
+#### Application.spec.env[index]
 
-
-### Application.spec.env[index]
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 EnvVar represents an environment variable present in a Container.
 
@@ -875,7 +928,8 @@ EnvVar represents an environment variable present in a Container.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -883,7 +937,8 @@ EnvVar represents an environment variable present in a Container.
 May consist of any printable ASCII characters except '='.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>value</b></td>
         <td>string</td>
         <td>
@@ -898,21 +953,21 @@ exists or not.
 Defaults to "".<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecenvindexvaluefrom">valueFrom</a></b></td>
         <td>object</td>
         <td>
           Source for the environment variable's value. Cannot be used if value is not empty.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvindexvaluefrom"></a>
+#### Application.spec.env[index].valueFrom
 
-
-### Application.spec.env[index].valueFrom
-<sup><sup>[↩ Parent](#applicationspecenvindex)</sup></sup>
-
-
+<sup>[Parent](#applicationspecenvindex)</sup>
 
 Source for the environment variable's value. Cannot be used if value is not empty.
 
@@ -925,14 +980,16 @@ Source for the environment variable's value. Cannot be used if value is not empt
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecenvindexvaluefromconfigmapkeyref">configMapKeyRef</a></b></td>
         <td>object</td>
         <td>
           Selects a key of a ConfigMap.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecenvindexvaluefromfieldref">fieldRef</a></b></td>
         <td>object</td>
         <td>
@@ -940,7 +997,8 @@ Source for the environment variable's value. Cannot be used if value is not empt
 spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecenvindexvaluefromfilekeyref">fileKeyRef</a></b></td>
         <td>object</td>
         <td>
@@ -948,7 +1006,8 @@ spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podI
 Requires the EnvFiles feature gate to be enabled.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecenvindexvaluefromresourcefieldref">resourceFieldRef</a></b></td>
         <td>object</td>
         <td>
@@ -956,21 +1015,21 @@ Requires the EnvFiles feature gate to be enabled.<br/>
 (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecenvindexvaluefromsecretkeyref">secretKeyRef</a></b></td>
         <td>object</td>
         <td>
           Selects a key of a secret in the pod's namespace<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvindexvaluefromconfigmapkeyref"></a>
+#### Application.spec.env[index].valueFrom.configMapKeyRef
 
-
-### Application.spec.env[index].valueFrom.configMapKeyRef
-<sup><sup>[↩ Parent](#applicationspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#applicationspecenvindexvaluefrom)</sup>
 
 Selects a key of a ConfigMap.
 
@@ -983,14 +1042,16 @@ Selects a key of a ConfigMap.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
           The key to select.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -1003,21 +1064,21 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
           Specify whether the ConfigMap or its key must be defined<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvindexvaluefromfieldref"></a>
+#### Application.spec.env[index].valueFrom.fieldRef
 
-
-### Application.spec.env[index].valueFrom.fieldRef
-<sup><sup>[↩ Parent](#applicationspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#applicationspecenvindexvaluefrom)</sup>
 
 Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`,
 spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
@@ -1031,28 +1092,29 @@ spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podI
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>fieldPath</b></td>
         <td>string</td>
         <td>
           Path of the field to select in the specified API version.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>apiVersion</b></td>
         <td>string</td>
         <td>
           Version of the schema the FieldPath is written in terms of, defaults to "v1".<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvindexvaluefromfilekeyref"></a>
+#### Application.spec.env[index].valueFrom.fileKeyRef
 
-
-### Application.spec.env[index].valueFrom.fileKeyRef
-<sup><sup>[↩ Parent](#applicationspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#applicationspecenvindexvaluefrom)</sup>
 
 FileKeyRef selects a key of the env file.
 Requires the EnvFiles feature gate to be enabled.
@@ -1066,7 +1128,8 @@ Requires the EnvFiles feature gate to be enabled.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
@@ -1075,7 +1138,8 @@ The keys defined within a source may consist of any printable ASCII characters e
 During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
@@ -1083,14 +1147,16 @@ During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 
 Must be relative and may not contain the '..' path or start with '..'.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>volumeName</b></td>
         <td>string</td>
         <td>
           The name of the volume mount containing the env file.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
@@ -1105,14 +1171,13 @@ an error will be returned during Pod creation.<br/>
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvindexvaluefromresourcefieldref"></a>
+#### Application.spec.env[index].valueFrom.resourceFieldRef
 
-
-### Application.spec.env[index].valueFrom.resourceFieldRef
-<sup><sup>[↩ Parent](#applicationspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#applicationspecenvindexvaluefrom)</sup>
 
 Selects a resource of the container: only resources limits and requests
 (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -1126,35 +1191,37 @@ Selects a resource of the container: only resources limits and requests
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>resource</b></td>
         <td>string</td>
         <td>
           Required: resource to select<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>containerName</b></td>
         <td>string</td>
         <td>
           Container name: required for volumes, optional for env vars<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>divisor</b></td>
         <td>int or string</td>
         <td>
           Specifies the output format of the exposed resources, defaults to "1"<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvindexvaluefromsecretkeyref"></a>
+#### Application.spec.env[index].valueFrom.secretKeyRef
 
-
-### Application.spec.env[index].valueFrom.secretKeyRef
-<sup><sup>[↩ Parent](#applicationspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#applicationspecenvindexvaluefrom)</sup>
 
 Selects a key of a secret in the pod's namespace
 
@@ -1167,14 +1234,16 @@ Selects a key of a secret in the pod's namespace
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
           The key of the secret to select from.  Must be a valid secret key.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -1187,21 +1256,21 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
           Specify whether the Secret or its key must be defined<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecenvfromindex"></a>
+#### Application.spec.envFrom[index]
 
-
-### Application.spec.envFrom[index]
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 
 
@@ -1214,28 +1283,29 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>configMap</b></td>
         <td>string</td>
         <td>
           Name of Kubernetes ConfigMap in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secret</b></td>
         <td>string</td>
         <td>
           Name of Kubernetes Secret in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecfilesfromindex"></a>
+#### Application.spec.filesFrom[index]
 
-
-### Application.spec.filesFrom[index]
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 FilesFrom
 
@@ -1252,21 +1322,24 @@ NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>mountPath</b></td>
         <td>string</td>
         <td>
           The path to mount the file in the Pods directory. Required.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>configMap</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>defaultMode</b></td>
         <td>integer</td>
         <td>
@@ -1279,35 +1352,37 @@ This might be in conflict with other options that affect the file
 mode, like fsGroup, and the result can be other mode bits set.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>emptyDir</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>persistentVolumeClaim</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secret</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecgcp"></a>
+#### Application.spec.gcp
 
-
-### Application.spec.gcp
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 GCP is used to configure Google Cloud Platform specific settings for the application.
 
@@ -1320,7 +1395,8 @@ GCP is used to configure Google Cloud Platform specific settings for the applica
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecgcpauth">auth</a></b></td>
         <td>object</td>
         <td>
@@ -1332,7 +1408,8 @@ Documentation on how this is done can be found here (Closed Wiki):
 https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentisering+mot+GCP+som+Kubernetes+SA<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecgcpcloudsqlproxy">cloudSqlProxy</a></b></td>
         <td>object</td>
         <td>
@@ -1340,14 +1417,13 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
 This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecgcpauth"></a>
+#### Application.spec.gcp.auth
 
-
-### Application.spec.gcp.auth
-<sup><sup>[↩ Parent](#applicationspecgcp)</sup></sup>
-
-
+<sup>[Parent](#applicationspecgcp)</sup>
 
 Configuration for authenticating a Pod with Google Cloud Platform
 For authentication with GCP, to use services like Secret Manager and/or Pub/Sub we need
@@ -1365,7 +1441,8 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
@@ -1373,14 +1450,13 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
 Generally takes the form of some-name@some-project-id.iam.gserviceaccount.com<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecgcpcloudsqlproxy"></a>
+#### Application.spec.gcp.cloudSqlProxy
 
-
-### Application.spec.gcp.cloudSqlProxy
-<sup><sup>[↩ Parent](#applicationspecgcp)</sup></sup>
-
-
+<sup>[Parent](#applicationspecgcp)</sup>
 
 CloudSQL is used to deploy a CloudSQL proxy sidecar in the pod.
 This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.
@@ -1394,7 +1470,8 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>connectionName</b></td>
         <td>string</td>
         <td>
@@ -1402,21 +1479,24 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
 The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-north1:my-db".<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
           The IP address of the CloudSQL instance. This is used to create a serviceentry for the CloudSQL proxy.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
           Service account used by cloudsql auth proxy. This service account must have the roles/cloudsql.client role.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>publicIP</b></td>
         <td>boolean</td>
         <td>
@@ -1425,21 +1505,21 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>version</b></td>
         <td>string</td>
         <td>
           Image version for the CloudSQL proxy sidecar.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecidporten"></a>
+#### Application.spec.idporten
 
-
-### Application.spec.idporten
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Settings for IDPorten integration with Digitaliseringsdirektoratet
 
@@ -1452,7 +1532,8 @@ Settings for IDPorten integration with Digitaliseringsdirektoratet
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>enabled</b></td>
         <td>boolean</td>
         <td>
@@ -1460,7 +1541,8 @@ Settings for IDPorten integration with Digitaliseringsdirektoratet
 If enabled, an ID-porten client will be provisioned.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>accessTokenLifetime</b></td>
         <td>integer</td>
         <td>
@@ -1472,7 +1554,8 @@ If unspecified, defaults to `3600` seconds (1 hour).<br/>
             <i>Maximum</i>: 3600<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>clientName</b></td>
         <td>string</td>
         <td>
@@ -1480,14 +1563,16 @@ If unspecified, defaults to `3600` seconds (1 hour).<br/>
 Meant to be a human-readable name for separating clients in the portal.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>clientURI</b></td>
         <td>string</td>
         <td>
           ClientURI is the URL shown to the user at ID-porten when displaying a 'back' button or on errors.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>frontchannelLogoutPath</b></td>
         <td>string</td>
         <td>
@@ -1495,7 +1580,8 @@ Meant to be a human-readable name for separating clients in the portal.<br/>
 initiated a logout elsewhere as part of a single logout (front channel logout) process.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>integrationType</b></td>
         <td>enum</td>
         <td>
@@ -1508,7 +1594,8 @@ NB! It is not possible to change the integration type after creation.<br/>
             <i>Enum</i>: krr, idporten, api_klient<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>postLogoutRedirectPath</b></td>
         <td>string</td>
         <td>
@@ -1516,7 +1603,8 @@ NB! It is not possible to change the integration type after creation.<br/>
 that will be appended to the ingress<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>postLogoutRedirectURIs</b></td>
         <td>[]string</td>
         <td>
@@ -1524,21 +1612,24 @@ that will be appended to the ingress<br/>
 has been initiated and performed by the application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>redirectPath</b></td>
         <td>string</td>
         <td>
           RedirectPath is a valid path that ID-porten redirects back to after a successful authorization request.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecidportenrequestauthentication">requestAuthentication</a></b></td>
         <td>object</td>
         <td>
           RequestAuthentication specifies how incoming JWTs should be validated.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>scopes</b></td>
         <td>[]string</td>
         <td>
@@ -1551,7 +1642,8 @@ Default for IntegrationType `idporten` = ("openid", "profile")
 IntegrationType `api_klient` have no Default, checkout Digdir documentation.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>sessionLifetime</b></td>
         <td>integer</td>
         <td>
@@ -1565,14 +1657,13 @@ Note: Attempting to refresh the user's `access_token` beyond this timeout will y
             <i>Maximum</i>: 7200<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecidportenrequestauthentication"></a>
+#### Application.spec.idporten.requestAuthentication
 
-
-### Application.spec.idporten.requestAuthentication
-<sup><sup>[↩ Parent](#applicationspecidporten)</sup></sup>
-
-
+<sup>[Parent](#applicationspecidporten)</sup>
 
 RequestAuthentication specifies how incoming JWTs should be validated.
 
@@ -1585,7 +1676,8 @@ RequestAuthentication specifies how incoming JWTs should be validated.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>enabled</b></td>
         <td>boolean</td>
         <td>
@@ -1593,7 +1685,8 @@ RequestAuthentication specifies how incoming JWTs should be validated.
 If enabled, incoming JWTs will be validated against the issuer specified in the app registration and the generated audience.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>forwardJwt</b></td>
         <td>boolean</td>
         <td>
@@ -1602,7 +1695,8 @@ If enabled, incoming JWTs will be validated against the issuer specified in the 
             <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ignorePaths</b></td>
         <td>[]string</td>
         <td>
@@ -1612,7 +1706,8 @@ The specified paths must be a valid URI path. It has to start with '/' and canno
 The paths can also contain the wildcard operator '*', but only at the end.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecidportenrequestauthenticationoutputclaimtoheadersindex">outputClaimToHeaders</a></b></td>
         <td>[]object</td>
         <td>
@@ -1620,7 +1715,8 @@ The paths can also contain the wildcard operator '*', but only at the end.<br/>
 The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>paths</b></td>
         <td>[]string</td>
         <td>
@@ -1630,7 +1726,8 @@ The specified paths must be a valid URI path. It has to start with '/' and canno
 The paths can also contain the wildcard operator '*', but only at the end.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secretName</b></td>
         <td>string</td>
         <td>
@@ -1639,7 +1736,8 @@ The paths can also contain the wildcard operator '*', but only at the end.<br/>
 If omitted, the associated client registration in the application manifest is used for JWT validation.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>tokenLocation</b></td>
         <td>enum</td>
         <td>
@@ -1655,14 +1753,13 @@ If omitted, its default value depends on the provider type:
             <i>Enum</i>: header, cookie<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecidportenrequestauthenticationoutputclaimtoheadersindex"></a>
+#### Application.spec.idporten.requestAuthentication.outputClaimToHeaders[index]
 
-
-### Application.spec.idporten.requestAuthentication.outputClaimToHeaders[index]
-<sup><sup>[↩ Parent](#applicationspecidportenrequestauthentication)</sup></sup>
-
-
+<sup>[Parent](#applicationspecidportenrequestauthentication)</sup>
 
 
 
@@ -1675,28 +1772,29 @@ If omitted, its default value depends on the provider type:
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>claim</b></td>
         <td>string</td>
         <td>
           The claim to be copied.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>header</b></td>
         <td>string</td>
         <td>
           The name of the HTTP header for which the specified claim will be copied to.<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecistiosettings"></a>
+#### Application.spec.istioSettings
 
-
-### Application.spec.istioSettings
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
 interval for tracing is the only supported option.
@@ -1711,7 +1809,8 @@ By default, tracing is enabled with a random sampling percentage of 10%.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecistiosettingsretries">retries</a></b></td>
         <td>object</td>
         <td>
@@ -1719,7 +1818,8 @@ By default, tracing is enabled with a random sampling percentage of 10%.
 By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled" will be retried.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecistiosettingstelemetry">telemetry</a></b></td>
         <td>object</td>
         <td>
@@ -1728,14 +1828,13 @@ By default requests falling under: "connect-failure,refused-stream,unavailable,c
             <i>Default</i>: `map[tracing:[map[randomSamplingPercentage:10]]]`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecistiosettingsretries"></a>
+#### Application.spec.istioSettings.retries
 
-
-### Application.spec.istioSettings.retries
-<sup><sup>[↩ Parent](#applicationspecistiosettings)</sup></sup>
-
-
+<sup>[Parent](#applicationspecistiosettings)</sup>
 
 Retries is configurable automatic retries for requests towards the application.
 By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled" will be retried.
@@ -1749,7 +1848,8 @@ By default requests falling under: "connect-failure,refused-stream,unavailable,c
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>attempts</b></td>
         <td>integer</td>
         <td>
@@ -1760,7 +1860,8 @@ Default is 2<br/>
             <i>Minimum</i>: 1<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>perTryTimeout</b></td>
         <td>string</td>
         <td>
@@ -1770,7 +1871,8 @@ Default: no timeout<br/>
             <i>Format</i>: duration<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>retryOnHttpResponseCodes</b></td>
         <td>[]int or string</td>
         <td>
@@ -1779,14 +1881,13 @@ You may also use 5xx and retriable-4xx (only 409).
 mixed types are allowed such as [503, "retriable-4xx"]<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecistiosettingstelemetry"></a>
+#### Application.spec.istioSettings.telemetry
 
-
-### Application.spec.istioSettings.telemetry
-<sup><sup>[↩ Parent](#applicationspecistiosettings)</sup></sup>
-
-
+<sup>[Parent](#applicationspecistiosettings)</sup>
 
 Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.
 
@@ -1799,7 +1900,8 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecistiosettingstelemetrytracingindex">tracing</a></b></td>
         <td>[]object</td>
         <td>
@@ -1808,14 +1910,13 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
             <i>Default</i>: `[map[randomSamplingPercentage:10]]`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecistiosettingstelemetrytracingindex"></a>
+#### Application.spec.istioSettings.telemetry.tracing[index]
 
-
-### Application.spec.istioSettings.telemetry.tracing[index]
-<sup><sup>[↩ Parent](#applicationspecistiosettingstelemetry)</sup></sup>
-
-
+<sup>[Parent](#applicationspecistiosettingstelemetry)</sup>
 
 Tracing contains relevant settings for tracing in the telemetry configuration
 
@@ -1828,7 +1929,8 @@ Tracing contains relevant settings for tracing in the telemetry configuration
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>randomSamplingPercentage</b></td>
         <td>integer</td>
         <td>
@@ -1840,14 +1942,13 @@ Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
             <i>Maximum</i>: 100<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecliveness"></a>
+#### Application.spec.liveness
 
-
-### Application.spec.liveness
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Liveness probes define a resource that returns 200 OK when the app is running
 as intended. Returning a non-200 code will make kubernetes restart the app.
@@ -1864,21 +1965,24 @@ See Probe for structure definition.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -1889,7 +1993,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -1900,7 +2005,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -1910,7 +2016,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -1921,7 +2028,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -1932,14 +2040,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecmaskinporten"></a>
+#### Application.spec.maskinporten
 
-
-### Application.spec.maskinporten
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Settings for Maskinporten integration with Digitaliseringsdirektoratet
 
@@ -1952,14 +2059,16 @@ Settings for Maskinporten integration with Digitaliseringsdirektoratet
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>enabled</b></td>
         <td>boolean</td>
         <td>
           If enabled, provisions and configures a Maskinporten client with consumed scopes and/or Exposed scopes with DigDir.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>clientName</b></td>
         <td>string</td>
         <td>
@@ -1967,28 +2076,29 @@ Settings for Maskinporten integration with Digitaliseringsdirektoratet
 Meant to be a human-readable name for separating clients in the portal<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecmaskinportenrequestauthentication">requestAuthentication</a></b></td>
         <td>object</td>
         <td>
           RequestAuthentication specifies how incoming JWTs should be validated.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecmaskinportenscopes">scopes</a></b></td>
         <td>object</td>
         <td>
           Schema to configure Maskinporten clients with consumed scopes and/or exposed scopes.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecmaskinportenrequestauthentication"></a>
+#### Application.spec.maskinporten.requestAuthentication
 
-
-### Application.spec.maskinporten.requestAuthentication
-<sup><sup>[↩ Parent](#applicationspecmaskinporten)</sup></sup>
-
-
+<sup>[Parent](#applicationspecmaskinporten)</sup>
 
 RequestAuthentication specifies how incoming JWTs should be validated.
 
@@ -2001,7 +2111,8 @@ RequestAuthentication specifies how incoming JWTs should be validated.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>enabled</b></td>
         <td>boolean</td>
         <td>
@@ -2009,7 +2120,8 @@ RequestAuthentication specifies how incoming JWTs should be validated.
 If enabled, incoming JWTs will be validated against the issuer specified in the app registration and the generated audience.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>forwardJwt</b></td>
         <td>boolean</td>
         <td>
@@ -2018,7 +2130,8 @@ If enabled, incoming JWTs will be validated against the issuer specified in the 
             <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ignorePaths</b></td>
         <td>[]string</td>
         <td>
@@ -2028,7 +2141,8 @@ The specified paths must be a valid URI path. It has to start with '/' and canno
 The paths can also contain the wildcard operator '*', but only at the end.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecmaskinportenrequestauthenticationoutputclaimtoheadersindex">outputClaimToHeaders</a></b></td>
         <td>[]object</td>
         <td>
@@ -2036,7 +2150,8 @@ The paths can also contain the wildcard operator '*', but only at the end.<br/>
 The header specified in each operation in the list must be unique. Nested claims of type string/int/bool is supported as well.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>paths</b></td>
         <td>[]string</td>
         <td>
@@ -2046,7 +2161,8 @@ The specified paths must be a valid URI path. It has to start with '/' and canno
 The paths can also contain the wildcard operator '*', but only at the end.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secretName</b></td>
         <td>string</td>
         <td>
@@ -2055,7 +2171,8 @@ The paths can also contain the wildcard operator '*', but only at the end.<br/>
 If omitted, the associated client registration in the application manifest is used for JWT validation.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>tokenLocation</b></td>
         <td>enum</td>
         <td>
@@ -2071,14 +2188,13 @@ If omitted, its default value depends on the provider type:
             <i>Enum</i>: header, cookie<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecmaskinportenrequestauthenticationoutputclaimtoheadersindex"></a>
+#### Application.spec.maskinporten.requestAuthentication.outputClaimToHeaders[index]
 
-
-### Application.spec.maskinporten.requestAuthentication.outputClaimToHeaders[index]
-<sup><sup>[↩ Parent](#applicationspecmaskinportenrequestauthentication)</sup></sup>
-
-
+<sup>[Parent](#applicationspecmaskinportenrequestauthentication)</sup>
 
 
 
@@ -2091,28 +2207,29 @@ If omitted, its default value depends on the provider type:
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>claim</b></td>
         <td>string</td>
         <td>
           The claim to be copied.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>header</b></td>
         <td>string</td>
         <td>
           The name of the HTTP header for which the specified claim will be copied to.<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecmaskinportenscopes"></a>
+#### Application.spec.maskinporten.scopes
 
-
-### Application.spec.maskinporten.scopes
-<sup><sup>[↩ Parent](#applicationspecmaskinporten)</sup></sup>
-
-
+<sup>[Parent](#applicationspecmaskinporten)</sup>
 
 Schema to configure Maskinporten clients with consumed scopes and/or exposed scopes.
 
@@ -2125,7 +2242,8 @@ Schema to configure Maskinporten clients with consumed scopes and/or exposed sco
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#applicationspecmaskinportenscopesconsumesindex">consumes</a></b></td>
         <td>[]object</td>
         <td>
@@ -2133,21 +2251,21 @@ Schema to configure Maskinporten clients with consumed scopes and/or exposed sco
 `consumes` is a list of scopes that your client can request access to.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecmaskinportenscopesexposesindex">exposes</a></b></td>
         <td>[]object</td>
         <td>
           `exposes` is a list of scopes your application want to expose to other organization where access to the scope is based on organization number.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecmaskinportenscopesconsumesindex"></a>
+#### Application.spec.maskinporten.scopes.consumes[index]
 
-
-### Application.spec.maskinporten.scopes.consumes[index]
-<sup><sup>[↩ Parent](#applicationspecmaskinportenscopes)</sup></sup>
-
-
+<sup>[Parent](#applicationspecmaskinportenscopes)</sup>
 
 
 
@@ -2160,7 +2278,8 @@ Schema to configure Maskinporten clients with consumed scopes and/or exposed sco
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -2168,14 +2287,13 @@ Schema to configure Maskinporten clients with consumed scopes and/or exposed sco
 Ensure that the NAV organization has been granted access to the scope prior to requesting access.<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecmaskinportenscopesexposesindex"></a>
+#### Application.spec.maskinporten.scopes.exposes[index]
 
-
-### Application.spec.maskinporten.scopes.exposes[index]
-<sup><sup>[↩ Parent](#applicationspecmaskinportenscopes)</sup></sup>
-
-
+<sup>[Parent](#applicationspecmaskinportenscopes)</sup>
 
 
 
@@ -2188,14 +2306,16 @@ Ensure that the NAV organization has been granted access to the scope prior to r
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>enabled</b></td>
         <td>boolean</td>
         <td>
           If Enabled the configured scope is available to be used and consumed by organizations granted access.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -2203,7 +2323,8 @@ Ensure that the NAV organization has been granted access to the scope prior to r
 Ensure that `<Product><Name>` matches `Pattern`.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>product</b></td>
         <td>string</td>
         <td>
@@ -2211,14 +2332,16 @@ Ensure that `<Product><Name>` matches `Pattern`.<br/>
 This will be included in the final scope `nav:<Product><Name>`.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>accessibleForAll</b></td>
         <td>boolean</td>
         <td>
           Allow any organization to access the scope.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>allowedIntegrations</b></td>
         <td>[]string</td>
         <td>
@@ -2226,7 +2349,8 @@ This will be included in the final scope `nav:<Product><Name>`.<br/>
 Default is `maskinporten`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>atMaxAge</b></td>
         <td>integer</td>
         <td>
@@ -2237,14 +2361,16 @@ Default is `30` sec.<br/>
             <i>Maximum</i>: 680<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecmaskinportenscopesexposesindexconsumersindex">consumers</a></b></td>
         <td>[]object</td>
         <td>
           External consumers granted access to this scope and able to request access_token.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>delegationSource</b></td>
         <td>enum</td>
         <td>
@@ -2253,7 +2379,8 @@ Default is `30` sec.<br/>
             <i>Enum</i>: altinn<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>separator</b></td>
         <td>string</td>
         <td>
@@ -2263,7 +2390,8 @@ This overrides the default separator.
 The default separator is `:`. If `name` contains `/`, the default separator is instead `/`.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>visibility</b></td>
         <td>enum</td>
         <td>
@@ -2275,14 +2403,13 @@ organizations that have been granted consumer access.<br/>
             <i>Enum</i>: private, public<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecmaskinportenscopesexposesindexconsumersindex"></a>
+#### Application.spec.maskinporten.scopes.exposes[index].consumers[index]
 
-
-### Application.spec.maskinporten.scopes.exposes[index].consumers[index]
-<sup><sup>[↩ Parent](#applicationspecmaskinportenscopesexposesindex)</sup></sup>
-
-
+<sup>[Parent](#applicationspecmaskinportenscopesexposesindex)</sup>
 
 
 
@@ -2295,28 +2422,29 @@ organizations that have been granted consumer access.<br/>
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>orgno</b></td>
         <td>string</td>
         <td>
           The external business/organization number.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
           This is a describing field intended for clarity not used for any other purpose.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecpodsettings"></a>
+#### Application.spec.podSettings
 
-
-### Application.spec.podSettings
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 PodSettings are used to apply specific settings to the Pod Template used by Skiperator to create Deployments. This allows you to set
 things like annotations on the Pod to change the behaviour of sidecars, and set relevant Pod options such as TerminationGracePeriodSeconds.
@@ -2330,14 +2458,16 @@ things like annotations on the Pod to change the behaviour of sidecars, and set 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>annotations</b></td>
         <td>map[string]string</td>
         <td>
           Annotations that are set on Pods created by Skiperator. These annotations can for example be used to change the behaviour of sidecars and similar.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>disablePodSpreadTopologyConstraints</b></td>
         <td>boolean</td>
         <td>
@@ -2347,7 +2477,8 @@ a given pod.<br/>
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>terminationGracePeriodSeconds</b></td>
         <td>integer</td>
         <td>
@@ -2358,14 +2489,13 @@ a given pod.<br/>
             <i>Default</i>: `30`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecprometheus"></a>
+#### Application.spec.prometheus
 
-
-### Application.spec.prometheus
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Optional settings for how Prometheus compatible metrics should be scraped.
 
@@ -2378,14 +2508,16 @@ Optional settings for how Prometheus compatible metrics should be scraped.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           The port number or name where metrics are exposed (at the Pod level).<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>allowAllMetrics</b></td>
         <td>boolean</td>
         <td>
@@ -2395,7 +2527,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
@@ -2404,7 +2537,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
             <i>Default</i>: `/metrics`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>scrapeInterval</b></td>
         <td>string</td>
         <td>
@@ -2412,18 +2546,19 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Validations</i>:<li>self == '' || self.matches('^([0-9]+[sm])+$'): </li><li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
+            <i>Validations</i>:
+              <li>self == '' || self.matches('^([0-9]+[sm])+$'): </li>
+              <li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
             <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecreadiness"></a>
+#### Application.spec.readiness
 
-
-### Application.spec.readiness
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Readiness probes define a resource that returns 200 OK when the app is running
 as intended. Kubernetes will wait until the resource returns 200 OK before
@@ -2439,21 +2574,24 @@ Readiness is optional, but when provided, path and port are required
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -2464,7 +2602,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -2475,7 +2614,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -2485,7 +2625,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -2496,7 +2637,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -2507,14 +2649,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecresources"></a>
+#### Application.spec.resources
 
-
-### Application.spec.resources
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 ResourceRequirements to apply to the deployment. It's common to set some of these to
 prevent the app from swelling in resource usage and consuming all the
@@ -2529,7 +2670,8 @@ resources of other apps on the cluster.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>limits</b></td>
         <td>map[string]int or string</td>
         <td>
@@ -2539,7 +2681,8 @@ make kubernetes kill the app and restart it.
 Limits can be set on the CPU and memory, but it is not recommended to put a limit on CPU, see: https://home.robusta.dev/blog/stop-using-cpu-limits<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>requests</b></td>
         <td>map[string]int or string</td>
         <td>
@@ -2550,14 +2693,13 @@ until the limit is reached.
 Requests can be set on the CPU and memory.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecstartup"></a>
+#### Application.spec.startup
 
-
-### Application.spec.startup
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Kubernetes uses startup probes to know when a container application has started.
 If such a probe is configured, it disables liveness and readiness checks until it
@@ -2575,21 +2717,24 @@ Startup is optional, but when provided, path and port are required
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -2600,7 +2745,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -2611,7 +2757,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -2621,7 +2768,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -2632,7 +2780,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -2643,14 +2792,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationspecstrategy"></a>
+#### Application.spec.strategy
 
-
-### Application.spec.strategy
-<sup><sup>[↩ Parent](#applicationspec)</sup></sup>
-
-
+<sup>[Parent](#applicationspec)</sup>
 
 Defines an alternative strategy for the Kubernetes deployment. This is useful when
 the default strategy, RollingUpdate, is not usable. Setting type to
@@ -2669,7 +2817,8 @@ Valid values are: RollingUpdate, Recreate. Default is RollingUpdate
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>type</b></td>
         <td>enum</td>
         <td>
@@ -2679,14 +2828,13 @@ Valid values are: RollingUpdate, Recreate. Default is RollingUpdate
             <i>Default</i>: `RollingUpdate`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationstatus"></a>
+#### Application.status
 
-
-### Application.status
-<sup><sup>[↩ Parent](#application)</sup></sup>
-
-
+<sup>[Parent](#application)</sup>
 
 SkiperatorStatus
 
@@ -2701,42 +2849,45 @@ A status field shown on a Skiperator resource which contains information regardi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>accessPolicies</b></td>
         <td>string</td>
         <td>
           Indicates if access policies are valid<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationstatusconditionsindex">conditions</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationstatussubresourceskey">subresources</a></b></td>
         <td>map[string]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#applicationstatussummary">summary</a></b></td>
         <td>object</td>
         <td>
           Status<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationstatusconditionsindex"></a>
+#### Application.status.conditions[index]
 
-
-### Application.status.conditions[index]
-<sup><sup>[↩ Parent](#applicationstatus)</sup></sup>
-
-
+<sup>[Parent](#applicationstatus)</sup>
 
 Condition contains details for one aspect of the current state of this API Resource.
 
@@ -2749,7 +2900,8 @@ Condition contains details for one aspect of the current state of this API Resou
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>lastTransitionTime</b></td>
         <td>string</td>
         <td>
@@ -2759,7 +2911,8 @@ This should be when the underlying condition changed.  If that is not known, the
             <i>Format</i>: date-time<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -2767,7 +2920,8 @@ This should be when the underlying condition changed.  If that is not known, the
 This may be an empty string.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>reason</b></td>
         <td>string</td>
         <td>
@@ -2778,7 +2932,8 @@ The value should be a CamelCase string.
 This field may not be empty.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>enum</td>
         <td>
@@ -2787,14 +2942,16 @@ This field may not be empty.<br/>
             <i>Enum</i>: True, False, Unknown<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>type</b></td>
         <td>string</td>
         <td>
           type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>observedGeneration</b></td>
         <td>integer</td>
         <td>
@@ -2806,14 +2963,13 @@ with respect to the current state of the instance.<br/>
             <i>Minimum</i>: 0<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationstatussubresourceskey"></a>
+#### Application.status.subresources[key]
 
-
-### Application.status.subresources[key]
-<sup><sup>[↩ Parent](#applicationstatus)</sup></sup>
-
-
+<sup>[Parent](#applicationstatus)</sup>
 
 Status
 
@@ -2826,7 +2982,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -2835,7 +2992,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -2844,21 +3002,21 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="applicationstatussummary"></a>
+#### Application.status.summary
 
-
-### Application.status.summary
-<sup><sup>[↩ Parent](#applicationstatus)</sup></sup>
-
-
+<sup>[Parent](#applicationstatus)</sup>
 
 Status
 
@@ -2871,7 +3029,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -2880,7 +3039,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -2889,22 +3049,25 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="routing"></a>
+### Routing
 
-## Routing
-
-
-
-
-
+| Field | Value |
+| --- | --- |
+| Package | `skiperator.kartverket.no/v1alpha1` |
+| API version | `skiperator.kartverket.no/v1alpha1` |
+| Kind | `Routing` |
 
 
 
@@ -2917,7 +3080,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
       <td><b>apiVersion</b></td>
       <td>string</td>
       <td>skiperator.kartverket.no/v1alpha1</td>
@@ -2934,14 +3098,16 @@ Status
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#routingspec">spec</a></b></td>
         <td>object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#routingstatus">status</a></b></td>
         <td>object</td>
         <td>
@@ -2950,14 +3116,13 @@ Status
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="routingspec"></a>
+#### Routing.spec
 
-
-### Routing.spec
-<sup><sup>[↩ Parent](#routing)</sup></sup>
-
-
+<sup>[Parent](#routing)</sup>
 
 
 
@@ -2970,21 +3135,24 @@ A status field shown on a Skiperator resource which contains information regardi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>hostname</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#routingspecroutesindex">routes</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>redirectToHTTPS</b></td>
         <td>boolean</td>
         <td>
@@ -2993,14 +3161,13 @@ A status field shown on a Skiperator resource which contains information regardi
             <i>Default</i>: `true`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="routingspecroutesindex"></a>
+#### Routing.spec.routes[index]
 
-
-### Routing.spec.routes[index]
-<sup><sup>[↩ Parent](#routingspec)</sup></sup>
-
-
+<sup>[Parent](#routingspec)</sup>
 
 
 
@@ -3013,21 +3180,24 @@ A status field shown on a Skiperator resource which contains information regardi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>pathPrefix</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>targetApp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
@@ -3036,7 +3206,8 @@ A status field shown on a Skiperator resource which contains information regardi
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>rewriteUri</b></td>
         <td>boolean</td>
         <td>
@@ -3045,14 +3216,13 @@ A status field shown on a Skiperator resource which contains information regardi
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="routingstatus"></a>
+#### Routing.status
 
-
-### Routing.status
-<sup><sup>[↩ Parent](#routing)</sup></sup>
-
-
+<sup>[Parent](#routing)</sup>
 
 SkiperatorStatus
 
@@ -3067,42 +3237,45 @@ A status field shown on a Skiperator resource which contains information regardi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>accessPolicies</b></td>
         <td>string</td>
         <td>
           Indicates if access policies are valid<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#routingstatusconditionsindex">conditions</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#routingstatussubresourceskey">subresources</a></b></td>
         <td>map[string]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#routingstatussummary">summary</a></b></td>
         <td>object</td>
         <td>
           Status<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="routingstatusconditionsindex"></a>
+#### Routing.status.conditions[index]
 
-
-### Routing.status.conditions[index]
-<sup><sup>[↩ Parent](#routingstatus)</sup></sup>
-
-
+<sup>[Parent](#routingstatus)</sup>
 
 Condition contains details for one aspect of the current state of this API Resource.
 
@@ -3115,7 +3288,8 @@ Condition contains details for one aspect of the current state of this API Resou
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>lastTransitionTime</b></td>
         <td>string</td>
         <td>
@@ -3125,7 +3299,8 @@ This should be when the underlying condition changed.  If that is not known, the
             <i>Format</i>: date-time<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -3133,7 +3308,8 @@ This should be when the underlying condition changed.  If that is not known, the
 This may be an empty string.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>reason</b></td>
         <td>string</td>
         <td>
@@ -3144,7 +3320,8 @@ The value should be a CamelCase string.
 This field may not be empty.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>enum</td>
         <td>
@@ -3153,14 +3330,16 @@ This field may not be empty.<br/>
             <i>Enum</i>: True, False, Unknown<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>type</b></td>
         <td>string</td>
         <td>
           type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>observedGeneration</b></td>
         <td>integer</td>
         <td>
@@ -3172,14 +3351,13 @@ with respect to the current state of the instance.<br/>
             <i>Minimum</i>: 0<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="routingstatussubresourceskey"></a>
+#### Routing.status.subresources[key]
 
-
-### Routing.status.subresources[key]
-<sup><sup>[↩ Parent](#routingstatus)</sup></sup>
-
-
+<sup>[Parent](#routingstatus)</sup>
 
 Status
 
@@ -3192,7 +3370,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -3201,7 +3380,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -3210,21 +3390,21 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="routingstatussummary"></a>
+#### Routing.status.summary
 
-
-### Routing.status.summary
-<sup><sup>[↩ Parent](#routingstatus)</sup></sup>
-
-
+<sup>[Parent](#routingstatus)</sup>
 
 Status
 
@@ -3237,7 +3417,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -3246,7 +3427,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -3255,22 +3437,25 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjob"></a>
+### SKIPJob
 
-## SKIPJob
-
-
-
-
-
+| Field | Value |
+| --- | --- |
+| Package | `skiperator.kartverket.no/v1alpha1` |
+| API version | `skiperator.kartverket.no/v1alpha1` |
+| Kind | `SKIPJob` |
 
 SKIPJob is the Schema for the skipjobs API
 
@@ -3283,7 +3468,8 @@ SKIPJob is the Schema for the skipjobs API
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
       <td><b>apiVersion</b></td>
       <td>string</td>
       <td>skiperator.kartverket.no/v1alpha1</td>
@@ -3300,7 +3486,8 @@ SKIPJob is the Schema for the skipjobs API
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspec">spec</a></b></td>
         <td>object</td>
         <td>
@@ -3309,10 +3496,13 @@ SKIPJob is the Schema for the skipjobs API
 A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.
 The Container field of a SKIPJob is only mutable if the Cron field is set. If unset, you must delete your SKIPJob to change container settings.<br/>
           <br/>
-            <i>Validations</i>:<li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li><li>((!has(self.cron) && (oldSelf.container == self.container)) || has(self.cron)): The field Container is immutable for one-off jobs. Please delete your SKIPJob to change the containers settings.</li>
+            <i>Validations</i>:
+              <li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li>
+              <li>((!has(self.cron) && (oldSelf.container == self.container)) || has(self.cron)): The field Container is immutable for one-off jobs. Please delete your SKIPJob to change the containers settings.</li>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatus">status</a></b></td>
         <td>object</td>
         <td>
@@ -3321,14 +3511,13 @@ The Container field of a SKIPJob is only mutable if the Cron field is set. If un
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspec"></a>
+#### SKIPJob.spec
 
-
-### SKIPJob.spec
-<sup><sup>[↩ Parent](#skipjob)</sup></sup>
-
-
+<sup>[Parent](#skipjob)</sup>
 
 SKIPJobSpec defines the desired state of SKIPJob
 
@@ -3344,7 +3533,8 @@ The Container field of a SKIPJob is only mutable if the Cron field is set. If un
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspeccontainer">container</a></b></td>
         <td>object</td>
         <td>
@@ -3352,14 +3542,16 @@ The Container field of a SKIPJob is only mutable if the Cron field is set. If un
 Once set, you may not change Container without deleting your current SKIPJob<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccron">cron</a></b></td>
         <td>object</td>
         <td>
           Settings for the Job if you are running a scheduled job. Optional as Jobs may be one-off.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecistiosettings">istioSettings</a></b></td>
         <td>object</td>
         <td>
@@ -3370,14 +3562,16 @@ By default, tracing is enabled with a random sampling percentage of 10%.<br/>
             <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecjob">job</a></b></td>
         <td>object</td>
         <td>
           Settings for the actual Job. If you use a scheduled job, the settings in here will also specify the template of the job.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>labels</b></td>
         <td>map[string]string</td>
         <td>
@@ -3387,7 +3581,8 @@ metrics, where a certain label and the corresponding resources liveliness can be
 Any amount of labels can be added as wanted, and they will all cascade down to all resources.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecprometheus">prometheus</a></b></td>
         <td>object</td>
         <td>
@@ -3395,7 +3590,8 @@ Any amount of labels can be added as wanted, and they will all cascade down to a
 a podmonitoring object is created.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>team</b></td>
         <td>string</td>
         <td>
@@ -3403,14 +3599,13 @@ a podmonitoring object is created.<br/>
 Usually sourced from the namespace label.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainer"></a>
+#### SKIPJob.spec.container
 
-
-### SKIPJob.spec.container
-<sup><sup>[↩ Parent](#skipjobspec)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec)</sup>
 
 Settings for the Pods running in the job. Fields are mostly the same as an Application, and are (probably) better documented there. Some fields are omitted, but none added.
 Once set, you may not change Container without deleting your current SKIPJob
@@ -3424,14 +3619,16 @@ Once set, you may not change Container without deleting your current SKIPJob
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>image</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicy">accessPolicy</a></b></td>
         <td>object</td>
         <td>
@@ -3444,42 +3641,48 @@ Deployment. The AccessPolicy field is an allowlist of other applications and hos
 that are allowed to talk with this Application and which resources this app can talk to<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontaineradditionalportsindex">additionalPorts</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>command</b></td>
         <td>[]string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvindex">env</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvfromindex">envFrom</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerfilesfromindex">filesFrom</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainergcp">gcp</a></b></td>
         <td>object</td>
         <td>
@@ -3488,7 +3691,8 @@ that are allowed to talk with this Application and which resources this app can 
 Configuration for interacting with Google Cloud Platform<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerliveness">liveness</a></b></td>
         <td>object</td>
         <td>
@@ -3497,14 +3701,16 @@ Configuration for interacting with Google Cloud Platform<br/>
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerpodsettings">podSettings</a></b></td>
         <td>object</td>
         <td>
           PodSettings<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>priority</b></td>
         <td>enum</td>
         <td>
@@ -3514,7 +3720,8 @@ Type configuration for all types of Kubernetes probes.<br/>
             <i>Default</i>: `medium`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerreadiness">readiness</a></b></td>
         <td>object</td>
         <td>
@@ -3523,7 +3730,8 @@ Type configuration for all types of Kubernetes probes.<br/>
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerresources">resources</a></b></td>
         <td>object</td>
         <td>
@@ -3533,7 +3741,8 @@ A simplified version of the Kubernetes native ResourceRequirement field, in whic
 For the units used for resources, see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>restartPolicy</b></td>
         <td>enum</td>
         <td>
@@ -3546,7 +3755,8 @@ is RestartPolicyAlways.<br/>
             <i>Default</i>: `Never`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerstartup">startup</a></b></td>
         <td>object</td>
         <td>
@@ -3555,14 +3765,13 @@ is RestartPolicyAlways.<br/>
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicy"></a>
+#### SKIPJob.spec.container.accessPolicy
 
-
-### SKIPJob.spec.container.accessPolicy
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 AccessPolicy
 
@@ -3581,14 +3790,16 @@ that are allowed to talk with this Application and which resources this app can 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyinbound">inbound</a></b></td>
         <td>object</td>
         <td>
           Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyoutbound">outbound</a></b></td>
         <td>object</td>
         <td>
@@ -3596,14 +3807,13 @@ that are allowed to talk with this Application and which resources this app can 
 internet is the Application allowed to send requests to?<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyinbound"></a>
+#### SKIPJob.spec.container.accessPolicy.inbound
 
-
-### SKIPJob.spec.container.accessPolicy.inbound
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicy)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicy)</sup>
 
 Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?
 
@@ -3616,7 +3826,8 @@ Inbound specifies the ingress rules. Which apps on the cluster can talk to this 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyinboundrulesindex">rules</a></b></td>
         <td>[]object</td>
         <td>
@@ -3625,14 +3836,13 @@ specified it refers to an app in the current namespace. For apps in
 other namespaces namespace is required<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyinboundrulesindex"></a>
+#### SKIPJob.spec.container.accessPolicy.inbound.rules[index]
 
-
-### SKIPJob.spec.container.accessPolicy.inbound.rules[index]
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicyinbound)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicyinbound)</sup>
 
 InternalRule
 
@@ -3649,7 +3859,8 @@ other namespaces, namespace is required.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>application</b></td>
         <td>string</td>
         <td>
@@ -3657,35 +3868,37 @@ other namespaces, namespace is required.
 be suffixed with -skipjob<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespace</b></td>
         <td>string</td>
         <td>
           The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespacesByLabel</b></td>
         <td>map[string]string</td>
         <td>
           Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyinboundrulesindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
           The ports to allow for the above application.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyinboundrulesindexportsindex"></a>
+#### SKIPJob.spec.container.accessPolicy.inbound.rules[index].ports[index]
 
-
-### SKIPJob.spec.container.accessPolicy.inbound.rules[index].ports[index]
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicyinboundrulesindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicyinboundrulesindex)</sup>
 
 NetworkPolicyPort describes a port to allow traffic on
 
@@ -3698,7 +3911,8 @@ NetworkPolicyPort describes a port to allow traffic on
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>endPort</b></td>
         <td>integer</td>
         <td>
@@ -3710,7 +3924,8 @@ The endPort must be equal or greater than port.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
@@ -3720,7 +3935,8 @@ numbers.
 If present, only traffic on the specified protocol AND port will be matched.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>string</td>
         <td>
@@ -3728,14 +3944,13 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
 If not specified, this field defaults to TCP.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyoutbound"></a>
+#### SKIPJob.spec.container.accessPolicy.outbound
 
-
-### SKIPJob.spec.container.accessPolicy.outbound
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicy)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicy)</sup>
 
 Outbound specifies egress rules. Which apps on the cluster and the
 internet is the Application allowed to send requests to?
@@ -3749,7 +3964,8 @@ internet is the Application allowed to send requests to?
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyoutboundexternalindex">external</a></b></td>
         <td>[]object</td>
         <td>
@@ -3758,21 +3974,21 @@ can reach. Only host is required unless it is on another port than HTTPS port 44
 If other ports or protocols are required then `ports` must be specified as well<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyoutboundrulesindex">rules</a></b></td>
         <td>[]object</td>
         <td>
           Rules apply the same in-cluster rules as InboundPolicy<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyoutboundexternalindex"></a>
+#### SKIPJob.spec.container.accessPolicy.outbound.external[index]
 
-
-### SKIPJob.spec.container.accessPolicy.outbound.external[index]
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicyoutbound)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicyoutbound)</sup>
 
 ExternalRule
 
@@ -3787,14 +4003,16 @@ Describes a rule for allowing your Application to route traffic to external appl
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>host</b></td>
         <td>string</td>
         <td>
           The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
@@ -3804,7 +4022,8 @@ Only required for TCP requests.
 Note: Hostname must always be defined even if IP is set statically<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyoutboundexternalindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
@@ -3812,14 +4031,13 @@ Note: Hostname must always be defined even if IP is set statically<br/>
 HTTPS on port 80 and 443 respectively are put into the allowlist<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyoutboundexternalindexportsindex"></a>
+#### SKIPJob.spec.container.accessPolicy.outbound.external[index].ports[index]
 
-
-### SKIPJob.spec.container.accessPolicy.outbound.external[index].ports[index]
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicyoutboundexternalindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicyoutboundexternalindex)</sup>
 
 ExternalPort
 
@@ -3834,21 +4052,24 @@ A custom port describing an external host
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
           Name is required and is an arbitrary name. Must be unique within all ExternalRule ports.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
           The port number of the external host<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
@@ -3857,14 +4078,13 @@ A custom port describing an external host
             <i>Enum</i>: HTTP, HTTPS, TCP, TLS<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyoutboundrulesindex"></a>
+#### SKIPJob.spec.container.accessPolicy.outbound.rules[index]
 
-
-### SKIPJob.spec.container.accessPolicy.outbound.rules[index]
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicyoutbound)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicyoutbound)</sup>
 
 InternalRule
 
@@ -3881,7 +4101,8 @@ other namespaces, namespace is required.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>application</b></td>
         <td>string</td>
         <td>
@@ -3889,35 +4110,37 @@ other namespaces, namespace is required.
 be suffixed with -skipjob<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespace</b></td>
         <td>string</td>
         <td>
           The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespacesByLabel</b></td>
         <td>map[string]string</td>
         <td>
           Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontaineraccesspolicyoutboundrulesindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
           The ports to allow for the above application.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineraccesspolicyoutboundrulesindexportsindex"></a>
+#### SKIPJob.spec.container.accessPolicy.outbound.rules[index].ports[index]
 
-
-### SKIPJob.spec.container.accessPolicy.outbound.rules[index].ports[index]
-<sup><sup>[↩ Parent](#skipjobspeccontaineraccesspolicyoutboundrulesindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontaineraccesspolicyoutboundrulesindex)</sup>
 
 NetworkPolicyPort describes a port to allow traffic on
 
@@ -3930,7 +4153,8 @@ NetworkPolicyPort describes a port to allow traffic on
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>endPort</b></td>
         <td>integer</td>
         <td>
@@ -3942,7 +4166,8 @@ The endPort must be equal or greater than port.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
@@ -3952,7 +4177,8 @@ numbers.
 If present, only traffic on the specified protocol AND port will be matched.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>string</td>
         <td>
@@ -3960,14 +4186,13 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
 If not specified, this field defaults to TCP.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontaineradditionalportsindex"></a>
+#### SKIPJob.spec.container.additionalPorts[index]
 
-
-### SKIPJob.spec.container.additionalPorts[index]
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 
 
@@ -3980,14 +4205,16 @@ If not specified, this field defaults to TCP.<br/>
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
@@ -3996,7 +4223,8 @@ If not specified, this field defaults to TCP.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
@@ -4005,14 +4233,13 @@ If not specified, this field defaults to TCP.<br/>
             <i>Enum</i>: TCP, UDP, SCTP<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvindex"></a>
+#### SKIPJob.spec.container.env[index]
 
-
-### SKIPJob.spec.container.env[index]
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 EnvVar represents an environment variable present in a Container.
 
@@ -4025,7 +4252,8 @@ EnvVar represents an environment variable present in a Container.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -4033,7 +4261,8 @@ EnvVar represents an environment variable present in a Container.
 May consist of any printable ASCII characters except '='.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>value</b></td>
         <td>string</td>
         <td>
@@ -4048,21 +4277,21 @@ exists or not.
 Defaults to "".<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvindexvaluefrom">valueFrom</a></b></td>
         <td>object</td>
         <td>
           Source for the environment variable's value. Cannot be used if value is not empty.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvindexvaluefrom"></a>
+#### SKIPJob.spec.container.env[index].valueFrom
 
-
-### SKIPJob.spec.container.env[index].valueFrom
-<sup><sup>[↩ Parent](#skipjobspeccontainerenvindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainerenvindex)</sup>
 
 Source for the environment variable's value. Cannot be used if value is not empty.
 
@@ -4075,14 +4304,16 @@ Source for the environment variable's value. Cannot be used if value is not empt
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvindexvaluefromconfigmapkeyref">configMapKeyRef</a></b></td>
         <td>object</td>
         <td>
           Selects a key of a ConfigMap.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvindexvaluefromfieldref">fieldRef</a></b></td>
         <td>object</td>
         <td>
@@ -4090,7 +4321,8 @@ Source for the environment variable's value. Cannot be used if value is not empt
 spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvindexvaluefromfilekeyref">fileKeyRef</a></b></td>
         <td>object</td>
         <td>
@@ -4098,7 +4330,8 @@ spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podI
 Requires the EnvFiles feature gate to be enabled.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvindexvaluefromresourcefieldref">resourceFieldRef</a></b></td>
         <td>object</td>
         <td>
@@ -4106,21 +4339,21 @@ Requires the EnvFiles feature gate to be enabled.<br/>
 (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainerenvindexvaluefromsecretkeyref">secretKeyRef</a></b></td>
         <td>object</td>
         <td>
           Selects a key of a secret in the pod's namespace<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvindexvaluefromconfigmapkeyref"></a>
+#### SKIPJob.spec.container.env[index].valueFrom.configMapKeyRef
 
-
-### SKIPJob.spec.container.env[index].valueFrom.configMapKeyRef
-<sup><sup>[↩ Parent](#skipjobspeccontainerenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainerenvindexvaluefrom)</sup>
 
 Selects a key of a ConfigMap.
 
@@ -4133,14 +4366,16 @@ Selects a key of a ConfigMap.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
           The key to select.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -4153,21 +4388,21 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
           Specify whether the ConfigMap or its key must be defined<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvindexvaluefromfieldref"></a>
+#### SKIPJob.spec.container.env[index].valueFrom.fieldRef
 
-
-### SKIPJob.spec.container.env[index].valueFrom.fieldRef
-<sup><sup>[↩ Parent](#skipjobspeccontainerenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainerenvindexvaluefrom)</sup>
 
 Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`,
 spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
@@ -4181,28 +4416,29 @@ spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podI
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>fieldPath</b></td>
         <td>string</td>
         <td>
           Path of the field to select in the specified API version.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>apiVersion</b></td>
         <td>string</td>
         <td>
           Version of the schema the FieldPath is written in terms of, defaults to "v1".<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvindexvaluefromfilekeyref"></a>
+#### SKIPJob.spec.container.env[index].valueFrom.fileKeyRef
 
-
-### SKIPJob.spec.container.env[index].valueFrom.fileKeyRef
-<sup><sup>[↩ Parent](#skipjobspeccontainerenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainerenvindexvaluefrom)</sup>
 
 FileKeyRef selects a key of the env file.
 Requires the EnvFiles feature gate to be enabled.
@@ -4216,7 +4452,8 @@ Requires the EnvFiles feature gate to be enabled.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
@@ -4225,7 +4462,8 @@ The keys defined within a source may consist of any printable ASCII characters e
 During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
@@ -4233,14 +4471,16 @@ During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 
 Must be relative and may not contain the '..' path or start with '..'.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>volumeName</b></td>
         <td>string</td>
         <td>
           The name of the volume mount containing the env file.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
@@ -4255,14 +4495,13 @@ an error will be returned during Pod creation.<br/>
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvindexvaluefromresourcefieldref"></a>
+#### SKIPJob.spec.container.env[index].valueFrom.resourceFieldRef
 
-
-### SKIPJob.spec.container.env[index].valueFrom.resourceFieldRef
-<sup><sup>[↩ Parent](#skipjobspeccontainerenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainerenvindexvaluefrom)</sup>
 
 Selects a resource of the container: only resources limits and requests
 (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -4276,35 +4515,37 @@ Selects a resource of the container: only resources limits and requests
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>resource</b></td>
         <td>string</td>
         <td>
           Required: resource to select<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>containerName</b></td>
         <td>string</td>
         <td>
           Container name: required for volumes, optional for env vars<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>divisor</b></td>
         <td>int or string</td>
         <td>
           Specifies the output format of the exposed resources, defaults to "1"<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvindexvaluefromsecretkeyref"></a>
+#### SKIPJob.spec.container.env[index].valueFrom.secretKeyRef
 
-
-### SKIPJob.spec.container.env[index].valueFrom.secretKeyRef
-<sup><sup>[↩ Parent](#skipjobspeccontainerenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainerenvindexvaluefrom)</sup>
 
 Selects a key of a secret in the pod's namespace
 
@@ -4317,14 +4558,16 @@ Selects a key of a secret in the pod's namespace
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
           The key of the secret to select from.  Must be a valid secret key.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -4337,21 +4580,21 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
           Specify whether the Secret or its key must be defined<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerenvfromindex"></a>
+#### SKIPJob.spec.container.envFrom[index]
 
-
-### SKIPJob.spec.container.envFrom[index]
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 
 
@@ -4364,28 +4607,29 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>configMap</b></td>
         <td>string</td>
         <td>
           Name of Kubernetes ConfigMap in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secret</b></td>
         <td>string</td>
         <td>
           Name of Kubernetes Secret in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerfilesfromindex"></a>
+#### SKIPJob.spec.container.filesFrom[index]
 
-
-### SKIPJob.spec.container.filesFrom[index]
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 FilesFrom
 
@@ -4402,21 +4646,24 @@ NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>mountPath</b></td>
         <td>string</td>
         <td>
           The path to mount the file in the Pods directory. Required.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>configMap</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>defaultMode</b></td>
         <td>integer</td>
         <td>
@@ -4429,35 +4676,37 @@ This might be in conflict with other options that affect the file
 mode, like fsGroup, and the result can be other mode bits set.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>emptyDir</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>persistentVolumeClaim</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secret</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainergcp"></a>
+#### SKIPJob.spec.container.gcp
 
-
-### SKIPJob.spec.container.gcp
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 GCP
 
@@ -4472,7 +4721,8 @@ Configuration for interacting with Google Cloud Platform
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspeccontainergcpauth">auth</a></b></td>
         <td>object</td>
         <td>
@@ -4484,7 +4734,8 @@ Documentation on how this is done can be found here (Closed Wiki):
 https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentisering+mot+GCP+som+Kubernetes+SA<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccontainergcpcloudsqlproxy">cloudSqlProxy</a></b></td>
         <td>object</td>
         <td>
@@ -4492,14 +4743,13 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
 This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainergcpauth"></a>
+#### SKIPJob.spec.container.gcp.auth
 
-
-### SKIPJob.spec.container.gcp.auth
-<sup><sup>[↩ Parent](#skipjobspeccontainergcp)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainergcp)</sup>
 
 Configuration for authenticating a Pod with Google Cloud Platform
 For authentication with GCP, to use services like Secret Manager and/or Pub/Sub we need
@@ -4517,7 +4767,8 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
@@ -4525,14 +4776,13 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
 Generally takes the form of some-name@some-project-id.iam.gserviceaccount.com<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainergcpcloudsqlproxy"></a>
+#### SKIPJob.spec.container.gcp.cloudSqlProxy
 
-
-### SKIPJob.spec.container.gcp.cloudSqlProxy
-<sup><sup>[↩ Parent](#skipjobspeccontainergcp)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainergcp)</sup>
 
 CloudSQL is used to deploy a CloudSQL proxy sidecar in the pod.
 This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.
@@ -4546,7 +4796,8 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>connectionName</b></td>
         <td>string</td>
         <td>
@@ -4554,21 +4805,24 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
 The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-north1:my-db".<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
           The IP address of the CloudSQL instance. This is used to create a serviceentry for the CloudSQL proxy.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
           Service account used by cloudsql auth proxy. This service account must have the roles/cloudsql.client role.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>publicIP</b></td>
         <td>boolean</td>
         <td>
@@ -4577,21 +4831,21 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>version</b></td>
         <td>string</td>
         <td>
           Image version for the CloudSQL proxy sidecar.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerliveness"></a>
+#### SKIPJob.spec.container.liveness
 
-
-### SKIPJob.spec.container.liveness
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 Probe
 
@@ -4606,21 +4860,24 @@ Type configuration for all types of Kubernetes probes.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -4631,7 +4888,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -4642,7 +4900,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -4652,7 +4911,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -4663,7 +4923,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -4674,14 +4935,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerpodsettings"></a>
+#### SKIPJob.spec.container.podSettings
 
-
-### SKIPJob.spec.container.podSettings
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 PodSettings
 
@@ -4694,14 +4954,16 @@ PodSettings
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>annotations</b></td>
         <td>map[string]string</td>
         <td>
           Annotations that are set on Pods created by Skiperator. These annotations can for example be used to change the behaviour of sidecars and similar.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>disablePodSpreadTopologyConstraints</b></td>
         <td>boolean</td>
         <td>
@@ -4711,7 +4973,8 @@ a given pod.<br/>
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>terminationGracePeriodSeconds</b></td>
         <td>integer</td>
         <td>
@@ -4722,14 +4985,13 @@ a given pod.<br/>
             <i>Default</i>: `30`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerreadiness"></a>
+#### SKIPJob.spec.container.readiness
 
-
-### SKIPJob.spec.container.readiness
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 Probe
 
@@ -4744,21 +5006,24 @@ Type configuration for all types of Kubernetes probes.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -4769,7 +5034,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -4780,7 +5046,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -4790,7 +5057,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -4801,7 +5069,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -4812,14 +5081,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerresources"></a>
+#### SKIPJob.spec.container.resources
 
-
-### SKIPJob.spec.container.resources
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 ResourceRequirements
 
@@ -4835,7 +5103,8 @@ For the units used for resources, see https://kubernetes.io/docs/concepts/config
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>limits</b></td>
         <td>map[string]int or string</td>
         <td>
@@ -4845,7 +5114,8 @@ make kubernetes kill the app and restart it.
 Limits can be set on the CPU and memory, but it is not recommended to put a limit on CPU, see: https://home.robusta.dev/blog/stop-using-cpu-limits<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>requests</b></td>
         <td>map[string]int or string</td>
         <td>
@@ -4856,14 +5126,13 @@ until the limit is reached.
 Requests can be set on the CPU and memory.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccontainerstartup"></a>
+#### SKIPJob.spec.container.startup
 
-
-### SKIPJob.spec.container.startup
-<sup><sup>[↩ Parent](#skipjobspeccontainer)</sup></sup>
-
-
+<sup>[Parent](#skipjobspeccontainer)</sup>
 
 Probe
 
@@ -4878,21 +5147,24 @@ Type configuration for all types of Kubernetes probes.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -4903,7 +5175,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -4914,7 +5187,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -4924,7 +5198,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -4935,7 +5210,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -4946,14 +5222,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccron"></a>
+#### SKIPJob.spec.cron
 
-
-### SKIPJob.spec.cron
-<sup><sup>[↩ Parent](#skipjobspec)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec)</sup>
 
 Settings for the Job if you are running a scheduled job. Optional as Jobs may be one-off.
 
@@ -4966,7 +5241,8 @@ Settings for the Job if you are running a scheduled job. Optional as Jobs may be
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>schedule</b></td>
         <td>string</td>
         <td>
@@ -4974,7 +5250,8 @@ Settings for the Job if you are running a scheduled job. Optional as Jobs may be
 Kubernetes CronJobs also include the extended "Vixie cron" step values: https://man.freebsd.org/cgi/man.cgi?crontab%285%29.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>allowConcurrency</b></td>
         <td>enum</td>
         <td>
@@ -4986,7 +5263,8 @@ Replace will replace the current active Job with the newer scheduled Job.<br/>
             <i>Default</i>: `Allow`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>startingDeadlineSeconds</b></td>
         <td>integer</td>
         <td>
@@ -4996,7 +5274,8 @@ If unset, Jobs missing their deadline will be considered failed jobs and will no
             <i>Format</i>: int64<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>suspend</b></td>
         <td>boolean</td>
         <td>
@@ -5004,7 +5283,8 @@ If unset, Jobs missing their deadline will be considered failed jobs and will no
 all running Pods will be terminated.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeZone</b></td>
         <td>string</td>
         <td>
@@ -5014,14 +5294,13 @@ this will default to the time zone of the cluster.
 Example: "Europe/Oslo"<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecistiosettings"></a>
+#### SKIPJob.spec.istioSettings
 
-
-### SKIPJob.spec.istioSettings
-<sup><sup>[↩ Parent](#skipjobspec)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec)</sup>
 
 IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
 interval for tracing is the only supported option.
@@ -5036,7 +5315,8 @@ By default, tracing is enabled with a random sampling percentage of 10%.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecistiosettingstelemetry">telemetry</a></b></td>
         <td>object</td>
         <td>
@@ -5045,14 +5325,13 @@ By default, tracing is enabled with a random sampling percentage of 10%.
             <i>Default</i>: `map[tracing:[map[randomSamplingPercentage:10]]]`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecistiosettingstelemetry"></a>
+#### SKIPJob.spec.istioSettings.telemetry
 
-
-### SKIPJob.spec.istioSettings.telemetry
-<sup><sup>[↩ Parent](#skipjobspecistiosettings)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecistiosettings)</sup>
 
 Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.
 
@@ -5065,7 +5344,8 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecistiosettingstelemetrytracingindex">tracing</a></b></td>
         <td>[]object</td>
         <td>
@@ -5074,14 +5354,13 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
             <i>Default</i>: `[map[randomSamplingPercentage:10]]`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecistiosettingstelemetrytracingindex"></a>
+#### SKIPJob.spec.istioSettings.telemetry.tracing[index]
 
-
-### SKIPJob.spec.istioSettings.telemetry.tracing[index]
-<sup><sup>[↩ Parent](#skipjobspecistiosettingstelemetry)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecistiosettingstelemetry)</sup>
 
 Tracing contains relevant settings for tracing in the telemetry configuration
 
@@ -5094,7 +5373,8 @@ Tracing contains relevant settings for tracing in the telemetry configuration
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>randomSamplingPercentage</b></td>
         <td>integer</td>
         <td>
@@ -5106,14 +5386,13 @@ Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
             <i>Maximum</i>: 100<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecjob"></a>
+#### SKIPJob.spec.job
 
-
-### SKIPJob.spec.job
-<sup><sup>[↩ Parent](#skipjobspec)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec)</sup>
 
 Settings for the actual Job. If you use a scheduled job, the settings in here will also specify the template of the job.
 
@@ -5126,7 +5405,8 @@ Settings for the actual Job. If you use a scheduled job, the settings in here wi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>activeDeadlineSeconds</b></td>
         <td>integer</td>
         <td>
@@ -5136,7 +5416,8 @@ the job and its Pods are terminated. If the job is suspended using the Suspend f
             <i>Format</i>: int64<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>backoffLimit</b></td>
         <td>integer</td>
         <td>
@@ -5145,7 +5426,8 @@ the job and its Pods are terminated. If the job is suspended using the Suspend f
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>suspend</b></td>
         <td>boolean</td>
         <td>
@@ -5153,7 +5435,8 @@ the job and its Pods are terminated. If the job is suspended using the Suspend f
 all running Pods will be terminated.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ttlSecondsAfterFinished</b></td>
         <td>integer</td>
         <td>
@@ -5163,14 +5446,13 @@ It is recommended to set this to avoid clutter in your resource tree.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecprometheus"></a>
+#### SKIPJob.spec.prometheus
 
-
-### SKIPJob.spec.prometheus
-<sup><sup>[↩ Parent](#skipjobspec)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec)</sup>
 
 Prometheus settings for pod running in job. Fields are identical to Application and if set,
 a podmonitoring object is created.
@@ -5184,14 +5466,16 @@ a podmonitoring object is created.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           The port number or name where metrics are exposed (at the Pod level).<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>allowAllMetrics</b></td>
         <td>boolean</td>
         <td>
@@ -5201,7 +5485,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
@@ -5210,7 +5495,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
             <i>Default</i>: `/metrics`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>scrapeInterval</b></td>
         <td>string</td>
         <td>
@@ -5218,18 +5504,19 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Validations</i>:<li>self == '' || self.matches('^([0-9]+[sm])+$'): </li><li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
+            <i>Validations</i>:
+              <li>self == '' || self.matches('^([0-9]+[sm])+$'): </li>
+              <li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
             <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatus"></a>
+#### SKIPJob.status
 
-
-### SKIPJob.status
-<sup><sup>[↩ Parent](#skipjob)</sup></sup>
-
-
+<sup>[Parent](#skipjob)</sup>
 
 SkiperatorStatus
 
@@ -5244,42 +5531,45 @@ A status field shown on a Skiperator resource which contains information regardi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>accessPolicies</b></td>
         <td>string</td>
         <td>
           Indicates if access policies are valid<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatusconditionsindex">conditions</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatussubresourceskey">subresources</a></b></td>
         <td>map[string]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatussummary">summary</a></b></td>
         <td>object</td>
         <td>
           Status<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatusconditionsindex"></a>
+#### SKIPJob.status.conditions[index]
 
-
-### SKIPJob.status.conditions[index]
-<sup><sup>[↩ Parent](#skipjobstatus)</sup></sup>
-
-
+<sup>[Parent](#skipjobstatus)</sup>
 
 Condition contains details for one aspect of the current state of this API Resource.
 
@@ -5292,7 +5582,8 @@ Condition contains details for one aspect of the current state of this API Resou
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>lastTransitionTime</b></td>
         <td>string</td>
         <td>
@@ -5302,7 +5593,8 @@ This should be when the underlying condition changed.  If that is not known, the
             <i>Format</i>: date-time<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -5310,7 +5602,8 @@ This should be when the underlying condition changed.  If that is not known, the
 This may be an empty string.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>reason</b></td>
         <td>string</td>
         <td>
@@ -5321,7 +5614,8 @@ The value should be a CamelCase string.
 This field may not be empty.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>enum</td>
         <td>
@@ -5330,14 +5624,16 @@ This field may not be empty.<br/>
             <i>Enum</i>: True, False, Unknown<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>type</b></td>
         <td>string</td>
         <td>
           type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>observedGeneration</b></td>
         <td>integer</td>
         <td>
@@ -5349,14 +5645,13 @@ with respect to the current state of the instance.<br/>
             <i>Minimum</i>: 0<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatussubresourceskey"></a>
+#### SKIPJob.status.subresources[key]
 
-
-### SKIPJob.status.subresources[key]
-<sup><sup>[↩ Parent](#skipjobstatus)</sup></sup>
-
-
+<sup>[Parent](#skipjobstatus)</sup>
 
 Status
 
@@ -5369,7 +5664,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -5378,7 +5674,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -5387,21 +5684,21 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatussummary"></a>
+#### SKIPJob.status.summary
 
-
-### SKIPJob.status.summary
-<sup><sup>[↩ Parent](#skipjobstatus)</sup></sup>
-
-
+<sup>[Parent](#skipjobstatus)</sup>
 
 Status
 
@@ -5414,7 +5711,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -5423,7 +5721,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -5432,31 +5731,33 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+## Package `skiperator.kartverket.no/v1beta1`
 
-# skiperator.kartverket.no/v1beta1
+Resource types in this package:
 
-Resource Types:
-
-- [SKIPJob](#skipjob)
-
+- [SKIPJob](#skipjob-1)
 
 
 
-## SKIPJob
+<a id="skipjob-1"></a>
+### SKIPJob
 
-
-
-
-
+| Field | Value |
+| --- | --- |
+| Package | `skiperator.kartverket.no/v1beta1` |
+| API version | `skiperator.kartverket.no/v1beta1` |
+| Kind | `SKIPJob` |
 
 SKIPJob is the Schema for the skipjobs API
 
@@ -5469,7 +5770,8 @@ SKIPJob is the Schema for the skipjobs API
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
       <td><b>apiVersion</b></td>
       <td>string</td>
       <td>skiperator.kartverket.no/v1beta1</td>
@@ -5486,7 +5788,8 @@ SKIPJob is the Schema for the skipjobs API
       <td>object</td>
       <td>Refer to the Kubernetes API documentation for the fields of the `metadata` field.</td>
       <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspec-1">spec</a></b></td>
         <td>object</td>
         <td>
@@ -5494,10 +5797,13 @@ SKIPJob is the Schema for the skipjobs API
 
 A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field is set for SKIPJob, it may not be removed. If the Cron field is unset, it may not be added.<br/>
           <br/>
-            <i>Validations</i>:<li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li><li>((!has(self.cron) && oldSelf.image == self.image && oldSelf.priority == self.priority && (has(oldSelf.command) == has(self.command)) && (!has(self.command) || oldSelf.command == self.command) && (has(oldSelf.resources) == has(self.resources)) && (!has(self.resources) || oldSelf.resources == self.resources) && (has(oldSelf.env) == has(self.env)) && (!has(self.env) || oldSelf.env == self.env) && (has(oldSelf.envFrom) == has(self.envFrom)) && (!has(self.envFrom) || oldSelf.envFrom == self.envFrom) && (has(oldSelf.filesFrom) == has(self.filesFrom)) && (!has(self.filesFrom) || oldSelf.filesFrom == self.filesFrom) && (has(oldSelf.additionalPorts) == has(self.additionalPorts)) && (!has(self.additionalPorts) || oldSelf.additionalPorts == self.additionalPorts) && (has(oldSelf.liveness) == has(self.liveness)) && (!has(self.liveness) || oldSelf.liveness == self.liveness) && (has(oldSelf.readiness) == has(self.readiness)) && (!has(self.readiness) || oldSelf.readiness == self.readiness) && (has(oldSelf.startup) == has(self.startup)) && (!has(self.startup) || oldSelf.startup == self.startup) && (has(oldSelf.accessPolicy) == has(self.accessPolicy)) && (!has(self.accessPolicy) || oldSelf.accessPolicy == self.accessPolicy) && (has(oldSelf.gcp) == has(self.gcp)) && (!has(self.gcp) || oldSelf.gcp == self.gcp) && (has(oldSelf.restartPolicy) == has(self.restartPolicy)) && (!has(self.restartPolicy) || oldSelf.restartPolicy == self.restartPolicy) && (has(oldSelf.podSettings) == has(self.podSettings)) && (!has(self.podSettings) || oldSelf.podSettings == self.podSettings)) || has(self.cron)): The container configuration is immutable for one-off jobs. Please delete your SKIPJob to change image, command, resources, networking, probes, env/files, or pod settings.</li>
+            <i>Validations</i>:
+              <li>(has(oldSelf.cron) && has(self.cron)) || (!has(oldSelf.cron) && !has(self.cron)): After creation of a SKIPJob you may not remove the Cron field if it was previously present, or add it if it was previously omitted. Please delete the SKIPJob to change its nature from a one-off/scheduled job.</li>
+              <li>((!has(self.cron) && oldSelf.image == self.image && oldSelf.priority == self.priority && (has(oldSelf.command) == has(self.command)) && (!has(self.command) || oldSelf.command == self.command) && (has(oldSelf.resources) == has(self.resources)) && (!has(self.resources) || oldSelf.resources == self.resources) && (has(oldSelf.env) == has(self.env)) && (!has(self.env) || oldSelf.env == self.env) && (has(oldSelf.envFrom) == has(self.envFrom)) && (!has(self.envFrom) || oldSelf.envFrom == self.envFrom) && (has(oldSelf.filesFrom) == has(self.filesFrom)) && (!has(self.filesFrom) || oldSelf.filesFrom == self.filesFrom) && (has(oldSelf.additionalPorts) == has(self.additionalPorts)) && (!has(self.additionalPorts) || oldSelf.additionalPorts == self.additionalPorts) && (has(oldSelf.liveness) == has(self.liveness)) && (!has(self.liveness) || oldSelf.liveness == self.liveness) && (has(oldSelf.readiness) == has(self.readiness)) && (!has(self.readiness) || oldSelf.readiness == self.readiness) && (has(oldSelf.startup) == has(self.startup)) && (!has(self.startup) || oldSelf.startup == self.startup) && (has(oldSelf.accessPolicy) == has(self.accessPolicy)) && (!has(self.accessPolicy) || oldSelf.accessPolicy == self.accessPolicy) && (has(oldSelf.gcp) == has(self.gcp)) && (!has(self.gcp) || oldSelf.gcp == self.gcp) && (has(oldSelf.restartPolicy) == has(self.restartPolicy)) && (!has(self.restartPolicy) || oldSelf.restartPolicy == self.restartPolicy) && (has(oldSelf.podSettings) == has(self.podSettings)) && (!has(self.podSettings) || oldSelf.podSettings == self.podSettings)) || has(self.cron)): The container configuration is immutable for one-off jobs. Please delete your SKIPJob to change image, command, resources, networking, probes, env/files, or pod settings.</li>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatus-1">status</a></b></td>
         <td>object</td>
         <td>
@@ -5506,14 +5812,13 @@ A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field i
 A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspec-1"></a>
+#### SKIPJob.spec
 
-
-### SKIPJob.spec
-<sup><sup>[↩ Parent](#skipjob-1)</sup></sup>
-
-
+<sup>[Parent](#skipjob-1)</sup>
 
 SKIPJobSpec defines the desired state of SKIPJob
 
@@ -5528,14 +5833,16 @@ A SKIPJob is either defined as a one-off or a scheduled job. If the Cron field i
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>image</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicy">accessPolicy</a></b></td>
         <td>object</td>
         <td>
@@ -5548,49 +5855,56 @@ Deployment. The AccessPolicy field is an allowlist of other applications and hos
 that are allowed to talk with this Application and which resources this app can talk to<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecadditionalportsindex">additionalPorts</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>command</b></td>
         <td>[]string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspeccron-1">cron</a></b></td>
         <td>object</td>
         <td>
           Settings for the Job if you are running a scheduled job. Optional as Jobs may be one-off.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecenvindex">env</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecenvfromindex">envFrom</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecfilesfromindex">filesFrom</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecgcp">gcp</a></b></td>
         <td>object</td>
         <td>
@@ -5599,7 +5913,8 @@ that are allowed to talk with this Application and which resources this app can 
 Configuration for interacting with Google Cloud Platform<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecistiosettings-1">istioSettings</a></b></td>
         <td>object</td>
         <td>
@@ -5610,14 +5925,16 @@ By default, tracing is enabled with a random sampling percentage of 10%.<br/>
             <i>Default</i>: `map[telemetry:map[tracing:[map[randomSamplingPercentage:10]]]]`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecjob-1">job</a></b></td>
         <td>object</td>
         <td>
           Settings for the actual Job. If you use a scheduled job, the settings in here will also specify the template of the job.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>labels</b></td>
         <td>map[string]string</td>
         <td>
@@ -5627,7 +5944,8 @@ metrics, where a certain label and the corresponding resources liveliness can be
 Any amount of labels can be added as wanted, and they will all cascade down to all resources.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecliveness">liveness</a></b></td>
         <td>object</td>
         <td>
@@ -5636,14 +5954,16 @@ Any amount of labels can be added as wanted, and they will all cascade down to a
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecpodsettings">podSettings</a></b></td>
         <td>object</td>
         <td>
           PodSettings<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>priority</b></td>
         <td>enum</td>
         <td>
@@ -5653,7 +5973,8 @@ Type configuration for all types of Kubernetes probes.<br/>
             <i>Default</i>: `medium`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecprometheus-1">prometheus</a></b></td>
         <td>object</td>
         <td>
@@ -5661,7 +5982,8 @@ Type configuration for all types of Kubernetes probes.<br/>
 a podmonitoring object is created.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecreadiness">readiness</a></b></td>
         <td>object</td>
         <td>
@@ -5670,7 +5992,8 @@ a podmonitoring object is created.<br/>
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecresources">resources</a></b></td>
         <td>object</td>
         <td>
@@ -5680,7 +6003,8 @@ A simplified version of the Kubernetes native ResourceRequirement field, in whic
 For the units used for resources, see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>restartPolicy</b></td>
         <td>enum</td>
         <td>
@@ -5693,7 +6017,8 @@ is RestartPolicyAlways.<br/>
             <i>Default</i>: `Never`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecstartup">startup</a></b></td>
         <td>object</td>
         <td>
@@ -5702,7 +6027,8 @@ is RestartPolicyAlways.<br/>
 Type configuration for all types of Kubernetes probes.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>team</b></td>
         <td>string</td>
         <td>
@@ -5710,14 +6036,13 @@ Type configuration for all types of Kubernetes probes.<br/>
 Usually sourced from the namespace label.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicy"></a>
+#### SKIPJob.spec.accessPolicy
 
-
-### SKIPJob.spec.accessPolicy
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 AccessPolicy
 
@@ -5736,14 +6061,16 @@ that are allowed to talk with this Application and which resources this app can 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyinbound">inbound</a></b></td>
         <td>object</td>
         <td>
           Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyoutbound">outbound</a></b></td>
         <td>object</td>
         <td>
@@ -5751,14 +6078,13 @@ that are allowed to talk with this Application and which resources this app can 
 internet is the Application allowed to send requests to?<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyinbound"></a>
+#### SKIPJob.spec.accessPolicy.inbound
 
-
-### SKIPJob.spec.accessPolicy.inbound
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicy)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicy)</sup>
 
 Inbound specifies the ingress rules. Which apps on the cluster can talk to this app?
 
@@ -5771,7 +6097,8 @@ Inbound specifies the ingress rules. Which apps on the cluster can talk to this 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyinboundrulesindex">rules</a></b></td>
         <td>[]object</td>
         <td>
@@ -5780,14 +6107,13 @@ specified it refers to an app in the current namespace. For apps in
 other namespaces namespace is required<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyinboundrulesindex"></a>
+#### SKIPJob.spec.accessPolicy.inbound.rules[index]
 
-
-### SKIPJob.spec.accessPolicy.inbound.rules[index]
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicyinbound)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicyinbound)</sup>
 
 InternalRule
 
@@ -5804,7 +6130,8 @@ other namespaces, namespace is required.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>application</b></td>
         <td>string</td>
         <td>
@@ -5812,35 +6139,37 @@ other namespaces, namespace is required.
 be suffixed with -skipjob<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespace</b></td>
         <td>string</td>
         <td>
           The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespacesByLabel</b></td>
         <td>map[string]string</td>
         <td>
           Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyinboundrulesindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
           The ports to allow for the above application.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyinboundrulesindexportsindex"></a>
+#### SKIPJob.spec.accessPolicy.inbound.rules[index].ports[index]
 
-
-### SKIPJob.spec.accessPolicy.inbound.rules[index].ports[index]
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicyinboundrulesindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicyinboundrulesindex)</sup>
 
 NetworkPolicyPort describes a port to allow traffic on
 
@@ -5853,7 +6182,8 @@ NetworkPolicyPort describes a port to allow traffic on
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>endPort</b></td>
         <td>integer</td>
         <td>
@@ -5865,7 +6195,8 @@ The endPort must be equal or greater than port.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
@@ -5875,7 +6206,8 @@ numbers.
 If present, only traffic on the specified protocol AND port will be matched.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>string</td>
         <td>
@@ -5883,14 +6215,13 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
 If not specified, this field defaults to TCP.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyoutbound"></a>
+#### SKIPJob.spec.accessPolicy.outbound
 
-
-### SKIPJob.spec.accessPolicy.outbound
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicy)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicy)</sup>
 
 Outbound specifies egress rules. Which apps on the cluster and the
 internet is the Application allowed to send requests to?
@@ -5904,7 +6235,8 @@ internet is the Application allowed to send requests to?
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyoutboundexternalindex">external</a></b></td>
         <td>[]object</td>
         <td>
@@ -5913,21 +6245,21 @@ can reach. Only host is required unless it is on another port than HTTPS port 44
 If other ports or protocols are required then `ports` must be specified as well<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyoutboundrulesindex">rules</a></b></td>
         <td>[]object</td>
         <td>
           Rules apply the same in-cluster rules as InboundPolicy<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyoutboundexternalindex"></a>
+#### SKIPJob.spec.accessPolicy.outbound.external[index]
 
-
-### SKIPJob.spec.accessPolicy.outbound.external[index]
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutbound)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicyoutbound)</sup>
 
 ExternalRule
 
@@ -5942,14 +6274,16 @@ Describes a rule for allowing your Application to route traffic to external appl
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>host</b></td>
         <td>string</td>
         <td>
           The allowed hostname. Note that this does not include subdomains.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
@@ -5959,7 +6293,8 @@ Only required for TCP requests.
 Note: Hostname must always be defined even if IP is set statically<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyoutboundexternalindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
@@ -5967,14 +6302,13 @@ Note: Hostname must always be defined even if IP is set statically<br/>
 HTTPS on port 80 and 443 respectively are put into the allowlist<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyoutboundexternalindexportsindex"></a>
+#### SKIPJob.spec.accessPolicy.outbound.external[index].ports[index]
 
-
-### SKIPJob.spec.accessPolicy.outbound.external[index].ports[index]
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutboundexternalindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicyoutboundexternalindex)</sup>
 
 ExternalPort
 
@@ -5989,21 +6323,24 @@ A custom port describing an external host
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
           Name is required and is an arbitrary name. Must be unique within all ExternalRule ports.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
           The port number of the external host<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
@@ -6012,14 +6349,13 @@ A custom port describing an external host
             <i>Enum</i>: HTTP, HTTPS, TCP, TLS<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyoutboundrulesindex"></a>
+#### SKIPJob.spec.accessPolicy.outbound.rules[index]
 
-
-### SKIPJob.spec.accessPolicy.outbound.rules[index]
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutbound)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicyoutbound)</sup>
 
 InternalRule
 
@@ -6036,7 +6372,8 @@ other namespaces, namespace is required.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>application</b></td>
         <td>string</td>
         <td>
@@ -6044,35 +6381,37 @@ other namespaces, namespace is required.
 be suffixed with -skipjob<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespace</b></td>
         <td>string</td>
         <td>
           The namespace in which the Application you are allowing traffic to/from resides. If unset, uses namespace of Application.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>namespacesByLabel</b></td>
         <td>map[string]string</td>
         <td>
           Namespace label value-pair in which the Application you are allowing traffic to/from resides. If both namespace and namespacesByLabel are set, namespace takes precedence and namespacesByLabel is omitted.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecaccesspolicyoutboundrulesindexportsindex">ports</a></b></td>
         <td>[]object</td>
         <td>
           The ports to allow for the above application.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecaccesspolicyoutboundrulesindexportsindex"></a>
+#### SKIPJob.spec.accessPolicy.outbound.rules[index].ports[index]
 
-
-### SKIPJob.spec.accessPolicy.outbound.rules[index].ports[index]
-<sup><sup>[↩ Parent](#skipjobspecaccesspolicyoutboundrulesindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecaccesspolicyoutboundrulesindex)</sup>
 
 NetworkPolicyPort describes a port to allow traffic on
 
@@ -6085,7 +6424,8 @@ NetworkPolicyPort describes a port to allow traffic on
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>endPort</b></td>
         <td>integer</td>
         <td>
@@ -6097,7 +6437,8 @@ The endPort must be equal or greater than port.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
@@ -6107,7 +6448,8 @@ numbers.
 If present, only traffic on the specified protocol AND port will be matched.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>string</td>
         <td>
@@ -6115,14 +6457,13 @@ If present, only traffic on the specified protocol AND port will be matched.<br/
 If not specified, this field defaults to TCP.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecadditionalportsindex"></a>
+#### SKIPJob.spec.additionalPorts[index]
 
-
-### SKIPJob.spec.additionalPorts[index]
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 
 
@@ -6135,14 +6476,16 @@ If not specified, this field defaults to TCP.<br/>
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>integer</td>
         <td>
@@ -6151,7 +6494,8 @@ If not specified, this field defaults to TCP.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>protocol</b></td>
         <td>enum</td>
         <td>
@@ -6160,14 +6504,13 @@ If not specified, this field defaults to TCP.<br/>
             <i>Enum</i>: TCP, UDP, SCTP<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspeccron-1"></a>
+#### SKIPJob.spec.cron
 
-
-### SKIPJob.spec.cron
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 Settings for the Job if you are running a scheduled job. Optional as Jobs may be one-off.
 
@@ -6180,7 +6523,8 @@ Settings for the Job if you are running a scheduled job. Optional as Jobs may be
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>schedule</b></td>
         <td>string</td>
         <td>
@@ -6188,7 +6532,8 @@ Settings for the Job if you are running a scheduled job. Optional as Jobs may be
 Kubernetes CronJobs also include the extended "Vixie cron" step values: https://man.freebsd.org/cgi/man.cgi?crontab%285%29.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>allowConcurrency</b></td>
         <td>enum</td>
         <td>
@@ -6200,7 +6545,8 @@ Replace will replace the current active Job with the newer scheduled Job.<br/>
             <i>Default</i>: `Allow`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>startingDeadlineSeconds</b></td>
         <td>integer</td>
         <td>
@@ -6210,7 +6556,8 @@ If unset, Jobs missing their deadline will be considered failed jobs and will no
             <i>Format</i>: int64<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>suspend</b></td>
         <td>boolean</td>
         <td>
@@ -6218,7 +6565,8 @@ If unset, Jobs missing their deadline will be considered failed jobs and will no
 all running Pods will be terminated.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeZone</b></td>
         <td>string</td>
         <td>
@@ -6228,14 +6576,13 @@ this will default to the time zone of the cluster.
 Example: "Europe/Oslo"<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvindex"></a>
+#### SKIPJob.spec.env[index]
 
-
-### SKIPJob.spec.env[index]
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 EnvVar represents an environment variable present in a Container.
 
@@ -6248,7 +6595,8 @@ EnvVar represents an environment variable present in a Container.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -6256,7 +6604,8 @@ EnvVar represents an environment variable present in a Container.
 May consist of any printable ASCII characters except '='.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>value</b></td>
         <td>string</td>
         <td>
@@ -6271,21 +6620,21 @@ exists or not.
 Defaults to "".<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecenvindexvaluefrom">valueFrom</a></b></td>
         <td>object</td>
         <td>
           Source for the environment variable's value. Cannot be used if value is not empty.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvindexvaluefrom"></a>
+#### SKIPJob.spec.env[index].valueFrom
 
-
-### SKIPJob.spec.env[index].valueFrom
-<sup><sup>[↩ Parent](#skipjobspecenvindex)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecenvindex)</sup>
 
 Source for the environment variable's value. Cannot be used if value is not empty.
 
@@ -6298,14 +6647,16 @@ Source for the environment variable's value. Cannot be used if value is not empt
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecenvindexvaluefromconfigmapkeyref">configMapKeyRef</a></b></td>
         <td>object</td>
         <td>
           Selects a key of a ConfigMap.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecenvindexvaluefromfieldref">fieldRef</a></b></td>
         <td>object</td>
         <td>
@@ -6313,7 +6664,8 @@ Source for the environment variable's value. Cannot be used if value is not empt
 spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecenvindexvaluefromfilekeyref">fileKeyRef</a></b></td>
         <td>object</td>
         <td>
@@ -6321,7 +6673,8 @@ spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podI
 Requires the EnvFiles feature gate to be enabled.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecenvindexvaluefromresourcefieldref">resourceFieldRef</a></b></td>
         <td>object</td>
         <td>
@@ -6329,21 +6682,21 @@ Requires the EnvFiles feature gate to be enabled.<br/>
 (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecenvindexvaluefromsecretkeyref">secretKeyRef</a></b></td>
         <td>object</td>
         <td>
           Selects a key of a secret in the pod's namespace<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvindexvaluefromconfigmapkeyref"></a>
+#### SKIPJob.spec.env[index].valueFrom.configMapKeyRef
 
-
-### SKIPJob.spec.env[index].valueFrom.configMapKeyRef
-<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecenvindexvaluefrom)</sup>
 
 Selects a key of a ConfigMap.
 
@@ -6356,14 +6709,16 @@ Selects a key of a ConfigMap.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
           The key to select.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -6376,21 +6731,21 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
           Specify whether the ConfigMap or its key must be defined<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvindexvaluefromfieldref"></a>
+#### SKIPJob.spec.env[index].valueFrom.fieldRef
 
-
-### SKIPJob.spec.env[index].valueFrom.fieldRef
-<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecenvindexvaluefrom)</sup>
 
 Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`,
 spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
@@ -6404,28 +6759,29 @@ spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podI
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>fieldPath</b></td>
         <td>string</td>
         <td>
           Path of the field to select in the specified API version.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>apiVersion</b></td>
         <td>string</td>
         <td>
           Version of the schema the FieldPath is written in terms of, defaults to "v1".<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvindexvaluefromfilekeyref"></a>
+#### SKIPJob.spec.env[index].valueFrom.fileKeyRef
 
-
-### SKIPJob.spec.env[index].valueFrom.fileKeyRef
-<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecenvindexvaluefrom)</sup>
 
 FileKeyRef selects a key of the env file.
 Requires the EnvFiles feature gate to be enabled.
@@ -6439,7 +6795,8 @@ Requires the EnvFiles feature gate to be enabled.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
@@ -6448,7 +6805,8 @@ The keys defined within a source may consist of any printable ASCII characters e
 During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
@@ -6456,14 +6814,16 @@ During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 
 Must be relative and may not contain the '..' path or start with '..'.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>volumeName</b></td>
         <td>string</td>
         <td>
           The name of the volume mount containing the env file.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
@@ -6478,14 +6838,13 @@ an error will be returned during Pod creation.<br/>
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvindexvaluefromresourcefieldref"></a>
+#### SKIPJob.spec.env[index].valueFrom.resourceFieldRef
 
-
-### SKIPJob.spec.env[index].valueFrom.resourceFieldRef
-<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecenvindexvaluefrom)</sup>
 
 Selects a resource of the container: only resources limits and requests
 (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -6499,35 +6858,37 @@ Selects a resource of the container: only resources limits and requests
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>resource</b></td>
         <td>string</td>
         <td>
           Required: resource to select<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>containerName</b></td>
         <td>string</td>
         <td>
           Container name: required for volumes, optional for env vars<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>divisor</b></td>
         <td>int or string</td>
         <td>
           Specifies the output format of the exposed resources, defaults to "1"<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvindexvaluefromsecretkeyref"></a>
+#### SKIPJob.spec.env[index].valueFrom.secretKeyRef
 
-
-### SKIPJob.spec.env[index].valueFrom.secretKeyRef
-<sup><sup>[↩ Parent](#skipjobspecenvindexvaluefrom)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecenvindexvaluefrom)</sup>
 
 Selects a key of a secret in the pod's namespace
 
@@ -6540,14 +6901,16 @@ Selects a key of a secret in the pod's namespace
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>key</b></td>
         <td>string</td>
         <td>
           The key of the secret to select from.  Must be a valid secret key.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>name</b></td>
         <td>string</td>
         <td>
@@ -6560,21 +6923,21 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <i>Default</i>: ``<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>optional</b></td>
         <td>boolean</td>
         <td>
           Specify whether the Secret or its key must be defined<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecenvfromindex"></a>
+#### SKIPJob.spec.envFrom[index]
 
-
-### SKIPJob.spec.envFrom[index]
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 
 
@@ -6587,28 +6950,29 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>configMap</b></td>
         <td>string</td>
         <td>
           Name of Kubernetes ConfigMap in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secret</b></td>
         <td>string</td>
         <td>
           Name of Kubernetes Secret in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecfilesfromindex"></a>
+#### SKIPJob.spec.filesFrom[index]
 
-
-### SKIPJob.spec.filesFrom[index]
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 FilesFrom
 
@@ -6625,21 +6989,24 @@ NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>mountPath</b></td>
         <td>string</td>
         <td>
           The path to mount the file in the Pods directory. Required.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>configMap</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>defaultMode</b></td>
         <td>integer</td>
         <td>
@@ -6652,35 +7019,37 @@ This might be in conflict with other options that affect the file
 mode, like fsGroup, and the result can be other mode bits set.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>emptyDir</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>persistentVolumeClaim</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>secret</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecgcp"></a>
+#### SKIPJob.spec.gcp
 
-
-### SKIPJob.spec.gcp
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 GCP
 
@@ -6695,7 +7064,8 @@ Configuration for interacting with Google Cloud Platform
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecgcpauth">auth</a></b></td>
         <td>object</td>
         <td>
@@ -6707,7 +7077,8 @@ Documentation on how this is done can be found here (Closed Wiki):
 https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentisering+mot+GCP+som+Kubernetes+SA<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobspecgcpcloudsqlproxy">cloudSqlProxy</a></b></td>
         <td>object</td>
         <td>
@@ -6715,14 +7086,13 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
 This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecgcpauth"></a>
+#### SKIPJob.spec.gcp.auth
 
-
-### SKIPJob.spec.gcp.auth
-<sup><sup>[↩ Parent](#skipjobspecgcp)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecgcp)</sup>
 
 Configuration for authenticating a Pod with Google Cloud Platform
 For authentication with GCP, to use services like Secret Manager and/or Pub/Sub we need
@@ -6740,7 +7110,8 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
@@ -6748,14 +7119,13 @@ https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/422346824/Autentiseri
 Generally takes the form of some-name@some-project-id.iam.gserviceaccount.com<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecgcpcloudsqlproxy"></a>
+#### SKIPJob.spec.gcp.cloudSqlProxy
 
-
-### SKIPJob.spec.gcp.cloudSqlProxy
-<sup><sup>[↩ Parent](#skipjobspecgcp)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecgcp)</sup>
 
 CloudSQL is used to deploy a CloudSQL proxy sidecar in the pod.
 This is useful for connecting to CloudSQL databases that require Cloud SQL Auth Proxy.
@@ -6769,7 +7139,8 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>connectionName</b></td>
         <td>string</td>
         <td>
@@ -6777,21 +7148,24 @@ This is useful for connecting to CloudSQL databases that require Cloud SQL Auth 
 The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-north1:my-db".<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ip</b></td>
         <td>string</td>
         <td>
           The IP address of the CloudSQL instance. This is used to create a serviceentry for the CloudSQL proxy.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>serviceAccount</b></td>
         <td>string</td>
         <td>
           Service account used by cloudsql auth proxy. This service account must have the roles/cloudsql.client role.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>publicIP</b></td>
         <td>boolean</td>
         <td>
@@ -6800,21 +7174,21 @@ The format is "projectName:region:instanceName" E.g. "skip-prod-bda1:europe-nort
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>version</b></td>
         <td>string</td>
         <td>
           Image version for the CloudSQL proxy sidecar.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecistiosettings-1"></a>
+#### SKIPJob.spec.istioSettings
 
-
-### SKIPJob.spec.istioSettings
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 IstioSettings are used to configure istio specific resources such as telemetry. Currently, adjusting sampling
 interval for tracing is the only supported option.
@@ -6829,7 +7203,8 @@ By default, tracing is enabled with a random sampling percentage of 10%.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecistiosettingstelemetry-1">telemetry</a></b></td>
         <td>object</td>
         <td>
@@ -6838,14 +7213,13 @@ By default, tracing is enabled with a random sampling percentage of 10%.
             <i>Default</i>: `map[tracing:[map[randomSamplingPercentage:10]]]`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecistiosettingstelemetry-1"></a>
+#### SKIPJob.spec.istioSettings.telemetry
 
-
-### SKIPJob.spec.istioSettings.telemetry
-<sup><sup>[↩ Parent](#skipjobspecistiosettings-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecistiosettings-1)</sup>
 
 Telemetry is a placeholder for all relevant telemetry types, and may be extended in the future to configure additional telemetry settings.
 
@@ -6858,7 +7232,8 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b><a href="#skipjobspecistiosettingstelemetrytracingindex-1">tracing</a></b></td>
         <td>[]object</td>
         <td>
@@ -6867,14 +7242,13 @@ Telemetry is a placeholder for all relevant telemetry types, and may be extended
             <i>Default</i>: `[map[randomSamplingPercentage:10]]`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecistiosettingstelemetrytracingindex-1"></a>
+#### SKIPJob.spec.istioSettings.telemetry.tracing[index]
 
-
-### SKIPJob.spec.istioSettings.telemetry.tracing[index]
-<sup><sup>[↩ Parent](#skipjobspecistiosettingstelemetry-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspecistiosettingstelemetry-1)</sup>
 
 Tracing contains relevant settings for tracing in the telemetry configuration
 
@@ -6887,7 +7261,8 @@ Tracing contains relevant settings for tracing in the telemetry configuration
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>randomSamplingPercentage</b></td>
         <td>integer</td>
         <td>
@@ -6899,14 +7274,13 @@ Setting RandomSamplingPercentage to 0 will disable tracing.<br/>
             <i>Maximum</i>: 100<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecjob-1"></a>
+#### SKIPJob.spec.job
 
-
-### SKIPJob.spec.job
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 Settings for the actual Job. If you use a scheduled job, the settings in here will also specify the template of the job.
 
@@ -6919,7 +7293,8 @@ Settings for the actual Job. If you use a scheduled job, the settings in here wi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>activeDeadlineSeconds</b></td>
         <td>integer</td>
         <td>
@@ -6929,7 +7304,8 @@ the job and its Pods are terminated. If the job is suspended using the Suspend f
             <i>Format</i>: int64<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>backoffLimit</b></td>
         <td>integer</td>
         <td>
@@ -6938,7 +7314,8 @@ the job and its Pods are terminated. If the job is suspended using the Suspend f
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>suspend</b></td>
         <td>boolean</td>
         <td>
@@ -6946,7 +7323,8 @@ the job and its Pods are terminated. If the job is suspended using the Suspend f
 all running Pods will be terminated.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>ttlSecondsAfterFinished</b></td>
         <td>integer</td>
         <td>
@@ -6956,14 +7334,13 @@ It is recommended to set this to avoid clutter in your resource tree.<br/>
             <i>Format</i>: int32<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecliveness"></a>
+#### SKIPJob.spec.liveness
 
-
-### SKIPJob.spec.liveness
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 Probe
 
@@ -6978,21 +7355,24 @@ Type configuration for all types of Kubernetes probes.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -7003,7 +7383,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -7014,7 +7395,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -7024,7 +7406,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -7035,7 +7418,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -7046,14 +7430,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecpodsettings"></a>
+#### SKIPJob.spec.podSettings
 
-
-### SKIPJob.spec.podSettings
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 PodSettings
 
@@ -7066,14 +7449,16 @@ PodSettings
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>annotations</b></td>
         <td>map[string]string</td>
         <td>
           Annotations that are set on Pods created by Skiperator. These annotations can for example be used to change the behaviour of sidecars and similar.<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>disablePodSpreadTopologyConstraints</b></td>
         <td>boolean</td>
         <td>
@@ -7083,7 +7468,8 @@ a given pod.<br/>
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>terminationGracePeriodSeconds</b></td>
         <td>integer</td>
         <td>
@@ -7094,14 +7480,13 @@ a given pod.<br/>
             <i>Default</i>: `30`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecprometheus-1"></a>
+#### SKIPJob.spec.prometheus
 
-
-### SKIPJob.spec.prometheus
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 Prometheus settings for pod running in job. Fields are identical to Application and if set,
 a podmonitoring object is created.
@@ -7115,14 +7500,16 @@ a podmonitoring object is created.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           The port number or name where metrics are exposed (at the Pod level).<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>allowAllMetrics</b></td>
         <td>boolean</td>
         <td>
@@ -7132,7 +7519,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
             <i>Default</i>: `false`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
@@ -7141,7 +7529,8 @@ metrics will be dropped by default. See util/constants.go for the default list.<
             <i>Default</i>: `/metrics`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>scrapeInterval</b></td>
         <td>string</td>
         <td>
@@ -7149,18 +7538,19 @@ metrics will be dropped by default. See util/constants.go for the default list.<
 The interval must be at least 15 seconds (if using "Xs") and divisible by 5.
 If minutes ("Xm") are used, the value must be at least 1m.<br/>
           <br/>
-            <i>Validations</i>:<li>self == '' || self.matches('^([0-9]+[sm])+$'): </li><li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
+            <i>Validations</i>:
+              <li>self == '' || self.matches('^([0-9]+[sm])+$'): </li>
+              <li>self == '' || (self.endsWith('m') && int(self.split('m')[0]) >= 1) || (self.endsWith('s') && int(self.split('s')[0]) >= 15 && int(self.split('s')[0]) % 5 == 0): </li>
             <i>Default</i>: `60s`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecreadiness"></a>
+#### SKIPJob.spec.readiness
 
-
-### SKIPJob.spec.readiness
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 Probe
 
@@ -7175,21 +7565,24 @@ Type configuration for all types of Kubernetes probes.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -7200,7 +7593,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -7211,7 +7605,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -7221,7 +7616,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -7232,7 +7628,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -7243,14 +7640,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecresources"></a>
+#### SKIPJob.spec.resources
 
-
-### SKIPJob.spec.resources
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 ResourceRequirements
 
@@ -7266,7 +7662,8 @@ For the units used for resources, see https://kubernetes.io/docs/concepts/config
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>limits</b></td>
         <td>map[string]int or string</td>
         <td>
@@ -7276,7 +7673,8 @@ make kubernetes kill the app and restart it.
 Limits can be set on the CPU and memory, but it is not recommended to put a limit on CPU, see: https://home.robusta.dev/blog/stop-using-cpu-limits<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>requests</b></td>
         <td>map[string]int or string</td>
         <td>
@@ -7287,14 +7685,13 @@ until the limit is reached.
 Requests can be set on the CPU and memory.<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobspecstartup"></a>
+#### SKIPJob.spec.startup
 
-
-### SKIPJob.spec.startup
-<sup><sup>[↩ Parent](#skipjobspec-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobspec-1)</sup>
 
 Probe
 
@@ -7309,21 +7706,24 @@ Type configuration for all types of Kubernetes probes.
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>path</b></td>
         <td>string</td>
         <td>
           The path to access on the HTTP server<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>port</b></td>
         <td>int or string</td>
         <td>
           Number of the port to access on the container<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>failureThreshold</b></td>
         <td>integer</td>
         <td>
@@ -7334,7 +7734,8 @@ having succeeded. Defaults to 3. Minimum value is 1<br/>
             <i>Default</i>: `3`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>initialDelay</b></td>
         <td>integer</td>
         <td>
@@ -7345,7 +7746,8 @@ are slow to start.<br/>
             <i>Default</i>: `0`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>period</b></td>
         <td>integer</td>
         <td>
@@ -7355,7 +7757,8 @@ are slow to start.<br/>
             <i>Default</i>: `10`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>successThreshold</b></td>
         <td>integer</td>
         <td>
@@ -7366,7 +7769,8 @@ Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timeout</b></td>
         <td>integer</td>
         <td>
@@ -7377,14 +7781,13 @@ Minimum value is 1<br/>
             <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatus-1"></a>
+#### SKIPJob.status
 
-
-### SKIPJob.status
-<sup><sup>[↩ Parent](#skipjob-1)</sup></sup>
-
-
+<sup>[Parent](#skipjob-1)</sup>
 
 SkiperatorStatus
 
@@ -7399,42 +7802,45 @@ A status field shown on a Skiperator resource which contains information regardi
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>accessPolicies</b></td>
         <td>string</td>
         <td>
           Indicates if access policies are valid<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatusconditionsindex-1">conditions</a></b></td>
         <td>[]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatussubresourceskey-1">subresources</a></b></td>
         <td>map[string]object</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b><a href="#skipjobstatussummary-1">summary</a></b></td>
         <td>object</td>
         <td>
           Status<br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatusconditionsindex-1"></a>
+#### SKIPJob.status.conditions[index]
 
-
-### SKIPJob.status.conditions[index]
-<sup><sup>[↩ Parent](#skipjobstatus-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobstatus-1)</sup>
 
 Condition contains details for one aspect of the current state of this API Resource.
 
@@ -7447,7 +7853,8 @@ Condition contains details for one aspect of the current state of this API Resou
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>lastTransitionTime</b></td>
         <td>string</td>
         <td>
@@ -7457,7 +7864,8 @@ This should be when the underlying condition changed.  If that is not known, the
             <i>Format</i>: date-time<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -7465,7 +7873,8 @@ This should be when the underlying condition changed.  If that is not known, the
 This may be an empty string.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>reason</b></td>
         <td>string</td>
         <td>
@@ -7476,7 +7885,8 @@ The value should be a CamelCase string.
 This field may not be empty.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>enum</td>
         <td>
@@ -7485,14 +7895,16 @@ This field may not be empty.<br/>
             <i>Enum</i>: True, False, Unknown<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>type</b></td>
         <td>string</td>
         <td>
           type of condition in CamelCase or in foo.example.com/CamelCase.<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>observedGeneration</b></td>
         <td>integer</td>
         <td>
@@ -7504,14 +7916,13 @@ with respect to the current state of the instance.<br/>
             <i>Minimum</i>: 0<br/>
         </td>
         <td>false</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatussubresourceskey-1"></a>
+#### SKIPJob.status.subresources[key]
 
-
-### SKIPJob.status.subresources[key]
-<sup><sup>[↩ Parent](#skipjobstatus-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobstatus-1)</sup>
 
 Status
 
@@ -7524,7 +7935,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -7533,7 +7945,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -7542,21 +7955,21 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
+<a id="skipjobstatussummary-1"></a>
+#### SKIPJob.status.summary
 
-
-### SKIPJob.status.summary
-<sup><sup>[↩ Parent](#skipjobstatus-1)</sup></sup>
-
-
+<sup>[Parent](#skipjobstatus-1)</sup>
 
 Status
 
@@ -7569,7 +7982,8 @@ Status
             <th>Required</th>
         </tr>
     </thead>
-    <tbody><tr>
+    <tbody>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -7578,7 +7992,8 @@ Status
             <i>Default</i>: `Resource accepted by Kubernetes. Waiting for Skiperator to become aware of the resource and start processing.`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>status</b></td>
         <td>string</td>
         <td>
@@ -7587,12 +8002,14 @@ Status
             <i>Default</i>: `Pending`<br/>
         </td>
         <td>true</td>
-      </tr><tr>
+      </tr>
+      <tr>
         <td><b>timestamp</b></td>
         <td>string</td>
         <td>
           <br/>
         </td>
         <td>true</td>
-      </tr></tbody>
+      </tr>
+    </tbody>
 </table>
