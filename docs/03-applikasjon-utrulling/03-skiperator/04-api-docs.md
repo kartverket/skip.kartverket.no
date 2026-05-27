@@ -3454,7 +3454,7 @@ Status
 | API version | `skiperator.kartverket.no/v1alpha1` |
 | Kind | `SKIPJob` |
 
-SKIPJob is the Schema for the skipjobs API
+SKIPJob is the deprecated schema for the SKIPJobs API. Please migrate to v1beta1.
 
 <table>
     <thead>
@@ -5749,7 +5749,7 @@ Resource types in this package:
 | API version | `skiperator.kartverket.no/v1beta1` |
 | Kind | `SKIPJob` |
 
-SKIPJob is the Schema for the skipjobs API
+SKIPJob is the supported schema for the SKIPJobs API.
 
 <table>
     <thead>
