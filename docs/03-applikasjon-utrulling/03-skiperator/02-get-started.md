@@ -34,23 +34,26 @@ Appen din bør nå være tilgjengelig på domenet `myapp.atkv3-dev.kartverket-in
 
 ## SKIPJob
 
+:::note
+Fra våren 2026 fases SKIPJob `v1alpha1` ut til fordel for `v1beta1`.
+:::
+
 En `SKIPJob` er vår abstraksjon av en jobb eller en cron-jobb. Skiperator vil opprette alle nødvendige ressurser for deg.
 Opprett en fil med navn `job.yaml` i `env/atkv3-dev/myjob` med følgende innhold:
 
 ```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
+apiVersion: skiperator.kartverket.no/v1beta1
 kind: SKIPJob
 metadata:
   name: myjob
 spec:
-  container:
-    image: ghcr.io/kartverket/myjob:latest
-    command:
-      - "sleep 10"
-    accessPolicy:
-      outbound:
-        rules:
-          - application: myapp
+  image: ghcr.io/kartverket/myjob:latest
+  command:
+    - "sleep 10"
+  accessPolicy:
+    outbound:
+      rules:
+        - application: myapp
 
   cron:
     schedule: "* * * * *"
