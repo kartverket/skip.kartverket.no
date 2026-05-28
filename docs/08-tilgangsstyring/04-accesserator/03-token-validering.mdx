@@ -37,7 +37,15 @@ spec:
 ```
 
 ### Entra ID
-Støtte for Entra ID kommer snart.
+```yaml title="Eksempel på SecurityConfig for Entra ID-validering"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  entraid:
+    enabled: true
+  ...
+```
 
 ### ID-porten / Ansattporten
 Støtte for ID-porten og Ansattporten kommer snart.
