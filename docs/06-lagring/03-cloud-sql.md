@@ -13,23 +13,14 @@ Spesielt guiden for [hvordan bruke terraform-modules repoet](https://github.com/
 > For mer utfyllende dokumentasjon se [cloud_sql wiki](https://github.com/kartverket/terraform-modules/wiki/cloud_sql)
 
 ```hcl
-module "cloudsql_test" {
-  source        = "git@github.com:kartverket/terraform-modules.git/?ref=cloud_sql/v0.10.0"
-  env           = "sandbox"
+module "cloudsql_instance_prod" {
+  source        = "git@github.com:kartverket/terraform-modules.git/?ref=cloud_sql/v0.15.0"
+  env           = "prod"
   instance_name = "foo-db"
-  project_id    = "skip-sandbox-37c2"
+  instance_tier = "db-custom-1-3840" # 1 vCPU og 3.75 GB RAM, default er db-f1-micro som er veldig liten og ikke anbefalt for produksjon
+  project_id    = "<team-prod-id>"
 }
 ```
-
-Du kan koble deg til på denne måten: 
-1. JIT deg til cloudsql.admin
-2. Last ned [cloudsql-proxy](https://cloud.google.com/sql/docs/postgres/connect-instance-auth-proxy#install-proxy)
-3. `gcloud auth application-default login`
-4. `./cloud-sql-proxy --private-ip <connection-name> --auto-iam-authn` -- connection name finner du på sql instansen i GCP
-5. `psql -d admin -h localhost -U admin` eller fra applikasjon
-
-Du må være på Kartverkets nettverk for å få tilgang, selv med cloud sql proxy. Man kan ikke koble til fra egen klient uten proxy.
-Du trenger ikke å bruke SSL sertifikater når du kobler til via proxy.
 
 ### cloud_sql_config modulen og konfigurering av brukere
 > For mer utfyllende dokumentasjon se [cloud_sql_config wiki](https://github.com/kartverket/terraform-modules/wiki/cloud_sql_config)
@@ -98,8 +89,9 @@ For hver bruker så vil modulen generere opp et klient sertifikat og en privatn�
 Den private nøkkelen legges i to formater; PEM og PK8. Vi har erfart at JDBC ikke liker PEM, så i dette tilfellet 
 så bør du bruke PK8 nøkkelen istedenfor.
 
-## Bruke instansen fra SKIP
+## Bruk av CloudSQL
 
+### Koble til fra applikasjon kjørende på SKIP
 Når du skal bruke instansen fra SKIP så må du gjøre noen få modifikasjoner til applikasjonsmanifestet ditt.
 
 Det første du må gjøre er å hente ut secrets.
@@ -211,6 +203,26 @@ Skiperator vil nå:
 - 'mounte' sertifikatene inn i filsystemet til poden, slik applikasjonen kan bruke de til å koble til databasen
 - laste inn passord hemmeligheten som en env variabel inn i poden, slik applikasjonen kan koble til databasen
 
+### Koble til utenfor SKIP 
+Når man kobler til databasen fra en applikasjon kjørende på SKIP går man direkte mot den private IP-adressen.
+
+Hvis man har behov for å koble til databasen direkte som utvikler, gjøres dette enten via cloud-sql-proxy eller via Cloud SQL Studio i GCP-konsollet.
+
+Tilkobling via cloud-sql-proxy gjøres på denne måten:
+1. Elever tilgang med [PAM](../02-kom-i-gang/04-team/09-pam-google-cloud.md) entitlement `cloudsql-user` i prosjektet hvor databasen ligger
+2. Last ned [cloudsql-proxy](https://cloud.google.com/sql/docs/postgres/connect-instance-auth-proxy#install-proxy)
+3. `gcloud auth application-default login`
+4. `./cloud-sql-proxy --private-ip <connection-name> --auto-iam-authn` -- connection name finner du på sql instansen i GCP
+5. `psql -d admin -h localhost -U admin`
+
+Du må være på Kartverkets nettverk for å få tilgang, selv med cloud sql proxy. Man kan ikke koble til fra egen klient uten proxy.
+Du trenger ikke å bruke SSL sertifikater når du kobler til via proxy.
+
+Alternativt kan man også koble seg til databasen via Cloud SQL Studio i GCP-konsollet for å gjøre enklere spørringer og undersøkelser.
+1. Elever tilgang med PAM entitlement `cloudsql-user` i prosjektet hvor databasen ligger
+2. Gå til Secret Manager og hent ut brukernavn/passord for brukeren du vil logge på som
+3. Gå til Cloud SQL i GCP-konsollet, velg instansen og trykk på "Cloud SQL Studio" hvor du logger inn med brukernavn og passord.
+
 ### Bruke CloudSQL fra Java applikasjoner
 
 Skal du bruke CloudSQL fra Java applikasjoner må du lage til ExternalSecrets og konfigurere skiperator som ovenfor, 
@@ -250,6 +262,19 @@ Google Cloud SQL har innebygd failover, og det betyr at dersom primærinstansen 
 Dette må konfigureres i terraform, ved bruk av `availability_type` [variabelen](https://github.com/kartverket/terraform-modules/wiki/cloud_sql#input_availability_type), default på denne er `ZONAL` som betyr at du ikke får en secondary instans.
 I produksjon er det anbefalt å ha en secondary instans, og da må `availability_type` settes til `REGIONAL` i terraform.
 Les mer her: [Google sin dokumentasjon](https://cloud.google.com/sql/docs/postgres/high-availability)
+
+## Audit-logging
+Audit-logging for CloudSQL (og i GCP forøvrig) er delt opp i ulike deler:
+- "Admin Activity"-logger er innebygd i GCP og loggfører alle administrative handlinger som gjøres på CloudSQL instansen, for eksempel opprettelse av nye databaser, endring av konfigurasjon og så videre. 
+- "Data Access"-logger inneholder mer detaljert informasjon om lesing og skriving av data på ressursnivå. På SKIP er disse skrudd på for alle prosjekter, men man kan konfigurere nivået av hva som logges gjennom et parameter til en PostgreSQL-extension som heter pgaudit. Som standard logges statements av typen "role,ddl,misc_set". Se [wikien](https://github.com/kartverket/terraform-modules/wiki/cloud_sql#input_pgaudit_log) for mer informasjon om parameteret.
+
+For å kunne lese audit-logget i prosjektet må man elevere tilganger ved å aktivere PAM entitlement `audit-log-viewer` i prosjektet hvor databasen ligger. Når dette er gjort kan man gå til Logs Explorer og filtrere på loggtypen man ønsker å se:
+```
+   projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Factivity
+   projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Fdata_access
+   projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Fsystem_event
+   projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Fpolicy
+```
 
 ## Viktig å huske på
 
