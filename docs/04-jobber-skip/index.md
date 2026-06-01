@@ -12,13 +12,12 @@ Mer info om vanlig konfiguration av applikasjoner finner du [her](/docs/applikas
 ### One-off jobb
 
 ```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
+apiVersion: skiperator.kartverket.no/v1beta1
 kind: SKIPJob
 metadata:
   name: min-jobb
 spec:
-  container:
-    image: "ghcr.io/kartverket/min-jobb:latest"
+  image: "ghcr.io/kartverket/min-jobb:latest"
 ```
 Denne vil kjøre docker imaget `min-jobb:latest` en gang. 
 Den vil kjøre hver gang den blir syncet i ArgoCD. 
@@ -26,13 +25,12 @@ Den vil kjøre hver gang den blir syncet i ArgoCD.
 ### Cron jobb (periodisk)
 
 ```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
+apiVersion: skiperator.kartverket.no/v1beta1
 kind: SKIPJob
 metadata:
   name: min-cron-jobb
 spec:
-  container:
-    image: "ghcr.io/kartverket/min-jobb:latest"
+  image: "ghcr.io/kartverket/min-jobb:latest"
   cron:
     schedule: "0 * * * *"
 ```
@@ -46,28 +44,27 @@ I dette eksempelet konfigureres en jobb som har tilgang til å aksessere ressurs
 Jobben kjører ukedager (mandag-fredag) kl 21:30 i gjeldende tidssone for Norge.
 
 ```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
+apiVersion: skiperator.kartverket.no/v1beta1
 kind: SKIPJob
 metadata:
   name: min-cron-jobb
 spec:
+  image: "ghcr.io/kartverket/min-jobb:latest"
   cron:
     schedule: "30 21 * * 1-5"
     timeZone: "Europe/Oslo"
-  container:
-    image: "ghcr.io/kartverket/min-jobb:latest"
-    gcp:
-      auth:
-        serviceAccount: "min-jobb@mitt-prosjekt.iam.gserviceaccount.com"
-    accessPolicy:
-      outbound:
-        rules:
-          - application: "min-applikasjon"
-    env:
-      - name: MIN_ENV_VAR
-        value: "min-env-value"
-    envFrom:
-      - secret: "secret-navn"
+  gcp:
+    auth:
+      serviceAccount: "min-jobb@mitt-prosjekt.iam.gserviceaccount.com"
+  accessPolicy:
+    outbound:
+      rules:
+        - application: "min-applikasjon"
+  env:
+    - name: MIN_ENV_VAR
+      value: "min-env-value"
+  envFrom:
+    - secret: "secret-navn"
 ```
 
 ## Trigge en jobb
@@ -79,5 +76,5 @@ Trykk på "Delete", velg "Foreground Delete" (default) og trykk "Ok" så vil `Jo
 
 For å trigge cron jobber manuelt kan du trykke på kebab meny knappen på "cronjob" ressursen og velge "Create Job". 
 
-Ved å sette [`.spec.cron.suspend = true`](/docs/applikasjon-utrulling/skiperator/api-docs#skipjobspeccron) kan du hindre en cron jobb fra å kjøre periodisk og den kan dermed trigges manuelt via kebab meny. 
+Ved å sette [`.spec.cron.suspend = true`](/docs/applikasjon-utrulling/skiperator/api-docs#skipjobspeccron-1) kan du hindre en cron jobb fra å kjøre periodisk og den kan dermed trigges manuelt via kebab meny.
 SKIPJoben vil da oppføre seg som en one-off jobb, men den vil ikke kjøre når den synces. 

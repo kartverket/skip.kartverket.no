@@ -229,13 +229,12 @@ spec:
 Grunnleggende cron-jobb som kjører hvert minutt.
 
 ```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
+apiVersion: skiperator.kartverket.no/v1beta1
 kind: SKIPJob
 metadata:
   name: myjob
 spec:
-  container:
-    image: image:latest
+  image: image:latest
   cron:
     schedule: "* * * * *"
 ```
@@ -245,18 +244,17 @@ spec:
 En jobb som bruker en kommando med et Docker-image.
 
 ```yaml
-apiVersion: skiperator.kartverket.no/v1alpha1
+apiVersion: skiperator.kartverket.no/v1beta1
 kind: SKIPJob
 metadata:
   name: myjob
 spec:
-  container:
-    image: "perl:5.34.0"
-    command:
-      - "perl"
-      - "-Mbignum=bpi"
-      - "-wle"
-      - "print bpi(2000)"
+  image: "perl:5.34.0"
+  command:
+    - "perl"
+    - "-Mbignum=bpi"
+    - "-wle"
+    - "print bpi(2000)"
 ```
 
 ### Access policy - SKIPJob
