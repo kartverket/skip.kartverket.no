@@ -74,9 +74,7 @@ This allows product teams to avoid the need to set up networking on the cluster,
         <td><b><a href="#applicationstatus">status</a></b></td>
         <td>object</td>
         <td>
-          SkiperatorStatus
-
-A status field shown on a Skiperator resource which contains information regarding deployment of the resource.<br/>
+          ApplicationStatus is a specialized status specific to the Application kind.<br/>
         </td>
         <td>false</td>
       </tr>
@@ -382,6 +380,16 @@ succeeds, making sure those probes don't interfere with the application startup.
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by Kubernetes before they are up and running.
 Startup is optional, but when provided, path and port are required<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecstateful">stateful</a></b></td>
+        <td>object</td>
+        <td>
+          Stateful, when set with enabled=true, generates a StatefulSet instead of a Deployment.
+Requires VolumeClaimTemplates. Disallows Strategy.Type=Recreate and HPA-range replicas.
+The enabled flag is immutable - delete and recreate the Application to change.<br/>
         </td>
         <td>false</td>
       </tr>
@@ -2792,6 +2800,550 @@ Minimum value is 1<br/>
       </tr>
     </tbody>
 </table>
+<a id="applicationspecstateful"></a>
+#### Application.spec.stateful
+
+<sup>[Parent](#applicationspec)</sup>
+
+Stateful, when set with enabled=true, generates a StatefulSet instead of a Deployment.
+Requires VolumeClaimTemplates. Disallows Strategy.Type=Recreate and HPA-range replicas.
+The enabled flag is immutable - delete and recreate the Application to change.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>enabled</b></td>
+        <td>boolean</td>
+        <td>
+          When true, generates a StatefulSet instead of a Deployment.
+This value is immutable - delete and recreate the Application to change<br/>
+          <br/>
+            <i>Default</i>: `false`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>partition</b></td>
+        <td>integer</td>
+        <td>
+          Staged rollouts - only pods with ordinal >= Partition are updated.
+Set Partition equal to replicas to pause updates.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Minimum</i>: 0<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>podManagementPolicy</b></td>
+        <td>enum</td>
+        <td>
+          Controls pod creation and update order. OrderedReady creates pods one at a time, Parallel creates them simultaneously.<br/>
+          <br/>
+            <i>Enum</i>: OrderedReady, Parallel<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>pvcRetentionWhenDeleted</b></td>
+        <td>enum</td>
+        <td>
+          PVC fate when the StatefulSet is deleted. Defaults to Retain.<br/>
+          <br/>
+            <i>Enum</i>: Retain, Delete<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>pvcRetentionWhenScaled</b></td>
+        <td>enum</td>
+        <td>
+          PVC fate when the StatefulSet is scaled down. Defaults to Retain.<br/>
+          <br/>
+            <i>Enum</i>: Retain, Delete<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecstatefulvolumeclaimtemplatesindex">volumeClaimTemplates</a></b></td>
+        <td>[]object</td>
+        <td>
+          Per-pod PersistentVolumeClaims provisioned by the StatefulSet controller.
+Each replica gets its own PVC named `<template.metadata.name>-<app>-<ordinal>`.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecstatefulvolumeclaimtemplatesindex"></a>
+#### Application.spec.stateful.volumeClaimTemplates[index]
+
+<sup>[Parent](#applicationspecstateful)</sup>
+
+VolumeClaimTemplate describes a per-pod PersistentVolumeClaim provisioned by the StatefulSet
+controller. Name serves as both the pod volume reference and the PVC prefix
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>mountPath</b></td>
+        <td>string</td>
+        <td>
+          Where the volume is mounted inside the container<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Pod volume name and PVC name prefix. Resulting PVCs are named `<name>-<app>-<ordinal>`<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecstatefulvolumeclaimtemplatesindexspec">spec</a></b></td>
+        <td>object</td>
+        <td>
+          PVC spec<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>annotations</b></td>
+        <td>map[string]string</td>
+        <td>
+          Optional annotations applied to PVCs<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>labels</b></td>
+        <td>map[string]string</td>
+        <td>
+          Optional labels applied to PVCs<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>subPath</b></td>
+        <td>string</td>
+        <td>
+          Subpath within the volume to mount instead of its root<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecstatefulvolumeclaimtemplatesindexspec"></a>
+#### Application.spec.stateful.volumeClaimTemplates[index].spec
+
+<sup>[Parent](#applicationspecstatefulvolumeclaimtemplatesindex)</sup>
+
+PVC spec
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>accessModes</b></td>
+        <td>[]string</td>
+        <td>
+          accessModes contains the desired access modes the volume should have.
+More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecstatefulvolumeclaimtemplatesindexspecdatasource">dataSource</a></b></td>
+        <td>object</td>
+        <td>
+          dataSource field can be used to specify either:
+* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
+* An existing PVC (PersistentVolumeClaim)
+If the provisioner or an external controller can support the specified data source,
+it will create a new volume based on the contents of the specified data source.
+When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,
+and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.
+If the namespace is specified, then dataSourceRef will not be copied to dataSource.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecstatefulvolumeclaimtemplatesindexspecdatasourceref">dataSourceRef</a></b></td>
+        <td>object</td>
+        <td>
+          dataSourceRef specifies the object from which to populate the volume with data, if a non-empty
+volume is desired. This may be any object from a non-empty API group (non
+core object) or a PersistentVolumeClaim object.
+When this field is specified, volume binding will only succeed if the type of
+the specified object matches some installed volume populator or dynamic
+provisioner.
+This field will replace the functionality of the dataSource field and as such
+if both fields are non-empty, they must have the same value. For backwards
+compatibility, when namespace isn't specified in dataSourceRef,
+both fields (dataSource and dataSourceRef) will be set to the same
+value automatically if one of them is empty and the other is non-empty.
+When namespace is specified in dataSourceRef,
+dataSource isn't set to the same value and must be empty.
+There are three important differences between dataSource and dataSourceRef:
+* While dataSource only allows two specific types of objects, dataSourceRef
+  allows any non-core object, as well as PersistentVolumeClaim objects.
+* While dataSource ignores disallowed values (dropping them), dataSourceRef
+  preserves all values, and generates an error if a disallowed value is
+  specified.
+* While dataSource only allows local objects, dataSourceRef allows objects
+  in any namespaces.
+(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+(Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecstatefulvolumeclaimtemplatesindexspecresources">resources</a></b></td>
+        <td>object</td>
+        <td>
+          resources represents the minimum resources the volume should have.
+Users are allowed to specify resource requirements
+that are lower than previous value but must still be higher than capacity recorded in the
+status field of the claim.
+More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecstatefulvolumeclaimtemplatesindexspecselector">selector</a></b></td>
+        <td>object</td>
+        <td>
+          selector is a label query over volumes to consider for binding.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>storageClassName</b></td>
+        <td>string</td>
+        <td>
+          storageClassName is the name of the StorageClass required by the claim.
+More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>volumeAttributesClassName</b></td>
+        <td>string</td>
+        <td>
+          volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
+If specified, the CSI driver will create or update the volume with the attributes defined
+in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,
+it can be changed after the claim is created. An empty string or nil value indicates that no
+VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state,
+this field can be reset to its previous value (including nil) to cancel the modification.
+If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be
+set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource
+exists.
+More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>volumeMode</b></td>
+        <td>string</td>
+        <td>
+          volumeMode defines what type of volume is required by the claim.
+Value of Filesystem is implied when not included in claim spec.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>volumeName</b></td>
+        <td>string</td>
+        <td>
+          volumeName is the binding reference to the PersistentVolume backing this claim.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecstatefulvolumeclaimtemplatesindexspecdatasource"></a>
+#### Application.spec.stateful.volumeClaimTemplates[index].spec.dataSource
+
+<sup>[Parent](#applicationspecstatefulvolumeclaimtemplatesindexspec)</sup>
+
+dataSource field can be used to specify either:
+* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
+* An existing PVC (PersistentVolumeClaim)
+If the provisioner or an external controller can support the specified data source,
+it will create a new volume based on the contents of the specified data source.
+When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,
+and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.
+If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>kind</b></td>
+        <td>string</td>
+        <td>
+          Kind is the type of resource being referenced<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name is the name of resource being referenced<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>apiGroup</b></td>
+        <td>string</td>
+        <td>
+          APIGroup is the group for the resource being referenced.
+If APIGroup is not specified, the specified Kind must be in the core API group.
+For any other third-party types, APIGroup is required.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecstatefulvolumeclaimtemplatesindexspecdatasourceref"></a>
+#### Application.spec.stateful.volumeClaimTemplates[index].spec.dataSourceRef
+
+<sup>[Parent](#applicationspecstatefulvolumeclaimtemplatesindexspec)</sup>
+
+dataSourceRef specifies the object from which to populate the volume with data, if a non-empty
+volume is desired. This may be any object from a non-empty API group (non
+core object) or a PersistentVolumeClaim object.
+When this field is specified, volume binding will only succeed if the type of
+the specified object matches some installed volume populator or dynamic
+provisioner.
+This field will replace the functionality of the dataSource field and as such
+if both fields are non-empty, they must have the same value. For backwards
+compatibility, when namespace isn't specified in dataSourceRef,
+both fields (dataSource and dataSourceRef) will be set to the same
+value automatically if one of them is empty and the other is non-empty.
+When namespace is specified in dataSourceRef,
+dataSource isn't set to the same value and must be empty.
+There are three important differences between dataSource and dataSourceRef:
+* While dataSource only allows two specific types of objects, dataSourceRef
+  allows any non-core object, as well as PersistentVolumeClaim objects.
+* While dataSource ignores disallowed values (dropping them), dataSourceRef
+  preserves all values, and generates an error if a disallowed value is
+  specified.
+* While dataSource only allows local objects, dataSourceRef allows objects
+  in any namespaces.
+(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+(Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>kind</b></td>
+        <td>string</td>
+        <td>
+          Kind is the type of resource being referenced<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name is the name of resource being referenced<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>apiGroup</b></td>
+        <td>string</td>
+        <td>
+          APIGroup is the group for the resource being referenced.
+If APIGroup is not specified, the specified Kind must be in the core API group.
+For any other third-party types, APIGroup is required.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>namespace</b></td>
+        <td>string</td>
+        <td>
+          Namespace is the namespace of resource being referenced
+Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details.
+(Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecstatefulvolumeclaimtemplatesindexspecresources"></a>
+#### Application.spec.stateful.volumeClaimTemplates[index].spec.resources
+
+<sup>[Parent](#applicationspecstatefulvolumeclaimtemplatesindexspec)</sup>
+
+resources represents the minimum resources the volume should have.
+Users are allowed to specify resource requirements
+that are lower than previous value but must still be higher than capacity recorded in the
+status field of the claim.
+More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>limits</b></td>
+        <td>map[string]int or string</td>
+        <td>
+          Limits describes the maximum amount of compute resources allowed.
+More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>requests</b></td>
+        <td>map[string]int or string</td>
+        <td>
+          Requests describes the minimum amount of compute resources required.
+If Requests is omitted for a container, it defaults to Limits if that is explicitly specified,
+otherwise to an implementation-defined value. Requests cannot exceed Limits.
+More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecstatefulvolumeclaimtemplatesindexspecselector"></a>
+#### Application.spec.stateful.volumeClaimTemplates[index].spec.selector
+
+<sup>[Parent](#applicationspecstatefulvolumeclaimtemplatesindexspec)</sup>
+
+selector is a label query over volumes to consider for binding.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b><a href="#applicationspecstatefulvolumeclaimtemplatesindexspecselectormatchexpressionsindex">matchExpressions</a></b></td>
+        <td>[]object</td>
+        <td>
+          matchExpressions is a list of label selector requirements. The requirements are ANDed.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>matchLabels</b></td>
+        <td>map[string]string</td>
+        <td>
+          matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels
+map is equivalent to an element of matchExpressions, whose key field is "key", the
+operator is "In", and the values array contains only "value". The requirements are ANDed.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecstatefulvolumeclaimtemplatesindexspecselectormatchexpressionsindex"></a>
+#### Application.spec.stateful.volumeClaimTemplates[index].spec.selector.matchExpressions[index]
+
+<sup>[Parent](#applicationspecstatefulvolumeclaimtemplatesindexspecselector)</sup>
+
+A label selector requirement is a selector that contains values, a key, and an operator that
+relates the key and values.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          key is the label key that the selector applies to.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>operator</b></td>
+        <td>string</td>
+        <td>
+          operator represents a key's relationship to a set of values.
+Valid operators are In, NotIn, Exists and DoesNotExist.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>values</b></td>
+        <td>[]string</td>
+        <td>
+          values is an array of string values. If the operator is In or NotIn,
+the values array must be non-empty. If the operator is Exists or DoesNotExist,
+the values array must be empty. This array is replaced during a strategic
+merge patch.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
 <a id="applicationspecstrategy"></a>
 #### Application.spec.strategy
 
@@ -2833,9 +3385,7 @@ Valid values are: RollingUpdate, Recreate. Default is RollingUpdate
 
 <sup>[Parent](#application)</sup>
 
-SkiperatorStatus
-
-A status field shown on a Skiperator resource which contains information regarding deployment of the resource.
+ApplicationStatus is a specialized status specific to the Application kind.
 
 <table>
     <thead>
@@ -2878,6 +3428,15 @@ A status field shown on a Skiperator resource which contains information regardi
           Status<br/>
         </td>
         <td>true</td>
+      </tr>
+      <tr>
+        <td><b>applicationKind</b></td>
+        <td>string</td>
+        <td>
+          Kind generated for this Application after a successful reconcile.
+Used to prevent switching between Deployment and StatefulSet.<br/>
+        </td>
+        <td>false</td>
       </tr>
     </tbody>
 </table>
