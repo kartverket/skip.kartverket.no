@@ -2982,8 +2982,8 @@ More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access
         <td>object</td>
         <td>
           dataSource field can be used to specify either:
-* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
-* An existing PVC (PersistentVolumeClaim)
+An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
+An existing PVC (PersistentVolumeClaim)
 If the provisioner or an external controller can support the specified data source,
 it will create a new volume based on the contents of the specified data source.
 When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,
@@ -3010,12 +3010,12 @@ value automatically if one of them is empty and the other is non-empty.
 When namespace is specified in dataSourceRef,
 dataSource isn't set to the same value and must be empty.
 There are three important differences between dataSource and dataSourceRef:
-* While dataSource only allows two specific types of objects, dataSourceRef
+While dataSource only allows two specific types of objects, dataSourceRef
   allows any non-core object, as well as PersistentVolumeClaim objects.
-* While dataSource ignores disallowed values (dropping them), dataSourceRef
+While dataSource ignores disallowed values (dropping them), dataSourceRef
   preserves all values, and generates an error if a disallowed value is
   specified.
-* While dataSource only allows local objects, dataSourceRef allows objects
+While dataSource only allows local objects, dataSourceRef allows objects
   in any namespaces.
 (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.<br/>
@@ -3093,8 +3093,8 @@ Value of Filesystem is implied when not included in claim spec.<br/>
 <sup>[Parent](#applicationspecstatefulvolumeclaimtemplatesindexspec)</sup>
 
 dataSource field can be used to specify either:
-* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
-* An existing PVC (PersistentVolumeClaim)
+An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
+An existing PVC (PersistentVolumeClaim)
 If the provisioner or an external controller can support the specified data source,
 it will create a new volume based on the contents of the specified data source.
 When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,
@@ -3158,12 +3158,12 @@ value automatically if one of them is empty and the other is non-empty.
 When namespace is specified in dataSourceRef,
 dataSource isn't set to the same value and must be empty.
 There are three important differences between dataSource and dataSourceRef:
-* While dataSource only allows two specific types of objects, dataSourceRef
+While dataSource only allows two specific types of objects, dataSourceRef
   allows any non-core object, as well as PersistentVolumeClaim objects.
-* While dataSource ignores disallowed values (dropping them), dataSourceRef
+While dataSource ignores disallowed values (dropping them), dataSourceRef
   preserves all values, and generates an error if a disallowed value is
   specified.
-* While dataSource only allows local objects, dataSourceRef allows objects
+While dataSource only allows local objects, dataSourceRef allows objects
   in any namespaces.
 (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
@@ -3288,7 +3288,7 @@ selector is a label query over volumes to consider for binding.
         <td><b>matchLabels</b></td>
         <td>map[string]string</td>
         <td>
-          matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels
+          matchLabels is a map of key/value pairs. A single key/value in the matchLabels
 map is equivalent to an element of matchExpressions, whose key field is "key", the
 operator is "In", and the values array contains only "value". The requirements are ANDed.<br/>
         </td>
