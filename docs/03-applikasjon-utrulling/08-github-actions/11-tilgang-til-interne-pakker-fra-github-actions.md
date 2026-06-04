@@ -31,7 +31,7 @@ Når workflowen har kjørt kan du verifisere at repoet ditt har fått tilgang ve
 ![Verifiser secret](./images/repo-org-secret.png)
 
 ### 3. Bruk tokenet i workflows
-Etter at tilgangen er på plass kan du bruke tokenet i dine GitHub Actions workflows. Organization secret heter `SHARED_PACKAGES_READ_TOKEN` og kan brukes som en environment-variabel eller sendes inn til actions etter behov.
+Etter at tilgangen er på plass kan du bruke tokenet i dine GitHub Actions workflows eller i Dependabot-konfigurasjonen. Organization secret heter `SHARED_PACKAGES_READ_TOKEN` og kan brukes som en environment-variabel eller sendes inn til actions etter behov.
 
 Hvordan du bruker tokenet avhenger av byggemiljøet og verktøyene du benytter. Her er noen eksempler:
 
@@ -63,6 +63,22 @@ jobs:
         uses: some-action@v1
         with:
           token: ${{ secrets.SHARED_PACKAGES_READ_TOKEN }}
+```
+
+#### Eksempel: Bruk med Dependabot
+```yaml
+registries:
+  ghcr:
+    type: docker-registry
+    url: https://ghcr.io
+    username: x-access-token
+    password: ${{ secrets.SHARED_PACKAGES_READ_TOKEN }}
+...
+updates:
+  - package-ecosystem: "docker"
+    registries:
+      - ghcr
+...
 ```
 
 :::tip
