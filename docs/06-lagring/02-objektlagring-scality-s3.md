@@ -1,4 +1,4 @@
-# Objektlagring med Scality S3
+# Objektlagring med Scality S3 (on-prem)
 
 ![Scality](images/image-20231004-081415.png)
 
@@ -6,6 +6,6 @@ I Kartverket har vi en lokalt S3-kompatibel lagringsløsning ved navn Scality. D
 
 Å få tilgang til denne krever følgende:
 
-- SKIP oppretter bruker og lagringsbøtter for dere i scality-løsningen
+- Infrastrukturdrift oppretter bruker og lagringsbøtter for dere i scality-løsningen
   - [Admin interface](https://s3-rin.statkart.no/_/console/login)
 - Dere får access key og secret
