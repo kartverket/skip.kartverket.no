@@ -1,6 +1,6 @@
 # Autentisering mot GCP fra applikasjon i Kubernetes
 
-Hvis applikasjonen din trenger tilgang til GCP-tjenester (for eksempel en GCS bucket), må du konfigurere en `service account` med riktige IAM-rettigheter og koble den til applikasjonen i Skiperator.
+Hvis applikasjonen din trenger tilgang til GCP-tjenester (for eksempel en GCS bucket), må du konfigurere en [Service Account](https://docs.cloud.google.com/iam/docs/service-account-overview) med riktige [IAM](https://docs.cloud.google.com/iam/docs/overview)-rettigheter og koble den til applikasjonen i Skiperator.
 
 ## 1) Opprett service account i GCP
 
