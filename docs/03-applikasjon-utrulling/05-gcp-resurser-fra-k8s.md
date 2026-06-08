@@ -14,7 +14,7 @@ For at en [Kubernetes Service Account](https://kubernetes.io/docs/concepts/secur
 
 ### Variabler
 
-- `GCP_SA_NAME`: navn pa GCP `service account`
+- `GCP_SA_NAME`: navn på GCP Service Account
 - `GCP_SA_PROJECT_ID`: GCP-prosjektet der `service account` ligger
 - `KUBERNETES_PROJECT_ID`: GCP-prosjektet for Kubernetes-clusteret (f.eks. `kubernetes-dev-94b9`)
 - `KUBERNETES_NAMESPACE`: namespace der poden kjøres
