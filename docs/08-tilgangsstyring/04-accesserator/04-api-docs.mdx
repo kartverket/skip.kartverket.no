@@ -91,6 +91,16 @@ spec defines the desired state of SecurityConfig
         </td>
         <td>true</td>
       </tr><tr>
+        <td><b><a href="#securityconfigspecentraid">entraid</a></b></td>
+        <td>object</td>
+        <td>
+            EntraID specifies whether to configure the Entra ID API consumer capability for an application referred to by `applicationRef`.
+            The configuration can either be provided inline via the `client` field,
+            by referencing an existing AzureAdApplication resource via the `clientRef` field,
+            or by sourcing credentials from existing Kubernetes secrets via the `secretRef` field.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
         <td><b><a href="#securityconfigspecmaskinporten">maskinporten</a></b></td>
         <td>object</td>
         <td>
@@ -111,6 +121,401 @@ spec defines the desired state of SecurityConfig
         <td>false</td>
       </tr></tbody>
 </table>
+
+
+### SecurityConfig.spec.entraid
+<sup><sup>[↩ Parent](#securityconfigspec)</sup></sup>
+
+
+
+EntraID specifies whether to configure the Entra ID API consumer capability for an application referred to by `applicationRef`.
+The configuration can either be provided inline via the `client` field,
+by referencing an existing AzureAdApplication resource via the `clientRef` field,
+or by sourcing credentials from existing Kubernetes secrets via the `secretRef` field.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>enabled</b></td>
+        <td>boolean</td>
+        <td>
+            Enabled indicates whether Entra ID should be configured for the application.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b><a href="#securityconfigspecentraidclient">client</a></b></td>
+        <td>object</td>
+        <td>
+            Client defines the Entra ID client configuration inline.
+            Use this when you want to configure the client directly.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#securityconfigspecentraidclientref">clientRef</a></b></td>
+        <td>object</td>
+        <td>
+            ClientRef references an existing AzureAdApplication by name.
+            Use this when a AzureAdApplication exists, and you want to reference it.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#securityconfigspecentraidsecretref">secretRef</a></b></td>
+        <td>object</td>
+        <td>
+            SecretRef sources the client registration credentials from one or more existing Kubernetes secrets.
+            Use this when you have an existing OAuth client registered outside the SecurityConfig CRD
+            and AzureAdApplication CRD (e.g. manually registered at Entra).<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.client
+<sup><sup>[↩ Parent](#securityconfigspecentraid)</sup></sup>
+
+
+
+Client defines the Entra ID client configuration inline.
+Use this when you want to configure the client directly.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#securityconfigspecentraidclientgroupsindex">groups</a></b></td>
+        <td>[]object</td>
+        <td>
+            Groups is a list of Entra ID group IDs to be emitted in the `groups` claim in tokens issued by Entra ID. This
+            also assigns groups to the application for access control. Only direct members of the groups are granted access.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>logoutUrl</b></td>
+        <td>string</td>
+        <td>
+            LogoutUrl is the URL where Entra ID sends a request to have the application clear the user's session data. This
+            is required if single sign-out should work correctly. Must start with 'https'<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#securityconfigspecentraidclientpreauthorizedapplicationsindex">preAuthorizedApplications</a></b></td>
+        <td>[]object</td>
+        <td>
+            PreAuthorizedApplications is a list of Entra ID Applications that are authorized to perform client credential
+            flow with this application as scope, or the on-behalf-of (OBO) flow.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#securityconfigspecentraidclientreplyurlsindex">replyUrls</a></b></td>
+        <td>[]object</td>
+        <td>
+            ReplyUrls is a list of authorized redirect URIs Entra ID may use when performing authorization code flow. All
+            production URLs must use the 'https' scheme.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>secretName</b></td>
+        <td>string</td>
+        <td>
+            SecretName is the name of the resulting Secret resource to be created. If not set, the secret will be given a
+            a name based on the name of the SecurityConfig resource.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>singlePageApplication</b></td>
+        <td>boolean</td>
+        <td>
+            SinglePageApplication denotes whether this Entra ID application should be registered as a single-page-application
+            for usage in client-side applications without access to secrets.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.client.groups[index]
+<sup><sup>[↩ Parent](#securityconfigspecentraidclient)</sup></sup>
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>id</b></td>
+        <td>string</td>
+        <td>
+            ID is the actual `object ID` associated with the given group in Azure AD.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.client.preAuthorizedApplications[index]
+<sup><sup>[↩ Parent](#securityconfigspecentraidclient)</sup></sup>
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>application</b></td>
+        <td>string</td>
+        <td>
+            The application's name.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>cluster</b></td>
+        <td>string</td>
+        <td>
+            The application's cluster. May be omitted if it should be in the same cluster as your application.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>namespace</b></td>
+        <td>string</td>
+        <td>
+            The application's namespace. May be omitted if it should be in the same namespace as your application.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b><a href="#securityconfigspecentraidclientpreauthorizedapplicationsindexpermissions">permissions</a></b></td>
+        <td>object</td>
+        <td>
+            Permissions contains a set of permissions that are granted to the given application.
+            Currently only applicable for Azure AD clients.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.client.preAuthorizedApplications[index].permissions
+<sup><sup>[↩ Parent](#securityconfigspecentraidclientpreauthorizedapplicationsindex)</sup></sup>
+
+
+
+Permissions contains a set of permissions that are granted to the given application.
+Currently only applicable for Azure AD clients.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>roles</b></td>
+        <td>[]string</td>
+        <td>
+            Roles is a set of custom permission roles that are granted to a given application.<br/>
+        </td>
+        <td>false</td>
+      </tr><tr>
+        <td><b>scopes</b></td>
+        <td>[]string</td>
+        <td>
+            Scopes is a set of custom permission scopes that are granted to a given application.<br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.client.replyUrls[index]
+<sup><sup>[↩ Parent](#securityconfigspecentraidclient)</sup></sup>
+
+
+
+AzureAdReplyUrl defines the valid reply URLs for callbacks after OIDC flows for this application
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>url</b></td>
+        <td>string</td>
+        <td>
+            <br/>
+        </td>
+        <td>false</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.clientRef
+<sup><sup>[↩ Parent](#securityconfigspecentraid)</sup></sup>
+
+
+
+ClientRef references an existing AzureAdApplication by name.
+Use this when a AzureAdApplication exists, and you want to reference it.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+            Name of the referenced resource.<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.secretRef
+<sup><sup>[↩ Parent](#securityconfigspecentraid)</sup></sup>
+
+
+
+SecretRef sources the client registration credentials from one or more existing Kubernetes secrets.
+Use this when you have an existing OAuth client registered outside the SecurityConfig CRD
+and AzureAdApplication CRD (e.g. manually registered at Entra).
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b><a href="#securityconfigspecentraidsecretrefclientid">clientID</a></b></td>
+        <td>object</td>
+        <td>
+            ClientID references the secret key containing the Maskinporten client ID (MASKINPORTEN_CLIENT_ID).<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b><a href="#securityconfigspecentraidsecretrefclientjwk">clientJWK</a></b></td>
+        <td>object</td>
+        <td>
+            ClientJWK references the secret key containing the Maskinporten client JWK (MASKINPORTEN_CLIENT_JWK).<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.secretRef.clientID
+<sup><sup>[↩ Parent](#securityconfigspecentraidsecretref)</sup></sup>
+
+
+
+ClientID references the secret key containing the Maskinporten client ID (MASKINPORTEN_CLIENT_ID).
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+            Key is the key within the secret whose value should be used.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+            Name is the name of the Kubernetes secret.<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
+
+### SecurityConfig.spec.entraid.secretRef.clientJWK
+<sup><sup>[↩ Parent](#securityconfigspecentraidsecretref)</sup></sup>
+
+
+
+ClientJWK references the secret key containing the Maskinporten client JWK (MASKINPORTEN_CLIENT_JWK).
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody><tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+            Key is the key within the secret whose value should be used.<br/>
+        </td>
+        <td>true</td>
+      </tr><tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+            Name is the name of the Kubernetes secret.<br/>
+        </td>
+        <td>true</td>
+      </tr></tbody>
+</table>
+
 
 
 ### SecurityConfig.spec.maskinporten
