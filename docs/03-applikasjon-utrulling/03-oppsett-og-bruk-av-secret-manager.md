@@ -26,7 +26,7 @@ GSM fungerer ganske likt Vault. Vault har noe mer funksjonalitet for avansert br
 - Velg **Security** under navigasjonsmenyen (de tre strekene ved Google Cloud i høyre hjørne).
 - Velg **Secret Manager** i venstre kolonne.
 - Hvis API’et ikke er skrudd på, skru på API’et ved å trykke “Enable”
-- Trykk på **+** **CREATE SECRET**
+- Trykk på **+** **CREATE SECRET** 
 
 ![Create secret 02](images/create_secret_02.png)
 
