@@ -61,7 +61,10 @@ Da bruker applikasjonen Workload Identity-flyt i SKIP, og du slipper a håndtere
 
 ## Feilsoking
 
-- `403` mot GCS: sjekk IAM-rolle på bucket for service account, eller om servicekonto i kubernetes har tilgang til GCP Service kontoen.
+- `403` mot GCS
+    - Sjekk IAM-rolle på bucket for service account
+    - Sjekk servicekonto i kubernetes har tilgang til GCP Service kontoen
+    - Sjekk at servicekonto og namespace er riktig i IAM-bindingen for Workload Identity
 - timeout/tilkoblingsfeil: sjekk `accessPolicy` for `storage.googleapis.com:443`
 - feil miljø/prosjekt: sjekk at riktig service account brukes i manifestet
 
