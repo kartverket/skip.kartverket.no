@@ -16,7 +16,7 @@ Før du starter, sjekk at du har:
 
 - Et GCP-prosjekt for miljøet ditt (dev/test/prod)
 - [Tilgang til prosjektet ditt](../02-kom-i-gang/04-team/06-access-gcp.md)
-- Aktivert riktig PAM-tilgang via [PAM Google Cloud](../02-kom-i-gang/04-team/09-pam-google-cloud.md)
+- Aktivert riktig [PAM-tilgang](../02-kom-i-gang/04-team/09-pam-google-cloud.md)
 - Et repo/oppsett for Terraform (anbefalt) via [Bruk av Terraform](../03-applikasjon-utrulling/08-github-actions/01-bruk-av-terraform.md)
 
 ## 1) Opprett bucket (anbefalt med Terraform)
