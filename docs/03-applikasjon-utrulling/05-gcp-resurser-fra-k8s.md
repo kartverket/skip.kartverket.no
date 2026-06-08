@@ -4,7 +4,7 @@ Hvis applikasjonen din trenger tilgang til GCP-tjenester (for eksempel en GCS bu
 
 ## 1) Opprett service account i GCP
 
-Opprett en dedikert `service account` i GCP-prosjektet der ressursene ligger, og gi den minst mulig tilgang (least privilege).
+Opprett en dedikert Service Account i GCP-prosjektet der ressursene ligger, og gi den minst mulig tilgang (least privilege).
 
 `service account` bør opprettes med Terraform eller via `gcp-service-accounts`-repoet til SKIP.
 
