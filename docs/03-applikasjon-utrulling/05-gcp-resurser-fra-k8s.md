@@ -2,7 +2,7 @@
 
 Hvis applikasjonen din trenger tilgang til GCP-tjenester (for eksempel en GCS bucket), må du konfigurere en [Service Account](https://docs.cloud.google.com/iam/docs/service-account-overview) med riktige [IAM](https://docs.cloud.google.com/iam/docs/overview)-rettigheter og koble den til applikasjonen i Skiperator.
 
-## 1) Opprett service account i GCP
+## 1) Opprett en Service Account i GCP
 
 Opprett en dedikert Service Account i GCP-prosjektet der ressursene ligger, og gi den minst mulig tilgang (least privilege).
 
