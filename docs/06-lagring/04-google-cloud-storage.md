@@ -4,7 +4,7 @@ Denne siden viser hvordan du kommer i gang med Google Cloud Storage-buckets for 
 
 ## Nar passer GCS?
 
-Bruk GCS nar du trenger objektlagring for for eksempel:
+Bruk GCS når du trenger objektlagring for eksempel:
 
 - filer og vedlegg
 - eksport/import av data
