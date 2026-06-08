@@ -2,7 +2,7 @@
 
 Denne siden viser hvordan du kommer i gang med Google Cloud Storage-buckets for applikasjoner på SKIP.
 
-## Nar passer GCS?
+## Når passer GCS?
 
 Bruk GCS når du trenger objektlagring for eksempel:
 
