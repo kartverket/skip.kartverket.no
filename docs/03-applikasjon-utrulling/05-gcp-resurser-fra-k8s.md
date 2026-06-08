@@ -10,7 +10,7 @@ Service Account bør opprettes med Terraform eller via `gcp-service-accounts`-re
 
 ## 2) Gi Workload Identity Federation-tilgang
 
-For at en `Kubernetes service account` skal kunne opptre som GCP `service account`, må du gi rollen `roles/iam.workloadIdentityUser` pa GCP `service account`.
+For at en [Kubernetes Service Account](https://kubernetes.io/docs/concepts/security/service-accounts/) (KSA) skal kunne opptre som GCP Service Account, må du gi rollen `roles/iam.workloadIdentityUser` på Service Accounten du opprettet  i GCP.
 
 ### Variabler
 
