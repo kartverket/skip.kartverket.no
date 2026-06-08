@@ -50,7 +50,7 @@ Vanlige roller:
 - `roles/storage.objectCreator`: laste opp nye objekter
 - `roles/storage.objectAdmin`: lese/skrive/slette objekter
 
-> Bruk laveste mulig rolle. Unnga brede prosjektroller nar bucket-niva holder.
+> Bruk laveste mulig rolle. Unngå brede prosjektroller når bucket-niva holder.
 
 ## 3) Koble appen til GCP i Skiperator
 
