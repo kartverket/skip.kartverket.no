@@ -56,7 +56,7 @@ Vanlige roller:
 
 Legg service account i applikasjonsmanifestet, som beskrevet i [Vanlig Skiperator-konfigurering](../03-applikasjon-utrulling/03-skiperator/03-configuring.md#gcp).
 
-Da bruker applikasjonen Workload Identity-flyt i SKIP, og du slipper a håndtere JSON-nokler selv. Kubernetes servicekontoen må [gis tilgang til GCP servicekontoen](../03-applikasjon-utrulling/05-gcp-resurser-fra-k8s.md).
+Da bruker applikasjonen Workload Identity-flyt i SKIP, og du slipper å håndtere JSON-nøkler selv. Kubernetes Service Account må [gis tilgang til GCP servicekontoen](../03-applikasjon-utrulling/05-gcp-resurser-fra-k8s.md).
 - bruk separate buckets per miljø og applikasjon
 
 ## Feilsøking
