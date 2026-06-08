@@ -26,7 +26,7 @@ Vi anbefaler at buckets opprettes med Terraform, ikke manuelt i konsollet. SKIP 
 
 ## 2) Gi applikasjonen minst mulig tilgang
 
-Opprett en dedikert service account for applikasjonen, og gi kun nødvendige roller på bucket-niva. (Dette bør gjøres med terraform, se forrige punkt).
+Opprett en dedikert Service Account for applikasjonen, og gi kun nødvendige roller på bucket-nivå. (Dette bør gjøres med terraform, se forrige punkt).
 
 Eksempel med lesetilgang:
 
