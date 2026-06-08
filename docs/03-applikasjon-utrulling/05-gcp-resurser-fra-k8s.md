@@ -15,7 +15,7 @@ For at en [Kubernetes Service Account](https://kubernetes.io/docs/concepts/secur
 ### Variabler
 
 - `GCP_SA_NAME`: navn på GCP Service Account
-- `GCP_SA_PROJECT_ID`: GCP-prosjektet der `service account` ligger
+- `GCP_SA_PROJECT_ID`: GCP-prosjektet der Service Account ligger
 - `KUBERNETES_PROJECT_ID`: GCP-prosjektet for Kubernetes-clusteret (f.eks. `kubernetes-dev-94b9`)
 - `KUBERNETES_NAMESPACE`: namespace der poden kjøres
 - `KUBERNETES_SA_NAME`: `Kubernetes service account` som poden bruker (ofte samme navn som `Application`, og med `-skipjob`-suffix for `SKIPJob`)
