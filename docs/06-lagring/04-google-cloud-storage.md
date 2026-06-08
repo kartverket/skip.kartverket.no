@@ -66,5 +66,5 @@ Da bruker applikasjonen Workload Identity-flyt i SKIP, og du slipper a håndtere
     - Sjekk at Kubernetes Service Account har tilgang til GCP Service Account
     - Sjekk at Kubernetes Service Account og namespace er riktig i IAM-bindingen for Workload Identity
 - timeout/tilkoblingsfeil: sjekk `accessPolicy` for `storage.googleapis.com:443`
-- feil miljø/prosjekt: sjekk at riktig service account brukes i manifestet
+- feil miljø/prosjekt: sjekk at riktig Google Service Account brukes i manifestet
 
