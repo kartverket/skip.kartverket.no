@@ -59,7 +59,7 @@ Legg service account i applikasjonsmanifestet, som beskrevet i [Vanlig Skiperato
 Da bruker applikasjonen Workload Identity-flyt i SKIP, og du slipper a håndtere JSON-nokler selv. Kubernetes servicekontoen må [gis tilgang til GCP servicekontoen](../03-applikasjon-utrulling/05-gcp-resurser-fra-k8s.md).
 - bruk separate buckets per miljø og applikasjon
 
-## Feilsoking
+## Feilsøking
 
 - `403` mot GCS
     - Sjekk IAM-rolle på bucket for service account
