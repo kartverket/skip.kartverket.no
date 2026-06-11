@@ -44,8 +44,8 @@ Du kan også bruke kortform: `appnavn.namespace`, eller bare `appnavn` hvis tjen
 
 Når applikasjonen din kobler seg til en annen tjeneste, må du bruke riktig protokoll og porten tjenesten eksponerer (for eksempel `spec.port: 8080`).
 Hvis tjenesten svarer på http, heter `my-app` og eksponerer port `8080`, kan den nås på:
-- `http://my-app:8080/ansatt` for en applikasjon i samme namespace.
-- `http://my-app.namespace:8080/ansatt` for en applikasjon i et annet namespace.
+- `http://my-app:8080` for en applikasjon i samme namespace.
+- `http://my-app.namespace:8080` for en applikasjon i et annet namespace.
 
 ### Tillate kommunikasjon mellom to applikasjoner i samme namespace
 
