@@ -32,10 +32,20 @@ Hvis du ønsker, eller allerede har et annet domenenavn for applikasjonen din, m
 
 ### Access policy (tilgangspolicy)
 
-På SKIP kjører vi Istio som en service mesh. Dette betyr at all trafikk mellom tjenester er kryptert som standard.
+På SKIP kjører vi Istio servicemesh. Dette betyr at all trafikk mellom tjenester er kryptert som standard.
 All trafikk er også blokkert med nettverkspolicyer eller Istio-policyer som standard.
 For å tillate trafikk mellom tjenester må du sette opp en `accessPolicy`.
 Dette gjøres ved å spesifisere `spec.accessPolicy` i applikasjonen din.
+
+#### Intern adressering mellom tjenester
+
+Når du definerer en `Application`, får den en intern Kubernetes-adresse på formen `appnavn.namespace.svc.cluster.local`.
+Du kan også bruke kortform: `appnavn.namespace`, eller bare `appnavn` hvis tjenesten ligger i samme namespace.
+
+Når applikasjonen din kobler seg til en annen tjeneste, må du bruke riktig protokoll og porten tjenesten eksponerer (for eksempel `spec.port: 8080`).
+Hvis tjenesten svarer på http, heter `my-app` og eksponerer port `8080`, kan den nås på:
+- `http://my-app:8080/ansatt` for en applikasjon i samme namespace.
+- `http://my-app.namespace:8080/ansatt` for en applikasjon i et annet namespace.
 
 ### Tillate kommunikasjon mellom to applikasjoner i samme namespace
 
