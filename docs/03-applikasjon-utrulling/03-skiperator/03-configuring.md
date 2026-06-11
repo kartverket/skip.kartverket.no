@@ -42,7 +42,7 @@ Dette gjøres ved å spesifisere `spec.accessPolicy` i applikasjonen din.
 Når du definerer en `Application`, får den en intern Kubernetes-adresse på formen `appnavn.namespace.svc.cluster.local`.
 Du kan også bruke kortform: `appnavn.namespace`, eller bare `appnavn` hvis tjenesten ligger i samme namespace.
 
-Når applikasjonen din kobler seg til en annen tjeneste, må du bruke riktig protokoll og porten tjenesten eksponerer (for eksempel `spec.port: 8080`).
+Når applikasjonen din kobler seg til en annen intern tjeneste i samme miljø, må du bruke riktig protokoll og porten tjenesten eksponerer (for eksempel `spec.port: 8080`).
 Hvis tjenesten svarer på http, heter `my-app` og eksponerer port `8080`, kan den nås på:
 - `http://my-app:8080` for en applikasjon i samme namespace.
 - `http://my-app.namespace:8080` for en applikasjon i et annet namespace.
