@@ -47,6 +47,8 @@ Hvis tjenesten svarer på http, heter `my-app` og eksponerer port `8080`, kan de
 - `http://my-app:8080` for en applikasjon i samme namespace.
 - `http://my-app.namespace:8080` for en applikasjon i et annet namespace.
 
+**NB**: Selv om kommunikasjonen går over `http` vil den fortsatt foregå kryptert internt mellom applikasjonene.
+
 ### Tillate kommunikasjon mellom to applikasjoner i samme namespace
 
 Oppretter regler for å tillate trafikk mellom applikasjon `app1` og `app2` i samme namespace på tjeneste-porter.
