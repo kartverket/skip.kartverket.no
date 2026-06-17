@@ -1,0 +1,18 @@
+# Ztoperator AuthPolicy
+Kubernetes-operatoren _Ztoperator_ og tilhørende Kubernetes-ressurs `AuthPolicy` tilbyr et forenklet grensesnitt for å
+skrive Istio-baserte autorisasjonsregler. Disse autorisasjonsreglene blir evaluert før trafikken treffer din
+applikasjon, og sørger for at brukeren har et gyldig OAuth2.0-token og nødvendige rettigheter, for eksempel grupper,
+roller eller andre claims i tokenet. Konfigurasjon og validering i Ztoperator vil variere basert på [hvilken identitetstilbyder du skal støtte](../01-valg-av-identitetstilbyder/index.mdx).
+
+[Les mer i Ztoperator-dokumentasjonen](../07-ztoperator/index.mdx).
+
+## Hvordan fungerer autorisasjon med Ztoperator
+SKIP-plattformen bruker et _service mesh_, kalt Istio. Istio gjør at det kjører en `istio-proxy`-sidecar sammen med
+applikasjonen din i samme Kubernetes-pod. Når du oppretter en `AuthPolicy`-ressurs for applikasjonen din, vil Ztoperator
+sørge for at det opprettes en rekke Istio-spesifikke Kubernetes-ressurser som håndterer autorisasjon:
+- `RequestAuthentication`, som verifiserer at request'en inneholder et gyldig JWT-token.
+- `AuthorizationPolicy`, som utfører autorisasjon basert på claims i tokenet, for eksempel grupper eller roller.
+
+Ztoperator vil sende med brukerens dekrypterte token via `X-Authorization`-headeren i request'en som treffer
+applikasjonen din, slik at du kan utføre ytterligere autorisasjon basert på tokenet i applikasjonen din dersom du ønsker
+det.

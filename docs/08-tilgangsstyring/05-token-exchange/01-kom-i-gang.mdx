@@ -1,0 +1,56 @@
+# Kom i gang
+## Nødvendig oppsett
+
+Enkleste måte å ta i bruk Token Exchange på er ved å [spesifisere "texas" som tilgjengelig sidecar-tjeneste](../08-accesserator/index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon),
+samt bruke `SecurityConfig`-ressursen for relevante tokenx-oppsett:
+
+```yaml title="Eksempel på SecurityConfig for Token Exchange"
+apiVersion: security.skip.kartverket.no/v1alpha
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  tokenx:
+    enabled: true
+    accessPolicy:
+      ...
+  ...
+```
+
+Ved å sette `enabled: true` vil `SecurityConfig` opprette en klientregistrering i Tokendings for applikasjonen din,
+inkludert nødvendige nettverksåpninger.
+
+Innhold i `accessPolicy`-feltet vil avhenge av hvilken rolle den aktuelle applikasjonen har:
+- **Sluttbrukertjenester**: utelat `accessPolicy`-feltet, ettersom ingen skal kunne veksle tokens med din applikasjon som
+audience
+- **Underliggende tjenester**: definer `accessPolicy`-feltet, enten ved å arve fra applikasjonens nettverksregler ved å
+sette `inheritInboundRules: true`, eller ved å spesifisere eksplisitte klienter med `clients`-feltet.
+
+Det er mulig, men ikke anbefalt, å bruke Tokendings _uten_ bruk av Texas-sidecar og/eller `SecurityConfig`-ressurtypen.
+Ta kontakt med Team Tilgangsstyring dersom du mener dette er aktuelt for deg.
+
+## Request
+Token exchange med Texas gjøres med et HTTP-kall som følger:
+
+```json
+POST <TEXAS_URL>/api/v1/token/exchange
+Content-Type: application/json
+
+{
+  "identity_provider": "tokenx",
+  "user_token": "<sluttbruker-token>",
+  "target": "<cluster>:<namespace>:<app>"
+}
+```
+
+gitt at `target`-applikasjonen har en klientregistrering i Tokendings med din applikasjon som godkjent klient.
+
+## Respons
+Responsen vil være på json-format. Token ligger i `access_token`-feltet.
+```json
+{
+  "access_token": "<access-token>",
+  "expires_in": <antall sekunder (int)>,
+  "token_type": "Bearer"
+}
+
+```

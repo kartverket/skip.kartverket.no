@@ -1,0 +1,27 @@
+# Tokens for testformål
+Det kan være tungvint å teste underliggende applikasjoner dersom disse kun kan kalles fra fremforliggende
+sluttbrukertjenester. Derfor tilbyr vi [en web-tjeneste](https://tokenx-token-generator.atgcp1-dev.kartverket-intern.cloud/)
+for å utføre token exchange med et sluttbruker-token.
+
+For at tjenesten skal kunne veksle tokens med din applikasjon som audience må du legge til
+`tokenx-token-generator`-appen som en gyldig klient i `SecurityConfig`-ressursen:
+
+```yaml title="Eksempel på SecurityConfig med tokenx-token-generator som gyldig klient"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  tokenx:
+    enabled: true
+    accessPolicy:
+      clients:
+        - application: tokenx-token-generator-backend
+          namespaces: tokenx-token-generator
+        ...
+  ...
+```
+
+Husk at denne klienten kun bør godkjennes i `dev`-miljøet - aldri i produksjon!
+
+Hvilke brukere som kan veksle tokens med hvilke audiences er begrenset basert på Entra ID-grupper. Kontakt Team
+Tilgangsstyring via #gen-tilgangsstyring på Slack for å få gi ditt team tillatelse til et gitt audience.

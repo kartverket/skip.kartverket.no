@@ -1,0 +1,28 @@
+# Token Exchange
+:::info[Foreløpig kun tilgjengelig i sky]
+Token Exchange er kun tilgjengelig i _atgcp1-prod_ og _atgcp1-dev_. On-prem vil være tilgjengelig soon™️
+:::
+
+## Generelt om Token Exchange
+Token exchange er en mekanisme for å veksle inn et token, f.eks et Entra ID-, ID-porten- eller Maskinporten-token, og få
+et nytt token tilbake som kan brukes for autentisering og autorisasjon mot underliggende tjenester. Token exchange har
+flere sikkerhetsmessige fordeler sammenliknet med alternativene (f.eks _token forwarding_, der sluttbrukers token sendes
+med videre), blant annet:
+
+- Begrenset sannsynlighet for, og risiko ved, lekkasje av (sluttbruker-)tokens
+- `client`-claim i innvekslet token kan brukes for å verifisere at tokenet er utstedt til applikasjonen som utfører et
+kall mot en underliggende tjeneste
+- `aud`-claim i innvekslet token kan brukes for å verifisere at tokenet er ment brukt mot den tjenesten det presenteres
+for
+
+## Token Exchange på SKIP
+Vi tilbyr en tjeneste på SKIP for token exchange. Den baserer seg på både komponenter utviklet
+av [applikasjonsplattformen i Nav, Nais](https://nais.io/), og egenutviklede Kartverket-komponenter:
+- [Tokendings](https://github.com/nais/tokendings), en token exchange-server
+- [Jwker](https://github.com/nais/jwker), en Kubernetes-operator for klientregistrering i Tokendings
+- [Texas](https://github.com/nais/texas), en sidecar-tjeneste for veksling av tokens mot Tokendings og validering av
+tokens i applikasjonen din
+- [Accesserator](../08-accesserator/index.mdx), en Kubernetes-operator og tilhørende Kubernetes-ressurser som tilbyr
+token exchange på en SKIP-vennlig måte
+
+[Les mer om token exchange og hvordan du tar dette i bruk her](./01-kom-i-gang.mdx).
