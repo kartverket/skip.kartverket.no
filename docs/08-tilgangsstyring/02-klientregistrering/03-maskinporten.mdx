@@ -1,12 +1,15 @@
 # Maskinporten
 
-For å registrere en klient i Maskinporten, kan du enten gjøre det i Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login) eller
-gjennom Kubernetes-operatoren [Digdirator](https://github.com/nais/digdirator). Digdirator er en Kubernetes-operator utviklet av NAV sitt plattformteam ([NAIS](https://nais.io)) som skal gjøre det enkelt å deklarativt sette opp og vedlikeholde
-integrasjoner mot [Digdir](https://docs.digdir.no) sine systemer. Dette inkluderer **ID-Porten**-integrasjoner og **Maskinporten**-integrasjoner, men per nå **ikke** **Ansattporten**-integrasjoner.
+For å registrere en klient i Maskinporten har du tre muligheter:
+- Bruke Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login). Du søker om tilgang til selvbetjeningsløsningen via Pureservice.
+- Bruke Kubernetes-ressursen `MaskinportenClient`. Denne ressurstypen er tilgjengelig via Kubernetes-operatoren
+  [Digdirator](https://github.com/nais/digdirator), utviklet av [NAV sitt plattformteam (NAIS)](https://nais.io).
+- Bruke Kubernetes-ressursen `SecurityConfig`, som er en Kartverket-tilpasset abstraksjon på toppen av Digdirator. Les
+  mer om `SecurityConfig` i [dokumentasjonen for Accesserator](../08-accesserator/02-klienter-og-hemmeligheter.mdx#maskinporten).
+  Merk at `SecurityConfig`-ressursen kun støtter å _konsumere_ scopes i Maskinporten, ikke å _eksponere_ scopes.
 
-:::caution
-Digdirator støtter kun klientregistreringer mot ID-porten og Maskinporten. For Ansattporten må klientregistreringer gjøres manuelt i Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login).
-:::
+En vil typisk velge å bruke `SecurityConfig` fremfor `MaskinportenClient` dersom en uansett skal bruke førstnevnte til
+annen funksjonalitet, som Token Exchange, token-uthenting eller validering med Texas, OPA eller annet.
 
 ## 🧪 Testmiljø for Maskinporten
 
