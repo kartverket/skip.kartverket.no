@@ -1,0 +1,50 @@
+# Klienter og hemmeligheter
+Uthenting av tokens med Texas krever hemmeligheter for en tilhørende klientregistrering. Dette gjelder ved bruk av både
+Maskinporten og Entra ID. For denne funksjonaliteten tilbyr `SecurityConfig`-ressursen tre muligheter:
+- opprette en klientregistrering og tilhørende hemmelighet
+- referere til en eksisterende klientregistrering
+- referere til en eksisterende secret
+
+Du må velge én av disse. Se API-spesifikasjon for henholdsvis
+[Maskinporten](./03-api-docs.mdx#securityconfigspecmaskinporten) og
+[Entra ID](./03-api-docs.mdx#securityconfigspecentraid).
+
+Eksempel på hvordan de ulike feltene kan se ut for Maskinporten:
+```yaml
+apiVersion: accesserator.kartverket.no/v1alpha
+kind: SecurityConfig
+metadata:
+  name: my-app-security-config
+spec:
+  applicationRef: my-app
+  maskinporten:
+    enabled: true
+    # Velg en av hhv. client, clientRef og secretRef
+    client:
+      clientName: my-new-maskinporten-client
+      scopes:
+        ...
+    clientRef:
+      name: my-existing-maskinporten-client
+    secretRef:
+      clientID:
+        name: my-secret
+        key: a-key-in-my-secret
+      clientJWK:
+        name: my-secret
+        key: another-key-in-my-secret
+```
+
+## Maskinporten
+`client`-feltet i `SecurityConfig`-ressursen for Maskinporten tilbyr mulighet for å spesifisere scopes du skal
+konsumere. Du finner API-spesifikasjon for `client-feltet` [her](./03-api-docs.mdx#securityconfigspecmaskinportenclient).
+Kubernetes-ressursen som opprettes er en `MaskinportenClient`, tilsvarende som ved bruk av Digdirator. Les mer om
+Digdirator og MaskinportenClient i [dokumentasjonen om klientregistrering for Maskinporten](../02-klientregistrering/03-maskinporten.mdx).
+
+
+
+## Entra ID
+`client`-feltet i `SecurityConfig`-ressursen for Entra ID tilbyr et subset av feltene tilgjengelig via `Azurerator`, som
+vi mener dekker alle behov på SKIP. Du finner API-spesifikasjon for `client-feltet` [her](./03-api-docs.mdx#securityconfigspecentraidclient).
+Kubernetes-ressursen som opprettes er en `AzureAdApplication`, tilsvarende som ved bruk av Azurerator. Les mer om
+Azurerator og AzureAdApplication i [dokumentasjonen om klientregistrering for Entra ID](../02-klientregistrering/01-entra-id.mdx).
