@@ -12,17 +12,18 @@ import OPALogo from '../images/opa-logo.png';
 Open Policy Agent er kun tilgjengelig i _atgcp1-dev_.
 :::
 
-På SKIP tilbyr vi en løsning for finkornet autorisasjon basert på Open Policy Agent (OPA). OPA er en kraftig og fleksibel policy-motor som lar
-deg definere komplekse tilgangsregler i et deklarativt språk kalt Rego. OPA lar deg flytte autorisasjonslogikken ut av applikasjonskoden og over i egne policy-filer.
-Fordelen med dette er at reglene kan versjoneres, testes og auditeres for seg — og at du kan endre dem uten å deploye applikasjonen på nytt.
+På SKIP tilbyr vi en løsning for finkornet autorisasjon basert på Open Policy Agent (OPA). OPA er en kraftig og
+fleksibel policy-motor som lar deg definere komplekse tilgangsregler i et deklarativt språk kalt Rego. OPA lar deg
+flytte autorisasjonslogikken ut av applikasjonskoden og over i egne policy-filer. Fordelen med dette er at reglene kan
+versjoneres og testes for seg, og kan endres og deployes uavhengig av applikasjonen din.
 
+For å ta i bruk OPA på SKIP må du gjøre følgende:
 <Columns>
     <Column className='col--8'>
-        For å ta i bruk OPA på SKIP må du gjøre følgende:
-        1. Skriv OPA policyer som svarer ut autorisasjonsreglene dine
-        2. Bygg en OPA bundle i GitHub Actions og publiser den til ghcr.io
-        3. Opprett en `SecurityConfig`-CRD som konfigurer OPA og peker den mot GHCR-URL-en til din bundle
-        4. Annotér Skiperator-applikasjonen din med `accesserator.kartverket.no/services: "opa"` for å få injisert en OPA-sidecar med bundlen din
+        1. Skriv OPA-policies basert på dine behov og endre applikasjonskoden til å bruke disse
+        2. Bygg en OPA-bundle i GitHub Actions og publiser den til ghcr.io
+        3. Opprett en `SecurityConfig`-ressurs på Kubernetes som konfigurer OPA og peker den mot OPA-bundlen på GHCR
+        4. Oppdater Skiperator-applikasjonen din å få injisert en OPA-sidecar
     </Column>
     <Column>
         <img src={OPALogo} style={{width: 300}} alt="OPA-arkitektur" />

@@ -22,7 +22,7 @@ oss å opprettholde et høyt minimumsnivå av sikkerhet i alle applikasjoner.
 Mye av denne funksjonaliteten tilbys via to Kubernetes-operatorer og tilhørende Kubernetes-ressurser:
 - [Ztoperator](08-ztoperator/index.mdx): en Kubernetes-operator for innlogging, sesjonshåndtering og claims-validering, via
   Kubernetes-ressursen `AuthPolicy`
-- [Accesserator](09-accesserator/index.mdx): en Kubernetes-operator for token exchange, token-uthenting av m2m-tokens og
+- [Accesserator](09-accesserator/index.mdx): en Kubernetes-operator for token exchange, finkornet autorisasjon, token-uthenting av m2m-tokens og
   token-validering, via Kubernetes-ressursen `SecurityConfig`
 
 ## 🔥 Plattform- vs. applikasjonssikkerhet

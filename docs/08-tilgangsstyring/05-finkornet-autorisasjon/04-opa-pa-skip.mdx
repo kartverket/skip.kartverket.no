@@ -1,16 +1,24 @@
 # OPA på SKIP
 
-Hvis du har kommet hit har du skrevet OPA-policyer og gjort de nødvendige endringene i applikasjonen din til å kalle OPA ved autorisasjonssjekker.
-Neste steg er å bygge en OPA bundle og gjøre den tilgjengelig for OPA-sidecaren. En *bundle* er en gzippet
-tarball som pakker kompilerte Rego-policyer, statiske JSON-data og en `.manifest`-fil, og er OPAs distribusjonsenhet som en
-kjørende OPA-server kan polle etter og laste inn uten restart.
+Hvis du har kommet hit har du skrevet OPA-policies og gjort de nødvendige endringene i applikasjonen din for å kalle OPA
+ved autorisasjonssjekker. Neste steg er å bygge en OPA-bundle og gjøre den tilgjengelig for OPA-sidecaren. Du kan lese
+mer om hva en bundle er [her](https://www.openpolicyagent.org/docs/management-bundles), men kort fortalt er det en
+zippet pakke som inneholder reglene (Rego-policies) og/eller dataene OPA trenger for å ta avgjørelser. OPA kan laste inn
+en eller flere bundles og bruke reglene og dataene i disse for å ta autorisasjonsbeslutninger.
+
+:::info
+Hvis du trenger ulik statisk data i ulike mijløer, må du bygge og publisere regler og data for hvert miljø i separate
+bundles.
+:::
+
 
 ## Bygge bundle i GitHub Actions
 
-Team Tilgangsstyring har lagd workflowen `kartverket/github-workflows/.github/workflows/build-and-push-opa-rules.yml`, som gjør det enkelt for
-deg å bygge og publisere OPA-bundler til GHCR i GitHub Actions.
+Team Tilgangsstyring har lagd workflowen `kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml`,
+som gjør det enkelt for deg å bygge og publisere OPA-bundler til GHCR i GitHub Actions.
 
-### Eksemepel på bruk av workflow
+
+### Eksempel på bruk av workflow
 Følgende eksempel viser hvordan du kan bruke workflowen i ditt eget repo for å bygge og publisere en OPA bundle til GHCR når du pusher til ditt repo:
 
 :::info
@@ -33,7 +41,7 @@ permissions:
 
 jobs:
   build:
-    uses: kartverket/github-workflows/.github/workflows/build-and-push-opa-rules.yml@<commit-sha>
+    uses: kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml@<commit-sha>
     with:
       # artifact-name (**påkrevd**) er navnet på det resulterende artefakten i GHCR (uten tag).
       # Den er nødt til å starte med `ghcr.io/kartverket/<repo>`.
@@ -41,7 +49,7 @@ jobs:
 
       # path (**påkrevd**) spesifiserer hvilken katalog det skal bygges en OPA bundle fra.
       # Katalogen kan inneholde policyer skrevet i Rego og
-      path: .opa/policy
+      path: opa/policies
 
       # push er en boolean som spesifiserer om den bygde bundlen skal pushes til GHCR eller ikke.
       # Defaulter til `true`.
@@ -72,23 +80,29 @@ jobs:
 
       # check-schema-path er en sti til en JSON Schema-mappe eller fil som brukes under `opa check` for å
       # validere at reglene dine samsvarer med skjemaet for `input` og `data`.
-      check-schema-path: .opa/schemas
+      check-schema-path: opa/schemas
 
 ```
 
 ## Konfigurere OPA-sidecar med `SecurityConfig`
 
-DU har nå bygd en OPA bundle og publisert den til GHCR, og er klar til å bruke den i applikasjonen din. For å bruke OPA i applikasjonen din så trenger du
-å få OPA injisert som en sidecar sammen med din applikasjon. Dette gjøres ved å [spesifisere OPA som tilgjengelig sidecar-tjeneste](../09-accesserator/index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon).
-Deretter kan du konfigurer hvilke bundles OPA skal benytte under autorisajon med en `SecurityConfig`-ressurs.
+Du har nå bygd en OPA bundle og publisert den til GHCR, og er klar til å bruke den i applikasjonen din. For å bruke OPA
+trenger du å få OPA injisert som en sidecar sammen med din applikasjon. Dette gjøres ved å
+[spesifisere OPA som tilgjengelig sidecar-tjeneste](../09-accesserator/index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon).
+Deretter konfigurerer du hvilke bundles OPA skal benytte under autorisajon med en `SecurityConfig`-ressurs.
 
 ### Eksempel på `SecurityConfig`
 
 Følgende `SecurityConfig` konfigurerer OPA-sidecaren til å laste inn *to* bundles.
-- En bundle bestående av autorisasjonsregelene bygd fra mappen `.opa/policy`
-- En bundle bestående av produksjonsspesifikke data som reglene dine bruker, bygd fra mappen `.opa/data/prod`
+- En bundle bestående av autorisasjonsregelene bygd fra mappen `opa/policies`
+- En bundle bestående av produksjonsspesifikke data som reglene dine bruker, bygd fra mappen `opa/data/<MILJØ>`
+
 Vi konfigurerer også at Accesserator skal verifisere provenance-attestasjonen for bundlene, det vil si at Accesserator skal
 verifisere at bundlene er bygd fra repoet `kartverket/<REPO>`, av workflowen `.github/workflows/build-opa-bundle.yml`, fra `main`-branchen.
+
+:::warning
+`spec.opa.bundleUrls[*].verification` er under aktiv utvikling, og støtter per nå kun verifikasjon av bundles bygd fra workflow runs i åpne GitHub repoer.
+:::
 
 ```yaml
 apiVersion: accesserator.kartverket.no/v1alpha
@@ -109,7 +123,7 @@ spec:
             workflow: .github/workflows/build-opa-bundle.yml
             ref: refs/heads/main
       - name: group_access_data
-        url: ghcr.io/kartverket/<REPO>/opa-data:<TAG>@sha256:<DIGEST>
+        url: ghcr.io/kartverket/<REPO>/opa-data-<MILJØ>:<TAG>@sha256:<DIGEST>
         verification:
           source:
             repository: kartverket/<REPO>
@@ -128,5 +142,11 @@ Hvilke felter som eksisterer for OPA i `SecurityConfig` og hva de gjør kan du l
 
 ### Kalle OPA fra applikasjonen
 
-OPA er tilgjengelig via miljøvariabelen `OPA_URL` eller direkte på `http://localhost:3010`.
-Applikasjonen din en nå klar til å kalle OPA for autorisasjonssjekker.
+Kubernetes-operatoren som injiserer OPA som sidecar vil også injisere miljøvariabelen `OPA_URL`. Applikasjonen din kan
+bruke denne når den kaller OPA for autorisasjonssjekker.
+
+```bash
+curl -X POST "$OPA_URL/v1/data/group_access/my_rule" \
+  -H "Content-Type: application/json" \
+  -d '{"input":{"groups": ["viewers"], "action": "read"}}'
+```
