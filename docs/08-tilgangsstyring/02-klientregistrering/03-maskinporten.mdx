@@ -5,7 +5,7 @@ For å registrere en klient i Maskinporten har du tre muligheter:
 - Bruke Kubernetes-ressursen `MaskinportenClient`. Denne ressurstypen er tilgjengelig via Kubernetes-operatoren
   [Digdirator](https://github.com/nais/digdirator), utviklet av [NAV sitt plattformteam (NAIS)](https://nais.io).
 - Bruke Kubernetes-ressursen `SecurityConfig`, som er en Kartverket-tilpasset abstraksjon på toppen av Digdirator. Les
-  mer om `SecurityConfig` i [dokumentasjonen for Accesserator](../08-accesserator/02-klienter-og-hemmeligheter.mdx#maskinporten).
+  mer om `SecurityConfig` i [dokumentasjonen for Accesserator](../09-accesserator/02-klienter-og-hemmeligheter.mdx#maskinporten).
   Merk at `SecurityConfig`-ressursen kun støtter å _konsumere_ scopes i Maskinporten, ikke å _eksponere_ scopes.
 
 En vil typisk velge å bruke `SecurityConfig` fremfor `MaskinportenClient` dersom en uansett skal bruke førstnevnte til

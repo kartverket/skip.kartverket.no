@@ -1,0 +1,178 @@
+import Columns from '@site/src/components/Columns';
+import Column from '@site/src/components/Column';
+
+# Kom i gang
+## Skrive policyer med Rego
+En policy består av én eller flere `.rego`-filer organisert i en filmappe. Hver fil hører til en **pakke** og kan definere
+regler som returnerer `true`/`false`, objekter, eller andre verdier.
+
+<Columns>
+    <Column>
+        Følgende eksempel viser en typisk struktur for en policy som skal autorisere om en gitt bruker sine gruppemedlemskaper
+        skal få tilgang til å utføre gitte handlinger. Tilgangen bestemmer ut ifra hvilke grupper brukeren tilhører.
+
+        Policy-filen `group_access.rego` sjekker om brukeren har tilgang basert på gruppetilhørighet, og `group_access_test.rego` inneholder tester for regelen.
+        En oversikt over hvilke grupper som har lov til å utføre hvilke handlinger ligger i `data.json`-filene under `.opa/data/`, og kan variere mellom miljøer (f.eks. `local`, `dev`, `prod`).
+
+        `.manifest` ligger i roten av hver bundle og setter blant annet `roots`, som avgrenser hvilke deler av data-/policy-treet en bundle eier.
+        Slik kan policy- og data-bundler lastes inn samtidig uten å overskrive hverandre. `.manifest` kan også brukes for å versjonere bundelen og angi metadata
+        som for eksempel hvem som har skrevet den, og hva den gjelder for.
+    </Column>
+    <Column className='col--5'>
+        ```
+        └── .opa/
+            ├── policy/
+            │   ├── .manifest
+            │   └── group_access/
+            │       ├── group_access.rego
+            │       └── group_access_test.rego
+            ├── data/
+            │   ├── local/
+            │   │   ├── .manifest
+            │   │   └── groups/
+            │   │       └── data.json
+            │   ├── dev/
+            │   │   ├── .manifest
+            │   │   └── groups/
+            │   │       └── data.json
+            │   └── prod/
+            │       ├── .manifest
+            │       └── groups/
+            │           └── data.json
+            └── schemas/
+                ├── input_schema.json
+                └── data_schema.json
+        ```
+    </Column>
+</Columns>
+
+`.opa/policy/group_access/group_access.rego` kan for eksempel se slik ut:
+
+```rego
+package group_access
+
+import rego.v1
+
+default my_rule := false
+
+# METADATA
+# entrypoint: true
+my_rule if {
+    some group in input.groups
+    group in data.groups[input.action]
+}
+```
+
+- `package group_access` definerer pakkenavnet. Dette sammen med regelen `my_rule` danner endepunktet applikasjonen kaller når den skal sjekke tilgang: `/v1/data/group_access/my_rule`.
+- `default my_rule := false` sørger for at regelen alltid har et definert svar (deny-by-default).
+- `input` er JSON-objektet applikasjonen sender med spørringen.
+- `data` er det hierarkiske treet av data som er lastet inn i OPA (f.eks. `data.groups`).
+- `# METADATA` med `entrypoint: true` markerer pakken som en offisiell innfartsport — OPA-bundler kan optimaliseres
+rundt entrypoints, og linteren bruker det til å skille mellom intern hjelpekode og det som faktisk eksponeres.
+
+Underveis i utviklingen av policyene dine, kan du kjøre `opa eval` lokalt for å teste ut logikken i reglene dine uten å måtte spinne opp en OPA-server. For eksempel:
+
+```bash
+echo '{"groups": ["viewers"], "action": "read"}' | \
+  opa eval -I \
+    -d .opa/policy \
+    -d .opa/data/local \
+    'data.group_access.my_rule'
+```
+
+Du kan lese mer om policy-språket Rego i [OPA-dokumentasjonen](https://www.openpolicyagent.org/docs/latest/policy-language/).
+
+## Testing av OPA-regler
+
+OPA har innebygd støtte for å skrive og kjøre enhetstester for reglene dine.
+Testfiler legges ved siden av policyen, navngitt `*_test.rego`, og bruker pakkenavn
+`<original-pakke>_test`. For eksempel så kan `group_access_test.rego` se slik ut:
+
+```rego
+package group_access_test
+
+import rego.v1
+
+import data.group_access
+
+mock_data := {
+	"read": ["viewers", "editors", "admins"],
+	"write": ["editors", "admins"],
+	"delete": ["admins"],
+}
+
+test_allow_when_group_permitted_for_read if {
+	group_access.my_rule == true with input as {
+		"groups": ["viewers"],
+		"action": "read",
+	}
+		with data.groups as mock_data
+}
+
+test_deny_when_group_not_permitted_for_action if {
+	group_access.my_rule == false with input as {
+		"groups": ["viewers"],
+		"action": "delete",
+	}
+		with data.groups as mock_data
+}
+```
+
+Kjør testene med:
+
+```bash
+opa test .opa/policy
+```
+
+## Linting av OPA-regler
+
+Teamet bak OPA har laget et eget linting-verktøy, [Regal](https://www.openpolicyagent.org/projects/regal), som er spesialtilpasset Rego-språket.
+
+Linting gjøres lett med kommandoen `regal lint .opa/policy`.
+
+Regal fanger opp ubrukte variabler, manglende `default`,
+forveksling av `==` og `:=`, og mye annet. Installasjonsguide finner du i [OPA sin dokumentasjon](https://www.openpolicyagent.org/projects/regal#installing-regal).
+
+## Statisk validering av OPA-regler
+
+OPA har også en kommando for statisk validering av reglene dine, `opa check`.
+Den sjekker Rego-filer for parsing og kompileringsfeil, og kan også sjekke for sirkulære avhengigheter mellom regler og pakker.
+
+Statisk validering gjøres med:
+
+```bash
+opa check .opa/policy
+```
+
+Vi kan også bruke `opa check` til å validere at reglene dine samsvarer med et forhåndsdefinert skjema for `input` og `data`.
+Dette er spesielt nyttig for å fange opp feil tidlig, og for å dokumentere forventningene til reglene dine. I eksempelet under
+knytter jeg input til `input_schema` og data til `data_schema`, som begge er OpenAPI-skjema definert i `.opa/schemas`.
+Vi kan da gjøre skjemarvalidering av reglene våre med:
+
+```bash
+opa check -s .opa/schemas .opa/policy
+```
+
+:::info
+Skjemavalidering er kun statisk validering av Rego-koden din, og dekker ikke skjemavalidering av input og data run-time.
+:::
+
+```rego
+package group_access
+
+import rego.v1
+
+default my_rule := false
+
+# METADATA
+# entrypoint: true
+// diff-add-start
+# schemas:
+#   - input: schema["input_schema"]
+#   - data.groups: schema["data_schema"]
+// diff-add-end
+my_rule if {
+    some group in input.groups
+    group in data.groups[input.action]
+}
+```

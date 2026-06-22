@@ -1,0 +1,35 @@
+# Lokal kjøring
+
+For lokal utvikling kan du enten kjøre OPA via OPA CLI, eller som en docker container med ´docker-compose´.
+
+Følgende `docker-compose.yml` starter en OPA-server som leser policyene dine fra `./.opa/policy` og bruker data for lokal kjøring fra `./.opa/data/local`.
+Den eksponerer OPA på port 8181, men dette er konfigurert via flagget `--addr`. Benytter man flagget `--watch` vil OPA automatisk laste inn endringer i policy- og datafilene på sekundet, uten at containeren må restartes.
+
+```yaml
+# docker-compose.yml
+services:
+  app:
+    build: .
+    environment:
+      OPA_URL: http://opa:8181
+    ports:
+      - "8080:8080"
+
+  opa:
+    image: openpolicyagent/opa:latest
+    ports:
+      - "3010:3010"
+    command: ["run", "--server", "--watch", "/.opa/policy", "/.opa/data/local"]
+    volumes:
+      - ./.opa/policy:/.opa/policy:ro
+      - ./.opa/data/local:/.opa/data/local:ro
+```
+
+Applikasjonen din leser `OPA_URL` fra miljøet og gjør HTTP-kall direkte til OPA:
+
+```bash
+curl -X POST "$OPA_URL/v1/data/group_access/my_rule" \
+  -H "Content-Type: application/json" \
+  -d '{"input":{"groups": ["viewers"], "action": "read"}}'
+# {"result":true}
+```

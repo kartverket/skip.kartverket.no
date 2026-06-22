@@ -1,7 +1,7 @@
 # Testing lokalt og i CI/CD
 For integrasjonstesting kan du kjøre de nødvendige kompoentene med [testcontainers](https://testcontainers.com/).
-Oppsettet her er identisk med lokal kjøring i Docker beskrevet over, med unntak av at texas og mock-oauth kjøres opp i
-testcontainers istedenfor med `docker compose`. [Du finner et eksempel på oppsett i en Java-applikasjon her](https://github.com/kartverket/tokenx-token-generator-backend/blob/d70cf9b97ae56174375c3a37f3abd7d35cfa97b6/src/test/java/no/kartverket/tokenx/AbstractTokenExchangeServerTest.java#L32).
+Oppsettet her er identisk med [lokal kjøring i Docker](04-lokal-kjoring.mdx), med unntak av at texas og mock-oauth kjøres opp i
+testcontainers istedenfor med `docker compose`. [Du finner et eksempel på oppsett i en Java-applikasjon her](https://github.com/kartverket/tokenx-token-generator-backend/blob/d93d6b9c23d61c2839014c797958877055d678f7/src/test/java/no/kartverket/tokenx/AbstractTokenExchangeServerTest.java#L50).
 Her ville du brukt variabelen `texasUrl` på samme måte som miljøvariabelen `TEXAS_URL` blir tilgjengelig for din
 applikasjon på SKIP.
 

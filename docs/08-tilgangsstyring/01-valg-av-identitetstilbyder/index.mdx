@@ -15,8 +15,8 @@ Valg av identitetstilbyder(e) kan forenkles å stille seg spørsmålene:
 ## Som API-tilbyder
 ```mermaid
 flowchart LR;
-  konsument([**Hvem er sluttbruker?**]);
-  flyt([**I kontekst av en sluttbruker?**]);
+  konsument([Hvem er sluttbruker?]);
+  flyt([I kontekst av en sluttbruker?]);
 
   konsument -- "System i Kartverket" --> flyt;
   flyt -- "Ja" --> tokendings([Token Exchange<br>via Tokendings]);
@@ -57,10 +57,10 @@ tillitsmodellen medfører. [Her finner du Digdir sin dokumentasjon om utenlandsk
 ## Som API-konsument
 ```mermaid
 flowchart LR;
-  konsument([**Hvem er sluttbruker?**]);
-  tjeneste-m2m([**Hvilken tjeneste skal du kalle?**]);
-  tjeneste-h2m([**Hvilken tjeneste skal du kalle?**]);
-  flyt([**I kontekst av en sluttbruker?**]);
+  konsument([Hvem er sluttbruker?]);
+  tjeneste-m2m([Hvilken tjeneste skal du kalle?]);
+  tjeneste-h2m([Hvilken tjeneste skal du kalle?]);
+  flyt([I kontekst av en sluttbruker?]);
 
   konsument -- "System i Kartverket" --> tjeneste-m2m;
   konsument -- "Ansatt i Kartverket" --> tjeneste-h2m;
