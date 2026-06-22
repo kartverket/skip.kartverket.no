@@ -6,6 +6,10 @@ kryptert med en hemmelighet kun din applikasjon har tilgang til.
 
 [Les mer om innlogging og sesjonshåndtering i Ztoperator-dokumentasjonen](../08-ztoperator/index.mdx#-innlogging-og-utlogging-med-ztoperator)
 
+For applikasjoner som trenger lengre brukersesjoner uten re-autentisering, kan scopet `offline_access` legges til i
+`AuthPolicy`-feltet `spec.autoLogin.scopes` for å aktivere støtte for refresh-tokens.
+[Les mer om bruk av offline_access og refresh-tokens i Ztoperator-dokumentasjonen](../08-ztoperator/index.mdx#lengre-brukersesjoner-med-offline_access-og-refresh-tokens).
+
 ## Hvordan fungerer innlogging med Ztoperator
 SKIP-plattformen bruker et _service mesh_, kalt Istio. Istio gjør at det kjører en `istio-proxy`-sidecar sammen med
 applikasjonen din i samme Kubernetes-pod. Når du oppretter en `AuthPolicy`-ressurs for applikasjonen din med
