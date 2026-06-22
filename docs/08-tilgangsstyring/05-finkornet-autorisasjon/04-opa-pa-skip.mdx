@@ -41,7 +41,7 @@ permissions:
 
 jobs:
   build:
-    uses: kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml@<commit-sha>
+    uses: kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml@<release tag>
     with:
       # artifact-name (**påkrevd**) er navnet på det resulterende artefakten i GHCR (uten tag).
       # Den er nødt til å starte med `ghcr.io/kartverket/<repo>`.
