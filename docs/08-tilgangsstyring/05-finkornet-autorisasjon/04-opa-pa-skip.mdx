@@ -14,7 +14,7 @@ bundles.
 
 ## Bygge bundle i GitHub Actions
 
-Team Tilgangsstyring har lagd workflowen `kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml`,
+Team Tilgangsstyring har lagd workflowen [kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml](https://github.com/kartverket/github-workflows#build-and-push-opa-bundle),
 som gjør det enkelt for deg å bygge og publisere OPA-bundler til GHCR i GitHub Actions.
 
 
@@ -41,7 +41,7 @@ permissions:
 
 jobs:
   build:
-    uses: kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml@<commit-sha>
+    uses: kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml@<release tag>
     with:
       # artifact-name (**påkrevd**) er navnet på det resulterende artefakten i GHCR (uten tag).
       # Den er nødt til å starte med `ghcr.io/kartverket/<repo>`.
