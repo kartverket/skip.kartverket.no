@@ -80,8 +80,7 @@ peker til en Kubernetes-hemmelighet som inneholder klient-ID `client_id` og klie
 
 En annen ting å merke seg er at Ztoperator ikke har lov til å laste inn hemmeligheter som brukes for innlogging i den beskyttede applikasjonen. 
 For å løse dette er man nødt til å legge til en konfigurasjon på den beskyttede Skiperator-applikasjonen for at innloggingshemligheter som Ztoperator håndterer skal kunne lastes inn.
-Følgende eksempel viser hvordan dette kan gjøres i en Skiperator-applikasjon. Hvorfor det må til overlates som en oppgave til leseren, men det viktige er at 
-man er nødt til å erstatte `<NAVN PÅ AUTHPOLICY>` med navnet på sin Ztoperator-`AuthPolicy`. Så hvis din `AuthPolicy` heter `my-auth-policy`, så må du sette `secretName: my-auth-policy-envoy-secret`.
+Følgende eksempel viser hvordan dette kan gjøres i en Skiperator-applikasjon. Det er viktig at `<NAVN PÅ AUTHPOLICY>` erstattes med navnet på din Ztoperator-`AuthPolicy`. Hvis din `AuthPolicy` for eksempel heter `my-auth-policy`, så må du sette `secretName: my-auth-policy-envoy-secret`.
 
 :::danger[OBS]
 For at innlogging skal fungere med Ztoperator, **må** den beskyttede Skiperator-applikasjonen oppdateres med 
@@ -130,9 +129,9 @@ spec:
 
 I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator for å beskytte en applikasjon på SKIP.
 
-- [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-tutorials.mdx#--microsoft-entra-id)
-- [Eksempeloppsett av Ztoperator: ID-Porten](01-tutorials.mdx#-id-porten)
-- [Eksempeloppsett av Ztoperator: Ansattporten](01-tutorials.mdx#-ansattporten)
+- [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-kom-i-gang.mdx#--microsoft-entra-id)
+- [Eksempeloppsett av Ztoperator: ID-Porten](01-kom-i-gang.mdx#-id-porten)
+- [Eksempeloppsett av Ztoperator: Ansattporten](01-kom-i-gang.mdx#-ansattporten)
 
 ## 🛠 Støttede identitetstilbydere
 

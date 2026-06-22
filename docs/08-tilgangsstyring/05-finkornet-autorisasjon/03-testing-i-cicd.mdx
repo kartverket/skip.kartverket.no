@@ -1,0 +1,27 @@
+# Testing i CI/CD
+For integrasjonstesting kan du kjøre de nødvendige kompoentene med [testcontainers](https://testcontainers.com/).
+Oppsettet her er identisk med [lokal kjøring i Docker](02-lokal-kjoring.mdx), med unntak av at OPA kjøres opp i
+testcontainers istedenfor med `docker compose`. [Du finner et eksempel på oppsett i en Java-applikasjon her](https://github.com/kartverket/tokenx-token-generator-backend/blob/d93d6b9c23d61c2839014c797958877055d678f7/src/test/java/no/kartverket/tokenx/AbstractTokenExchangeServerTest.java#L63).
+Her ville du brukt variabelen `opaUrl` på samme måte som miljøvariabelen `OPA_URL` blir tilgjengelig for din
+applikasjon på SKIP.
+
+Eksempel på å starte _opa_ med testcontainers i Java:
+```java
+GenericContainer<?> opaContainer = new GenericContainer<>(DockerImageName.parse("openpolicyagent/opa:latest"))
+        .withExposedPorts(3010)
+        .withCommand("run", "--server", "/.opa/policy", "/.opa/data/local")
+        .withFileSystemBind("./.opa/policy", "/.opa/policy", BindMode.READ_ONLY)
+        .withFileSystemBind("./.opa/data/local", "/.opa/data/local", BindMode.READ_ONLY)
+        .withNetwork(network);
+
+opaContainer.start();
+
+opaUrl = String.format("http://%s:%d",
+        opaContainer.getHost(),
+        opaContainer.getMappedPort(8181));
+```
+
+:::tip
+Vil du teste **kun** regelene, uten applikasjonen rundt? Bruk `opa test` direkte — det er raskere og krever
+ingen container. Testcontainers-mønsteret er for å verifisere at *integrasjonen* mellom app og OPA fungerer.
+:::

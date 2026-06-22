@@ -1,10 +1,19 @@
 # Microsoft Entra ID
 
-Microsoft Entra ID er identitetstilbyderen Kartverket bruker internt for sine ansatte. Velger du Microsoft Entra ID som identitetstilbyder for din applikasjon,
-så er det fordi du ønsker å tilby tjenesten din for internt ansatte i Kartverket. 
-En klientregistrering i Microsoft Entra ID kalles for en _app-registration_. For å opprette en app-registration i Microsoft Entra ID, kan du bruke Kubernetes-operatoren [Azurerator](https://github.com/nais/azurerator). 
-Den er utviklet av [NAV sitt plattformteam (NAIS)](https://nais.io), og har som mål å gjøre det enkelt å deklarativt sette opp og vedlikeholde
-app-registrations i [Microsoft Entra ID](https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/Overview).
+Microsoft Entra ID er identitetstilbyderen Kartverket bruker internt for sine ansatte. Velger du Microsoft Entra ID som
+identitetstilbyder for din applikasjon, så er det fordi du ønsker å tilby tjenesten din for internt ansatte i
+Kartverket.
+
+En klientregistrering i Microsoft Entra ID kalles for en _app-registration_. For å opprette en app-registration har du
+to muligheter:
+- Bruke Kubernetes-ressursen `AzureAdApplication`. Denne ressurstypen er tilgjengelig via Kubernetes-operatoren
+  [Azurerator](https://github.com/nais/azurerator), utviklet av [NAV sitt plattformteam (NAIS)](https://nais.io).
+- Bruke Kubernetes-ressursen `SecurityConfig`, som er en Kartverket-tilpasset abstraksjon på toppen av Azurerator. Les
+  mer om `SecurityConfig` i [dokumentasjonen for Accesserator](../09-accesserator/02-klienter-og-hemmeligheter.mdx#entra-id).
+  Denne vil opprette en `AzureAdApplication`-ressurs under panseret. Dersom du uansett
+
+En vil typisk velge å bruke `SecurityConfig` fremfor `AzureAdApplication` dersom en uansett skal bruke førstnevnte til
+annen funksjonalitet, som Token Exchange, token-uthenting eller validering med Texas, OPA eller annet.
 
 ## 🔹 `AzureAdApplication`
 

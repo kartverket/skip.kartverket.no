@@ -1,0 +1,194 @@
+import Columns from '@site/src/components/Columns';
+import Column from '@site/src/components/Column';
+
+# Kom i gang
+## Autorisasjonsregler i OPA
+
+Autorisasjonsregler i OPA skrives med språket Rego. Hver regel du skriver tilhører en pakke, og bruk av OPA
+innebærer å kalle hver enkelt regel på endepunktet `/v1/data/<navn på pakke>/<navn på regel>`. Hvert endepunkt kan ta
+i mot et JSON-objekt som input, samt bruke statisk data du har definert på forhånd.
+OPA vil for hver regel returnere et resultat enten som `true`/`false` eller strukturert data.
+
+### Strukturering av OPA-policies og data
+<Columns>
+    <Column>
+        Figuren til høyre viser en mulig struktur for OPA-policies og data. For å skille ut OPA-relatert kode fra
+        resten av applikasjonskoden, oppretter vi mappen `opa` i roten av prosjektet vårt. Under denne mappen har vi
+        tre mapper: `policies`, `data` og `schemas`.
+
+        I mappen `opa/policies` definerer vi reglene våre og tester for disse, organisert i undermapper etter tema
+        eller funksjonalitet. Innenfor hver mappe kan vi ha flere rego-filer.
+
+        I mappen `opa/data` legger vi statiske data hvis reglene våre trenger dette. Dersom reglene våre trenger
+        forskjellige data i ulike miljøer, må via organiere dataen i undermapper etter miljø.
+
+        I mappen `opa/schemas` legger vi JSON-skjema for `input` og `data`, som kan brukes for statisk validering av
+        reglene våre med `opa check`.
+
+        Filen `.manifest` brukes under bygging av en OPA-bundle for å avgrense tilgang mellom pakker. Den kan også
+        brukes for versjonering av policies og for å angi metadata.
+    </Column>
+    <Column className='col--5'>
+        ```
+        └── opa/
+            ├── policies/
+            │   ├── .manifest
+            │   └── group_access/
+            │       ├── group_access.rego
+            │       └── group_access_test.rego
+            ├── data/
+            │   ├── local/
+            │   │   ├── .manifest
+            │   │   └── groups/
+            │   │       └── data.json
+            │   ├── dev/
+            │   │   ├── .manifest
+            │   │   └── groups/
+            │   │       └── data.json
+            │   └── prod/
+            │       ├── .manifest
+            │       └── groups/
+            │           └── data.json
+            └── schemas/
+                ├── input_schema.json
+                └── data_schema.json
+        ```
+    </Column>
+</Columns>
+
+:::info
+Eksempelet over er kun illustrasjon av hvordan policies, data og schemas *kan* struktureres. Hvilken struktur du velger
+er opp til deg, og bør baseres på hva som gir mest mening for ditt brukstilfelle og team. Det viktigste
+er at det er lett å finne frem i, og at det er tydelig hvilke regler og data som hører sammen.
+:::
+
+### Autorisasjonsregler i Rego
+
+Følgende er et eksempel på en OPA-regel som sjekker om en bruker har tilgang til å utføre en handling basert på
+hvilke grupper brukeren tilhører. Handlingen (`input.action`) og gruppene brukeren tilhører (`input.groups`) sendes som `input` i spørringen, mens hvilke grupper som har tilgang til hvilke handlinger er definert i `data.groups`.
+
+```rego title="opa/policy/group_access/group_access.rego"
+package group_access
+
+import rego.v1
+
+default my_rule := false
+
+# METADATA
+# entrypoint: true
+my_rule if {
+    some group in input.groups
+    group in data.groups[input.action]
+}
+```
+
+- `package group_access` definerer pakkenavnet. Dette sammen med regelen `my_rule` danner endepunktet applikasjonen kaller når den skal sjekke tilgang: `/v1/data/group_access/my_rule`
+- `default my_rule := false` sørger for at regelen alltid har et definert svar (deny-by-default)
+- `input` er JSON-objektet applikasjonen sender med spørringen
+- `data` er den statiske JSON-dataen som er lastet inn i OPA
+- `# METADATA` er kommentarer som brukes under bygging av OPA-bundler for å angi metadata om regelen og/eller pakken.
+  `entrypoint: true` vil gjøre regelen tilgjengelig på et eget endepunkt. Du kan lese mer om metadata og hvordan det
+  brukes i OPA-bundler i [OPA-dokumentasjonen](https://www.openpolicyagent.org/docs/policy-language#metadata).
+
+Underveis i utviklingen av policyene dine kan du kjøre `opa eval` lokalt for å teste logikken i reglene dine uten å måtte spinne opp en OPA-server. For eksempel:
+
+```bash
+echo '{"groups": ["viewers"], "action": "read"}' | \
+  opa eval -I \
+    -d .opa/policy \
+    -d .opa/data/local \
+    'data.group_access.my_rule'
+```
+
+Du kan lese mer om policy-språket Rego i [OPA-dokumentasjonen](https://www.openpolicyagent.org/docs/latest/policy-language/).
+
+## Testing av OPA-regler
+
+OPA har innebygd støtte for å skrive og kjøre enhetstester for reglene dine.
+Testfiler er en Rego-fil med suffixet `_test.rego`, og bruker pakkenavn
+`<original-pakke>_test`. For eksempel så kan `group_access_test.rego` se slik ut:
+
+```yaml title="opa/policies/group_access/group_access_test.rego"
+package group_access_test
+
+import rego.v1
+
+# NB: data.group_access refererer her til pakken group_access, ikke den statiske dataen
+import data.group_access
+
+# Vi mocker statisk data og bruker den med `with data.groups as mock_data`
+mock_data := {
+	"read": ["viewers", "editors", "admins"],
+	"write": ["editors", "admins"],
+	"delete": ["admins"],
+}
+
+test_allow_when_group_permitted_for_read if {
+	group_access.my_rule == true with input as {
+		"groups": ["viewers"],
+		"action": "read",
+	}
+		with data.groups as mock_data
+}
+
+test_deny_when_group_not_permitted_for_action if {
+	group_access.my_rule == false with input as {
+		"groups": ["viewers"],
+		"action": "delete",
+	}
+		with data.groups as mock_data
+}
+```
+
+Kjør testene med:
+
+```bash
+opa test opa/policies
+```
+
+## Linting av OPA-regler
+
+[Regal](https://www.openpolicyagent.org/projects/regal) er en linter for Rego-språket. Linting gjøres med kommandoen `regal lint .opa/policy`.
+Regal sørger for at reglene er strukturert etter beste praksis, og fanger opp ubrukte variabler, manglende `default`,
+forveksling av `==` og `:=`, og mye annet. Installasjonsguide finner du i [OPA sin dokumentasjon](https://www.openpolicyagent.org/projects/regal#installing-regal).
+
+## Statisk validering av OPA-regler
+
+OPA har en kommando for statisk validering av reglene dine, `opa check`.
+Den sjekker Rego-filer for parsing- og kompileringsfeil, samt for sirkulære avhengigheter mellom regler og pakker.
+
+Statisk validering gjøres med:
+
+```bash
+opa check opa/policies
+```
+
+Vi kan også validere at reglene samsvarer med forhåndsdefinerte JSON-skjema for `input` og `data`.
+I eksempelet under knytter vi input til `input_schema` og data til `data_schema`, som begge er OpenAPI-skjema definert
+i `opa/schemas`. Skjemavalidering er kun statisk validering av Rego-koden din, og gjelder ikke runtime.
+
+```rego
+package group_access
+
+import rego.v1
+
+default my_rule := false
+
+# METADATA
+# entrypoint: true
+// diff-add-start
+# schemas:
+#   - input: schema["input_schema"]
+#   - data.groups: schema["data_schema"]
+// diff-add-end
+my_rule if {
+    some group in input.groups
+    group in data.groups[input.action]
+}
+```
+
+Vi kan da gjøre skjemarvalidering av reglene våre med:
+
+```bash
+opa check -s opa/schemas opa/policies
+```
