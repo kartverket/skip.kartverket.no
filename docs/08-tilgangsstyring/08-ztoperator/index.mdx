@@ -136,14 +136,11 @@ Ztoperator vil automatisk bruke refresh-tokenet til å hente nye access-tokens i
 utløper, slik at brukeren holdes innlogget uten avbrudd.
 
 :::caution[Sikkerhetshensyn]
-Refresh-tokens gir langvarig tilgang, som kan ha konsekvenser og muliggjøre misbruk. Sørg for at:
-- Du kun bruker `offline_access` der det er et reelt behov for lengre sesjoner.
-- Utlogging (`logoutPath`) er konfigurert slik at refresh-tokenet tilbakekalles hos identitetstilbyderen ved utlogging (RP-initiated logout).
+Refresh-tokens gir langvarig tilgang, som kan ha konsekvenser og muliggjøre misbruk. Sørg for at
+du kun bruker `offline_access` når det er et reelt behov for lengre sesjoner.
 :::
 
-#### Konfigurere `offline_access` i AuthPolicy
-
-Legg til `offline_access` i `spec.autoLogin.scopes`-listen:
+Du kan ta i bruk `offline_access` i din `AuthPolicy` ved å legge det til i `spec.autoLogin.scopes`-listen:
 
 ```yaml title="AuthPolicy med offline_access for lengre sesjoner"
 apiVersion: ztoperator.kartverket.no/v1alpha1
@@ -163,15 +160,12 @@ spec:
   ...
 ```
 
-#### Hva skjer i bakgrunnen?
-
 Når `offline_access` er inkludert i scopes, vil flyten se slik ut:
 
 1. Brukeren logger inn og identitetstilbyderen returnerer både et **access-token** og et **refresh-token**.
 2. Ztoperator lagrer refresh-tokenet kryptert i session-cookien på klientsiden.
-3. Når access-tokenet nærmer seg utløp, bruker Ztoperator automatisk refresh-tokenet til å hente et nytt access-token
-via [token refresh-flyten (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749#section-6) – uten at brukeren
-merker noe.
+3. Når access-tokenet er utløpt eller ikke lenger tilgjengelig, bruker Ztoperator automatisk refresh-tokenet til å hente et nytt access-token
+via [token refresh-flyten (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749#section-6) – uten at brukeren merker noe.
 4. Sesjonen varer inntil refresh-tokenet selv utløper eller trekkes tilbake av identitetstilbyderen.
 
 ## 🎬 Tutorials
