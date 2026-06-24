@@ -1,0 +1,35 @@
+---
+title: Finkornet autorisasjon
+---
+
+
+import Columns from '@site/src/components/Columns';
+import Column from '@site/src/components/Column';
+import OPALogo from '../images/opa-logo.png';
+
+# Finkornet autorisasjon med Open Policy Agent (OPA)
+:::info[Foreløpig kun tilgjengelig i atgcp1-dev]
+Open Policy Agent er kun tilgjengelig i _atgcp1-dev_.
+:::
+
+På SKIP tilbyr vi en løsning for finkornet autorisasjon basert på Open Policy Agent (OPA). OPA er en kraftig og
+fleksibel policy-motor som lar deg definere komplekse tilgangsregler i et deklarativt språk kalt Rego. OPA lar deg
+flytte autorisasjonslogikken ut av applikasjonskoden og over i egne policy-filer. Fordelen med dette er at reglene kan
+versjoneres og testes for seg, og kan endres og deployes uavhengig av applikasjonen din.
+
+For å ta i bruk OPA på SKIP må du gjøre følgende:
+<Columns>
+    <Column className='col--8'>
+        1. Skriv OPA-policies basert på dine behov og endre applikasjonskoden til å bruke disse
+        2. Bygg en OPA-bundle i GitHub Actions og publiser den til ghcr.io
+        3. Opprett en `SecurityConfig`-ressurs på Kubernetes som konfigurer OPA og peker den mot OPA-bundlen på GHCR
+        4. Oppdater Skiperator-applikasjonen din å få injisert en OPA-sidecar
+    </Column>
+    <Column>
+        <img src={OPALogo} style={{width: 300}} alt="OPA-arkitektur" />
+    </Column>
+</Columns>
+
+Før man går i gang med å utvikle OPA-policyer, er det lurt å laste ned OPA CLI. OPA CLI lar deg evaluere og teste OPA-reglene dine lokalt,
+samt bygge OPA-bundler og spinne opp en lokal OPA-server for testing med din applikasjon. Alt dette og hvordan du laster ned OPA CLI finner du i [OPA-dokumentasjonen](https://www.openpolicyagent.org/docs#1-download-opa).
+

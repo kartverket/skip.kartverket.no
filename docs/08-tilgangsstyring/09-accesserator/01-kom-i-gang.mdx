@@ -1,0 +1,27 @@
+# Kom i gang
+
+`SecurityConfig`-ressursen brukes for å spesifisere ønsket funksjonalitet for henholdsvis OPA, Token Exchange,
+Maskinporten, og Entra ID. All funksjonalitet kan benyttes avhengig av hverandre, og kan skrus av og på med et
+`enabled`-flagg:
+
+```yaml
+apiVersion: accesserator.kartverket.no/v1alpha
+kind: SecurityConfig
+metadata:
+  name: my-app-security-config
+spec:
+  applicationRef: my-app
+  opa:
+    enabled: true
+    ...
+  tokenx:
+    enabled: true
+    ...
+  maskinporten:
+    enabled: true
+    ...
+  entraid:
+    enabled: true
+    ...
+```
+

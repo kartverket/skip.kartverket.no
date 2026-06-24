@@ -1,0 +1,152 @@
+# OPA på SKIP
+
+Hvis du har kommet hit har du skrevet OPA-policies og gjort de nødvendige endringene i applikasjonen din for å kalle OPA
+ved autorisasjonssjekker. Neste steg er å bygge en OPA-bundle og gjøre den tilgjengelig for OPA-sidecaren. Du kan lese
+mer om hva en bundle er [her](https://www.openpolicyagent.org/docs/management-bundles), men kort fortalt er det en
+zippet pakke som inneholder reglene (Rego-policies) og/eller dataene OPA trenger for å ta avgjørelser. OPA kan laste inn
+en eller flere bundles og bruke reglene og dataene i disse for å ta autorisasjonsbeslutninger.
+
+:::info
+Hvis du trenger ulik statisk data i ulike mijløer, må du bygge og publisere regler og data for hvert miljø i separate
+bundles.
+:::
+
+
+## Bygge bundle i GitHub Actions
+
+Team Tilgangsstyring har lagd workflowen [kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml](https://github.com/kartverket/github-workflows#build-and-push-opa-bundle),
+som gjør det enkelt for deg å bygge og publisere OPA-bundler til GHCR i GitHub Actions.
+
+
+### Eksempel på bruk av workflow
+Følgende eksempel viser hvordan du kan bruke workflowen i ditt eget repo for å bygge og publisere en OPA bundle til GHCR når du pusher til ditt repo:
+
+:::info
+I tillegg til å bygge og publisere OPA-bundlen, vil workflowen også generere en [SLSA provenance-attestasjon](https://slsa.dev/spec/v1.2/build-provenance)
+for bundlen og publisere den i GitHub's attestasjonssystem. Dette gjør at du kan verifisere *hvordan* bundlen ble bygd.
+:::
+
+```yaml
+name: Build and push OPA bundle
+
+on: [push]
+
+permissions:
+  contents: read          # for å kunne bygge fra repoet
+  packages: write         # for å kunne pushe til GHCR
+  id-token: write         # for å kunne kunne generere en OIDC-token for å signere provenance-attestasjonen med Sigstore
+  attestations: write     # for å kunne publisere provenance-attestasjonen i GitHub's attestasjonssystem
+  security-events: write  # for å kunne laste opp sarif-resultatet av `regal lint` i GitHub Advanced Security
+  actions: read           # for å kunne hente metadata om workflowen som bygger bundlen og inkludere det i provenance-attestasjonen
+
+jobs:
+  build:
+    uses: kartverket/github-workflows/.github/workflows/build-and-push-opa-bundle.yml@<release tag>
+    with:
+      # artifact-name (**påkrevd**) er navnet på det resulterende artefakten i GHCR (uten tag).
+      # Den er nødt til å starte med `ghcr.io/kartverket/<repo>`.
+      artifact-name: ghcr.io/${{ github.repository }}/opa-policies
+
+      # path (**påkrevd**) spesifiserer hvilken katalog det skal bygges en OPA bundle fra.
+      # Katalogen kan inneholde policyer skrevet i Rego og
+      path: opa/policies
+
+      # push er en boolean som spesifiserer om den bygde bundlen skal pushes til GHCR eller ikke.
+      # Defaulter til `true`.
+      push: true
+
+      # additional-tags` er en kommaseparert liste med ekstra tags som artefakten som pushes til GHCR skal tagges med.
+      # Workflowen vil alltid tagge artefakten med `sha256-<sha256sum av bygd bundle>` for å unngå opplasting av duplikate bundles.
+      additional-tags: ${{ github.ref_name }}
+
+      # test er en boolean som spesifiserer om `opa test` skal kjøres før bygging.
+      # Alle tester definert i filer som slutter på `_test.rego` i `path`-katalogen vil da kjøres.
+      # Defaulter til `false`.
+      test: true
+
+      # lint er en boolean som spesifiserer om `regal lint` skal kjøres før bygging.
+      # Alle Rego-filer definert i `path`-katalogen vil da bli lintet.
+      # Defaulter til `false`.
+      lint: true
+
+      # lint-config-file spesifiserer en filsti til en Regal-konfigurasjonsfil som brukes under linting.
+      # Hvordan du konfigurerer Regal gjennom en slik fil kan du lese mer om på https://www.openpolicyagent.org/projects/regal/configuration.
+      lint-config-file: .regal/config.yaml
+
+      # check er en boolean som spesifiserer om `opa check` skal kjøres før bygging.
+      # Alle filer definert i `path`-katalogen vil da bli statisk validert.
+      # Defaulter til `false`.
+      check: true
+
+      # check-schema-path er en sti til en JSON Schema-mappe eller fil som brukes under `opa check` for å
+      # validere at reglene dine samsvarer med skjemaet for `input` og `data`.
+      check-schema-path: opa/schemas
+
+```
+
+## Konfigurere OPA-sidecar med `SecurityConfig`
+
+Du har nå bygd en OPA bundle og publisert den til GHCR, og er klar til å bruke den i applikasjonen din. For å bruke OPA
+trenger du å få OPA injisert som en sidecar sammen med din applikasjon. Dette gjøres ved å
+[spesifisere OPA som tilgjengelig sidecar-tjeneste](../09-accesserator/index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon).
+Deretter konfigurerer du hvilke bundles OPA skal benytte under autorisajon med en `SecurityConfig`-ressurs.
+
+### Eksempel på `SecurityConfig`
+
+Følgende `SecurityConfig` konfigurerer OPA-sidecaren til å laste inn *to* bundles.
+- En bundle bestående av autorisasjonsregelene bygd fra mappen `opa/policies`
+- En bundle bestående av produksjonsspesifikke data som reglene dine bruker, bygd fra mappen `opa/data/<MILJØ>`
+
+Vi konfigurerer også at Accesserator skal verifisere provenance-attestasjonen for bundlene, det vil si at Accesserator skal
+verifisere at bundlene er bygd fra repoet `kartverket/<REPO>`, av workflowen `.github/workflows/build-opa-bundle.yml`, fra `main`-branchen.
+
+:::warning
+`spec.opa.bundleUrls[*].verification` er under aktiv utvikling, og støtter per nå kun verifikasjon av bundles bygd fra workflow runs i åpne GitHub repoer.
+:::
+
+```yaml
+apiVersion: accesserator.kartverket.no/v1alpha
+kind: SecurityConfig
+metadata:
+  name: security-config
+  namespace: tilgangsstyring-main
+spec:
+  applicationRef: min-app
+  opa:
+    enabled: true
+    bundleUrls:
+      - name: group_access
+        url: ghcr.io/kartverket/<REPO>/opa-policies:<TAG>@sha256:<DIGEST>
+        verification:
+          source:
+            repository: kartverket/<REPO>
+            workflow: .github/workflows/build-opa-bundle.yml
+            ref: refs/heads/main
+      - name: group_access_data
+        url: ghcr.io/kartverket/<REPO>/opa-data-<MILJØ>:<TAG>@sha256:<DIGEST>
+        verification:
+          source:
+            repository: kartverket/<REPO>
+            workflow: .github/workflows/build-opa-bundle.yml
+            ref: refs/heads/main
+```
+
+Når Accesserator ser denne konfigurasjonen, vil den:
+
+1. Slå opp bundlen i i GHCR.
+2. Hente SLSA provenance-attestasjonen og verifisere den mot Sigstore.
+3. Sjekke at attestasjonen ble produsert i `repository`, av `workflow`, fra `ref` du spesifiserte.
+4. Hvis SLSA provenance-attestasjonen ikke stemmer med det du har spesifisert, eller hvis den ikke er signert av en gyldig Sigstore-nøkkel, vil Accesserator avvise `SecurityConfig`en og ressursen vil ikke bli lagd.
+
+Hvilke felter som eksisterer for OPA i `SecurityConfig` og hva de gjør kan du lese mer om i [API-dokumentasjonen](../09-accesserator/03-api-docs.mdx#securityconfigspecopa).
+
+### Kalle OPA fra applikasjonen
+
+Kubernetes-operatoren som injiserer OPA som sidecar vil også injisere miljøvariabelen `OPA_URL`. Applikasjonen din kan
+bruke denne når den kaller OPA for autorisasjonssjekker.
+
+```bash
+curl -X POST "$OPA_URL/v1/data/group_access/my_rule" \
+  -H "Content-Type: application/json" \
+  -d '{"input":{"groups": ["viewers"], "action": "read"}}'
+```

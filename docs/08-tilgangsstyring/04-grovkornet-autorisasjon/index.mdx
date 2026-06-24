@@ -1,0 +1,9 @@
+# Grovkornet autorisasjon
+
+Via Kartverket sitt _service mesh_ Istio har vi tilgang til mye nyttig funksjonalitet knyttet til autorisasjon før
+trafikken treffer din applikasjon. Blant annet har vi lagd en egen Kubernetes-operator, _Ztoperator_, og tilhørende
+Kubernetes-ressurs `AuthPolicy`, som forenkler det å skrive Istio-baserte autorisasjonsregler.
+
+[Les om autorisasjonsregler med AuthPolicy-ressursen her](./01-auth-policy.mdx).
+
+[Les om autorisasjonsregler basert på SPIFFE-identiteter her](./02-spiffe.mdx).

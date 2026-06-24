@@ -80,8 +80,7 @@ peker til en Kubernetes-hemmelighet som inneholder klient-ID `client_id` og klie
 
 En annen ting å merke seg er at Ztoperator ikke har lov til å laste inn hemmeligheter som brukes for innlogging i den beskyttede applikasjonen. 
 For å løse dette er man nødt til å legge til en konfigurasjon på den beskyttede Skiperator-applikasjonen for at innloggingshemligheter som Ztoperator håndterer skal kunne lastes inn.
-Følgende eksempel viser hvordan dette kan gjøres i en Skiperator-applikasjon. Hvorfor det må til overlates som en oppgave til leseren, men det viktige er at 
-man er nødt til å erstatte `<NAVN PÅ AUTHPOLICY>` med navnet på sin Ztoperator-`AuthPolicy`. Så hvis din `AuthPolicy` heter `my-auth-policy`, så må du sette `secretName: my-auth-policy-envoy-secret`.
+Følgende eksempel viser hvordan dette kan gjøres i en Skiperator-applikasjon. Det er viktig at `<NAVN PÅ AUTHPOLICY>` erstattes med navnet på din Ztoperator-`AuthPolicy`. Hvis din `AuthPolicy` for eksempel heter `my-auth-policy`, så må du sette `secretName: my-auth-policy-envoy-secret`.
 
 :::danger[OBS]
 For at innlogging skal fungere med Ztoperator, **må** den beskyttede Skiperator-applikasjonen oppdateres med 
@@ -126,13 +125,56 @@ spec:
         - application: myjob-skipjob
 ```
 
+
+### Lengre brukersesjoner med `offline_access` og refresh-tokens
+
+Som standard vil en brukersesjon utløpe når access-tokenet fra identitetstilbyderen utløper. For applikasjoner som
+krever lengre sesjoner uten at brukeren skal måtte logge inn på nytt, kan scopet `offline_access` legges til i
+`spec.autoLogin.scopes`. Dette ber identitetstilbyderen om å utstede et **refresh-token** i tillegg til access-tokenet.
+
+Ztoperator vil automatisk bruke refresh-tokenet til å hente nye access-tokens i bakgrunnen når det eksisterende
+utløper, slik at brukeren holdes innlogget uten avbrudd.
+
+:::caution[Sikkerhetshensyn]
+Refresh-tokens gir langvarig tilgang, som kan ha konsekvenser og muliggjøre misbruk. Sørg for at
+du kun bruker `offline_access` når det er et reelt behov for lengre sesjoner.
+:::
+
+Du kan ta i bruk `offline_access` i din `AuthPolicy` ved å legge det til i `spec.autoLogin.scopes`-listen:
+
+```yaml title="AuthPolicy med offline_access for lengre sesjoner"
+apiVersion: ztoperator.kartverket.no/v1alpha1
+kind: AuthPolicy
+metadata:
+  name: min-authpolicy
+spec:
+  autoLogin:
+    enabled: true
+    logoutPath: /logout
+    redirectPath: /oauth2/callback
+    scopes:
+//diff-add-start
+      - offline_access
+//diff-add-end
+      ...
+  ...
+```
+
+Når `offline_access` er inkludert i scopes, vil flyten se slik ut:
+
+1. Brukeren logger inn og identitetstilbyderen returnerer både et **access-token** og et **refresh-token**.
+2. Ztoperator lagrer refresh-tokenet kryptert i session-cookien på klientsiden.
+3. Når access-tokenet er utløpt eller ikke lenger tilgjengelig, bruker Ztoperator automatisk refresh-tokenet til å hente et nytt access-token
+via [token refresh-flyten (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749#section-6) – uten at brukeren merker noe.
+4. Sesjonen varer inntil refresh-tokenet selv utløper eller trekkes tilbake av identitetstilbyderen.
+
 ## 🎬 Tutorials
 
 I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator for å beskytte en applikasjon på SKIP.
 
-- [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-tutorials.mdx#--microsoft-entra-id)
-- [Eksempeloppsett av Ztoperator: ID-Porten](01-tutorials.mdx#-id-porten)
-- [Eksempeloppsett av Ztoperator: Ansattporten](01-tutorials.mdx#-ansattporten)
+- [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-kom-i-gang.mdx#--microsoft-entra-id)
+- [Eksempeloppsett av Ztoperator: ID-Porten](01-kom-i-gang.mdx#-id-porten)
+- [Eksempeloppsett av Ztoperator: Ansattporten](01-kom-i-gang.mdx#-ansattporten)
 
 ## 🛠 Støttede identitetstilbydere
 

@@ -1,0 +1,19 @@
+# Lokal kjøring
+
+For lokal utvikling kan du enten kjøre OPA via OPA CLI, eller som en docker container med `docker compose`.
+
+Følgende `docker-compose.yml` starter en OPA-server på port 3010, og leser policyene dine fra `./opa/policies` og bruker data for lokal kjøring fra `./opa/data/local`.
+Benytter man flagget `--watch` vil OPA automatisk laste inn endringer i policy- og datafilene, uten at containeren må restartes.
+
+```yaml
+# docker-compose.yml
+services:
+  opa:
+    image: openpolicyagent/opa:latest
+    ports:
+      - "3010:3010"
+    command: ["run", "--server", "--addr", ":3010", "--watch", "/opa/policies", "/opa/data/local"]
+    volumes:
+      - ./opa/policies:/opa/policies:ro
+      - ./opa/data/local:/opa/data/local:ro
+```

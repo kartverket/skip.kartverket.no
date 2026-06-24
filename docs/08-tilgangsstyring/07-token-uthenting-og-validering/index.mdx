@@ -1,0 +1,17 @@
+# Token-uthenting og validering
+Vi forenkler uthenting og grovkornet validering av tokens i din applikasjon. Dette gjøres med en _sidecar_ kalt _Texas_
+(Token Exchange as a Service), og kan brukes uavhengig av programmeringsspråk og rammeverk; hvis du kan kalle en
+tjeneste på `localhost`, så kan du bruke Texas.
+
+## Token-uthenting med Texas
+Texas lar deg hente ut m2m-tokens for Maskinporten og Entra ID. Tjenesten leveres via en sidecar-container på SKIP,
+som kan kalles på localhost.
+
+[Les mer om token-uthenting her](./01-token-uthenting.mdx).
+
+## Token-validering med Texas
+Texas lar deg validere tokens for alle relevante identitetstilbydere. Tjenesten leveres via en sidecar-container på
+SKIP, som kan kalles på localhost. Sidecar'en håndterer JWKS-oppslag mot identitetstilbyderen og teknisk gyldighet av
+tokenet, slik at det eneste du trenger å validere i egen applikasjonskode er det domenespesifikke.
+
+[Les mer om token-validering her](./02-token-validering.mdx).

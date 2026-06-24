@@ -44,8 +44,8 @@ med Team Tilgangsstyring. Basert på behov og etterspørsel vil vi vurdere å ti
 :::
 
 :::danger[Samspill mellom Ztoperator og SPIFFE-regler]
-Ztoperator baserer seg, i likhet med SPIFFE, på å opprette `AuthorizationPolicy`-ressurser. Det er derfor viktig å være klar over at
-Ztoperator og egendefinerte SPIFFE-baserte `AuthorizationPolicy`-ressurser kan komme i konflikt. Se
+Ztoperator baserer seg, i likhet med SPIFFE, på å opprette `AuthorizationPolicy`-ressurser. Det er derfor viktig å være
+klar over at Ztoperator og egendefinerte SPIFFE-baserte `AuthorizationPolicy`-ressurser kan komme i konflikt. Se
 [denne seksjonen](#bruk-av-spiffe-sammen-med-ztoperator) for nærmere forklaring. På sikt håper Team Tilgangsstyring å
 kunne tilby en bedre løsning for dette, f.eks støtte for SPIFFE integrert i Ztoperator.
 :::
@@ -130,20 +130,28 @@ spec:
 ```
 
 ## Validering av SPIFFE-identitet i din applikasjon
-Istio sender med seg headeren `X-Forwarded-Client-Cert`, som inneholder informasjon om SPIFFE-identiteten til klienten
-som gjør kallet. Denne er på formatet
+Istio-proxyen foran din applikasjon setter headeren `X-Forwarded-Client-Cert` på innkommende forespørseler. Denne
+headeren inneholder informasjon om SPIFFE-identiteten til avsender og mottaker av forespørselen, og har følgende format:
+
 ```
-By=spiffe://cluster.local/ns/<namespace>/sa/<service-account>;Hash=<hash>;Subject="";URI=spiffe://cluster.local/ns/<namespace>>/sa/<service-account>
+By=spiffe://cluster.local/ns/<mottakers namesapce>/sa/<mottakers applikasjon>;Hash=<hash>;Subject="";URI=spiffe://cluster.local/ns/<avsenders namesapce>/sa/<avsenders applikasjon>
 ```
 
-Det mest naturlige er da å bruke URI-delen av headeren for å validere SPIFFE-identiteten. Vår infrastruktur med Istio
-i sidecar-modus er konfigurert slik at applikasjonen alltid kan stole på at denne headeren er korrekt, og at den ikke
-kan forfalskes av klienten.
+Det mest naturlige er da å bruke URI-delen av headeren for å validere SPIFFE-identiteten. Applikasjonen kan alltid stole
+på at denne headeren er korrekt, og at den ikke kan forfalskes av klienten.
+
+:::info
+Når trafikken kommer fra internett, dvs. via en ingress, vil avsender alltid være Istio Ingress Gateway, ettersom det er
+denne komponenten som er ansvarlig for å rute trafikk fra internett til riktig applikasjon i clusteret.
+
+Eksempel: `URI=spiffe://cluster.local/ns/istio-gateways/sa/istio-external`
+:::
+
 
 ## Testing av SPIFFE-regler
-Team Tilgangsstyring tilbyr p.t. ingen verktøy for testing av `AuthorizationPolicy`-ressurser med SPIFFE-regler. Ta
-kontakt med oss dersom du har innspill til hvordan et slikt testverktøy bør fungere. Enn så lenge anbefaler vi at dere
-bruker `dev`-miljøet for testing. Vi er tilgjengelig for sparring mtp. oppsett av AuthorizationPolicy-ressurser.
+SPIFFE-regler håndheves på SKIP med Kubernetes-ressursen `AuthorizationPolicy`. For å teste denne ressursen kreves det
+et kjørende Kubernetes-cluster med Istio og SPIFFE-sertifikater. Det er derfor vanskelig å teste dette på en
+applikasjonsnær måte lokalt og i CI/CD.
 
 ## Bruk av SPIFFE sammen med Ztoperator
 ### For rene maskin-til-maskin-baserte APIer

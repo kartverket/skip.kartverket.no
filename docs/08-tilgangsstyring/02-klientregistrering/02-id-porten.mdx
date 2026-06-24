@@ -1,12 +1,10 @@
 # ID-Porten
 
-For å registrere en klient i ID-porten, kan du enten gjøre det i Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login) eller
-gjennom Kubernetes-operatoren [Digdirator](https://github.com/nais/digdirator). Digdirator er en Kubernetes-operator utviklet av NAV sitt plattformteam (NAIS) som skal gjøre det enkelt å deklarativt sette opp og vedlikeholde
-integrasjoner mot [Digdir](https://docs.digdir.no) sine systemer. Dette inkluderer **ID-Porten**-integrasjoner og **Maskinporten**-integrasjoner, men per nå **ikke** **Ansattporten**-integrasjoner.
-
-:::caution
-Digdirator støtter kun klientregistreringer mot ID-porten og Maskinporten. For Ansattporten må klientregistreringer gjøres manuelt i Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login).
-:::
+For å registrere en klient i ID-porten har du to muligheter:
+- Bruke Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login). Du søker om tilgang til
+  selvbetjeningsløsningen via Pureservice.
+- Bruke Kubernetes-ressursen `IDPortenClient`. Denne ressurstypen er tilgjengelig via Kubernetes-operatoren
+  [Digdirator](https://github.com/nais/digdirator), utviklet av [NAV sitt plattformteam (NAIS)](https://nais.io).
 
 ## 🧪 Testmiljø for ID-Porten
 
