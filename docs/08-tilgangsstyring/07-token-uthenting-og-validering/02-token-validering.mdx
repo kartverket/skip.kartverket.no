@@ -69,11 +69,17 @@ spec:
   applicationRef: my-app
   idporten:
     enabled: true
+    allowedAudience:
+      <enten value eller valueFrom>
   ...
 ```
 
 Dette vil opprette `ServiceEntry` som tillater trafikk mot ID-porten, samt konfigurere Texas sidecar'en til å støtte
-validering av ID-porten-tokens.
+validering av ID-porten-tokens. Validering av ID-porten-tokens krever audience-restriksjon, og dette må spesifiseres
+enten direkte i `value`-feltet, eller ved å referere til en eksisterende `ConfigMap` eller `Secret` med
+`valueFrom`-feltet.
+
+Du kan lese mer om audience-restriksjon i [ID-porten-dokumentasjonen](https://docs.digdir.no/docs/idporten/oidc/oidc_func_aud.html).
 
 ### Ansattporten
 ```yaml title="Eksempel på SecurityConfig for Ansattporten-validering"
@@ -83,11 +89,18 @@ spec:
   applicationRef: my-app
   ansattporten:
     enabled: true
+    allowedAudience:
+      <enten value eller valueFrom>
   ...
 ```
 
 Dette vil opprette `ServiceEntry` som tillater trafikk mot Ansattporten, samt konfigurere Texas sidecar'en til å støtte
-validering av Ansattporten-tokens.
+validering av Ansattporten-tokens. Validering av Ansattporten-tokens krever audience-restriksjon, og dette må
+spesifiseres enten direkte i `value`-feltet, eller ved å referere til en eksisterende `ConfigMap` eller `Secret` med
+`valueFrom`-feltet.
+
+Du kan lese mer om audience-restriksjon i [ID-porten-dokumentasjonen](https://docs.digdir.no/docs/idporten/oidc/oidc_func_aud.html)
+(Ansattporten fungerer på samme måte som ID-porten her, men har ingen egen dokumentasjon).
 
 ## Request
 ```json
