@@ -8,9 +8,14 @@ din applikasjon i egen applikasjoskode, f.eks validering av claims som `scope`, 
 :::
 
 ## Nødvendig oppsett
-For å få Texas som sidecar må du [spesifisere "texas" som tilgjengelig sidecar-tjeneste](../09-accesserator/index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon).
-I tillegg må Texas ha nødvendig konfigurasjon og nettverksåpning for å nå den aktuelle identity provider'en. Dette
-gjøres med en `SecurityConfig`-ressurs.
+For å få Texas som sidecar må du [spesifisere "texas" som tilgjengelig sidecar-tjeneste](../09-accesserator/index.mdx#-spesifisere-tilgjengelige-sidecar-tjenester-for-din-skiperator-applikasjon)
+for din Skiperator-applikasjon. I tillegg må Texas ha nødvendig konfigurasjon og nettverksåpning for å nå den aktuelle
+identity provideren. Dette gjøres med en `SecurityConfig`-ressurs.
+
+Du bør kun aktivere validering for de(n) identity provideren(e) som er relevant for din applikasjon. Texas sidecar'en
+er avhengig av å hente JWKS-endepunkter for de identity providerene som er aktivert ved oppstart. Dersom du aktiverer
+validering for en identity provider som ikke er relevant for din applikasjon, introduserer du altså en unødvendig
+avhengighet og risiko for at Texas sidecar'en ikke starter opp ved nedetid hos den aktuelle identity provideren.
 
 Du finner API-spesifikasjon inkludert detaljerte feltbeskrivelser for `SecurityConfig`-ressursen i [API-dokumentasjonen](../09-accesserator/03-api-docs.mdx).
 
@@ -25,6 +30,9 @@ spec:
   ...
 ```
 
+Dette vil opprette `ServiceEntry` som tillater trafikk mot TokenX-tjenesten på SKIP, samt konfigurere Texas sidecar'en
+til å støtte validering av TokenX-tokens.
+
 ### Maskinporten
 ```yaml title="Eksempel på SecurityConfig for Maskinporten-validering"
 apiVersion: security.skip.kartverket.no/v1alpha1
@@ -35,6 +43,9 @@ spec:
     enabled: true
   ...
 ```
+
+Dette vil opprette `ServiceEntry` som tillater trafikk mot Maskinporten, samt konfigurere Texas sidecar'en til å støtte
+validering av Maskinporten-tokens.
 
 ### Entra ID
 ```yaml title="Eksempel på SecurityConfig for Entra ID-validering"
@@ -47,8 +58,49 @@ spec:
   ...
 ```
 
-### ID-porten / Ansattporten
-Støtte for ID-porten og Ansattporten kommer snart.
+Dette vil opprette `ServiceEntry` som tillater trafikk mot Entra ID, samt konfigurere Texas sidecar'en til å støtte
+validering av Entra ID-tokens.
+
+### ID-porten
+```yaml title="Eksempel på SecurityConfig for ID-porten-validering"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  idporten:
+    enabled: true
+    allowedAudience:
+      <enten value eller valueFrom>
+  ...
+```
+
+Dette vil opprette `ServiceEntry` som tillater trafikk mot ID-porten, samt konfigurere Texas sidecar'en til å støtte
+validering av ID-porten-tokens. Validering av ID-porten-tokens krever audience-restriksjon, og dette må spesifiseres
+enten direkte i `value`-feltet, eller ved å referere til en eksisterende `ConfigMap` eller `Secret` med
+`valueFrom`-feltet.
+
+Du kan lese mer om audience-restriksjon i [ID-porten-dokumentasjonen](https://docs.digdir.no/docs/idporten/oidc/oidc_func_aud.html).
+
+### Ansattporten
+```yaml title="Eksempel på SecurityConfig for Ansattporten-validering"
+apiVersion: security.skip.kartverket.no/v1alpha1
+kind: SecurityConfig
+spec:
+  applicationRef: my-app
+  ansattporten:
+    enabled: true
+    allowedAudience:
+      <enten value eller valueFrom>
+  ...
+```
+
+Dette vil opprette `ServiceEntry` som tillater trafikk mot Ansattporten, samt konfigurere Texas sidecar'en til å støtte
+validering av Ansattporten-tokens. Validering av Ansattporten-tokens krever audience-restriksjon, og dette må
+spesifiseres enten direkte i `value`-feltet, eller ved å referere til en eksisterende `ConfigMap` eller `Secret` med
+`valueFrom`-feltet.
+
+Du kan lese mer om audience-restriksjon i [ID-porten-dokumentasjonen](https://docs.digdir.no/docs/idporten/oidc/oidc_func_aud.html)
+(Ansattporten fungerer på samme måte som ID-porten her, men har ingen egen dokumentasjon).
 
 ## Request
 ```json
@@ -61,8 +113,7 @@ Body:
   "token": "<access-token>"
 }
 ```
-Gyldige verdier for `identity_provider`-feltet er: `entra_id`, `tokenx`, `maskinporten`, og `idporten`. NB: Ansattporten
-er p.t. ikke støttet.
+Gyldige verdier for `identity_provider`-feltet er: `entra_id`, `tokenx`, `maskinporten`, `idporten` og `ansattporten`.
 
 ## Respons
 Responsen vil være på `json`-format. Dersom tokenet ikke er gyldig vil `active`-feltet i responsen være `false`, og
