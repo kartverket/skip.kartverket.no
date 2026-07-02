@@ -195,6 +195,44 @@ spec:
 Dette vil alltid ha minimum 3 pod-er kjørende, og skalere opp til flere (maks 6) hvis CPU-bruken når 60%.
 Kun minimumsverdi er påkrevd.
 
+### Stateful (StatefulSet)
+
+Som standard genererer Skiperator en `Deployment` for hver `Application`. 
+For apper som krever stabil identitet per pod og dedikert lagring per replika (for eksempel databaser, meldingskøer eller andre stateful systemer), kan du sette `spec.stateful.enabled: true`. 
+Da genereres en `StatefulSet` istedenfor `Deployment` i tillegg til en headless `Service`.
+
+Hver replika får sin egen PVC navngitt `<template-navn>-<app>-<ordinal>`, og pod-ene får stabile navn på formen `<app>-0`, `<app>-1`, ...
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: my-stateful-app
+spec:
+  image: image
+  port: 8080
+  replicas: 3
+  stateful:
+    enabled: true
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /var/lib/data
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+```
+
+**Viktige begrensninger:**
+
+- `spec.stateful.enabled` er **immutabel**. Du må slette og opprette `Application` på nytt for å bytte mellom `Deployment` og `StatefulSet`.
+- `replicas` må være et statisk tall. Autoskalering (HPA-range med `min`/`max`) er ikke tillatt for stateful applikasjoner.
+- `spec.strategy` kan sløyfes. Om den settes må `type` være `RollingUpdate` - `Recreate` er ikke tillatt.
+- `volumeClaimTemplates` er påkrevd når stateful er aktivert.
+
+Se [Kubernetes-dokumentasjonen for StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) for mer info og [API reference](04-api-docs.md#applicationspecstateful) for tilgjengelig konfigurasjon. 
+
 ### Miljøvariabler (Environment variables)
 
 Miljøvariabler kan settes direkte i `spec.env` eller ved å bruke en `Secret` eller `ConfigMap` med `spec.envFrom`.

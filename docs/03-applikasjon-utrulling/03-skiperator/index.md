@@ -12,7 +12,7 @@ Logger og metrikker vil automatisk være tilgjengelige på [monitoring.kartverke
 
 Skiperator tilbyr tre CRDer (Custom Resource Definitions) for å gjøre det enkelt å deploye applikasjoner og jobber til et Kubernetes-cluster:
 
-- `Application` - for å deploye applikasjoner
+- `Application` - for å deploye applikasjoner. Genererer som standard en `Deployment`, eller en `StatefulSet` når `spec.stateful.enabled: true` er satt (se [Stateful](03-configuring.md#stateful-statefulset))
 - `SKIPJob` - for å kjøre jobber og cron-jobber
 - `Routing` - for å sette opp rutingregler, for eksempel frontend- og backend-tjenester under samme domene
 
