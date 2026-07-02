@@ -183,6 +183,14 @@ This allows product teams to avoid the need to set up networking on the cluster,
         <td>false</td>
       </tr>
       <tr>
+        <td><b><a href="#applicationspecextracontainersindex">extraContainers</a></b></td>
+        <td>[]object</td>
+        <td>
+          Extra containers to run in the pod alongside the main application<br/>container. Each entry is either a regular container (type: standard, the<br/>default) running next to the main container, or an init container<br/>(type: init) that starts first and stays running for the pod lifetime<br/>(a native sidecar). The operator enforces a least-privilege security<br/>context on these containers; it cannot be overridden.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
         <td><b><a href="#applicationspecfilesfromindex">filesFrom</a></b></td>
         <td>[]object</td>
         <td>
@@ -1181,6 +1189,928 @@ Selects a key of a secret in the pod's namespace
         <td>string</td>
         <td>
           Name of Kubernetes Secret in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindex"></a>
+#### Application.spec.extraContainers[index]
+
+<sup>[Parent](#applicationspec)</sup>
+
+ContainerSpec describes an extra container to run in the workload's pod
+alongside the main application container.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>image</b></td>
+        <td>string</td>
+        <td>
+          The container image to run.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name of the container. Must be unique within the pod and must not collide<br/>with the application name or a reserved name (e.g. cloudsql-proxy,<br/>istio-proxy, istio-validation, istio-init).<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexadditionalportsindex">additionalPorts</a></b></td>
+        <td>[]object</td>
+        <td>
+          Additional ports exposed by the container.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>args</b></td>
+        <td>[]string</td>
+        <td>
+          Arguments to the container entrypoint.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>command</b></td>
+        <td>[]string</td>
+        <td>
+          Override the command set in the image.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvindex">env</a></b></td>
+        <td>[]object</td>
+        <td>
+          Environment variables set inside the container.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvfromindex">envFrom</a></b></td>
+        <td>[]object</td>
+        <td>
+          Environment variables mounted from ConfigMaps or Secrets. When specified<br/>all keys of the resource are assigned as environment variables.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexfilesfromindex">filesFrom</a></b></td>
+        <td>[]object</td>
+        <td>
+          Files mounted into the container from ConfigMaps, Secrets, PVCs or<br/>emptyDirs. The referenced resources are assumed to already exist.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>ingressPort</b></td>
+        <td>integer</td>
+        <td>
+          When set, the application&#39;s ingress traffic enters the pod through this<br/>container instead of the main container: the generated Service keeps its<br/>external port (spec.port) but routes its target port to this container&#39;s<br/>IngressPort. This suits any container that should sit in front of the<br/>application and receive incoming traffic first - an auth proxy, an API<br/>gateway, a TLS-terminating or rate-limiting proxy, etc. — which then<br/>forwards to the application (e.g. it listens on ingressPort and forwards<br/>to the app on spec.port via localhost).<br/><br/>The IngressPort value must be declared in this container&#39;s additionalPorts.<br/>At most one extra container may set this, and the value must differ from<br/>spec.port.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Minimum</i>: 1<br/>
+            <i>Maximum</i>: 65535<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexliveness">liveness</a></b></td>
+        <td>object</td>
+        <td>
+          Liveness probe. When provided, path and port are required.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexreadiness">readiness</a></b></td>
+        <td>object</td>
+        <td>
+          Readiness probe. When provided, path and port are required.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexresources">resources</a></b></td>
+        <td>object</td>
+        <td>
+          ResourceRequirements to apply to the container.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexstartup">startup</a></b></td>
+        <td>object</td>
+        <td>
+          Startup probe. When provided, path and port are required.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>type</b></td>
+        <td>enum</td>
+        <td>
+          Type selects how the container runs:<br/>  - &#34;standard&#34; or omitted: a regular container running alongside the main<br/>    container for the lifetime of the pod.<br/>  - &#34;init&#34;: an init container that starts before the main container and<br/>    keeps running for the lifetime of the pod.<br/>
+          <br/>
+            <i>Enum</i>: standard, init<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexadditionalportsindex"></a>
+#### Application.spec.extraContainers[index].additionalPorts[index]
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>port</b></td>
+        <td>integer</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>protocol</b></td>
+        <td>enum</td>
+        <td>
+          Protocol defines network protocols supported for things like container ports.<br/>
+          <br/>
+            <i>Enum</i>: TCP, UDP, SCTP<br/>
+        </td>
+        <td>true</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvindex"></a>
+#### Application.spec.extraContainers[index].env[index]
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+EnvVar represents an environment variable present in a Container.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name of the environment variable.<br/>May consist of any printable ASCII characters except &#39;=&#39;.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>value</b></td>
+        <td>string</td>
+        <td>
+          Variable references $(VAR_NAME) are expanded<br/>using the previously defined environment variables in the container and<br/>any service environment variables. If a variable cannot be resolved,<br/>the reference in the input string will be unchanged. Double $$ are reduced<br/>to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e.<br/>&#34;$$(VAR_NAME)&#34; will produce the string literal &#34;$(VAR_NAME)&#34;.<br/>Escaped references will never be expanded, regardless of whether the variable<br/>exists or not.<br/>Defaults to &#34;&#34;.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvindexvaluefrom">valueFrom</a></b></td>
+        <td>object</td>
+        <td>
+          Source for the environment variable&#39;s value. Cannot be used if value is not empty.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvindexvaluefrom"></a>
+#### Application.spec.extraContainers[index].env[index].valueFrom
+
+<sup>[Parent](#applicationspecextracontainersindexenvindex)</sup>
+
+Source for the environment variable's value. Cannot be used if value is not empty.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvindexvaluefromconfigmapkeyref">configMapKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a key of a ConfigMap.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvindexvaluefromfieldref">fieldRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels[&#39;&lt;KEY&gt;&#39;]`, `metadata.annotations[&#39;&lt;KEY&gt;&#39;]`,<br/>spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvindexvaluefromfilekeyref">fileKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          FileKeyRef selects a key of the env file.<br/>Requires the EnvFiles feature gate to be enabled.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvindexvaluefromresourcefieldref">resourceFieldRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a resource of the container: only resources limits and requests<br/>(limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#applicationspecextracontainersindexenvindexvaluefromsecretkeyref">secretKeyRef</a></b></td>
+        <td>object</td>
+        <td>
+          Selects a key of a secret in the pod&#39;s namespace<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvindexvaluefromconfigmapkeyref"></a>
+#### Application.spec.extraContainers[index].env[index].valueFrom.configMapKeyRef
+
+<sup>[Parent](#applicationspecextracontainersindexenvindexvaluefrom)</sup>
+
+Selects a key of a ConfigMap.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          The key to select.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name of the referent.<br/>This field is effectively required, but due to backwards compatibility is<br/>allowed to be empty. Instances of this type with an empty value here are<br/>almost certainly wrong.<br/>More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
+          <br/>
+            <i>Default</i>: ``<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>optional</b></td>
+        <td>boolean</td>
+        <td>
+          Specify whether the ConfigMap or its key must be defined<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvindexvaluefromfieldref"></a>
+#### Application.spec.extraContainers[index].env[index].valueFrom.fieldRef
+
+<sup>[Parent](#applicationspecextracontainersindexenvindexvaluefrom)</sup>
+
+Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`,
+spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>fieldPath</b></td>
+        <td>string</td>
+        <td>
+          Path of the field to select in the specified API version.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>apiVersion</b></td>
+        <td>string</td>
+        <td>
+          Version of the schema the FieldPath is written in terms of, defaults to &#34;v1&#34;.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvindexvaluefromfilekeyref"></a>
+#### Application.spec.extraContainers[index].env[index].valueFrom.fileKeyRef
+
+<sup>[Parent](#applicationspecextracontainersindexenvindexvaluefrom)</sup>
+
+FileKeyRef selects a key of the env file.
+Requires the EnvFiles feature gate to be enabled.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          The key within the env file. An invalid key will prevent the pod from starting.<br/>The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;.<br/>During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path within the volume from which to select the file.<br/>Must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>volumeName</b></td>
+        <td>string</td>
+        <td>
+          The name of the volume mount containing the env file.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>optional</b></td>
+        <td>boolean</td>
+        <td>
+          Specify whether the file or its key must be defined. If the file or key<br/>does not exist, then the env var is not published.<br/>If optional is set to true and the specified key does not exist,<br/>the environment variable will not be set in the Pod&#39;s containers.<br/><br/>If optional is set to false and the specified key does not exist,<br/>an error will be returned during Pod creation.<br/>
+          <br/>
+            <i>Default</i>: `false`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvindexvaluefromresourcefieldref"></a>
+#### Application.spec.extraContainers[index].env[index].valueFrom.resourceFieldRef
+
+<sup>[Parent](#applicationspecextracontainersindexenvindexvaluefrom)</sup>
+
+Selects a resource of the container: only resources limits and requests
+(limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>resource</b></td>
+        <td>string</td>
+        <td>
+          Required: resource to select<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>containerName</b></td>
+        <td>string</td>
+        <td>
+          Container name: required for volumes, optional for env vars<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>divisor</b></td>
+        <td>int or string</td>
+        <td>
+          Specifies the output format of the exposed resources, defaults to &#34;1&#34;<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvindexvaluefromsecretkeyref"></a>
+#### Application.spec.extraContainers[index].env[index].valueFrom.secretKeyRef
+
+<sup>[Parent](#applicationspecextracontainersindexenvindexvaluefrom)</sup>
+
+Selects a key of a secret in the pod's namespace
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>key</b></td>
+        <td>string</td>
+        <td>
+          The key of the secret to select from.  Must be a valid secret key.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>name</b></td>
+        <td>string</td>
+        <td>
+          Name of the referent.<br/>This field is effectively required, but due to backwards compatibility is<br/>allowed to be empty. Instances of this type with an empty value here are<br/>almost certainly wrong.<br/>More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names<br/>
+          <br/>
+            <i>Default</i>: ``<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>optional</b></td>
+        <td>boolean</td>
+        <td>
+          Specify whether the Secret or its key must be defined<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexenvfromindex"></a>
+#### Application.spec.extraContainers[index].envFrom[index]
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>configMap</b></td>
+        <td>string</td>
+        <td>
+          Name of Kubernetes ConfigMap in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>secret</b></td>
+        <td>string</td>
+        <td>
+          Name of Kubernetes Secret in which the deployment should mount environment variables from. Must be in the same namespace as the Application<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexfilesfromindex"></a>
+#### Application.spec.extraContainers[index].filesFrom[index]
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+FilesFrom
+
+Struct representing information needed to mount a Kubernetes resource as a file to a Pod's directory.
+One of ConfigMap, Secret, EmptyDir or PersistentVolumeClaim must be present, and just represent the name of the resource in question
+NB. Out-of-the-box, skiperator provides a writable 'emptyDir'-volume at '/tmp'
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>mountPath</b></td>
+        <td>string</td>
+        <td>
+          The path to mount the file in the Pods directory. Required.<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>configMap</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>defaultMode</b></td>
+        <td>integer</td>
+        <td>
+          defaultMode is optional: mode bits used to set permissions on created files by default.<br/>Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511.<br/>YAML accepts both octal and decimal values, JSON requires decimal values for mode bits.<br/>Defaults to 0644.<br/>Directories within the path are not affected by this setting.<br/>This might be in conflict with other options that affect the file<br/>mode, like fsGroup, and the result can be other mode bits set.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>emptyDir</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>persistentVolumeClaim</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>secret</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexliveness"></a>
+#### Application.spec.extraContainers[index].liveness
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+Liveness probe. When provided, path and port are required.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path to access on the HTTP server<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          Number of the port to access on the container<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>failureThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive failures for the probe to be considered failed after<br/>having succeeded. Defaults to 3. Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `3`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>initialDelay</b></td>
+        <td>integer</td>
+        <td>
+          Delay sending the first probe by X seconds. Can be useful for applications that<br/>are slow to start.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `0`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>period</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `10`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>successThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive successes for the probe to be considered successful after having failed.<br/>Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>timeout</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds after which the probe times out. Defaults to 1 second.<br/>Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexreadiness"></a>
+#### Application.spec.extraContainers[index].readiness
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+Readiness probe. When provided, path and port are required.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path to access on the HTTP server<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          Number of the port to access on the container<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>failureThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive failures for the probe to be considered failed after<br/>having succeeded. Defaults to 3. Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `3`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>initialDelay</b></td>
+        <td>integer</td>
+        <td>
+          Delay sending the first probe by X seconds. Can be useful for applications that<br/>are slow to start.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `0`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>period</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `10`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>successThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive successes for the probe to be considered successful after having failed.<br/>Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>timeout</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds after which the probe times out. Defaults to 1 second.<br/>Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexresources"></a>
+#### Application.spec.extraContainers[index].resources
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+ResourceRequirements to apply to the container.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>limits</b></td>
+        <td>map[string]int or string</td>
+        <td>
+          Limits set the maximum the app is allowed to use. Exceeding this limit will<br/>make kubernetes kill the app and restart it.<br/><br/>Limits can be set on the CPU and memory, but it is not recommended to put a limit on CPU, see: https://home.robusta.dev/blog/stop-using-cpu-limits<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>requests</b></td>
+        <td>map[string]int or string</td>
+        <td>
+          Requests set the initial allocation that is done for the app and will<br/>thus be available to the app on startup. More is allocated on demand<br/>until the limit is reached.<br/><br/>Requests can be set on the CPU and memory.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="applicationspecextracontainersindexstartup"></a>
+#### Application.spec.extraContainers[index].startup
+
+<sup>[Parent](#applicationspecextracontainersindex)</sup>
+
+Startup probe. When provided, path and port are required.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>path</b></td>
+        <td>string</td>
+        <td>
+          The path to access on the HTTP server<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>port</b></td>
+        <td>int or string</td>
+        <td>
+          Number of the port to access on the container<br/>
+        </td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td><b>failureThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive failures for the probe to be considered failed after<br/>having succeeded. Defaults to 3. Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `3`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>initialDelay</b></td>
+        <td>integer</td>
+        <td>
+          Delay sending the first probe by X seconds. Can be useful for applications that<br/>are slow to start.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `0`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>period</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds Kubernetes waits between each probe. Defaults to 10 seconds.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `10`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>successThreshold</b></td>
+        <td>integer</td>
+        <td>
+          Minimum consecutive successes for the probe to be considered successful after having failed.<br/>Defaults to 1. Must be 1 for liveness and startup Probes. Minimum value is 1.<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>timeout</b></td>
+        <td>integer</td>
+        <td>
+          Number of seconds after which the probe times out. Defaults to 1 second.<br/>Minimum value is 1<br/>
+          <br/>
+            <i>Format</i>: int32<br/>
+            <i>Default</i>: `1`<br/>
         </td>
         <td>false</td>
       </tr>
