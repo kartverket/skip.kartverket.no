@@ -100,10 +100,6 @@ Følgende `SecurityConfig` konfigurerer OPA-sidecaren til å laste inn *to* bund
 Vi konfigurerer også at Accesserator skal verifisere provenance-attestasjonen for bundlene, det vil si at Accesserator skal
 verifisere at bundlene er bygd fra repoet `kartverket/<REPO>`, av workflowen `.github/workflows/build-opa-bundle.yml`, fra `main`-branchen.
 
-:::warning
-`spec.opa.bundleUrls[*].verification` er under aktiv utvikling, og støtter per nå kun verifikasjon av bundles bygd fra workflow runs i åpne GitHub repoer.
-:::
-
 ```yaml
 apiVersion: accesserator.kartverket.no/v1alpha
 kind: SecurityConfig
