@@ -19,7 +19,7 @@ Det finnes flere måter å sette opp helsesjekker på, som f.eks. kommandoer, HT
 
 Litt mer om helsesjekker generelt: [https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
-Det er viktig å merke seg at man ikkemåbenytte seg av alle disse helsesjekkene, men man bør ta et bevisst valg om det er hensiktsmessig eller ikke. Sjekk den lenken her for å en oversikt over hva man bør gjøre: [https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-liveness-probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-liveness-probe)
+Det er viktig å merke seg at man ikke må benytte seg av alle disse helsesjekkene, men man bør ta et bevisst valg om det er hensiktsmessig eller ikke. Sjekk denne lenken for å få en oversikt over hva man bør gjøre: [https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-liveness-probe](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-liveness-probe)
 
 ## Skiperator
 
@@ -35,7 +35,7 @@ Ta en titt på følgende flytskjema før du går videre, og gå til det punktet 
 
 ### Undersøke hva som eksponeres som standard
 
-En veldig vanlig måte å løse helsejsekker på når man bruker Spring Boot er å benytte seg av sub-prosjektet [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator) .
+En veldig vanlig måte å løse helsesjekker på når man bruker Spring Boot er å benytte seg av sub-prosjektet [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator) .
 
 For å ta det i bruk trenger man bare å legge til følgende for Maven-prosjekt (pom.xml)
 
@@ -58,7 +58,7 @@ dependencies {
 
 Rammeverket setter automatisk opp endepunktet `/actuator/health` som en trygg default (gjelder versjon 2 og høyere av Spring Boot). Når man starter opp en Spring-applikasjon i kubernetes vil Spring Boot Actuator også automatisk tilgjengeliggjøre `/actuator/health/liveness` og `/actuator/health/readiness` som man benytte for helsesjekker. For å teste disse manuelt kan du legge til `management.endpoint.health.probes.enabled=true` i `application.properties` .
 
-Disse endepunktene kan du så bruke i Skiperator-manifestet:
+Disse endepunktene kan du bruke i Skiperator-manifestet:
 
 ```java
 apiVersion: skiperator.kartverket.no/v1alpha1
