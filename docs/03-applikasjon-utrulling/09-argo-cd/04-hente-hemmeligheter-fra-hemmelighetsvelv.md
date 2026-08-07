@@ -122,7 +122,7 @@ spec:
 
 ### Mounting av hemmelighet
 
-Når ESO har synkronisert inn hemmeligheten og opprettet en Kubernetes Secret er det ofte slik at man ønsker å bruke dette i en Pod. Vanligvis gjennom å mounte dette som miljøvariabler eller som en fil på filsystemet, eksempelvis for sertfikater. Bruker man Skiperator er dette veldig rett frem.
+Når ESO har synkronisert inn hemmeligheten og opprettet en Kubernetes Secret er det ofte slik at man ønsker å bruke dette i en Pod. Vanligvis gjennom å mounte dette som miljøvariabler eller som en fil på filsystemet, eksempelvis for sertifikater. Bruker man Skiperator er dette veldig rett frem.
 
 Se også [Using Secrets as files from a Pod](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) og [Using Secrets as environment variables](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables) , men merk at spec er annerledes med Skiperator.
 

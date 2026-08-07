@@ -4,7 +4,7 @@
 
 For JVM-prosjekter med Gradle må det settes opp en egen action som sender inn alle transitive avhengigheter.
 
-Det kan opprettes en egen action som både sender inn avhengigheter og gjør dependency review som i eksempelet under. Dependency sumbission bør kun kjøres fra en enkelt action per repo. Om dependency submission kjøres fra flere actions vil dette føre til uønsket oppførsel ved håndtering av sårbarheter i Dependency Graph. Se [GitHub egne anbefalinger for bruk av dependency submission og dependency review sammen](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#using-github-actions-to-access-the-dependency-submission-api-and-the-dependency-review-api).
+Det kan opprettes en egen action som både sender inn avhengigheter og gjør dependency review, slik som i eksempelet under. Dependency submission bør kun kjøres fra én enkelt action per repo. Om dependency submission kjøres fra flere actions, vil dette føre til uønsket oppførsel ved håndtering av sårbarheter i Dependency Graph. Se [GitHub egne anbefalinger for bruk av dependency submission og dependency review sammen](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#using-github-actions-to-access-the-dependency-submission-api-and-the-dependency-review-api).
 
 Merk at oppsett mot private pakkebrønner må gjøres i tillegg (Tailscale eller annet), slik som for vanlige bygg. Java-distribusjon og -versjon må også konfigureres til å tilsvare det som brukes i kodebasen.
 

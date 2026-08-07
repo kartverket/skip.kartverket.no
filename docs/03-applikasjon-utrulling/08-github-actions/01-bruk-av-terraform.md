@@ -1,6 +1,6 @@
 # Bruk av Terraform
 
-For applikasjoner anbefaler vi å brukes [Argo CD](../09-argo-cd/index.md) til utrulling av containere til Kubernetes. Terraform kan brukes til annen infrastruktur i Google Cloud eller on-prem.
+For applikasjoner anbefaler vi å bruke [Argo CD](../09-argo-cd/index.md) til utrulling av containere til Kubernetes. Terraform kan brukes til annen infrastruktur i Google Cloud eller on-prem.
 
 ## Lagring av state
 
@@ -17,7 +17,7 @@ terraform {
 }
 ```
 
-For at backenden over skal kunne nå denne bucketen må service-kontoen den kjører som være autentisert mot Google Cloud med riktige tilganger. Dette gjøres i byggeløypa før Terraform blir kjørt, se avsnittet under for hvordan man autentiserer med Google Cloud som en del av Github Actionen.
+For at backend-konfigurasjonen over skal kunne nå denne bucketen, må servicekontoen den kjører som være autentisert mot Google Cloud med riktige tilganger. Dette gjøres i byggeløypa før Terraform blir kjørt. Se avsnittet under for hvordan man autentiserer med Google Cloud som en del av GitHub Actions.
 
 ## Kjøre Terraform i GitHub Actions
 

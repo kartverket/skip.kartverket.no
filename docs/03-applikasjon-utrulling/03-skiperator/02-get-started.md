@@ -3,7 +3,7 @@
 Dette er en rask introduksjon til hvordan man konfigurerer en enkel Application, SKIPJob og Routing ved hjelp av Skiperator.
 Før du starter her bør du ha gått gjennom siden for [krav](01-requirements.md).
 
-Dette er kun enkle eksempler. Team bruker vanligvis libsonnet for å generere yaml-filene for CRDene.
+Dette er kun enkle eksempler. Team bruker vanligvis libsonnet for å generere YAML-filer for CRD-ene.
 For mer detaljert informasjon om hvordan du konfigurerer CRDene, se [konfigurering](03-configuring.md) for vanlige bruksområder og [API-dokumentasjon](04-api-docs.md) for komplett dokumentasjon.
 
 ## Application

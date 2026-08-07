@@ -6,8 +6,8 @@ SKIP har laget to terraform-moduler ([cloud_sql](https://github.com/kartverket/t
 [cloud_sql_config](https://github.com/kartverket/terraform-modules/tree/main/cloud_sql_config)) for å gjøre det enkelt å
 sette opp nye Cloud SQL-instanser i GCP.
 
-Dokumentasjon for hvordan modulene brukes finnes på wiki-siden til [terraform-modules](https://github.com/kartverket/terraform-modules/wiki)
-Spesielt guiden for [hvordan bruke terraform-modules repoet](https://github.com/kartverket/terraform-modules/wiki/Hvordan-bruke-dette-repoet) er relevant.
+Dokumentasjon for hvordan modulene brukes, finnes på wiki-siden til [terraform-modules](https://github.com/kartverket/terraform-modules/wiki).
+Spesielt guiden for [hvordan bruke terraform-modules-repoet](https://github.com/kartverket/terraform-modules/wiki/Hvordan-bruke-dette-repoet) er relevant.
 
 ### cloud_sql modulen
 > For mer utfyllende dokumentasjon se [cloud_sql wiki](https://github.com/kartverket/terraform-modules/wiki/cloud_sql)
@@ -25,12 +25,11 @@ module "cloudsql_instance_prod" {
 ### cloud_sql_config modulen og konfigurering av brukere
 > For mer utfyllende dokumentasjon se [cloud_sql_config wiki](https://github.com/kartverket/terraform-modules/wiki/cloud_sql_config)
 
-Denne modulen er laget for konfigurasjon av postgres instanser. Vi har laget denne for å gjøre konfigurering av databaser enklest mulig for dere,
-og for å unngå "click-ops".   
+Denne modulen er laget for konfigurasjon av Postgres-instanser. Vi har laget denne for å gjøre konfigurering av databaser så enkelt som mulig for dere og for å unngå "click-ops".
 Det er noen ting dere bør tenke over før dere tar denne i bruk:
-1. Den burde bare brukes på en ny instans. Å importere eksisterende databaser, brukere og skjemaer er noe vi fraråder
+1. Den bør bare brukes på en ny instans. Å importere eksisterende databaser, brukere og skjemaer er noe vi fraråder.
 2. Feil bruk av denne modulen kan slette brukere, secrets og hele databasen inkludert all data. Sjekk alltid PLAN før du applyer.
-3. Vær sikker på at migreringene dine er kompatible med modulen mtp. privileges
+3. Vær sikker på at migreringene dine er kompatible med modulen med hensyn til privileges.
 
 Eksempel config: 
 ```hcl
@@ -87,7 +86,7 @@ module "cloudsql_config" {
 
 For hver bruker så vil modulen generere opp et klient sertifikat og en privatnøkkel, disse legges i GSM.
 Den private nøkkelen legges i to formater; PEM og PK8. Vi har erfart at JDBC ikke liker PEM, så i dette tilfellet 
-så bør du bruke PK8 nøkkelen istedenfor.
+så bør du bruke PK8-nøkkelen i stedet for.
 
 ## Bruk av CloudSQL
 
@@ -226,7 +225,7 @@ Alternativt kan man også koble seg til databasen via Cloud SQL Studio i GCP-kon
 ### Bruke CloudSQL fra Java applikasjoner
 
 Skal du bruke CloudSQL fra Java applikasjoner må du lage til ExternalSecrets og konfigurere skiperator som ovenfor, 
-men bruk pk8 nøkkel istedenfor vanlig pem nøkkel. 
+men bruk pk8-nøkkel i stedet for vanlig pem-nøkkel.
 Det skal være nok å konfigurere en connection string som ser noe slik ut `postgresql://<privat-ip>:5432/<database-navn>?sslmode=require&sslrootcert=/app/db-certs/server.crt&sslcert=/app/db-certs/client.crt&sslkey=/app/db-certs/client.pk8`
 
 Alternativt kan man også bruke en [Cloud Sql Auth Proxy connector](https://cloud.google.com/sql/docs/postgres/connect-auth-proxy#languages), men da vil man få litt dårligere ytelse.
