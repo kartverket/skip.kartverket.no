@@ -1,6 +1,6 @@
 # Autentisering til GitHub i terminalen
 
-Denne siden forklarer hvordan du setter opp og tar i bruk SSH nøkler med Git på en sikker måte for GitHub autentisering.
+Denne siden forklarer hvordan du setter opp og tar i bruk SSH-nøkler med Git på en sikker måte for GitHub-autentisering.
 
 :::info
 Denne siden antar at du bruker Linux eller Windows Subsystem for Linux (WSL)
@@ -24,11 +24,11 @@ Du kan sjekke hvilken versjon du har med denne kommandoen:
 git --version
 ```
 
-## Generer SSH nøkkel
+## Generer SSH-nøkkel
 
 Du kan velge mellom ed25519 og RSA-4096.
 
-(det finnes flere alternativer, men disse er vurdert som akseptable)
+(Det finnes flere alternativer, men disse er vurdert som akseptable)
 
 Bruk `ssh-keygen` for å generere en ny nøkkel lokalt på din maskin. Husk å bytt ut “DINEPOST” med Kartverket eposten din (f.eks. `"jell.fjell@kartverket.no"` ).
 
@@ -47,9 +47,9 @@ ssh-keygen -t rsa -b 4096 -f ~/.ssh/github -C "DINEPOST"
 NB! Husk å sette passord når du blir spurt. **Ikke la passordfeltet stå tomt.**
 :::
 
-### Sett lokale rettigheter på SSH nøkkelen
+### Sett lokale rettigheter på SSH-nøkkelen
 
-SSH nøkkelen er privat for din bruker, og skal kun leses av din bruker.
+SSH-nøkkelen er privat for din bruker og skal kun leses av din bruker.
 
 ```bash
 chmod 600 ~/.ssh/github
@@ -74,7 +74,7 @@ Marker utskriften og kopier innholdet.
 - Kopier og lim inn innholdet fra~/.ssh/github.pub(ikke private key), som vist i første steg.
 - Trykk på « **Add SSH key** ».
 - Du skal nå se oversikten over dine nøkler, med den nye nøkkelen i listen.
-- For å bruke kartverket nøkkelen må man bekrefte nøkkelen med SSO. Dette gjøres ved å trykke configure SSO på nøkkelen.
+- For å bruke Kartverket-nøkkelen må man bekrefte nøkkelen med SSO. Dette gjøres ved å trykke "Configure SSO" på nøkkelen.
 
 ## Test nøkkelen
 

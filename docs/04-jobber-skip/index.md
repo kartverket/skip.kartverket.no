@@ -1,13 +1,13 @@
 # 📅 Jobber på SKIP
 
-SKIP tilbyr abstraksjonen `SKIPJob` for å kunne kjøre programmer én gang ("one-off") eller periodisk (kjent som "cron jobs"). 
+SKIP tilbyr abstraksjonen `SKIPJob` for å kunne kjøre programmer én gang ("one-off") eller periodisk (kjent som "cron jobs").
 Dette dokumentet hjelper deg med å ta i bruk jobber på SKIP. 
 
 ## Konfigurere en SKIPJob
 
-En SKIPJob konfigureres i stor grad likt som applikasjoner. 
-Inbound access policy og port skal derimot *ikke* konfigureres for jobber. 
-Mer info om vanlig konfiguration av applikasjoner finner du [her](/docs/applikasjon-utrulling/skiperator/configuring).
+En SKIPJob konfigureres i stor grad likt som applikasjoner.
+Inbound access policy og port skal derimot *ikke* konfigureres for jobber.
+Mer info om vanlig konfigurasjon av applikasjoner finner du [her](/docs/applikasjon-utrulling/skiperator/configuring).
 
 ### One-off jobb
 
@@ -20,7 +20,7 @@ spec:
   image: "ghcr.io/kartverket/min-jobb:latest"
 ```
 Denne vil kjøre docker imaget `min-jobb:latest` en gang. 
-Den vil kjøre hver gang den blir syncet i ArgoCD. 
+Den vil kjøre hver gang den blir synket i Argo CD. 
 
 ### Cron jobb (periodisk)
 
@@ -70,7 +70,7 @@ spec:
 ## Trigge en jobb
 
 Spesielt for one-off jobber er det aktuelt å trigge jobben manuelt uten at du har gjort endringer. 
-Vi har ingen pen måte å trigge jobber på ennå, men du kan likevel trigge en jobb ved å gå inn i argo og slette `Job` ressursen (*ikke* `SKIPJob`). 
+Vi har ingen pen måte å trigge jobber på ennå, men du kan likevel trigge en jobb ved å gå inn i Argo og slette `Job` ressursen (*ikke* `SKIPJob`). 
 ![Trigge en jobb](images/slett_skipjob.png)
 Trykk på "Delete", velg "Foreground Delete" (default) og trykk "Ok" så vil `Job` ressursen opprettes på nytt og jobben kjøres. 
 

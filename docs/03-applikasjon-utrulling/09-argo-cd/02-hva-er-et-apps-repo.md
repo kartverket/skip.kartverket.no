@@ -4,7 +4,7 @@
 
 Når dere [kommer i gang med Argo](./01-komme-i-gang-med-argocd.md) får teamet deres et apps-repo. Hva er dette og hvordan bruker man det?
 
-Et apps-repo inneholder [manifest-filer](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/306873095) for alle applikasjonene som et produktteam har ansvaret for. Disse manifest-filene beskriver hvordan applikasjonen skal se ut på kubernetes, hvilke container images som skal deployes, hvor mange replikaer som skal kjøre, og så videre. Vanligvis er dette i form av [Skiperator Application-manifester](https://github.com/kartverket/skiperator) og [ExternalSecret-manifester](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/554566739). Argo CD leser disse og synkroniserer dem ut til kubernetes-clusteret.
+Et apps-repo inneholder [manifest-filer](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/306873095) for alle applikasjonene som et produktteam har ansvaret for. Disse manifest-filene beskriver hvordan applikasjonen skal se ut på Kubernetes, hvilke container images som skal deployes, hvor mange replikaer som skal kjøre, og så videre. Vanligvis er dette i form av [Skiperator Application-manifester](https://github.com/kartverket/skiperator) og [ExternalSecret-manifester](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/554566739). Argo CD leser disse og synkroniserer dem ut til Kubernetes-clusteret.
 
 ## Mappestruktur
 
@@ -68,7 +68,7 @@ Ved hvert push til et kildekoderepo kjøres et bygg for å bygge et byggartefakt
 
 Etter imaget er publisert til [ghcr.io](http://ghcr.io/) puller bygget apps-repoet ved å bruke [https://github.com/actions/checkout](https://github.com/actions/checkout). Deretter endres filene til å inneholde referansen til det nye imaget, og disse filene commites lokalt. Hvordan disse filene endres er opp til produktteamet, men et forslag ligger i [Automation from CI Pipelines](https://argo-cd.readthedocs.io/en/stable/user-guide/ci_automation/). Til slutt pushes filene til repoet som vil trigge en synk med de oppdaterte manifestene.
 
-Dette kan også gjøres med en PR istedenfor å pushe rett til apps-repoet om man vil ha en godkjenning før deploy.
+Dette kan også gjøres med en PR i stedet for å pushe rett til apps-repoet om man vil ha en godkjenning før deploy.
 
 For å logge inn på apps-repoet brukes metoden som beskrives i [Tilgang til repoer med tokens fra GitHub Actions](../08-github-actions/12-tilgang-til-repoer-med-tokens-fra-github-actions.md).
 
@@ -118,7 +118,7 @@ env/
 ```
 :::
 
-### Eksempel på Github Actions
+### Eksempel på GitHub Actions
 
 ```yaml
 name: build-and-deploy

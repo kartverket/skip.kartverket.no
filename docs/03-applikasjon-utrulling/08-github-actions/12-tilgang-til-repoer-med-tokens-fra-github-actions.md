@@ -12,7 +12,7 @@ Disse ulempene har ført til at mange har etterspurt bedre løsninger enn GitHub
 
 En Secure Token Service (STS) er en tjeneste som utsteder sikkerhetstokener som kan brukes til autentisering og autorisering i ulike systemer og applikasjoner. I vårt tilfelle ønsker vi å utstede kortlevde tokens som kun er gyldige i perioden de brukes som en erstatning for PAT-er. Vi har derfor implementert et verktøy som heter [Octo STS](https://github.com/apps/octo-sts) for å levere denne funksjonaliteten.
 
-Måten STS fungerer på er at man etablerer tillit mellom to repoer. Dette gjøres ved å legge inn en konfigurasjonsfil i repoet du ønsker å ha tilgang til som sier noe om hvem som skal kunne få tilgang til repoet. Deretter bruker man en ferdig GitHub action i repot som skal få tilgang til å etablere et kortlevd tiken via STS-tjenesten.
+Måten STS fungerer på er at man etablerer tillit mellom to repoer. Dette gjøres ved å legge inn en konfigurasjonsfil i repoet du ønsker å ha tilgang til som sier noe om hvem som skal kunne få tilgang til repoet. Deretter bruker man en ferdig GitHub Action i repoet som skal få tilgang, for å etablere et kortlevd token via STS-tjenesten.
 
 Les [denne artikkelen](https://edu.chainguard.dev/open-source/octo-sts/overview/) for mer detaljer om Octo STS.
 

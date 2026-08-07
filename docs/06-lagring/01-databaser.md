@@ -1,16 +1,16 @@
 # Databaser
 
-Som bruker av SKIP har du et par alternativ når det kommer til databaser. Det første alternativet er å bruke databaser som er administrert av DBA-ene på Kartverket og lever på lokal infrastruktur. Det er også mulig å bruke databaser i sky i Google Cloud.
+Som bruker av SKIP har du et par alternativer når det kommer til databaser. Det første alternativet er å bruke databaser som er administrert av DBA-ene på Kartverket og lever på lokal infrastruktur. Det er også mulig å bruke databaser i sky via Google Cloud.
 
 ## On-prem Postgres
 
-Dersom man ønsker en lokal postgres tar man kontakt med DBA-ene for å bestille opp en server. Da vil man få en Postgres-database og en administratorbruker som man kan bruke til å opprette tabeller.
+Dersom du ønsker en lokal postgres, tar du kontakt med DBA-ene for å bestille opp en server. Da får du en Postgres-database og en administratorbruker som du kan bruke til å opprette tabeller.
 
-For å bestille dette sender man ticket gjennom service desken med hvor mye lagring man trenger og circa hvor mye CPU-kraft man trenger.
+For å bestille dette sender du ticket til service desken med hvor mye lagring du trenger og circa hvor mye CPU-kraft du trenger.
 
-Når man har fått en database så er det to ting man må gjøre før man kan ta den i bruk fra en applikasjon på SKIP:
+Når du har fått en database, er det to ting du må gjøre før du kan ta den i bruk fra en applikasjon på SKIP:
 
-- Bestill brannmursåpning for databasen ved å opprette en sak i PureService. F.eks.
+- Bestill brannmuråpning for databasen ved å opprette en sak i PureService. F.eks.:
   Jeg ønsker å bestille en brannmursåpning for en database som skal aksesseres fra SKIP. Det er clusteret “atkv3-dev” som trenger å nå “XXXX.statkart.no” på TCP port XXXX.
 - Sett opp tilgang til databasen i Kubernetes. I Skiperator gjøres dette ved hjelp av external accessPolicies. Her må applikasjonen definere at den skal kunne snakke med den eksterne serveren som databasen lever på.
 

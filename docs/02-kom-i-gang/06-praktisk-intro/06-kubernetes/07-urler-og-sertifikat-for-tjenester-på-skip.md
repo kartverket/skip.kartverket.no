@@ -1,6 +1,6 @@
 # URLer og sertifikat for tjenester på SKIP
 
-For å bruke sertifikat på tjenester man skal eksponere utenfor kubernetes-clusteret anbefaler vi å bruke Skiperator. Skiperator håndterer utstedelse og fornying av sertfikater ved hjelp av [cert-manager.](https://cert-manager.io/) [Vi har valgt å bruke cert-manager og ACME for sertifikater i SKIP.](./10-bruk-av-acme-og-certmanager.md) Implementasjonen vår bruker [ACME protokollen](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) og [http-01 challenge](https://letsencrypt.org/docs/challenge-types/#http-01-challenge) for å bevise at vi er eier av domenet vi skal utstede cert til. Vi utsteder sertifikater automatisk i både dev og prod med [Let’s encrypt](https://letsencrypt.org/).
+For å bruke sertifikat på tjenester man skal eksponere utenfor kubernetes-clusteret anbefaler vi å bruke Skiperator. Skiperator håndterer utstedelse og fornying av sertifikater ved hjelp av [cert-manager.](https://cert-manager.io/) [Vi har valgt å bruke cert-manager og ACME for sertifikater i SKIP.](./10-bruk-av-acme-og-certmanager.md) Implementasjonen vår bruker [ACME-protokollen](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) og [http-01 challenge](https://letsencrypt.org/docs/challenge-types/#http-01-challenge) for å bevise at vi er eier av domenet vi skal utstede sertifikat til. Vi utsteder sertifikater automatisk i både dev og prod med [Let's encrypt](https://letsencrypt.org/).
 
 [![ACME](images/acme.png)](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment)
 
@@ -12,7 +12,7 @@ Under kommer vi til å skille på internt- og eksternt eksponerte tjenester i f�
 
 Dersom du har en tjeneste som kun skal være tilgjengelig for folk på kartverkets nettverk og VPN og ikke på internett for allmennheten har man flere forskjellige alternativer. Avhengig av bruksområde og hva slags URL man ønsker seg fungerer dette litt forskjellig, og beskrives i paragrafene under.
 
-For tjenester som skal nås på et domene under kartverket-intern.cloud håndteres alt automatisk, inkludert utstedelse og fornying av sertfikater. Det ligger et wildcard record i DNS som håndterer innkommende trafikk, og bruker cluster-leddet i URL-en på Load Balanceren til å rute denne inn til riktig cluster. Deretter rutes denne til applikasjonen din basert på URL-konfigurasjonen din i Skiperator.
+For tjenester som skal nås på et domene under kartverket-intern.cloud håndteres alt automatisk, inkludert utstedelse og fornying av sertifikater. Det ligger et wildcard-record i DNS som håndterer innkommende trafikk, og bruker cluster-leddet i URL-en på lastbalanseren til å rute denne inn til riktig cluster. Deretter rutes trafikken til applikasjonen din basert på URL-konfigurasjonen din i Skiperator.
 
 :::info
 Eksempel: minapp.atkv3-prod.kartverket-intern.cloud
@@ -20,9 +20,9 @@ Eksempel: minapp.atkv3-prod.kartverket-intern.cloud
 
 ### Vanity URL-er
 
-Dersom du ønsker et annet hostname enn `app.<cluster>.kartverket-intern.cloud` er dette mulig, men krever noe mer setup. Den nye URL-en må registreres i DNS og skiperator-applikasjonen din må settes opp til å lytte på denne. Utstedelse og fornying av sertfikater vil fremdeles håndteres automatisk av Skiperator.
+Dersom du ønsker et annet hostname enn `app.<cluster>.kartverket-intern.cloud` er dette mulig, men krever noe mer setup. Den nye URL-en må registreres i DNS og Skiperator-applikasjonen din må settes opp til å lytte på denne. Utstedelse og fornying av sertifikater vil fremdeles håndteres automatisk av Skiperator.
 
-For å sette opp DNS må du gjøre følgende: Først bestem hvilke URL du vil ha, deretter sett opp et CNAME for denne URL-en til `<cluster>.kartverket-intern.cloud` . Dersom du ønsker et CNAME som ligger under kartverket-intern.cloud (for eksempel minapp.kartverket-intern.cloud) kan dette gjøres av SKIP, for alle andre domener ta kontakt med eier av domenet via bestilling i pureservice. Når dette er gjort vil alle spørringer som går mot URL-en du har bestemt ende opp host lastbalansereren foran clusteret, og sendes videre inn til Kubernetes.
+For å sette opp DNS må du gjøre følgende: Først bestem hvilken URL du vil ha, deretter sett opp et CNAME for denne URL-en til `<cluster>.kartverket-intern.cloud` . Dersom du ønsker et CNAME som ligger under kartverket-intern.cloud (for eksempel minapp.kartverket-intern.cloud) kan dette gjøres av SKIP; for alle andre domener ta kontakt med eier av domenet via bestilling i PureService. Når dette er gjort vil alle spørringer som går mot URL-en du har bestemt ende opp hos lastbalanseren foran clusteret, og sendes videre inn til Kubernetes.
 
 Neste steg er at Kubernetes sender spørringen videre til din applikasjon. Da må du registere URL-en i Skiperator som vanlig under `ingresses` .
 
@@ -30,7 +30,7 @@ Neste steg er at Kubernetes sender spørringen videre til din applikasjon. Da m�
 
 Alle applikasjoner som kjører på SKIP har en kubernetes Service tilknyttet seg. Med denne servicen kan man sende spørringer direkte til applikasjonen uten å sende trafikken ut av clusteret.
 
-Merk at man her bruker http og ikke https. Trafikken vil allikevel krypteres av service meshet så trafikken vil gå over https mellom tjenestene, men fra ditt perspektiv skal du bruke http og trenger ikke tenke på sertfikater.
+Merk at man her bruker http og ikke https. Trafikken vil allikevel krypteres av service meshet så trafikken vil gå over https mellom tjenestene, men fra ditt perspektiv skal du bruke http og trenger ikke tenke på sertifikater.
 
 For å sende en spørring på denne måten bruker du en URL i følgende format:
 
@@ -49,16 +49,16 @@ Merk at skiperator-tjenester som eksponeres på andre domenenavn enn subdomener 
 
 ### kartverket.cloud
 
-For tjenester som skal nås på et domene under kartverket.cloud håndteres alt automatisk, inkludert utstedelse og fornying av sertfikater. Det ligger et wildcard record i DNS som håndterer innkommende trafikk, og bruker cluster-leddet i URL-en på Load Balanceren til å rute denne inn til riktig cluster. Deretter rutes denne til applikasjonen din basert på URL-konfigurasjonen din i Skiperator.
+For tjenester som skal nås på et domene under kartverket.cloud håndteres alt automatisk, inkludert utstedelse og fornying av sertifikater. Det ligger et wildcard-record i DNS som håndterer innkommende trafikk, og bruker cluster-leddet i URL-en på lastbalanseren til å rute denne inn til riktig cluster. Deretter rutes trafikken til applikasjonen din basert på URL-konfigurasjonen din i Skiperator.
 
 :::info
 Eksempel: minapp.atkv3-prod.kartverket.cloud
 :::
 
 ### Vanity URL-er
-Dersom du ønsker et annet hostname enn `app.<cluster>.kartverket.cloud` er dette mulig, men krever noe mer setup. Den nye URL-en må registreres i DNS og skiperator-applikasjonen din må settes opp til å lytte på denne. Utstedelse og fornying av sertfikater vil fremdeles håndteres automatisk av Skiperator.
+Dersom du ønsker et annet hostname enn `app.<cluster>.kartverket.cloud` er dette mulig, men krever noe mer oppsett. Den nye URL-en må registreres i DNS og Skiperator-applikasjonen din må settes opp til å lytte på denne. Utstedelse og fornying av sertifikater vil fremdeles håndteres automatisk av Skiperator.
 
-For å sette opp DNS må du gjøre følgende: Først bestem hvilke URL du vil ha, deretter sett opp et CNAME for denne URL-en til `<cluster>.kartverket.cloud` . Dersom du ønsker et CNAME som ligger under kartverket.cloud (for eksempel minapp.kartverket.cloud) kan dette gjøres av SKIP, for alle andre domener ta kontakt med eier av domenet via bestilling i pureservice. Når dette er gjort vil alle spørringer som går mot URL-en du har bestemt ende opp host lastbalansereren foran clusteret, og sendes videre inn til Kubernetes.
+For å sette opp DNS må du gjøre følgende: Først bestem hvilken URL du vil ha, deretter sett opp et CNAME for denne URL-en til `<cluster>.kartverket.cloud` . Dersom du ønsker et CNAME som ligger under kartverket.cloud (for eksempel minapp.kartverket.cloud) kan dette gjøres av SKIP; for alle andre domener ta kontakt med eier av domenet via bestilling i PureService. Når dette er gjort vil alle spørringer som går mot URL-en du har bestemt ende opp hos lastbalanseren foran clusteret, og sendes videre inn til Kubernetes.
 
 Neste steg er at Kubernetes sender spørringen videre til din applikasjon. Da må du registere URL-en i Skiperator som vanlig under `ingresses` .
 
