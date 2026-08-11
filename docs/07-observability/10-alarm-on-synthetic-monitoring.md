@@ -109,6 +109,28 @@ module "teamX_uptime_alert_serviceX_test" {
 }
 ```
 
+## Fullstendig eksempel
+
+### SKOOP Grafana produksjonsmiljø
+```hcl
+module "skoop_uptime_alerts_prod" {
+  source           = "../../modules/uptime_alerts"
+  team             = local.team
+  alert_name       = "Grafana prod unavailable"
+  runbook_base_url = var.runbook_base_url
+  folder_uid       = grafana_folder.skoop[var.atgcp1_mimir_envs.atgcp1-prod.name].uid
+  label_team       = "skoop"
+  label_env        = "prod"
+  label_service    = "grafana"
+  availability_slo = "0.995"
+  severity         = "warning"
+}
+```
+- SKOOP legger alarmene sine i mappen `grafana-alerts/atgcp1-prod/skoop/`, så må vi opp to mappenivåer for å finne `modules`-mappen (ut av `skoop`og `atgcp1-prod`), derfor bruker vi `../../modules`. Hver `../` går opp ett mappenivå. Hvis alarmen ble definert i en fil i roten på `atgcp1-prod`-mappen så ville det bare blitt `../modules`.
+- `alert_name` blir til navnet på alarmgruppen i Grafana Alert Manager, så det er lurt å kalle den noe deskriptivt som gir mening for team-et. Selve alarmen får navnet `label_service+label_env+HighErrorRate`, i dette tilfellet `GrafanaProdHighErrorRate`. Dette blir også overskriften på alarmen i Slack.
+- `folder_uid` bruker et variabel så alarmen havner i SKOOP sin mappe for atgcp1-prod:  
+![Alert path in Grafana Alert Manager](images/grafana_alert_manager_path.png)
+
 ## Spørsmål?
 
 Ta kontakt i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack.
