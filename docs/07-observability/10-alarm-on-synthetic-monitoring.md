@@ -58,7 +58,7 @@ module "teamX_uptime_alert_serviceX" {
 
 | Felt | Påkrevd | Beskrivelse |
 |------|---------|-------------|
-| `source` | Ja | Hvor modulen ligger. Ikke endre denne. |
+| `source` | Ja | Referanse til modulen som relativ filsti til mappen. Dersom teamet har alarmene i filen `atgcp1-prod/<teamnavn>.tf` skal denne være `../modules/uptime_alerts`. Dersom teamet har alarmene i en fil i mappen `atgcp1-prod/<teamnavn>/` skal denne være `../../modules/uptime_alerts`. |
 | `team` | Ja | Navnet på teamet ditt slik det vises i Grafana. Dette må være det samme som for andre alarmer slik at varsler rutes til riktig Slack-kanal. |
 | `alert_name` | Ja | Unik identifikator for alarmen. Brukes for å finne riktig oppføring i runbook om man har det. |
 | `runbook_base_url` | Nei | URL-en til en runbook med feilsøkingstips. |
@@ -108,6 +108,26 @@ module "teamX_uptime_alert_serviceX_test" {
   severity         = "warning"
 }
 ```
+
+## Fullstendig eksempel
+```hcl
+module "skoop_uptime_alerts_grafana_prod" {
+  source           = "../../modules/uptime_alerts"
+  team             = local.team
+  alert_name       = "Grafana prod unavailable"
+  runbook_base_url = var.runbook_base_url
+  folder_uid       = grafana_folder.skoop[var.atgcp1_mimir_envs.atgcp1-prod.name].uid
+  label_team       = "skoop"
+  label_env        = "prod"
+  label_service    = "grafana"
+  availability_slo = "0.995"
+  severity         = "warning"
+}
+```
+- `source`: Dette er en relativ filsti. SKOOP legger alarmene sine i mappen `grafana-alerts/atgcp1-prod/skoop/`, så må vi opp to mappenivåer for å finne `grafana-alerts/modules/`-mappen, derfor bruker vi `../../modules/uptime_alerts`. Hvis alarmen ble definert i en fil i `grafana/atgcp1-prod/`-mappen så ville det bare blitt `../modules/uptime_alerts`.
+- `alert_name`: Dette blir til navnet på alarmgruppen i Grafana Alerting, så det er lurt å kalle den noe beskrivende som gir mening for teamet. Selve alarmen får navnet `label_service+label_env+HighErrorRate`, i dette tilfellet `GrafanaProdHighErrorRate`, og det blir også overskriften på alarmen når det varsles i Slack.
+- `folder_uid`: Her bruker vi et variabel så alarmgruppen havner i SKOOP sin mappe for atgcp1-prod i Grafana Alerting:  
+![Alert path in Grafana Alerting](images/grafana_alert_manager_path.png)
 
 ## Spørsmål?
 
