@@ -1,10 +1,7 @@
 # Provisjonere infrastruktur med Terraform
 
 Et vanlig brukstilfelle med Terraform i Github Actions er å provisjonere infrastruktur.
-For eksempel kan dette være å opprette servicekontoer i GCP, lage lagringsbøtter og gi servicekontoer tilgang til disse. 
-Dette er noe som tidligere har vært gjort med Crossplane, 
-men dette verktøyet fases nå ut og vi oppfordrer til bruk av Terraform som allerede har denne funksjonaliteten i tillegg til mye annet, 
-eksempelvis oppsett av tjenester slik som PubSub.
+For eksempel kan dette være å opprette servicekontoer i GCP, lage lagringsbøtter og gi servicekontoer tilgang til disse.
 
 ## Hjelp, jeg har ingen erfaring med Terraform!
 Ingen fare - Terraform er enkelt å komme i gang med. Hashicorp, firmaet bak Terraform, [har mange tutorials](https://developer.hashicorp.com/terraform/tutorials) som hjelper deg i gang.
@@ -45,8 +42,3 @@ Noen hete tips er:
 Når det gjelder workflows for kjøring av selve Terraform-koden i Github, anbefaler vi vår egen [run-terraform](https://github.com/kartverket/github-workflows/#run-terraform) workflow.
 I tillegg bør selve github-repoet beskyttes mot utilsiktede endringer - se [denne Confluence-siden](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/1769996376/Sikkerhetstiltak+p+Github)
 for hvilke tiltak som bør gjennomføres som et minimum.
-
-
-## Jeg har brukt Crossplane for å provisjonere opp infrastruktur - hvordan kommer jeg over på Terraform?
-
-Vi har laget en bitteliten guide med noen enkle momenter [på denne siden](./15-migrere-fra-crossplane-til-terraform.md).
