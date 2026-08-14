@@ -129,7 +129,7 @@ module "skoop_uptime_alerts_grafana_prod" {
 - `source`: Dette er en relativ filsti. SKOOP legger alarmene sine i mappen `grafana-alerts/atgcp1-prod/skoop/`, så må vi opp to mappenivåer for å finne `grafana-alerts/modules/`-mappen, derfor bruker vi `../../modules/uptime_alerts`. Hvis alarmen ble definert i en fil i `grafana/atgcp1-prod/`-mappen så ville det bare blitt `../modules/uptime_alerts`.
 - `alert_name`: Dette blir til navnet på alarmgruppen i Grafana Alerting, så det er lurt å kalle den noe beskrivende som gir mening for teamet. Selve alarmen får navnet `label_service+label_env+HighErrorRate`, i dette tilfellet `GrafanaProdHighErrorRate`, og det blir også overskriften på alarmen når det varsles i Slack.
 - `folder_uid`: Her bruker vi et variabel så alarmgruppen havner i SKOOP sin mappe for atgcp1-prod i Grafana Alerting:  
-![Alert path in Grafana Alert Manager](images/grafana_alert_manager_path.png)
+![Alert path in Grafana Alerting](images/grafana_alert_manager_path.png)
 
 ## Spørsmål?
 
