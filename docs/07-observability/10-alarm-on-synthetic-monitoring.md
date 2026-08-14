@@ -110,8 +110,6 @@ module "teamX_uptime_alert_serviceX_test" {
 ```
 
 ## Fullstendig eksempel
-
-### SKOOP Grafana produksjonsmiljø
 ```hcl
 module "skoop_uptime_alerts_grafana_prod" {
   source           = "../../modules/uptime_alerts"
