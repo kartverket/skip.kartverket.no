@@ -58,7 +58,7 @@ module "teamX_uptime_alert_serviceX" {
 
 | Felt | Påkrevd | Beskrivelse |
 |------|---------|-------------|
-| `source` | Ja | Hvor modulen ligger. Ikke endre denne. |
+| `source` | Ja | Referanse til modulen som relativ filsti til mappen. Dersom teamet har alarmene i filen `atgcp1-prod/<teamnavn>.tf` skal denne være `../modules/uptime_alerts`. Dersom teamet har alarmene i en fil i mappen `atgcp1-prod/<teamnavn>/` skal denne være `../../modules/uptime_alerts`. |
 | `team` | Ja | Navnet på teamet ditt slik det vises i Grafana. Dette må være det samme som for andre alarmer slik at varsler rutes til riktig Slack-kanal. |
 | `alert_name` | Ja | Unik identifikator for alarmen. Brukes for å finne riktig oppføring i runbook om man har det. |
 | `runbook_base_url` | Nei | URL-en til en runbook med feilsøkingstips. |
