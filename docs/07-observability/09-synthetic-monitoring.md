@@ -4,7 +4,10 @@ sidebar_position: 9
 
 # Syntetisk overvåking
 
-Syntetisk overvåking sjekker tilgjengeligheten til tjenestene dine ved å sende HTTP-forespørsler med jevne mellomrom.
+Syntetisk overvåking sjekker tilgjengeligheten til tjenestene dine ved å sende HTTP-forespørsler med jevne mellomrom og logge resultatet. Hvis resultatet ikke er en HTTP 200-kode (dvs. en feilkode eller time-out) så logges det som en feil. Til slutt kan dette vises i et [dashboard](https://monitoring.kartverket.cloud/d/93328bea-58fc-4fd6-838d-c36e1a652841/blackbox-exporter-slos?var-sloWindow=30d&orgId=1&from=now-5m&to=now&timezone=browser&var-metrics=P0A5FFD43F759AAC7&var-deployment_environment_name=prod&var-team=skoop&var-probe=http_2xx_get_10s&var-instance=https:%2F%2Fmonitoring.kartverket.cloud%2Flogin&var-instance=https:%2F%2Fnexus.statkart.no&var-instance=https:%2F%2Fstatus.kartverket.no&var-slo=0.9999), og dere kan måle hvordan dette påviker oppetidsmålet deres.
+![dashboard example showing error-budget burndown](images/dashboard-errorbudbet-burndown.png)
+
+Syntetisk overvåking kan sjekke både interne og eksternt eksponerte tjenester, så man kan både få innsikt i oppetiden til publikumstjenester og infrastruktur så lenge det er en HTTP-tjeneste.
 
 ## Kom i gang
 
@@ -118,6 +121,10 @@ Dersom du ønsker å fjerne syntetisk overvåking for en tjeneste, må du slette
 Dersom `synthetic-monitoring.yaml`-filen slettes eller ikke inneholder noen targets, vil valideringen feile. Vi har ikke full støtte for selvbetjent sletting av sjekker enda. Ta kontakt med oss i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack for hjelp.
 
 :::
+
+## Neste steg
+
+Når syntetisk monitorering er satt opp kan dere enkelt sette opp [oppetidsalarmer](10-alarm-on-synthetic-monitoring.md) for å varsle hvis dere kommer til å "gå tom for nedetid", og [sertifikatalarmer](11-alarm-on-certificate-expiry.md) som kan varsle om automatisk sertifikatfornying skulle slutte å fungere eller om manuelt genererte sertifikater trengs å fornyes.
 
 ## Spørsmål?
 
