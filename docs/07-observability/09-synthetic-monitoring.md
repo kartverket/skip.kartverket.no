@@ -124,7 +124,7 @@ Dersom `synthetic-monitoring.yaml`-filen slettes eller ikke inneholder noen targ
 
 ## Neste steg
 
-Når syntetisk monitorering er satt opp kan dere enkelt sette opp [oppetidsalarmer](10-alarm-on-synthetic-monitoring.md) for å varsle hvis dere kommer til å "gå tom for nedetid", og [sertifikatalarmer](11-alarm-on-certificate-expiry.md) som kan varsle om automatisk sertifikatfornying skulle slutte å fungere eller om manuelt genererte sertifikater trengs å fornyes.
+Når syntetisk monitorering er satt opp kan dere enkelt sette opp [oppetidsalarmer](10-alarm-on-synthetic-monitoring.md) for å varsle på høy feilrate, og [sertifikatutløpsalarmer](11-alarm-on-certificate-expiry.md) som kan varsle om automatisk sertifikatfornying skulle slutte å fungere eller om manuelt genererte sertifikater må fornyes.
 
 ## Spørsmål?
 
