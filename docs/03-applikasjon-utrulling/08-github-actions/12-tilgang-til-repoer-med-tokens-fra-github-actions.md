@@ -24,17 +24,23 @@ Eksempelet under viser hvordan man gir tilgang fra GitHub actions som kjører p�
 
 ```yaml
 issuer: https://token.actions.githubusercontent.com
-subject: repo:kartverket/mittrepo:ref:refs/heads/main
+subject: repo:kartverket@123456/mittrepo@456789:ref:refs/heads/main
 
 permissions:
   contents: write
 ```
 
-Dersom du ønsker å bruke et wildcard til å gi tilgang, for eksempel dersom det deployes ved hjelp av “environments” i GitHub slik at dette blir subjektet ditt kan man bruke et `subject_pattern` . Dette er et regex.
+Subject-claimet inneholder nå numeriske ID-er for organisasjonen og repoet i tillegg til navnene. Dette hindrer at et recyclet repo eller org-navn kan gi utilsiktet tilgang, og er [innført av GitHub](https://github.blog/changelog/2026-04-23-immutable-subject-claims-for-github-actions-oidc-tokens/) for alle nye repoer. Eldre repoer som ikke har aktivert dette bruker fremdeles det gamle formatet uten ID-er: `repo:kartverket/mittrepo:ref:refs/heads/main`.
+
+Org-ID og repo-ID finner du via GitHub API:
+- `https://api.github.com/orgs/kartverket` → `id`-feltet
+- `https://api.github.com/repos/kartverket/mittrepo` → `id`-feltet
+
+Dersom du ønsker å bruke et wildcard til å gi tilgang, for eksempel dersom det deployes ved hjelp av "environments" i GitHub slik at dette blir subjektet ditt kan man bruke et `subject_pattern` . Dette er et regex.
 
 ```yaml
 issuer: https://token.actions.githubusercontent.com
-subject_pattern: repo:kartverket\/mittrepo:environment:(sandbox|prod)
+subject_pattern: repo:kartverket@123456\/mittrepo@456789:environment:(sandbox|prod)
 
 permissions:
   contents: write
