@@ -49,7 +49,7 @@ Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 
 </details>
 
-Følgende eksempel registrerer en klientintegrasjon mot ID-porten av typen `idporten`.
+Følgende eksempel registrerer en klientintegrasjon mot ID-porten med integrasjonstypen `idporten`.
 Når registrering er fullført vil Digdirator opprette Kubernetes-hemmeligheten `idporten-secret` i namespacet `tilgangsstyring-main`.
 
 ```yaml title="Klientregistrering mot ID-Porten med Digdirator"
@@ -63,6 +63,8 @@ spec:
   clientURI: https://test-app.atgcp1-sandbox.kartverket-intern.cloud
   frontchannelLogoutURI: https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/logout
   integrationType: idporten
+  postLogoutRedirectURIs:
+    - https://test-app.atgcp1-sandbox.kartverket-intern.cloud/
   redirectURIs:
     - https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/callback
   scopes:
