@@ -80,9 +80,9 @@ Merk at `resourceType` alltid skal settes til `MaskinportenSchema`.
 #### I Altinn Studio
 For å få tilgang til Altinn Studio må du søke om rettigheter via [PureService](https://kartverket.pureservice.com/).
 Stegene som må gjennomføres er:
-1. Opprett Altinn Studio-bruker tilknyttet din Github-bruker
-2. Opprett forespørsel i PureService. Oppgi at du trenger tilgang til Altinn Studio, samt ditt Github-brukernavn.
-   I testmiljøet er de nødvendige gruppene `Resources-Publish-TT02` og `AccessLists-TT02`.
+1. Opprett Altinn Studio-bruker
+2. Opprett forespørsel i PureService. Oppgi at du trenger tilgang til Altinn Studio. I testmiljøet er de nødvendige
+   gruppene `Resources-Publish-TT02` og `AccessLists-TT02`.
 3. Videre må du få tilgang til noen repoer i Altinn Gitea. Det er TBD hvem som er riktig kontaktperson for dette, spør
    i egnet Slack-kanal (f.eks [#gen-tilgangsstyring](https://kartverketgroup.slack.com/archives/C08CJLBLY2X) eller
    [#gen-sikkerhet](https://kartverketgroup.slack.com/archives/C04FFERQWNQ)).
@@ -94,10 +94,15 @@ daglig leder. Under "Hvilke rettigheter skal gis?" kan du velge `scopeaccess`. D
 ressursen basert på tilgangslister.
 
 ### 3. Be konsumenter delegere tilgang i Altinn til sin(e) systemleverandør(er)
-Konsumenter må delegere tilgangen videre i Altinn. Din Altinn-ressurs vil dukke opp som et valg for
-delegering. [Du finner Altinn sin dokumentasjon for delegering av tilgang her](https://altinn.github.io/docs/utviklingsguider/api-delegering/tilgangsstyrer/).
-Merk at dokumentasjonen gjelder for Altinn 2 og sannsnyligvis vil erstattes med ny dokumentasjon for Altinn 3 når dette
-er klart, tentativt ila. sommeren 2026.
+Konsumenter må delegere tilgangen videre i Altinn, dvs. gi _fullmakt_ til et API i Altinn. Din Altinn-ressurs vil dukke opp som et valg for
+delegering. [Du finner Altinn sin dokumentasjon for delegering av tilgang her](https://info.altinn.no/hjelp/ny-tilgangsstyring/maskinportenadministrasjon/gi-fullmakt-til-api-i-altinn/).
+Den ansatte i konsumentens virksomhet som skal gi fullmakt må ha visse tilgangspakker, som er beskrevet i Altinn sin
+dokumentasjon.
+
+Inne i Altinn-løsningen må konsumenten velge hvilken leverandør de skal gi fullmakt til. Deretter må de velge hvilket
+API de vil gi leverandøren fullmakt til. Du som API-tilbyder i Kartverket bør dokumentere i din API-dokumentasjon
+hvilket API, dvs. hvilken Altinn-ressurs av typen `MaskinportenSchema`, konsumenten skal gi fullmakt til. Det kan også
+være lurt å referere til Altinn sin dokumentasjon, eller dokumentere hvilke tilgangspakker som kreves for å gi fullmakt.
 
 ### 4. Gjør eventuell delegeringsrelevant validering i ditt API
 Maskinporten-tokens der delegering er i bruk har to ekstra claims, `delegation_source` og `supplier`:
@@ -120,3 +125,6 @@ _Dersom_ du har begrensninger knyttet til delegering i ditt API, f.eks at kun et
 til å handle på vegne av dine konsumenter, bør du validere at:
 1. `delegation_source` er satt (`https://altinn.no/` i produksjon)
 2. `supplier`-claimen inneholder et organisasjonsnummer som lar lov til å opptre på vegne av konsumenten
+
+Maskinporten går god for fullmaktsforholdet mellom consumer og supplier. I motsetning til ved bruk av systembrukere
+trengs det altså ikke noe PDP-oppslag eller annet oppslag mot Altinn for å verifisere dette.
