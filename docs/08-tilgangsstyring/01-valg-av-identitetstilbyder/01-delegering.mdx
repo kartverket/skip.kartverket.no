@@ -125,3 +125,6 @@ _Dersom_ du har begrensninger knyttet til delegering i ditt API, f.eks at kun et
 til å handle på vegne av dine konsumenter, bør du validere at:
 1. `delegation_source` er satt (`https://altinn.no/` i produksjon)
 2. `supplier`-claimen inneholder et organisasjonsnummer som lar lov til å opptre på vegne av konsumenten
+
+Maskinporten går god for fullmaktsforholdet mellom consumer og supplier. I motsetning til ved bruk av systembrukere
+trengs det altså ikke noe PDP-oppslag eller annet oppslag mot Altinn for å verifisere dette.
