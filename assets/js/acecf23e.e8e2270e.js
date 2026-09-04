@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkskip_docs=globalThis.webpackChunkskip_docs||[]).push([[1903],{1912(s){s.exports=JSON.parse('{"blogBasePath":"/blog","blogTitle":"SKIP Tech Blog","authorsListPath":"/blog/authors"}')}}]);
