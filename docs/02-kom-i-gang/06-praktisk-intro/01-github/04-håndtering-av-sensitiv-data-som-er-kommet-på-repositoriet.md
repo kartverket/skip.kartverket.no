@@ -4,18 +4,18 @@
 Denne siden er under arbeid. Ingen garanti for at informasjonen på siden er riktig
 :::
 
-Denne Veiledningen er for hvordan man skal gå fram fra å finne hvor man ser om man har lagt til sensitive data i repositoriet som for eksempel passord eller tokens til hva man skal gjøre for å fjerne de på en god måte
+Denne veiledningen beskriver hvordan man går frem fra å oppdage at sensitive data, som for eksempel passord eller tokens, er lagt inn i et repository, til hva man gjør for å fjerne dem på en forsvarlig måte
 
 ## 📘 Instruksjoner
 
-- for å se om secret scanning har avduket noen sensitive data i repositoriet gå inn på repositorierts forside og klikk deg inn på security-fanen og deretter trykk deg inn på sidemeny-valget “Secret scanning alerts”
+- For å se om secret scanning har avdekket sensitive data i repositoriet, gå til repositoriets forside og klikk deg inn på security-fanen. Trykk deretter på sidemeny-valget "Secret scanning alerts"
   ![](images/316080266.png)
-- trykk deg inn på det varselet for det sensitive dataen du skal løse
+- Trykk deg inn på varselet for de sensitive dataene du skal håndtere
   ![](images/316145687.png)
-- her får du vite hvilke filer det er snakk om og akkurat hvilken linje det er snakk om.
+- Her får du vite hvilke filer det gjelder og nøyaktig hvilken linje.
   ![](images/316145721.png)
-- Deretter er det å følge denne guiden, [Fjerne sensitive data fra repositorier](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/309198978/Fjerne+sensitive+data+fra+repositorier) for selve fjerningen av de sensitive dataene
-- når fjerningen er gjor kan man lukke varslet
+- Følg deretter denne guiden for selve fjerningen: [Fjerne sensitive data fra repositorier](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/309198978/Fjerne+sensitive+data+fra+repositorier)
+- Når fjerningen er gjort, kan du lukke varselet
 
 ## 📋 Relaterte artikler
 
