@@ -218,7 +218,7 @@ This allows product teams to avoid the need to set up networking on the cluster,
         <td><b>ingresses</b></td>
         <td>[]string</td>
         <td>
-          Any external hostnames that route to this application. Using a skip.statkart.no-address<br/>will make the application reachable for kartverket-clients (internal), other addresses<br/>make the app reachable on the internet. Note that other addresses than skip.statkart.no<br/>(also known as pretty hostnames) requires additional DNS setup.<br/>The below hostnames will also have TLS certificates issued and be reachable on both<br/>HTTP and HTTPS.<br/><br/>Ingresses must be lowercase, contain no spaces, be a non-empty string, and have a hostname/domain separated by a period<br/>They can optionally be suffixed with a plus and name of a custom TLS secret located in the istio-gateways namespace.<br/>E.g. &#34;foo.atkv3-dev.kartverket-intern.cloud+env-wildcard-cert&#34;<br/>
+          Any external hostnames that route to this application. Using a skip.statkart.no-address<br/>will make the application reachable for kartverket-clients (internal), other addresses<br/>make the app reachable on the internet. Note that other addresses than skip.statkart.no<br/>(also known as pretty hostnames) requires additional DNS setup.<br/>The below hostnames will also have TLS certificates issued and be reachable on both<br/>HTTP and HTTPS.<br/><br/>Ingresses must be lowercase, contain no spaces, be a non-empty string, and have a hostname/domain separated by a period<br/>They can optionally be suffixed with a plus and the name of a custom TLS secret in the istio-gateways namespace.<br/>Both routing providers read the secret from that namespace.<br/>E.g. &#34;foo.atkv3-dev.kartverket-intern.cloud+env-wildcard-cert&#34;<br/>
         </td>
         <td>false</td>
       </tr>
@@ -322,6 +322,17 @@ This allows product teams to avoid the need to set up networking on the cluster,
         <td>object</td>
         <td>
           ResourceRequirements to apply to the deployment. It&#39;s common to set some of these to<br/>prevent the app from swelling in resource usage and consuming all the<br/>resources of other apps on the cluster.<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>routingProvider</b></td>
+        <td>enum</td>
+        <td>
+          RoutingProvider controls which routing API Skiperator uses for ingresses.<br/>Legacy uses Istio Gateway and VirtualService. Standard uses Kubernetes Gateway API.<br/>
+          <br/>
+            <i>Enum</i>: Legacy, Standard<br/>
+            <i>Default</i>: `Legacy`<br/>
         </td>
         <td>false</td>
       </tr>
@@ -2598,7 +2609,7 @@ By default, tracing is enabled with a random sampling percentage of 10%.
         <td><b><a href="#applicationspecistiosettingsretries">retries</a></b></td>
         <td>object</td>
         <td>
-          Retries is configurable automatic retries for requests towards the application.<br/>By default requests falling under: &#34;connect-failure,refused-stream,unavailable,cancelled&#34; will be retried.<br/>
+          Retries is configurable automatic retries for requests towards the application.<br/>By default requests falling under: &#34;connect-failure,refused-stream,unavailable,cancelled&#34; will be retried.<br/><br/>Retries require spec.routingProvider=Legacy. Gateway API serves HTTPRoute<br/>retries only on its experimental channel, which SKIP clusters do not install,<br/>so an Application that asks for both retries and Standard routing is rejected<br/>instead of losing its retry policy.<br/>
         </td>
         <td>false</td>
       </tr>
@@ -2621,6 +2632,11 @@ By default, tracing is enabled with a random sampling percentage of 10%.
 
 Retries is configurable automatic retries for requests towards the application.
 By default requests falling under: "connect-failure,refused-stream,unavailable,cancelled" will be retried.
+
+Retries require spec.routingProvider=Legacy. Gateway API serves HTTPRoute
+retries only on its experimental channel, which SKIP clusters do not install,
+so an Application that asks for both retries and Standard routing is rejected
+instead of losing its retry policy.
 
 <table>
     <thead>
@@ -4089,6 +4105,16 @@ ApplicationStatus is a specialized status specific to the Application kind.
         </td>
         <td>false</td>
       </tr>
+      <tr>
+        <td><b>migrationStartedAt</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Format</i>: date-time<br/>
+        </td>
+        <td>false</td>
+      </tr>
     </tbody>
 </table>
 <a id="applicationstatusconditionsindex"></a>
@@ -4350,12 +4376,34 @@ Status
         <td>true</td>
       </tr>
       <tr>
+        <td><b>ownership</b></td>
+        <td>enum</td>
+        <td>
+          Ownership controls whether this Routing owns the hostname exclusively or<br/>contributes paths to a shared hostname.<br/>
+          <br/>
+            <i>Enum</i>: Standalone, Shared<br/>
+            <i>Default</i>: `Standalone`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
         <td><b>redirectToHTTPS</b></td>
         <td>boolean</td>
         <td>
-          <br/>
+          RedirectToHTTPS applies per hostname rather than per contributor. With<br/>ownership=Shared the redirect route is itself a shared resource: the first<br/>contributor asking for it creates it for the whole hostname, and no<br/>contributor removes it again. Setting this to false has no effect while<br/>another contributor on the same hostname keeps it enabled.<br/>
           <br/>
             <i>Default</i>: `true`<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>routingProvider</b></td>
+        <td>enum</td>
+        <td>
+          RoutingProvider controls which routing API Skiperator uses.<br/>Legacy uses Istio Gateway and VirtualService. Standard uses Kubernetes Gateway API.<br/>
+          <br/>
+            <i>Enum</i>: Legacy, Standard<br/>
+            <i>Default</i>: `Legacy`<br/>
         </td>
         <td>false</td>
       </tr>
@@ -4466,6 +4514,16 @@ A status field shown on a Skiperator resource which contains information regardi
           Status<br/>
         </td>
         <td>true</td>
+      </tr>
+      <tr>
+        <td><b>migrationStartedAt</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Format</i>: date-time<br/>
+        </td>
+        <td>false</td>
       </tr>
     </tbody>
 </table>
@@ -6620,6 +6678,16 @@ A status field shown on a Skiperator resource which contains information regardi
         </td>
         <td>true</td>
       </tr>
+      <tr>
+        <td><b>migrationStartedAt</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Format</i>: date-time<br/>
+        </td>
+        <td>false</td>
+      </tr>
     </tbody>
 </table>
 <a id="skipjobstatusconditionsindex"></a>
@@ -8751,6 +8819,16 @@ A status field shown on a Skiperator resource which contains information regardi
           Status<br/>
         </td>
         <td>true</td>
+      </tr>
+      <tr>
+        <td><b>migrationStartedAt</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+          <br/>
+            <i>Format</i>: date-time<br/>
+        </td>
+        <td>false</td>
       </tr>
     </tbody>
 </table>
