@@ -16,8 +16,8 @@
 <script>!function(t,e){var o,s,r,a;e.__SV||(window.posthog=e,e._i=[],e.init=function(p,i,n){function u(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(r=t.createElement("script")).type="text/javascript",r.async=!0,r.src=i.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(a=t.getElementsByTagName("script")[0]).parentNode.insertBefore(r,a);var c=e;for(void 0!==n?c=e[n]=[]:n="posthog",c.people=c.people||[],c.toString=function(t){var e="posthog";return"posthog"!==n&&(e+="."+n),t||(e+=" (stub)"),e},c.people.toString=function(){return c.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),s=0;s<o.length;s++)u(c,o[s]);e._i.push([p,i,n])},e.__SV=1)}(document,window.posthog||[]),posthog.init("phc_u4Ex4Cbp5HNPRMCbuXo9saYy66sbqTPAuzOBCkD8EJa",{api_host:"https://ph.kartverket.no",ui_host:"https://eu.i.posthog.com",id:"default"})</script>
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.252641c8.css">
-<script src="/assets/js/runtime~main.88effe98.js" defer="defer"></script>
-<script src="/assets/js/main.d3c2f7b1.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.74def4d7.js" defer="defer"></script>
+<script src="/assets/js/main.68210aaa.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -35,12 +35,12 @@
 </ul>
 <h2 class="anchor anchorTargetStickyNavbar_l3Le" id="ressursbruk-i-kubernetes">Ressursbruk i Kubernetes<a href="#ressursbruk-i-kubernetes" class="hash-link" aria-label="Direct link to Ressursbruk i Kubernetes" title="Direct link to Ressursbruk i Kubernetes" translate="no">​</a></h2>
 <p>Ressursbruk i Kubernetes dreier seg om hvor mye CPU og RAM hver pod skal bruke.</p>
-<p>Requests er hvor mye CPU og minne hvercontainerspør om når den først settes på en node. Hvis man for eksempel ber om 500 mCPUer, men noden bare har 250 mCPU ledig, kan containeres ikke kjøres på den noden.</p>
+<p>Requests er hvor mye CPU og minne hver container spør om når den først settes på en node. Hvis man for eksempel ber om 500 mCPUer, men noden bare har 250 mCPU ledig, kan containeren ikke kjøres på den noden.</p>
 <p>Merk at man kan spesifisere CPU helt ned i millicpuer (mCPU).</p>
-<p>Minne-requests kan settes i mange forskjellige enheter, se <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/" target="_blank" rel="noopener noreferrer" class="">dokumentasjonen</a> for detaljer. Vi anbefaler dog at man holder seg til M - megabytes.</p>
+<p>Minne-requests kan settes i mange forskjellige enheter, se <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/" target="_blank" rel="noopener noreferrer" class="">dokumentasjonen</a> for detaljer. Vi anbefaler at man holder seg til M - megabytes.</p>
 <p>Limits er hvor mye ressurser en container maksimalt får lov til å bruke. Dette er med andre ord noe som settes for å forhindre at en container med en bug tar over alle ressursene, og gjør det umulig for andre containere å skalere.</p>
 <p>Vi anbefaler at du ser på Limiten som en mulighet til å finne bugs og memory leaks. Sett den så lavt du er komfortabel med, og følg med på det faktiske forbruket. Hvis noe kræsjer er det da god sjanse for at det ble innført en bug.</p>
-<p>Dersom det faktiske forbruket nærmer seg limiten på grunn av naturlige grunner - flere requests eller tyngre load+ er det på tide å øke limiten. Ikke vent til appliasjonen kræsjer - det skaper en dårlig brukeropplevelse.</p>
+<p>Dersom det faktiske forbruket nærmer seg limiten av naturlige årsaker – flere requests eller tyngre load+ – er det på tide å øke limiten. Ikke vent til applikasjonen krasjer - det skaper en dårlig brukeropplevelse.</p>
 <div class="theme-admonition theme-admonition-tip admonition_LCc9 alert alert--success"><div class="admonitionHeading_q9LP"><span class="admonitionIcon_Z0w8"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_APoZ"><p>En god tommelfingerregel for requests og limits er følgende: For minne bør man profilere applikasjonens gjennomsnittlige minnebruk og doble denne som limit. For CPU trenger man ikke limit, men heller definere en fornuftig request.</p></div></div>
 <p>Logikken bak dette er at dersom en applikasjon bruker altfor mye minne kan det føre til at andre applikasjoner går ned. Dersom en applikasjon bruker mye CPU fører det derimot bare i verste fall til at ting går tregere.</p>
 <p>Dette er reglene for ressursbruk i Kubernetes på SKIP</p>
@@ -55,7 +55,7 @@
 <p>Resource requests og limits skal settes på alle containere slik at det blir tydelig hva som er forventet ressursbruk.</p>
 </li>
 <li class="">
-<p>Resource limits skal skal alltid settes høyere enn requests, men aldri unaturlig høyt. Husk at dette fungerer både som dokumentasjon og som en sikring mot bugs og feilkonfigurasjon.</p>
+<p>Resource limits skal alltid settes høyere enn requests, men aldri unaturlig høyt. Husk at dette fungerer både som dokumentasjon og som en sikring mot bugs og feilkonfigurasjon.</p>
 </li>
 <li class="">
 <p>Resource limits skal aldri fjernes permanent, men kan fjernes for debugging. Da skal SKIP-teamet gjøres oppmerksom på dette.</p>
