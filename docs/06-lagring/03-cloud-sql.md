@@ -165,6 +165,7 @@ metadata:
 spec:
   image: ghcr.io/kartverket/minapp
   port: 8080
+  routingProvider: Standard
   replicas: 2
   accessPolicy:
     outbound:

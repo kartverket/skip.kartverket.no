@@ -30,6 +30,7 @@ function(name='foo-frontend', env, version, CLIENT_ID) [
     spec: {
       image: version,
       port: 3000,
+      routingProvider: 'Standard',
       ingresses: ['foo.example-' + env + '.cloud.com'],
       accessPolicy: {
         outbound: {
@@ -68,6 +69,7 @@ local app = argokit.appAndObjects.application;
 
 function(name='foo-frontend', env, version, CLIENT_ID)
   app.new(name, version, 3000)
+  + app.withRoutingProvider('Standard')
   + app.withOutboundSkipApp('foo-backend')
   + app.withOutboundHttp('graph.microsoft.com')
   + app.withOutboundHttp('login.microsoftonline.com')

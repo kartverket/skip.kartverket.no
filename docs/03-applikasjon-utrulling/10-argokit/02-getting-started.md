@@ -19,9 +19,16 @@ Lag en ny Skiperator-applikasjon med ArgoKit `appAndObjects`-abstraksjonen:
 local application = argokit.appAndObjects.application;
 
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 ```
 
 🎉 Sånn! Der har du en minimal applikasjon som kan kjøres på SKIP!
+
+`withRoutingProvider('Standard')` velger Kubernetes Gateway API i stedet for Istio Gateway og VirtualService. Uten kallet får du `Legacy`, som blir fjernet senere. Se [Migrering av ekstern trafikk](../03-skiperator/05-routing.md).
+
+:::note
+Mangler funksjonen i din kopi av ArgoKit, [oppgrader ArgoKit](./01-installation-guide.md).
+:::
 
 🤔 Lurer du på om manifestet ditt er gyldig? [Installer skipctl](https://skip.kartverket.no/docs/applikasjon-utrulling/skipctl/get-started) og kjør:
 ```shell
@@ -36,12 +43,14 @@ så slipper du å lure. 😎
 Med ArgoKit kan du legge til variabler med `withEnvironmentVariable` funksjonen
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 + application.withEnvironmentVariable('NAME', value)
 ```
 
 Du kan også legge til miljøvariabler fra secrets:
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 + application.withEnvironmentVariablesFromSecret(secretName='test-name')
 ```
 
@@ -52,6 +61,7 @@ her kan vi sette opp tilgang til en Postgres-database fra en SKIP-app:
 
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 + application.withOutboundPostgres(host='database-host.com', ip='10.0.0.1')
 + application.withInboundSkipApp(appname='other-app', namespace='other-namespace')
 ```
@@ -60,6 +70,7 @@ application.new('app-name', 'test-image', 3000)
 Konfigurering av ingress gjøres slik:
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 + application.forHostnames('public-api-url.com')
 ```
 
@@ -68,6 +79,7 @@ application.new('app-name', 'test-image', 3000)
 Replicas settes enkelt opp slik:
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 + application.withReplicas(initial=2, max=10)
 ```
 
@@ -85,6 +97,7 @@ local livenessProbe = application.probe(
 local readinessProbe = application.probe(path='/health', port=8080);
 
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 + application.withLiveness(livenessProbe)
 + application.withStartup(livenessProbe)
 + application.withReadiness(readinessProbe)
@@ -99,6 +112,7 @@ legge AzureAdApplication til som en kubernetes ressurss i manifestet
 ditt, i tillegg til å legge til access policies og en secret i applikasjonen din.
 ```jsonnet
 application.new('app-name', 'test-image', 3000)
++ application.withRoutingProvider('Standard')
 + application.withAzureAdApplication(
   name='app-name-ad',
   namespace='team-namespace',

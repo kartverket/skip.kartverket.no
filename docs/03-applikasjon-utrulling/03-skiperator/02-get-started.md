@@ -19,6 +19,7 @@ metadata:
 spec:
   image: ghcr.io/kartverket/myapp:latest
   port: 8080
+  routingProvider: Standard
   ingresses:
     - myapp.atkv3-dev.kartverket-intern.cloud
   redirectToHTTPS: true
@@ -74,6 +75,7 @@ kind: Routing
 metadata:
   name: myrouting
 spec:
+  routingProvider: Standard
   hostname: kartverket.com
   routes:
     - pathPrefix: /api

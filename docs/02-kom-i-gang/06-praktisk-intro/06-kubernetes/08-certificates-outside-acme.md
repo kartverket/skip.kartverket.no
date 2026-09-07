@@ -1,10 +1,14 @@
-# Certificates outside ACME
+# Sertifikater utenfor ACME
 
-In some instances there is a requirement to use certificates not from ACME. This might be because DNS points to something other than SKIP LB, and traffic is routed to SKIP via other endpoints in kartverket.
+Noen ganger kan du ikke bruke et ACME-sertifikat. Det skjer typisk når DNS peker et annet sted enn SKIP-lastbalansereren, og trafikken kommer inn til SKIP via andre endepunkter i Kartverket.
 
-## Create certificate secret resource in istio-gateways
+Da legger du sertifikatet i en secret i namespacet `istio-gateways` og peker applikasjonen på den. ACME er fortsatt den foretrukne måten å få sertifikater på i SKIP.
 
-To be able to use a custom certificate we need a secret to mount to the gateway resource. This is a kubernetes.io/tls type secret and can be created via external secrets like this:
+## Lag secreten i istio-gateways
+
+Secreten må være av typen `kubernetes.io/tls` og ligge i `istio-gateways`. Namespacet ligger i [skip-apps](https://github.com/kartverket/skip-apps), så SKIP må opprette secreten for deg.
+
+Med External Secrets henter du den fra Google Secret Manager:
 
 ```yaml
 apiVersion: external-secrets.io/v1
@@ -25,25 +29,54 @@ spec:
   target:
     creationPolicy: Owner
     deletionPolicy: Retain
-    name: star-matrikkel # Secret in Kubernetes
+    name: star-matrikkel
     template:
       engineVersion: v2
       mergePolicy: Replace
       type: kubernetes.io/tls
 ```
 
-This fetches the secret from Google Secret Manager. This secret should look like this:
+Verdien i Google Secret Manager skal se slik ut:
 
 ```json
 {
-"tls.crt":"[base64 encoded cert chain]",
-"tls.key":"[base64 encoded tls.key]"
+"tls.crt":"[base64-enkodet sertifikatkjede]",
+"tls.key":"[base64-enkodet tls.key]"
 }
 ```
 
-## Edit the gateway resource
+## Bruk sertifikatet fra Skiperator
 
-The gateway resource should then be updated with the new secret:
+Skriv hostnamet som `hostname+secret-navn`. Dette virker likt for `Application` og `Routing`, og for begge verdier av `routingProvider`.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: auth
+spec:
+  image: image
+  port: 8080
+  routingProvider: Standard
+  ingresses:
+    - auth.matrikkel.no+star-matrikkel
+```
+
+Resten ordner Skiperator. Du skal ikke redigere noen Gateway selv.
+
+Med `routingProvider: Standard` lager Skiperator en ListenerSet i ditt eget namespace som leser secreten fra `istio-gateways`. Gateway API tillater ikke en slik referanse på tvers av namespacer uten en `ReferenceGrant`, så Skiperator skriver en. Den navngir akkurat den ene secreten, og gir derfor ikke tilgang til de andre sertifikatene i namespacet.
+
+Med `routingProvider: Legacy` setter Skiperator `credentialName` på Istio-gatewayen til navnet på secreten.
+
+:::warning
+Mangler secreten, eller er den ubrukelig, får objektet reason `CustomCertificateMissing` på `Ready`. Ingen venting løser dette. Du må provisjonere secreten. Ruller du fra `Legacy` til `Standard`, fortsetter `Legacy` å servere trafikken mens dette står på.
+:::
+
+Et delt hostname (`ownership: Shared`) kan ikke bruke eget sertifikat, fordi sertifikatet er delt per hostname. Se [Dele et hostname mellom team](../../../03-applikasjon-utrulling/03-skiperator/06-delt-hostname.md).
+
+## Applikasjoner uten Skiperator
+
+Kjører applikasjonen uten Skiperator, må du sette opp Istio-gatewayen selv:
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -68,13 +101,13 @@ spec:
       number: 443
       protocol: HTTPS
     tls:
-      credentialName: star-matrikkel # Secret created by externalsecret
+      credentialName: star-matrikkel
       mode: SIMPLE
 ```
 
-### If Skiperator is the gateway creator
+### Hvis Skiperator eier gatewayen
 
-When the gateway is created via Skiperator it will have a credentialName corresponding to the secret created by the certificate from Skiperator. Skiperator will reset configurations to its resources unless the resource labeled “skiperator.kartverket.no/ignore: "true"“. This will make skiperator ignore this specific resource during reconciliation loops.
+Skiperator overskriver endringer du gjør i ressursene sine. Labelen `skiperator.kartverket.no/ignore: "true"` får Skiperator til å hoppe over en enkelt ressurs under reconcile:
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -84,12 +117,15 @@ metadata:
     skiperator.kartverket.no/ignore: "true"
 ```
 
-This is meant to be a temporary solution, and ACME is the prefered way to get certificates in SKIP.
+:::caution
+Dette er en midlertidig nødløsning, og virker bare med `routingProvider: Legacy`. Med `Standard` lager ikke Skiperator noen Istio-gateway, så labelen gjør ingenting. Bruk `hostname+secret-navn` i stedet.
+:::
 
-## Change to ACME certificate
-### Non-Skiperator apps
+## Gå tilbake til ACME
 
-Using ACME certificate on a non skiperator app requires a certificate resource, and using the resulting secret in the gateway. This resource must be created in the istio-gateways namespace and therefore in the [skip-apps](https://github.com/kartverket/skip-apps) :
+### Applikasjoner uten Skiperator
+
+Opprett en `Certificate` i `istio-gateways` gjennom [skip-apps](https://github.com/kartverket/skip-apps), og pek gatewayen på secreten den lager:
 
 ```yaml
 apiVersion: cert-manager.io/v1
@@ -106,8 +142,8 @@ spec:
   secretName: desired-secret-name
 ```
 
-After this is created and the secret is created, the gateway resource can be edited, and spec.tls.credentialName set to the secret.
+Når secreten finnes, setter du `spec.tls.credentialName` på gatewayen til navnet på den.
 
-### Skiperator apps
+### Skiperator-applikasjoner
 
-Remove the “skiperator.kartverket.no/ignore: "true"“ label, and skiperator will handle the rest.
+Fjern `+secret-navn` fra hostnamet. Har du brukt nødløsningen over, fjerner du også labelen `skiperator.kartverket.no/ignore: "true"`. Skiperator ordner resten.

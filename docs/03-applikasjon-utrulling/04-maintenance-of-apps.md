@@ -28,5 +28,6 @@ kind: Application
 metadata:
   name: some-app
 spec:
+  routingProvider: Standard
   replicas: 0
 ```

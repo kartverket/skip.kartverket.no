@@ -31,6 +31,7 @@ metadata:
 spec:
   image: kartverket/example
   port: 8080
+  routingProvider: Standard
 ```
 
 ![Illustrasjon av hvordan manifest-filer blir deployet til Kubernetes](images/argo-cd-apps-repos.png)

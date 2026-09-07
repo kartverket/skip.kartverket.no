@@ -132,6 +132,7 @@ kind: Application
 metadata:
   name: teamname-frontend
 spec:
+  routingProvider: Standard
   # Each key will be set as an env var with its value as the value
   envFrom:
   - secret: dbpass
