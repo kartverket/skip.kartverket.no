@@ -67,6 +67,7 @@ metadata:
     name: some-backend
     namespace: yournamespace
 spec:
+    routingProvider: Standard
     # Øvrig konfigurasjon
     liveness:
         path: /actuator/health/liveness
@@ -130,6 +131,7 @@ metadata:
     namespace: yournamespace
 spec:
     port: 8080
+    routingProvider: Standard
     # Øvrig konfigurasjon
     liveness:
         path: /actuator/health/liveness
@@ -163,6 +165,7 @@ metadata:
     namespace: yournamespace
 spec:
     port: 8080
+    routingProvider: Standard
     additionalPorts:
       - name: actuator
         port: 8081

@@ -13,6 +13,7 @@ metadata:
 spec:
   image: "kartverket/eksempel-image"
   port: 8080
+  routingProvider: Standard
   additionalPorts:
     - name: metrics-port
       port: 8181
