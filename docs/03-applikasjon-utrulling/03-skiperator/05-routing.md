@@ -1,7 +1,7 @@
 # Migrering av ekstern trafikk
 
 :::info
-Vi anbefaler at du migrerer fra `Legacy` til `Standard` routing. På sikt blir `Standard` standardverdien i ArgoKit.
+Vi anbefaler at du migrerer fra `Legacy` til `Standard` routing. På sikt blir `Standard` standardverdien i ArgoKit og i skiperator.
 :::
 
 Skiperator kan sette opp ekstern trafikk (ingress) på to ulike måter. Feltet `spec.routingProvider` styrer hvilken. Det finnes både på `Application` og `Routing`.
@@ -11,7 +11,67 @@ Skiperator kan sette opp ekstern trafikk (ingress) på to ulike måter. Feltet `
 | `Legacy`   | Istio `Gateway` og `VirtualService`                       | Nåværende standardverdi, blir fjernet senere når de fleste teamene har migrert         |
 | `Standard` | Kubernetes Gateway API: `ListenerSet` og `HTTPRoute` etc. | Anbefalt verdi, og bør brukes i alle nye applikasjoner                                 |
 
-Skal flere team dele ett hostname, for eksempel `wms.example.com`, se [Dele et hostname mellom team](06-delt-hostname.md). Det bruksmønsteret krever `Standard` på `Routing`-objektet.
+Begge måtene konfigurerer den samme ingress-gatewayen, og trafikken går samme vei inn og ut. Det som skiller dem, er hvilke ressurser Skiperator lager, og hvor TLS-secreten havner.
+
+Heltrukne piler er trafikk. Stiplede piler er konfigurasjon og oppslag.
+
+`Legacy`, der secreten ligger sammen med gatewayen:
+
+```mermaid
+flowchart TB
+    klient([Intern/ekstern trafikk])
+
+    subgraph ig["namespace=istio-gateways"]
+        igw["Ingress-gateway"]
+        sec["TLS-secret"]
+    end
+
+    subgraph app["namespace=team-a"]
+        g["Gateway"]
+        v["VirtualService"]
+        svc["Service"]
+        pod["Pod"]
+    end
+
+    klient --> igw
+    igw --> svc
+    svc --> pod
+    sec -. TLS .-> igw
+    g -. konfigurerer .-> igw
+    v -. konfigurerer .-> igw
+```
+
+`Standard`, der secreten ligger hos appen:
+
+```mermaid
+flowchart TB
+    klient([Intern/ekstern trafikk])
+
+    subgraph ig["namespace=istio-gateways"]
+        igw["Ingress-gateway"]
+    end
+
+    subgraph app["namespace=team-a"]
+        ls["ListenerSet"]
+        hr["HTTPRoute"]
+        sec["TLS-secret"]
+        svc["Service"]
+        pod["Pod"]
+    end
+
+    klient --> igw
+    igw --> svc
+    svc --> pod
+    sec -. TLS .-> ls
+    ls -. konfigurerer .-> igw
+    hr -. konfigurerer .-> igw
+```
+
+Skiperator utsteder sertifikatet i `istio-gateways` under `Legacy` og i ditt eget namespace under `Standard`. Under en migrering finnes begge samtidig, som er det som gjør at `Legacy` kan servere trafikken mens `Standard` kommer opp.
+
+Bruker du et eget sertifikat, gjelder ikke dette. Da ligger secreten i `istio-gateways` for begge providerne, fordi du provisjonerer den selv. Se [Sertifikater utenfor ACME](../../02-kom-i-gang/06-praktisk-intro/06-kubernetes/08-certificates-outside-acme.md).
+
+Skal flere team dele ett hostname, for eksempel `wms.example.com`, se hvordan [dele et hostname mellom team](06-delt-hostname.md).
 
 ## Hvorfor finnes det to måter?
 
