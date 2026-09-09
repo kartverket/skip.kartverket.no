@@ -2,3 +2,18 @@
 minimumReleaseAge: 4320
 allowBuilds:
   core-js: true
+
+# Security updates for transitive dependencies that their parents pin to
+# vulnerable versions. Drop entries once the parents update on their own.
+overrides:
+  qs: ^6.16.0 # express/body-parser pin ~6.15.1 (GHSA-4mjr-xmp4-gh2g, GHSA-x5fp-wj9c-mxmx)
+  serialize-javascript: ^7.0.5 # webpack plugins pin ^6 (GHSA-5c6j-r48x-rmvq, GHSA-qj8w-gfj5-8c6v)
+  uuid@8: ^11.1.1 # sockjs pins ^8.3.2 (GHSA-w5hq-g745-h8pq)
+
+# image-size has no patched release for these advisories (latest is the
+# vulnerable 2.0.2). It only runs at build time, on images committed to this
+# repo, via @docusaurus/mdx-loader. Drop these once upstream ships a fix.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-5p2g-fcmc-qvqq # JXL/HEIF parser infinite loop
+    - GHSA-w3rx-r6r6-pgpr # ICNS parser infinite loop
