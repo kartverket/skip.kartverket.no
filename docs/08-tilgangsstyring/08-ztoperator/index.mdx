@@ -178,15 +178,17 @@ I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator
 
 ## 🛠 Støttede identitetstilbydere
 
-| Miljø | Identitetstilbyder | `wellKnownURI` |
-| --- | --- | --- |
-| `PROD` | Microsoft Entra ID (Kartverket) | [https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration](https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration) |
-| `TEST` | ID-porten | [https://test.idporten.no/.well-known/openid-configuration](https://test.idporten.no/.well-known/openid-configuration) |
-| `PROD` | ID-porten | [https://idporten.no/.well-known/openid-configuration](https://idporten.no/.well-known/openid-configuration) |
-| `TEST` | Maskinporten | [https://test.maskinporten.no/.well-known/oauth-authorization-server](https://test.maskinporten.no/.well-known/oauth-authorization-server) |
-| `PROD` | Maskinporten | [https://maskinporten.no/.well-known/oauth-authorization-server](https://maskinporten.no/.well-known/oauth-authorization-server) |
-| `TEST` | Ansattporten | [https://test.ansattporten.no/.well-known/openid-configuration](https://test.ansattporten.no/.well-known/openid-configuration) |
-| `PROD` | Ansattporten | [https://ansattporten.no/.well-known/openid-configuration](https://ansattporten.no/.well-known/openid-configuration) |
+| Miljø | Identitetstilbyder | `wellKnownURI` | SKIP DEV | SKIP PROD |
+| --- | --- | --- | --- | --- |
+| `PROD` | Microsoft Entra ID (Kartverket) | [https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration](https://login.microsoftonline.com/7f74c8a2-43ce-46b2-b0e8-b6306cba73a3/v2.0/.well-known/openid-configuration) | ✅ | ✅ |
+| `TEST` | ID-porten | [https://test.idporten.no/.well-known/openid-configuration](https://test.idporten.no/.well-known/openid-configuration) | ✅ | ❌|
+| `PROD` | ID-porten | [https://idporten.no/.well-known/openid-configuration](https://idporten.no/.well-known/openid-configuration) | ✅ | ✅ |
+| `TEST` | Maskinporten | [https://test.maskinporten.no/.well-known/oauth-authorization-server](https://test.maskinporten.no/.well-known/oauth-authorization-server) | ✅ | ❌|
+| `PROD` | Maskinporten | [https://maskinporten.no/.well-known/oauth-authorization-server](https://maskinporten.no/.well-known/oauth-authorization-server) | ✅ | ✅ |
+| `TEST` | Ansattporten | [https://test.ansattporten.no/.well-known/openid-configuration](https://test.ansattporten.no/.well-known/openid-configuration) | ✅ | ❌|
+| `PROD` | Ansattporten | [https://ansattporten.no/.well-known/openid-configuration](https://ansattporten.no/.well-known/openid-configuration) | ✅ | ✅ |
+| `TEST` | Databricks | [https://2004011444667850.0.gcp.databricks.com/oidc/.well-known/openid-configuration](https://2004011444667850.0.gcp.databricks.com/oidc/.well-known/openid-configuration) | ✅ | ❌ |
+| `PROD` | Databricks | [https://3359340685875444.4.gcp.databricks.com/oidc/.well-known/openid-configuration](https://3359340685875444.4.gcp.databricks.com/oidc/.well-known/openid-configuration) | ❌ | ✅|
 
 ## ⚠️ Deprecation warnings
 
