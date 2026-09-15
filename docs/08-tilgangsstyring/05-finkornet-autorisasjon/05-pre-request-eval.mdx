@@ -1,0 +1,199 @@
+# Request-evaluering med OPA
+
+En `SecurityConfig` støtter å konfigurere opp det vi kaller en *request-policy*. En request-policy er en OPA-regel som
+håndterer innkommende requests før den når applikasjonen din. OPA-regelen kan da utføre autorisasjonssjekker basert på
+innholdet i requesten, eventuelt berike den med headere den underliggende applikasjonen kan bruke. Følgende er et
+eksempel på en `SecurityConfig` som konfigurer opp request-policy. OPA-regelen som skal ta imot requesten ligger på
+stien `/v1/data/request/allow`. Resten av feltene og dens betydning kan du lese mer om i accesserator sin [API-doc](../09-accesserator/03-api-docs.mdx#securityconfigspecoparequestpolicy).
+
+```yaml
+apiVersion: accesserator.kartverket.no/v1alpha
+kind: SecurityConfig
+metadata:
+  name: security-config
+  namespace: tilgangsstyring-main
+spec:
+  applicationRef: min-app
+  opa:
+    ...
+// diff-add-start
+    requestPolicy:
+      enabled: true
+      failureMode: DENY
+      endpoint: /v1/data/request/allow
+      requestBody:
+        include: true
+        maxRequestBodyBytes: 8192 # 8 KiB
+// diff-add-end
+```
+
+## OPA-regel for request-evaluering
+
+En OPA-regel for request-evaluering vil få inn et `input`-objekt som inneholder informasjon om requesten, inkludert
+HTTP-metode, path, query-parametere, headere, med mer.
+
+<details>
+<summary>Eksempel `input`</summary>
+```json
+{
+  "attributes": {
+    "source": {
+      "address": {
+        "socketAddress": {
+          "address": "172.17.0.1",
+          "portValue": 61402
+        }
+      }
+    },
+    "destination": {
+      "address": {
+        "socketAddress": {
+          "address": "172.17.06",
+          "portValue": 8000
+        }
+      }
+    },
+    "request": {
+      "time": "2020-11-20T09:47:47.722473Z",
+      "http": {
+        "id": "13519049518330544501",
+        "method": "POST",
+        "headers": {
+          ":authority": "192.168.99.206:30164",
+          ":method": "POST",
+          ":path": "/people?lang=en",
+          "accept": "*/*",
+          "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJZbTlpIiwibmJmIjoxNTE0ODUxMTM5LCJleHAiOjE2NDEwODE1Mzl9.WCxNAveAVAdRCmkpIObOTaSd0AJRECY2Ch2Qdic3kU8",
+          "content-length": "41",
+          "content-type": "application/json",
+          "user-agent": "curl/7.54.0",
+          "x-forwarded-proto": "http",
+          "x-request-id": "7bca5c86-bf55-432c-b212-8c0f1dc999ec"
+        },
+        "host": "192.168.99.206:30164",
+        "path": "/people?lang=en",
+        "protocol": "HTTP/1.1",
+        "body": "{\"firstname\":\"Charlie\", \"lastname\":\"Opa\"}",
+        "size": 41
+      }
+    },
+    "metadataContext": {}
+  },
+  "parsed_body": {
+    "firstname": "Charlie",
+    "lastname": "Opa"
+  },
+  "parsed_path": [
+    "people"
+  ],
+  "parsed_query": {
+    "lang": [
+      "en"
+    ]
+  },
+  "truncated_body": false,
+  "version": {
+    "encoding": "protojson",
+    "ext_authz": "v3"
+  }
+}
+```
+</details>
+
+Når OPA har evaluert regelen, skal den returnere et objekt som forteller om requesten skal slippes gjennom eller ikke.
+Det gjøres med feltet `allowed`. I tillegg kan regelen sette headere, statuskode og body som skal brukes når requesten
+enten skal avvises eller sendes videre til applikasjonen.
+
+| Felt | Påkrevd | Beskrivelse |
+| --- | --- | --- |
+| `allowed` | Ja | Boolean som avgjør om requesten skal slippes gjennom eller ikke |
+| `headers` | Nei | Objekt med headere. Ved avvist request sendes disse til klienten (downstream). Ved tillatt request legges de til på requesten videre til applikasjonen (upstream) |
+| `response_headers_to_add` | Nei | Objekt med headere som skal legges til på responsen til klienten når requesten tillates |
+| `request_headers_to_remove` | Nei | Liste med header-navn som skal fjernes fra requesten før den sendes videre til applikasjonen |
+| `http_status` | Nei | HTTP-statuskode som sendes til klienten når requesten avvises. Standard er `403` |
+| `body` | Nei | Response body som sendes til klienten når requesten avvises |
+| `query_parameters_to_set` | Nei | Objekt som legger til eller overskriver query-parametere på requesten videre til applikasjonen |
+| `query_parameters_to_remove` | Nei | Liste med query-parameternavn som skal fjernes fra requesten videre til applikasjonen |
+
+### Eksempel
+
+Under følger et eksempel på en regel som krever rollen `admin` i Bearer-tokenet på alle kall mot `/api/admin`, og slipper
+gjennom alle andre kall. Headeren `x-subject` blir også populert med `sub`-claimet fra Bearer-tokenet.
+
+```rego"
+# METADATA
+# entrypoint: true
+package request
+
+import rego.v1
+
+default permit := true
+
+permit := false if {
+	input.parsed_path[0] == "api"
+	input.parsed_path[1] == "admin"
+	token.payload.role != "admin"
+}
+
+allow := {
+	"allowed": permit,
+	"headers": {"x-subject": token.payload.sub},
+}
+
+token := {"payload": payload} if {
+	[_, encoded] := split(input.attributes.request.http.headers.authorization, " ")
+
+    # NB: io.jwt.decode validerer IKKE tokenet, men kun dekoder det.
+    # Ønsker du å validere tokenet kan du bruke io.jwt.decode_verify.
+	[_, payload, _] := io.jwt.decode(encoded)
+}
+```
+
+## Lokal kjøring og testing i CI/CD
+
+Du kan utvikle og teste request-policyen din sammen med applikasjonen din ved å bruke docker-imaget
+[ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local). Reglene
+OPA skal bruke konfigureres på samme måte som beskrevet under [lokal kjøring av OPA](02-lokal-kjoring.mdx).
+
+For å teste selve request-policyen trenger du i tillegg en `SecurityConfig` og en proxy foran applikasjonen din.
+Dette setter du opp med tre miljøvariabler på imaget:
+
+- `SECURITY_CONFIG_PATH`: filsti til en manifest-fil med `SecurityConfig`-ressursen din. Har denne
+  `spec.opa.requestPolicy.enabled: true`, vil OPA evaluere requesten *før* den når applikasjonen din, via en proxy.
+- `UPSTREAM_HOST`: URL-en til applikasjonen din. Kjører applikasjonen lokalt på maskinen (altså **ikke** i Docker),
+  bruker du `host.docker.internal` som host, f.eks. `http://host.docker.internal:5000`.
+- `PROXY_PORT`: porten proxyen skal lytte på. Defaulter til `8080`.
+
+:::tip
+`SECURITY_CONFIG_PATH` støtter YAML, JSON og Jsonnet. Inneholder filen flere `SecurityConfig`-ressurser, kan du
+spesifisere hvilken som skal brukes med `SECURITY_CONFIG_NAME`. Består Jsonnet-en av flere filer som importerer
+hverandre fra ulike mapper, kan du sette `JSONNET_PATH` til en kolonseparert liste med mapper Jsonnet skal søke i
+under evaluering.
+:::
+
+:::important
+Kjører applikasjonen din lokalt på maskinen (altså **ikke** i Docker) og du bruker `host.docker.internal` som
+`UPSTREAM_HOST`, må applikasjonen din lytte på `0.0.0.0` fremfor `localhost`/`127.0.0.1` for å kunne nås fra
+containeren.
+:::
+
+```yaml
+# docker-compose.yml
+services:
+  skip-tilgangsstyring-local:
+    image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
+    ports:
+      - "8080:8080"
+    environment:
+      OPA_PATHS: /opa/policies,/opa/data/local
+      SECURITY_CONFIG_PATH: /security-config.yaml
+      UPSTREAM_HOST: http://host.docker.internal:5000
+      PROXY_PORT: 8080
+    volumes:
+      - ./opa/policies:/opa/policies:ro
+      - ./opa/data/local:/opa/data/local:ro
+      - ./security-config.yaml:/security-config.yaml:ro
+```
+
+Med dette oppsettet når du applikasjonen din via proxyen på `http://localhost:8080`. Alle requester du sender dit blir
+først evaluert mot request-policyen din, akkurat slik det vil fungere på SKIP.
