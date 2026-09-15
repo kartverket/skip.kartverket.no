@@ -1,19 +1,28 @@
 # Lokal kjøring
 
-For lokal utvikling kan du enten kjøre OPA via OPA CLI, eller som en docker container med `docker compose`.
+For lokal utvikling har Team Tilgangsstyring utviklet docker-imaget
+[ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local).
+Imaget kjører OPA lokalt med dine egne policyer og data, og kan i tillegg konfigureres med en `SecurityConfig`.
 
-Følgende `docker-compose.yml` starter en OPA-server på port 3010, og leser policyene dine fra `./opa/policies` og bruker data for lokal kjøring fra `./opa/data/local`.
-Benytter man flagget `--watch` vil OPA automatisk laste inn endringer i policy- og datafilene, uten at containeren må restartes.
+Følgende `docker-compose.yml` starter en OPA-server på port 3010, som leser
+policyene dine fra `./opa/policies` og data for lokal kjøring fra `./opa/data/local`:
 
 ```yaml
 # docker-compose.yml
 services:
-  opa:
-    image: openpolicyagent/opa:latest
+  skip-tilgangsstyring-local:
+    image: ghcr.io/kartverket/skip-tilgangsstyring-local:prod
     ports:
       - "3010:3010"
-    command: ["run", "--server", "--addr", ":3010", "--watch", "/opa/policies", "/opa/data/local"]
+    environment:
+      OPA_PATHS: /opa/policies,/opa/data/local
     volumes:
       - ./opa/policies:/opa/policies:ro
       - ./opa/data/local:/opa/data/local:ro
 ```
+
+## Versjonering
+
+Docker-imaget `ghcr.io/kartverket/skip-tilgangsstyring-local` har to tags: `dev` og `prod`. Dette er en bevegelige tags
+som vil holdes oppdatert med samme versjon av OPA som kjører i det tilsvarende miljøet på SKIP. På den måten får du
+testet applikasjonen din opp mot samme OPA-versjon som på SKIP.
