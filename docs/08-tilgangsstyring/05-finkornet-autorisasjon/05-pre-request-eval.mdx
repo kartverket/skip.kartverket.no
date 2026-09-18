@@ -7,40 +7,19 @@ import TabItem from '@theme/TabItem';
 Request-evaluering med OPA er foreløpig kun tilgjengelig på **atkv3-dev** og **atgcp1-dev**.
 :::
 
-En `SecurityConfig` støtter å konfigurere opp det vi kaller en *request-policy*. En request-policy er en OPA-regel som
-håndterer innkommende requests før den når applikasjonen din. OPA-regelen kan da utføre autorisasjonssjekker basert på
-innholdet i requesten, eventuelt berike den med headere den underliggende applikasjonen kan bruke. Følgende er et
-eksempel på en `SecurityConfig` som konfigurer opp request-policy. OPA-regelen som skal ta imot requesten ligger på
-stien `/v1/data/request/allow`. Resten av feltene og dens betydning kan du lese mer om i accesserator sin [API-doc](../09-accesserator/03-api-docs.mdx#securityconfigspecoparequestpolicy).
-
-```yaml
-apiVersion: accesserator.kartverket.no/v1alpha
-kind: SecurityConfig
-metadata:
-  name: security-config
-  namespace: tilgangsstyring-main
-spec:
-  applicationRef: min-app
-  opa:
-    ...
-// diff-add-start
-    requestPolicy:
-      enabled: true
-      failureMode: DENY
-      endpoint: /v1/data/request/allow
-      requestBody:
-        include: true
-        maxRequestBodyBytes: 8192 # 8 KiB
-// diff-add-end
-```
+Request-evaluering med OPA er når èn OPA-regel evaluerer innkommende requests før de når applikasjonen din. Dette kan
+brukes til å utføre autorisasjonssjekker, berike requesten med headere, eller avvise requesten før den når applikasjonen
+din. Det første man må gjøre for å bruke request-evaluering med OPA er å skrive OPA-regelen som skal evaluere requesten.
 
 ## OPA-regel for request-evaluering
 
 En OPA-regel for request-evaluering vil få inn et `input`-objekt som inneholder informasjon om requesten, inkludert
-HTTP-metode, path, query-parametere, headere, med mer.
+HTTP-metode, path, query-parametere, headere, med mer. Regelen skal returnere et objekt som forteller om requesten skal
+slippes gjennom eller ikke. Det gjøres med feltet `allowed`. I tillegg kan regelen sette headere, statuskode og body som
+skal brukes når requesten enten skal avvises eller sendes videre til applikasjonen.
 
 <details>
-<summary>Eksempel `input`</summary>
+    <summary>Eksempel `input`</summary>
 ```json
 {
   "attributes": {
@@ -86,18 +65,9 @@ HTTP-metode, path, query-parametere, headere, med mer.
     },
     "metadataContext": {}
   },
-  "parsed_body": {
-    "firstname": "Charlie",
-    "lastname": "Opa"
-  },
-  "parsed_path": [
-    "people"
-  ],
-  "parsed_query": {
-    "lang": [
-      "en"
-    ]
-  },
+  "parsed_body": { "firstname": "Charlie", "lastname": "Opa" },
+  "parsed_path": ["people"],
+  "parsed_query": { "lang": ["en"] },
   "truncated_body": false,
   "version": {
     "encoding": "protojson",
@@ -107,9 +77,34 @@ HTTP-metode, path, query-parametere, headere, med mer.
 ```
 </details>
 
-Når OPA har evaluert regelen, skal den returnere et objekt som forteller om requesten skal slippes gjennom eller ikke.
-Det gjøres med feltet `allowed`. I tillegg kan regelen sette headere, statuskode og body som skal brukes når requesten
-enten skal avvises eller sendes videre til applikasjonen.
+<details>
+    <summary>Eksempel `output`</summary>
+```json
+{
+  "allowed": true,
+  "headers": {
+    "x-subject": "Ym9i"
+  },
+  "response_headers_to_add": {
+    "x-opa-eval": "true"
+  },
+  "request_headers_to_remove": [
+    "x-remove-me"
+  ],
+  "http_status": 403,
+  "body": "{\"error\":\"Forbidden\"}",
+  "query_parameters_to_set": {
+    "lang": [
+      "no"
+    ]
+  },
+  "query_parameters_to_remove": [
+    "debug"
+  ]
+}
+```
+</details>
+
 
 | Felt | Påkrevd | Beskrivelse |
 | --- | --- | --- |
@@ -156,19 +151,44 @@ token := {"payload": payload} if {
 }
 ```
 
-## Lokal kjøring og testing i CI/CD
+## Request-evaluering med OPA på SKIP
 
-Du kan utvikle og teste request-policyen din sammen med applikasjonen din ved å bruke docker-imaget
-[ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local). Reglene
-OPA skal bruke konfigureres på samme måte som beskrevet under [lokal kjøring av OPA](02-lokal-kjoring.mdx).
+Request-evaluering med OPA på SKIP konfigureres gjennom Kubernetes-ressursen `SecurityConfig`. Følgende er et
+eksempel på en `SecurityConfig` som konfigurer opp request-evaluering. OPA-regelen som skal ta imot requesten ligger på
+stien `/v1/data/request/allow`. Resten av feltene og dens betydning kan du lese mer om i accesserator sin
+[API-doc](../09-accesserator/03-api-docs.mdx#securityconfigspecoparequestpolicy).
 
-For å teste selve request-policyen trenger du i tillegg en `SecurityConfig` og en proxy foran applikasjonen din.
-Dette setter du opp med tre miljøvariabler på imaget:
+```yaml
+apiVersion: accesserator.kartverket.no/v1alpha
+kind: SecurityConfig
+metadata:
+  name: security-config
+  namespace: tilgangsstyring-main
+spec:
+  applicationRef: min-app
+  opa:
+    ...
+// diff-add-start
+    requestPolicy:
+      enabled: true
+      failureMode: DENY
+      endpoint: /v1/data/request/allow
+      requestBody:
+        include: true
+        maxRequestBodyBytes: 8192 # 8 KiB
+// diff-add-end
+```
 
-- `SECURITY_CONFIG_PATH`: Filsti til en manifest-fil med med `SecurityConfig`-ressurs. Har denne
-  `spec.opa.requestPolicy.enabled: true`, vil OPA evaluere requesten *før* den når applikasjonen din, via en proxy.
-- `UPSTREAM_HOST`: Hostnavnet til applikasjonen din, for eksempel `localhost:3000`.
-- `PROXY_PORT`: Hvilken port proxyen skal lytte på. Defaulter til `8080`.
+## Lokal kjøring av request-evaluering med OPA
+
+Du kan utvikle og teste request-evaluering med OPA lokalt ved å bruke docker-imaget
+[ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local). Hvis `SecurityConfig`-ressursen fra filen konfigurert i
+miljøvariabelen `SECURITY_CONFIG_PATH` har request-evaluering aktivert, vil OPA starte opp med request-evaluering
+aktivert. Det vil også starte opp en proxy som vil rute innkommende trafikk via OPA for request-evluering, før den sender
+requesten hvis OPA tillater det. Proxyen konfigureres med to miljøvariabeler:
+
+- `UPSTREAM_URL`: URL-en til applikasjonen din.
+- `PROXY_PORT`: Hvilken port proxyen skal lytte på..
 
 :::tip
 `SECURITY_CONFIG_PATH` støtter YAML, JSON og Jsonnet. Inneholder filen flere `SecurityConfig`-ressurser, kan du
@@ -182,6 +202,10 @@ under evaluering.
 <Tabs className="unique-tabs">
     <TabItem value="MacOS">
 
+        Følgende `docker-compose.yaml` kjører opp en proxy på port 8080 som tar imot requests, sender dem til OPA sin
+        gRPC-port på `:9191`, og sender requesten videre til `http://host.docker.internal:3000`
+        (`http://localhost:3000`på din maskin) hvis OPA tillater det.
+
         :::important
         Kjører applikasjonen din lokalt på maskinen (altså **ikke** i Docker) kan du bruke
         `host.docker.internal:<PORT>` som `UPSTREAM_HOST` for å nå den. For at Docker containeren skal kunne nå
@@ -192,46 +216,57 @@ under evaluering.
         # docker-compose.yml
         services:
           skip-tilgangsstyring-local:
-            image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
             ports:
               - "3010:3010"
               - "8080:8080"
             environment:
-              OPA_PATHS: /opa/policies,/opa/data/local
-              SECURITY_CONFIG_PATH: /security-config.yaml
-              UPSTREAM_HOST: host.docker.internal:<PORT>
+              SECURITY_CONFIG_PATH: /securityconfig.yaml
+              OPA_HTTP_PORT: 3010
+              OPA_GRPC_PORT: 9191
               PROXY_PORT: 8080
+              UPSTREAM_URL: http://host.docker.internal:3000
+              OPA_PATHS: /opa/policies,/opa/data/local
             volumes:
               - ./opa/policies:/opa/policies:ro
               - ./opa/data/local:/opa/data/local:ro
-              - ./security-config.yaml:/security-config.yaml:ro
+              - ./securityconfig.yaml:/securityconfig.yaml:ro
         ```
 
     </TabItem>
     <TabItem value="Linux">
 
+        Følgende `docker-compose.yaml` kjører opp en proxy på port 8080 som tar imot requests, sender dem til OPA sin
+        gRPC-port på `:9191`, og sender requesten videre til `http://localhost:3000` hvis OPA tillater det.
+
         ```yaml
         # docker-compose.yml
         services:
           skip-tilgangsstyring-local:
-            image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
             ports:
               - "3010:3010"
               - "8080:8080"
             environment:
-              OPA_PATHS: /opa/policies,/opa/data/local
-              SECURITY_CONFIG_PATH: /security-config.yaml
-              UPSTREAM_HOST: localhost:<PORT>
+              SECURITY_CONFIG_PATH: /securityconfig.yaml
+              OPA_HTTP_PORT: 3010
+              OPA_GRPC_PORT: 9191
               PROXY_PORT: 8080
+              UPSTREAM_URL: http://localhost:3000
+              OPA_PATHS: /opa/policies,/opa/data/local
             network_mode: host # NB: Dette settes for å kunne nå applikasjonen din på localhost
             volumes:
               - ./opa/policies:/opa/policies:ro
               - ./opa/data/local:/opa/data/local:ro
-              - ./security-config.yaml:/security-config.yaml:ro
+              - ./securityconfig.yaml:/securityconfig.yaml:ro
         ```
 
     </TabItem>
     <TabItem value="Windows">
+
+        Følgende `docker-compose.yaml` kjører opp en proxy på port 8080 som tar imot requests, sender dem til OPA sin
+        gRPC-port på `:9191`, og sender requesten videre til `http://host.docker.internal:3000`
+        (`http://localhost:3000`på din maskin) hvis OPA tillater det.
 
         :::important
         Kjører applikasjonen din lokalt på maskinen (altså **ikke** i Docker) kan du bruke
@@ -243,23 +278,22 @@ under evaluering.
         # docker-compose.yml
         services:
           skip-tilgangsstyring-local:
-            image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
             ports:
               - "3010:3010"
               - "8080:8080"
             environment:
-              OPA_PATHS: /opa/policies,/opa/data/local
-              SECURITY_CONFIG_PATH: /security-config.yaml
-              UPSTREAM_HOST: host.docker.internal:<PORT>
+              SECURITY_CONFIG_PATH: /securityconfig.yaml
+              OPA_HTTP_PORT: 3010
+              OPA_GRPC_PORT: 9191
               PROXY_PORT: 8080
+              UPSTREAM_URL: http://host.docker.internal:3000
+              OPA_PATHS: /opa/policies,/opa/data/local
             volumes:
               - ./opa/policies:/opa/policies:ro
               - ./opa/data/local:/opa/data/local:ro
-              - ./security-config.yaml:/security-config.yaml:ro
+              - ./securityconfig.yaml:/securityconfig.yaml:ro
             ```
 
     </TabItem>
 </Tabs>
-
-Med dette oppsettet når du applikasjonen din via proxyen på `http://localhost:8080`. Alle requester du sender dit blir
-først evaluert mot request-policyen din, akkurat slik det vil fungere på SKIP.

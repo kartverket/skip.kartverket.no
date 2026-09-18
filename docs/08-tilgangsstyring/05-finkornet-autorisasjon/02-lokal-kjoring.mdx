@@ -2,27 +2,43 @@
 
 For lokal utvikling har Team Tilgangsstyring utviklet docker-imaget
 [ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local).
-Imaget kjører OPA lokalt med dine egne policyer og data, og kan i tillegg konfigureres med en `SecurityConfig`.
+Imaget kjører OPA lokalt med dine egne policyer og data og konfigureres med en `SecurityConfig`.
 
-Følgende `docker-compose.yml` starter en OPA-server på port 3010, som leser
-policyene dine fra `./opa/policies` og data for lokal kjøring fra `./opa/data/local`:
+Følgende `docker-compose.yml` leser en SecurityConfig fra `/securityconfig.yaml` og starter en OPA-server på port 3010.
+Den leser **kun** OPA policies fra miljøvariablene `OPA_PATHS` (filstier) og `OPA_BUNDLES` (OCI-artefakter). I eksempelet
+under leser den policies fra `./opa/policies` og statisk data fra `./opa/data/local`.
+
+:::tip
+`SECURITY_CONFIG_PATH` støtter YAML, JSON og Jsonnet. Inneholder filen flere `SecurityConfig`-ressurser, kan du
+spesifisere hvilken som skal brukes med `SECURITY_CONFIG_NAME`. Består Jsonnet-en av flere filer som importerer
+hverandre fra ulike mapper, kan du sette `JSONNET_PATH` til en kolonseparert liste med mapper Jsonnet skal søke i
+under evaluering.
+:::
 
 ```yaml
 # docker-compose.yml
 services:
   skip-tilgangsstyring-local:
-    image: ghcr.io/kartverket/skip-tilgangsstyring-local:prod
+    image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
     ports:
       - "3010:3010"
     environment:
+      SECURITY_CONFIG_PATH: /securityconfig.yaml
+      OPA_HTTP_PORT: 3010
       OPA_PATHS: /opa/policies,/opa/data/local
     volumes:
+      - ./securityconfig.yaml:/securityconfig.yaml:ro
       - ./opa/policies:/opa/policies:ro
       - ./opa/data/local:/opa/data/local:ro
 ```
 
-## Versjonering
+## Versjoner
 
-Docker-imaget `ghcr.io/kartverket/skip-tilgangsstyring-local` har to tags: `dev` og `prod`. Dette er en bevegelige tags
-som vil holdes oppdatert med samme versjon av OPA som kjører i det tilsvarende miljøet på SKIP. På den måten får du
-testet applikasjonen din opp mot samme OPA-versjon som på SKIP.
+En oversikt over tilgjengelige versjoner finner du på [GitHub Packages](https://github.com/kartverket/tilgangsstyring-apps/pkgs/container/skip-tilgangsstyring-local).
+
+Docker-imaget `ghcr.io/kartverket/skip-tilgangsstyring-local` publiseres med en datobasert tag og en bevegelig
+`latest`-tag per miljø.
+
+Alle tags har et miljø-suffix: `-sandbox`, `-dev` eller `-prod`. Dette betyr at imaget er bygd med samme versjon av
+OPA og accesserator som det som kjører på SKIP i henholdsvis sandbox, dev eller prod på den datoen imaget ble bygd.
+Nyeste image for hvert miljø publiseres også med en bevegelig tag på formen `latest-<miljø>`.
