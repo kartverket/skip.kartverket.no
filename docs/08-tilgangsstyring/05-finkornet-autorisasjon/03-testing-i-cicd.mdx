@@ -7,9 +7,12 @@ applikasjon på SKIP.
 
 Eksempel på å starte _opa_ med testcontainers i Java:
 ```java
-GenericContainer<?> opaContainer = new GenericContainer<>(DockerImageName.parse("ghcr.io/kartverket/skip-tilgangsstyring-local:prod"))
+GenericContainer<?> opaContainer = new GenericContainer<>(DockerImageName.parse("ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev"))
         .withExposedPorts(3010)
+        .withEnv("SECURITY_CONFIG_PATH", "/securityconfig.yaml")
+        .withEnv("OPA_HTTP_PORT", "3010")
         .withEnv("OPA_PATHS", "/policies,/data/local")
+        .withFileSystemBind("./securityconfig.yaml", "/securityconfig.yaml", BindMode.READ_ONLY)
         .withFileSystemBind("./opa/policies", "/policies", BindMode.READ_ONLY)
         .withFileSystemBind("./opa/data/local", "/data/local", BindMode.READ_ONLY)
         .withNetwork(network);
