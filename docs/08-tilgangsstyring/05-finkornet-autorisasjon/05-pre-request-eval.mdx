@@ -1,4 +1,11 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Request-evaluering med OPA
+
+:::info
+Request-evaluering med OPA er foreløpig kun tilgjengelig på **atkv3-dev** og **atgcp1-dev**.
+:::
 
 En `SecurityConfig` støtter å konfigurere opp det vi kaller en *request-policy*. En request-policy er en OPA-regel som
 håndterer innkommende requests før den når applikasjonen din. OPA-regelen kan da utføre autorisasjonssjekker basert på
@@ -158,11 +165,10 @@ OPA skal bruke konfigureres på samme måte som beskrevet under [lokal kjøring 
 For å teste selve request-policyen trenger du i tillegg en `SecurityConfig` og en proxy foran applikasjonen din.
 Dette setter du opp med tre miljøvariabler på imaget:
 
-- `SECURITY_CONFIG_PATH`: filsti til en manifest-fil med `SecurityConfig`-ressursen din. Har denne
+- `SECURITY_CONFIG_PATH`: Filsti til en manifest-fil med med `SecurityConfig`-ressurs. Har denne
   `spec.opa.requestPolicy.enabled: true`, vil OPA evaluere requesten *før* den når applikasjonen din, via en proxy.
-- `UPSTREAM_HOST`: URL-en til applikasjonen din. Kjører applikasjonen lokalt på maskinen (altså **ikke** i Docker),
-  bruker du `host.docker.internal` som host, f.eks. `http://host.docker.internal:5000`.
-- `PROXY_PORT`: porten proxyen skal lytte på. Defaulter til `8080`.
+- `UPSTREAM_HOST`: Hostnavnet til applikasjonen din, for eksempel `localhost:3000`.
+- `PROXY_PORT`: Hvilken port proxyen skal lytte på. Defaulter til `8080`.
 
 :::tip
 `SECURITY_CONFIG_PATH` støtter YAML, JSON og Jsonnet. Inneholder filen flere `SecurityConfig`-ressurser, kan du
@@ -171,29 +177,89 @@ hverandre fra ulike mapper, kan du sette `JSONNET_PATH` til en kolonseparert lis
 under evaluering.
 :::
 
-:::important
-Kjører applikasjonen din lokalt på maskinen (altså **ikke** i Docker) og du bruker `host.docker.internal` som
-`UPSTREAM_HOST`, må applikasjonen din lytte på `0.0.0.0` fremfor `localhost`/`127.0.0.1` for å kunne nås fra
-containeren.
-:::
+### Eksempel
 
-```yaml
-# docker-compose.yml
-services:
-  skip-tilgangsstyring-local:
-    image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
-    ports:
-      - "8080:8080"
-    environment:
-      OPA_PATHS: /opa/policies,/opa/data/local
-      SECURITY_CONFIG_PATH: /security-config.yaml
-      UPSTREAM_HOST: http://host.docker.internal:5000
-      PROXY_PORT: 8080
-    volumes:
-      - ./opa/policies:/opa/policies:ro
-      - ./opa/data/local:/opa/data/local:ro
-      - ./security-config.yaml:/security-config.yaml:ro
-```
+<Tabs className="unique-tabs">
+    <TabItem value="MacOS">
+
+        :::important
+        Kjører applikasjonen din lokalt på maskinen (altså **ikke** i Docker) kan du bruke
+        `host.docker.internal:<PORT>` som `UPSTREAM_HOST` for å nå den. For at Docker containeren skal kunne nå
+        applikasjonen din **må** applikasjonen din lytte på `0.0.0.0` for å kunne nås fra containeren.
+        :::
+
+        ```yaml
+        # docker-compose.yml
+        services:
+          skip-tilgangsstyring-local:
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
+            ports:
+              - "3010:3010"
+              - "8080:8080"
+            environment:
+              OPA_PATHS: /opa/policies,/opa/data/local
+              SECURITY_CONFIG_PATH: /security-config.yaml
+              UPSTREAM_HOST: host.docker.internal:<PORT>
+              PROXY_PORT: 8080
+            volumes:
+              - ./opa/policies:/opa/policies:ro
+              - ./opa/data/local:/opa/data/local:ro
+              - ./security-config.yaml:/security-config.yaml:ro
+        ```
+
+    </TabItem>
+    <TabItem value="Linux">
+
+        ```yaml
+        # docker-compose.yml
+        services:
+          skip-tilgangsstyring-local:
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
+            ports:
+              - "3010:3010"
+              - "8080:8080"
+            environment:
+              OPA_PATHS: /opa/policies,/opa/data/local
+              SECURITY_CONFIG_PATH: /security-config.yaml
+              UPSTREAM_HOST: localhost:<PORT>
+              PROXY_PORT: 8080
+            network_mode: host # NB: Dette settes for å kunne nå applikasjonen din på localhost
+            volumes:
+              - ./opa/policies:/opa/policies:ro
+              - ./opa/data/local:/opa/data/local:ro
+              - ./security-config.yaml:/security-config.yaml:ro
+        ```
+
+    </TabItem>
+    <TabItem value="Windows">
+
+        :::important
+        Kjører applikasjonen din lokalt på maskinen (altså **ikke** i Docker) kan du bruke
+        `host.docker.internal:<PORT>` som `UPSTREAM_HOST` for å nå den. For at Docker containeren skal kunne nå
+        applikasjonen din **må** applikasjonen din lytte på `0.0.0.0` for å kunne nås fra containeren.
+        :::
+
+        ```yaml
+        # docker-compose.yml
+        services:
+          skip-tilgangsstyring-local:
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:dev
+            ports:
+              - "3010:3010"
+              - "8080:8080"
+            environment:
+              OPA_PATHS: /opa/policies,/opa/data/local
+              SECURITY_CONFIG_PATH: /security-config.yaml
+              UPSTREAM_HOST: host.docker.internal:<PORT>
+              PROXY_PORT: 8080
+            volumes:
+              - ./opa/policies:/opa/policies:ro
+              - ./opa/data/local:/opa/data/local:ro
+              - ./security-config.yaml:/security-config.yaml:ro
+            ```
+
+    </TabItem>
+</Tabs>
 
 Med dette oppsettet når du applikasjonen din via proxyen på `http://localhost:8080`. Alle requester du sender dit blir
 først evaluert mot request-policyen din, akkurat slik det vil fungere på SKIP.
