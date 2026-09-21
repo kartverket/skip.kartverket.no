@@ -27,15 +27,15 @@ Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 
     <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
 
+    <p><strong>frontchannelLogoutURI</strong> _(string, required)_ – URL som ID-porten omdirigerer til når en utlogging utløses av en annen applikasjon.</p>
+
+    <p><strong>redirectURIs</strong> _([]string, required)_ – Liste over redirect URI-er som skal registreres hos DigDir.</p>
+
     <p><strong>integrationType</strong> _(string, optional)_ – Definerer integrasjonstypen for klienten. Bestemmer hvilke scopes som kan registreres. Kan ikke endres etter opprettelse. Tillatte verdier: `krr`, `idporten`, `api_klient`.</p>
 
     <p><strong>scopes</strong> _([]string, optional)_ – Definerer OAuth2-scopes for klienten. Begrenset basert på `integrationType`.</p>
 
-    <p><strong>frontchannelLogoutURI</strong> _(string, optional)_ – URL som ID-porten omdirigerer til når en utlogging utløses av en annen applikasjon.</p>
-
     <p><strong>postLogoutRedirectURIs</strong> _([]string, optional)_ – Liste over gyldige URI-er hvor ID-porten kan omdirigere etter utlogging.</p>
-
-    <p><strong>redirectURIs</strong> _([]string, optional)_ – Liste over redirect URI-er som skal registreres hos DigDir.</p>
 
     <p><strong>accessTokenLifetime</strong> _(integer, optional)_ – Maksimal levetid i sekunder for `access_token` som returneres fra ID-porten. Min: 1, maks: 3600.</p>
 

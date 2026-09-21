@@ -61,7 +61,6 @@ Når det aktive settet nærmer seg utløp, vil Azurerator automatisk generere et
 
     <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
     <p><strong>secretKeyPrefix</strong> _(string, optional)_ – Et valgfritt brukerdefinert prefiks som brukes på nøklene i den genererte hemmeligheten, og erstatter standardprefikset (AZURE).</p>
-    <p><strong>secretProtected</strong> _(bool, optional)_ – Angir om hemmeligheten skal tilbaketrekkes selv når den ikke er i bruk.</p>
     <p><strong>singlePageApplication</strong> _(bool, optional)_ – Angir om denne Entra ID-applikasjonen skal registreres som en single-page-application for bruk i klient-side-applikasjoner uten tilgang til hemmeligheter.</p>
 </details>
 
@@ -99,7 +98,6 @@ spec:
       cluster: atgcp1-dev
   secretName: entraid-secret
   secretKeyPrefix: CUSTOM_PREFIX
-  secretProtected: true
   singlePageApplication: false
 ```
 
