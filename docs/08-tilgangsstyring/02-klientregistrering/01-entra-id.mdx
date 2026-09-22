@@ -17,15 +17,53 @@ annen funksjonalitet, som Token Exchange, token-uthenting eller validering med T
 
 ## 🔹 `AzureAdApplication`
 
-Azurerator introduserer CRD-en `AzureAdApplication`, som håndterer opprettelse og vedlikehold av app-registrations i Microsoft Entra ID. 
-App-registrations opprettet med Azurerator vil få navn basert på hvor de er plassert i et Kubernetes-cluster, i.e. `cluster:namespace:name`.
-Etter å ha fullført opprettelsen, vil Azurerator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `client_secret`, `private_key_jwt`, diverse URL-er og lignende.
+Azurerator introduserer Kubernetes-ressursen `AzureAdApplication`, som håndterer opprettelse og vedlikehold av
+app-registrations i Microsoft Entra ID. App-registrations opprettet med Azurerator vil få navn basert på hvor de er
+plassert i et Kubernetes-cluster, i.e. `cluster:namespace:name`. Etter å ha fullført opprettelsen, vil Azurerator
+opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med hemmeligheter som kan brukes av applikasjoner til
+tilgangsstyring, som for eksempel `client_id`, `client_secret`, `private_key_jwt`, diverse URL-er og lignende.
 
-:::tip
-Azurerator håndterer rullering av hemmeligheter for deg! 
-Hemmeligheten som Azurerator oppretter vil ha to sett med `client_id` og `private_key_jwt`: ett aktivt og ett neste. 
-Når det aktive settet nærmer seg utløp, vil Azurerator automatisk generere et nytt sett og oppdatere app-registreringen i Entra ID.
-:::
+### Automatisk rullering av hemmeligheter
+Azurerator rullerer hemmeligheter automatisk hver 120-ende dag. For at din applikasjon skal plukke opp de roterte
+hemmelighetene må du legge følgende annotasjon på din Skiperator-applikasjon:
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  ...
+spec:
+// diff-add-start
+  podSettings:
+    annotations:
+      reloader.stakater.com/search: "true"
+// diff-add-end
+  ...
+```
+
+Siden hemmeligheter opprettet av Azurerator er annotert med en tilhørende `reloader.stakater.com/match`-annotasjon, vil
+dette medføre at det rulles ut nye pods for din applikasjon kort tid etter hemmeligheten oppdateres. Uten dette vil du
+kunne oppleve nedetid i din applikasjon ifbm. rullering av hemmeligheter.
+
+Du kan også tvinge frem rullering av hemmeligheter ved å legge følgende annotasjon på `AzureAdApplication`-ressursen:
+
+```yaml
+apiVersion: nais.io/v1
+kind: AzureAdApplication
+metadata:
+// diff-add-start
+  annotations:
+    azure.nais.io/rotate: "true"
+// diff-add-end
+  ...
+spec:
+  ...
+```
+
+Så snart hemmeligheten er rullert vil annotasjonen fjernes automatisk. Vi anbefaler at auto-sync i ArgoCD av avskrudd
+mens du roterer hemmeligheter. Fjern annotasjonen så snart du er ferdig med å rullere.
+
+### Spesifikasjon
 
 <details>
     <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `AzureAdApplication`</summary>
@@ -63,6 +101,8 @@ Når det aktive settet nærmer seg utløp, vil Azurerator automatisk generere et
     <p><strong>secretKeyPrefix</strong> _(string, optional)_ – Et valgfritt brukerdefinert prefiks som brukes på nøklene i den genererte hemmeligheten, og erstatter standardprefikset (AZURE).</p>
     <p><strong>singlePageApplication</strong> _(bool, optional)_ – Angir om denne Entra ID-applikasjonen skal registreres som en single-page-application for bruk i klient-side-applikasjoner uten tilgang til hemmeligheter.</p>
 </details>
+
+### Eksempel
 
 Følgende eksempel oppretter app-registreringen `atgcp1-sandbox:tilgangsstyring-main:test-app`.
 Den gir kun tilgang til direkte medlemmer av gruppene med objekt-ID [4bdc77ce-2a99-406c-a07e-88a1eba82dd9](https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupDetailsMenuBlade/~/Overview/groupId/4bdc77ce-2a99-406c-a07e-88a1eba82dd9/menuId/) eller [1262b1c5-d2db-44ad-96e3-ed8637e6b996](https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupDetailsMenuBlade/~/Overview/groupId/1262b1c5-d2db-44ad-96e3-ed8637e6b996/menuId/).
