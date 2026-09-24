@@ -1,7 +1,7 @@
 # Allows Ztoperator to create PR for updating API docs
 
 issuer: https://token.actions.githubusercontent.com
-subject_pattern: repo:kartverket/ztoperator:ref:refs/heads/main
+subject_pattern: "repo:kartverket/ztoperator:ref:refs/tags/v.*"
 
 permissions:
   contents: write
