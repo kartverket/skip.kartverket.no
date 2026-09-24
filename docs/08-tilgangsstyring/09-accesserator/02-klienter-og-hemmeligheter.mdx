@@ -6,8 +6,8 @@ Maskinporten og Entra ID. For denne funksjonaliteten tilbyr `SecurityConfig`-res
 - referere til en eksisterende secret
 
 Du må velge én av disse. Se API-spesifikasjon for henholdsvis
-[Maskinporten](./03-api-docs.mdx#securityconfigspecmaskinporten) og
-[Entra ID](./03-api-docs.mdx#securityconfigspecentraid).
+[Maskinporten](./03-api-docs.md#securityconfigspecmaskinporten) og
+[Entra ID](./03-api-docs.md#securityconfigspecentraid).
 
 Eksempel på hvordan de ulike feltene kan se ut for Maskinporten:
 ```yaml
@@ -37,7 +37,7 @@ spec:
 
 ## Maskinporten
 `client`-feltet i `SecurityConfig`-ressursen for Maskinporten tilbyr mulighet for å spesifisere scopes du skal
-konsumere. Du finner API-spesifikasjon for `client-feltet` [her](./03-api-docs.mdx#securityconfigspecmaskinportenclient).
+konsumere. Du finner API-spesifikasjon for `client-feltet` [her](./03-api-docs.md#securityconfigspecmaskinportenclient).
 Kubernetes-ressursen som opprettes er en `MaskinportenClient`, tilsvarende som ved bruk av Digdirator. Les mer om
 Digdirator og MaskinportenClient i [dokumentasjonen om klientregistrering for Maskinporten](../02-klientregistrering/03-maskinporten.mdx).
 
@@ -45,6 +45,6 @@ Digdirator og MaskinportenClient i [dokumentasjonen om klientregistrering for Ma
 
 ## Entra ID
 `client`-feltet i `SecurityConfig`-ressursen for Entra ID tilbyr et subset av feltene tilgjengelig via `Azurerator`, som
-vi mener dekker alle behov på SKIP. Du finner API-spesifikasjon for `client-feltet` [her](./03-api-docs.mdx#securityconfigspecentraidclient).
+vi mener dekker alle behov på SKIP. Du finner API-spesifikasjon for `client-feltet` [her](./03-api-docs.md#securityconfigspecentraidclient).
 Kubernetes-ressursen som opprettes er en `AzureAdApplication`, tilsvarende som ved bruk av Azurerator. Les mer om
 Azurerator og AzureAdApplication i [dokumentasjonen om klientregistrering for Entra ID](../02-klientregistrering/01-entra-id.mdx).
