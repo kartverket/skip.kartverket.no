@@ -1,3 +1,5 @@
+import RulleringAvHemmeligheter from './_rullering-av-hemmeligheter.mdx';
+
 # ID-Porten
 
 For å registrere en klient i ID-porten har du to muligheter:
@@ -15,12 +17,17 @@ eller opprette en `IDPortenClient`-ressurs i dev-clustrene til SKIP, i.e. `atgcp
 ## 🪪 Klientregistrering med `IDPortenClient`
 
 En `IDPortenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde ID-Porten-klientregistreringer.
+Etter å ha fullført opprettelsen, vil Digdirator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med
+hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `private_key_jwt`,
+diverse URL-er og lignende.
 
 :::caution
 Ztoperator støtter per nå kun klientregistreringer som identifiserer seg mot ID-porten med `client_secret_post`. 
 Ettersom Digdirator kun oppretter klientregistreringer med `private_key_jwt`, så vil disse ikke fungere med Ztoperator. 
 Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 :::
+
+### Spesifikasjon
 
 <details>
     <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `IDPortenClient`</summary>
@@ -48,6 +55,8 @@ Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
     <p><strong>ssoDisabled</strong> _(bool, optional)_ – Kontrollerer Single Sign-On-oppsettet for klienten. Hvis satt til `true`, er SSO deaktivert.</p>
 
 </details>
+
+### Eksempel
 
 Følgende eksempel registrerer en klientintegrasjon mot ID-porten med integrasjonstypen `idporten`.
 Når registrering er fullført vil Digdirator opprette Kubernetes-hemmeligheten `idporten-secret` i namespacet `tilgangsstyring-main`.
@@ -89,3 +98,5 @@ data:
   IDPORTEN_WELL_KNOWN_URL: ++++++++
 type: Opaque
 ```
+
+<RulleringAvHemmeligheter />

@@ -1,3 +1,5 @@
+import RulleringAvHemmeligheter from './_rullering-av-hemmeligheter.mdx';
+
 # Ansattporten
 
 For å registrere en klient i Ansattporten har du to muligheter:
@@ -47,12 +49,17 @@ _Skisse over Ansattporten og ID-Porten._
 ## 🪪 Klientregistrering med `AnsattportenClient`
 
 En `AnsattportenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde Ansattporten-klientregistreringer.
+Etter å ha fullført opprettelsen, vil Digdirator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med
+hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `private_key_jwt`,
+diverse URL-er og lignende.
 
 :::caution
 Ztoperator støtter per nå kun klientregistreringer som identifiserer seg mot Ansattporten med `client_secret_post`.
 Ettersom Digdirator kun oppretter klientregistreringer med `private_key_jwt`, så vil disse ikke fungere med Ztoperator.
 Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 :::
+
+### Spesifikasjon
 
 <details>
     <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `AnsattportenClient`</summary>
@@ -74,6 +81,8 @@ Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
     <p><strong>sessionLifetime</strong> _(integer, optional)_ – Maksimal øktlevetid i sekunder for en innlogget sluttbruker for denne klienten. Min: 3600, maks: 28800.</p>
 
 </details>
+
+### Eksempel
 
 Følgende eksempel registrerer en klientintegrasjon mot Ansattporten.
 Når registrering er fullført vil Digdirator opprette Kubernetes-hemmeligheten `ansattporten-secret` i namespacet `tilgangsstyring-main`.
@@ -111,4 +120,6 @@ data:
   ANSATTPORTEN_WELL_KNOWN_URL: ++++++++
 type: Opaque
 ```
+
+<RulleringAvHemmeligheter />
 
