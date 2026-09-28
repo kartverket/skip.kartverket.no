@@ -178,10 +178,11 @@ spec:
 ## Lokal kjøring av request-evaluering med OPA
 
 Du kan utvikle og teste request-evaluering med OPA lokalt ved å bruke docker-imaget
-[ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local). Hvis `SecurityConfig`-ressursen fra filen konfigurert i
-miljøvariabelen `SECURITY_CONFIG_PATH` har request-evaluering aktivert, vil OPA starte opp med request-evaluering
-aktivert. Det vil også starte opp en proxy som vil rute innkommende trafikk via OPA for request-evluering, før den sender
-requesten hvis OPA tillater det. Proxyen konfigureres med to miljøvariabeler:
+[ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local).
+Hvis `SecurityConfig`-ressursen fra filen konfigurert i miljøvariabelen `SECURITY_CONFIG_PATH` har request-evaluering
+aktivert, vil OPA starte opp med request-evaluering aktivert. Det vil også starte opp en proxy som vil rute
+innkommende trafikk via OPA for request-evluering, før den sender requesten hvis OPA tillater det. Proxyen konfigureres
+med to miljøvariabeler:
 
 - `UPSTREAM_URL`: URL-en til applikasjonen din.
 - `PROXY_PORT`: Hvilken port proxyen skal lytte på..
@@ -212,7 +213,7 @@ under evaluering.
         # docker-compose.yml
         services:
           skip-tilgangsstyring-local:
-            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest
             ports:
               - "3010:3010"
               - "8080:8080"
@@ -239,7 +240,7 @@ under evaluering.
         # docker-compose.yml
         services:
           skip-tilgangsstyring-local:
-            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest
             ports:
               - "3010:3010"
               - "8080:8080"
@@ -274,7 +275,7 @@ under evaluering.
         # docker-compose.yml
         services:
           skip-tilgangsstyring-local:
-            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
+            image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest
             ports:
               - "3010:3010"
               - "8080:8080"
