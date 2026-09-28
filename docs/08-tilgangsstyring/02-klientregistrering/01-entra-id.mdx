@@ -23,7 +23,7 @@ plassert i et Kubernetes-cluster, i.e. `cluster:namespace:name`. Etter å ha ful
 opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med hemmeligheter som kan brukes av applikasjoner til
 tilgangsstyring, som for eksempel `client_id`, `client_secret`, `private_key_jwt`, diverse URL-er og lignende.
 
-### Automatisk rullering av hemmeligheter
+### Rullering av hemmeligheter
 Azurerator rullerer hemmeligheter automatisk hver 120-ende dag. For at din applikasjon skal plukke opp de roterte
 hemmelighetene må du legge følgende annotasjon på din Skiperator-applikasjon:
 
