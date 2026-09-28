@@ -4,7 +4,7 @@ For lokal utvikling har Team Tilgangsstyring utviklet docker-imaget
 [ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local).
 Imaget kjører OPA lokalt med dine egne policyer og data og konfigureres med en `SecurityConfig`.
 
-Følgende `docker-compose.yml` leser en SecurityConfig fra `/securityconfig.yaml` og starter en OPA-server på port 3010.
+Følgende `docker-compose.yaml` leser en `SecurityConfig` fra `/securityconfig.yaml` og starter en OPA-server på port 3010.
 Den leser **kun** OPA policies fra miljøvariablene `OPA_PATHS` (filstier) og `OPA_BUNDLES` (OCI-artefakter). I eksempelet
 under leser den policies fra `./opa/policies` og statisk data fra `./opa/data/local`.
 
@@ -16,10 +16,10 @@ under evaluering.
 :::
 
 ```yaml
-# docker-compose.yml
+# docker-compose.yaml
 services:
   skip-tilgangsstyring-local:
-    image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest-dev
+    image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest
     ports:
       - "3010:3010"
     environment:
@@ -34,11 +34,7 @@ services:
 
 ## Versjoner
 
-En oversikt over tilgjengelige versjoner finner du på [GitHub Packages](https://github.com/kartverket/tilgangsstyring-apps/pkgs/container/skip-tilgangsstyring-local).
+En oversikt over tilgjengelige versjoner finner du på [GitHub Packages](https://github.com/kartverket/skip-tilgangsstyring-local/pkgs/container/skip-tilgangsstyring-local).
 
 Docker-imaget `ghcr.io/kartverket/skip-tilgangsstyring-local` publiseres med en datobasert tag og en bevegelig
-`latest`-tag per miljø.
-
-Alle tags har et miljø-suffix: `-sandbox`, `-dev` eller `-prod`. Dette betyr at imaget er bygd med samme versjon av
-OPA og accesserator som det som kjører på SKIP i henholdsvis sandbox, dev eller prod på den datoen imaget ble bygd.
-Nyeste image for hvert miljø publiseres også med en bevegelig tag på formen `latest-<miljø>`.
+`latest`-tag.
