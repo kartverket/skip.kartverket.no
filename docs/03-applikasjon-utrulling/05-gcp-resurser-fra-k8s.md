@@ -53,6 +53,7 @@ metadata:
 spec:
   image: ghcr.io/kartverket/myapp
   port: 8080
+  routingProvider: Standard
   gcp:
     auth:
       serviceAccount: GCP_SA_NAME@GCP_SA_PROJECT_ID.iam.gserviceaccount.com

@@ -44,7 +44,7 @@ hvert økosystem. F.eks.:
 
 ### Oppdateringsintervall
 
-Man kan styre Dependabot kjører ved å konfigurere `schedule` for hvert `package-ecosystem`.
+Du kan styre når Dependabot kjører ved å konfigurere `schedule` for hvert `package-ecosystem`.
 
 For å kjøre oppdateringer hver morgen i ukedagene:
 
@@ -71,9 +71,7 @@ For å kjøre oppdateringer hver mandag morgen:
 
 ### Innlogging til private registries
 
-For at Dependabot skal kunne oppdatere dependencies som ligger i private/internal repoer (eks. actions), pakker i private package registries (npm, maven) elle
-
-Merk at dette krever PATs eller access tokens som må ligge som en Dependabot repository secret i repoet.
+For at Dependabot skal kunne oppdatere dependencies som ligger i private/internal repoer (f.eks. actions), pakker i private package registries (npm, maven), krever dette PAT-er eller access tokens som må ligge som Dependabot repository secrets i repoet.
 
 Private registries må legges i `registries`-listen, og må i tillegg refereres til i `updates`-listen for relevante økosystemer. Eks.:
 

@@ -13,13 +13,13 @@ Det første man gjør når man skal ta i bruk Argo er å gå til nettsiden og lo
 
 ![ArgoCD applikasjoner](images/applikasjonerargocd.png)
 
-Det neste som møter deg er en oversikt over applikasjonene som Argo leser ut, avbildet over. Dersom man ikke sere noen applikasjoner her, sjekk om dere har fulgt alle stegene i [Komme i gang med Argo CD](01-komme-i-gang-med-argocd.md) og at dere har manifester som er satt opp til å bli synket inn fra [apps-repoet](02-hva-er-et-apps-repo.md) deres. Disse prosjektene blir automatisk opprettet basert på mappestrukturen i apps-repoet deres, så det er ingen behov for å opprette eller rydde opp prosjekter manuelt.
+Det neste som møter deg er en oversikt over applikasjonene som Argo leser ut, avbildet over. Dersom man ikke ser noen applikasjoner her, sjekk om dere har fulgt alle stegene i [Komme i gang med Argo CD](01-komme-i-gang-med-argocd.md) og at dere har manifester som er satt opp til å bli synket inn fra [apps-repoet](02-hva-er-et-apps-repo.md) deres. Disse prosjektene blir automatisk opprettet basert på mappestrukturen i apps-repoet deres, så det er ingen behov for å opprette eller rydde opp prosjekter manuelt.
 
 Klikk på et av kortene på denne siden og dere vil gå inn i en mer detaljert visning hvor man ser alle ressursene som blir synkronisert.
 
 ![ArgoCD details](images/557645847.png)
 
-Dersom man bruker Skiperator og eksponererer en URL via `ingresses` vil man også kunne se små ikoner som er lenker og om man klikker på dem åpnes applikasjonen i nettleseren.
+Dersom man bruker Skiperator og eksponerer en URL via `ingresses` vil man også kunne se små ikoner som er lenker, og om man klikker på dem åpnes applikasjonen i nettleseren.
 
 Det er også et sett med filtere på venstre side som er lurt å bli kjent med, spesielt dersom applikasjonene blir store og vanskelige å se på en skjerm uten å scrolle.
 
@@ -53,7 +53,7 @@ Husk at container imaget må finnes for at det skal være mulig å rulle tilbake
 
 ![Detaljer](images/557776914.png)
 
-Dersom man klikker på en ressurs i prosjektvisningen vil man se flere detaljer om denne ressursen. Man finner blant annet en oversikt over metadata, manfiest-filen som Argo CD skal synke ut, events og logger.
+Dersom man klikker på en ressurs i prosjektvisningen vil man se flere detaljer om denne ressursen. Man finner blant annet en oversikt over metadata, manifest-filen som Argo CD skal synke ut, events og logger.
 
 Det er også mulig å endre på manifestfilen som ligger i clusteret om man går på “live manifest” og trykker “edit”. Dette vil føre til at applikasjonen kommer ut av synk, og i miljøer hvor auto-synking er skrudd på vil det tilbakestilles med en gang. Men i noen tilfeller kan det være nyttig.
 
@@ -67,7 +67,7 @@ Web terminal er ikke tilgjengelig i prod
 
 ## Hvordan bruke Argo gjennom API
 
-Visst du ønsker å automatisere oppgaver, for eksempel synk ved ny image versjon så kan det være greit å ha muligheten til å gjøre dette fra Github. Det første du trengre da er nettverkstilgang fra Github, det får du med [tailscale](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/683376648).
+Hvis du ønsker å automatisere oppgaver, for eksempel synk ved ny image-versjon, kan det være greit å ha muligheten til å gjøre dette fra GitHub. Det første du trenger da er nettverkstilgang fra GitHub, det får du med [tailscale](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/683376648).
 
 For å autentisere mot Argo så må du generere en JWT, dette kan du gjøre i Argo UIet. Gå inn på f.eks [](https://argo-dev.kartverket.dev), trykk på settings oppe til venstre → Projects → ditt prosjekt → trykk på “Roles” fanen, og deretter på apiuser. Scroll helt ned på modalen som kommer opp og trykk Create under JWT Tokens. Det er samme framgangsmåte i andre miljø.
 

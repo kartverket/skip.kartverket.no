@@ -1,3 +1,5 @@
+import RulleringAvHemmeligheter from './_rullering-av-hemmeligheter.mdx';
+
 # Maskinporten
 
 For å registrere en klient i Maskinporten har du tre muligheter:
@@ -20,6 +22,11 @@ eller opprette en `MaskinportenClient`-ressurs i dev-clustrene til SKIP, i.e. `a
 ## 🤖 Klientregistrering med `MaskinportenClient`
 
 En `MaskinportenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde Maskinporten-klientregistreringer.
+Etter å ha fullført opprettelsen, vil Digdirator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med
+hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `private_key_jwt`,
+diverse URL-er og lignende.
+
+### Spesifikasjon
 
 <details>
     <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `MaskinportenClient`</summary>
@@ -51,6 +58,8 @@ En `MaskinportenClient` er en CRD som lar brukere deklarativt opprette og vedlik
         </details>
     </details>
 </details>
+
+### Eksempel
 
 Følgende eksempel oppretter en klientintegrasjon mot Maskinporten og definerer scopet `innsyn`.
 Den setter HUSLØS HURTIG TIGER AS og KOSTBAR LEKKER APE AS som godkjente konsumenter av scopet.
@@ -93,3 +102,5 @@ data:
   MASKINPORTEN_WELL_KNOWN_URL: ++++++++
 type: Opaque
 ```
+
+<RulleringAvHemmeligheter />

@@ -16,7 +16,7 @@ Dere kommer til å møte på en del forskjellige verktøy når dere skal deploye
 
 GitHub Actions er et CI-systemet som SKIP legger opp til at alle produktteam skal kunne bruke for å automatisere bygging av Docker-images i tillegg til muligheter for å opprette infrastruktur i skyen ved hjelp av Terraform på en automatisert måte.
 ![Choose workflow](images/306905644.png)
-Actions lages ved å skrive YAML-filer i `.github/workflows` -mappa i roten av repoet. Man kan også trykke på “Actions” og “New workflow” i GitHub og få opp dialogen over. Der kan man velge fra et eksisterende bibliotek med eksempler på Actions som kan hjelpe med å komme i gang med en action. For eksempel kan man trykke “View all” på “Continous Integration” for å finne eksempler på hvordan man bygger med java eller node.js. DIsse er ofte gode utgangspunkt når man skal sette opp et nytt bygg.
+Actions lages ved å skrive YAML-filer i `.github/workflows`-mappen i roten av repoet. Man kan også trykke på "Actions" og "New workflow" i GitHub for å få opp dialogen over. Der kan man velge fra et eksisterende bibliotek med eksempler på actions som kan hjelpe med å komme i gang. For eksempel kan man trykke "View all" under "Continuous Integration" for å finne eksempler på hvordan man bygger med Java eller Node.js. Disse er ofte gode utgangspunkt når man skal sette opp et nytt bygg.
 
 Les [https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) for en introduksjon til Actions.
 
@@ -24,7 +24,7 @@ Se [https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-
 
 ## Lagring av images
 
-Det anbefalte måten å publisere images er nå til GitHub Container Registry ([ghcr.io](http://ghcr.io/)). Dette kan gjøres enkelt ved hjelp av GitHub Actions.
+Den anbefalte måten å publisere images på er til GitHub Container Registry ([ghcr.io](http://ghcr.io/)). Dette kan gjøres enkelt ved hjelp av GitHub Actions.
 
 Se denne artikkelen for mer informasjon om ghcr: [https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) .
 

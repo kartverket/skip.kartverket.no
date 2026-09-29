@@ -1,11 +1,13 @@
 # Autentisering med Workload Identity Federation
 
 ![](images/320504828.png)
-Når man bruker langlevde tokens til autentisering slik som f.eks. service account tokens er det en risiko for at disse blir lekket og blir en angrepsvektor inn mot infrastrukturen. Dette vil vi unngå, og det er også grunnen til at Google anbefaler å ikke bruke slike service account tokens til fordel for det som heter Workload Identity Federation der det er mulig. GitHub skriver om noen fordeler med å bruke dette i [About security hardening with OpenID Connect](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect) .
+Når man bruker langlevde tokens til autentisering, slik som for eksempel servicekonto-tokens, er det en risiko for at disse blir lekket og blir en angrepsvektor mot infrastrukturen. Dette vil vi unngå, og det er også grunnen til at Google anbefaler å ikke bruke slike servicekonto-tokens, til fordel for Workload Identity Federation der det er mulig.
 
-Kort oppsummert er Workload Identity Federation en måte å lese signerte JWT-er fra andre identity providers og bruke dette til å gi tilgang til service kontoer i GCP. Google forteller mer om dette her: [https://cloud.google.com/iam/docs/workload-identity-federation](https://cloud.google.com/iam/docs/workload-identity-federation)
+GitHub skriver om noen fordeler med å bruke dette i [About security hardening with OpenID Connect](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect).
 
-Når vi bruker GitHub Actions har GitHub en egen OIDC identity provider i stacken deres som vi kan ta i bruk. Vi kan da bruke OIDC identity provideren som ligger i GitHub stacken til å utstede en JWT som er signert av GitHub hver gang et bygg kjøres. På denne måten kan SKIP vite at denne autentiseringsforespørselen ble kjørt i tilknytning til bygget deres og gi dere de tilgangene som dere krever, for eksempel tilgang til å deploye til namespacet deres på kubernetes. Da bruker man kun kortlevde nøkler og unngår å bruke service account tokens med lang varighet som kan lekkes og bli en angrepsvektor for trusselaktører inn mot infrastrukturen vår.
+Kort oppsummert er Workload Identity Federation en måte å lese signerte JWT-er fra andre identity providers og bruke dette til å gi tilgang til servicekontoer i GCP. Google forteller mer om dette her: [https://cloud.google.com/iam/docs/workload-identity-federation](https://cloud.google.com/iam/docs/workload-identity-federation)
+
+Når vi bruker GitHub Actions har GitHub en egen OIDC identity provider som vi kan ta i bruk. Vi kan da bruke OIDC identity provideren i GitHub til å utstede en JWT signert av GitHub hver gang et bygg kjøres. På denne måten kan SKIP vite at autentiseringsforespørselen ble kjørt i tilknytning til bygget deres, og gi dere de tilgangene dere krever, for eksempel tilgang til å deploye til namespacet deres på Kubernetes. Da bruker man kun kortlevde nøkler og unngår å bruke servicekontoer med lang varighet som kan lekkes.
 
 ## Oppsett av GitHub Action
 

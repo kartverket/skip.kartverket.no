@@ -7,7 +7,7 @@ Denne siden er under utarbeidelse og er et samarbeid mellom utvikling og sikkerh
 For å eksponere en applikasjon som kjører på SKIP mot internett må man:
 
 - Opprette en DNS-record som ikke er under statkart.no-domenet, f.eks. `applikasjonX.kartverket.no` . Det gjøres ved å opprette en ticket i [PureService](https://kartverket.pureservice.com/) og be om at dette domenet skal ha et CNAME som peker mot SKIP-lastbalansereren (atkv3-prod.kartverket.cloud for on-prem og atgcp1-prod.kartverket.cloud for sky)
-- Legge til det nye domenenavnet under `ingresses` i [Skiperator-manifestet](https://github.com/kartverket/skiperator?tab=readme-ov-file#application-reference) eller `hostname` for [Routing-manifestet](https://github.com/kartverket/skiperator?tab=readme-ov-file#routing-reference) , slik at applikasjonen registrerer seg mot ekstern ingress gateway
+- Legge til det nye domenenavnet under `ingresses` i [Skiperator-manifestet](03-skiperator/04-api-docs.md#applicationspec) eller `hostname` for [Routing-manifestet](03-skiperator/04-api-docs.md#routingspec), slik at applikasjonen registrerer seg mot ekstern ingress gateway
 
 Før dette kan gjøres må man gå igjennom denne sjekklisten:
 
@@ -16,7 +16,7 @@ Før dette kan gjøres må man gå igjennom denne sjekklisten:
 - Verdivurdering er utført.
 - Det er gjort IP (Innledende Personvernsvurdering) og eventuelt DPIA. Kopier malen [IP, DPIA og ROS-analyse for [det som vurderes]](https://kartverket.atlassian.net/wiki/spaces/PER/pages/436338719/IP+DPIA+og+ROS-analyse+for+det+som+vurderes+.+IKKE+SKRIV+INN+I+MALEN+men+kopier+sidene.) til deres område og fyll ut informasjonen der.
 - ROS-analyse gjennomført og godkjent av risikoeier/systemeier
-- Systemet er registrert i systemoversikten ( Pureservice->Tilganger, sikkerhet og systemforvaltning->Registrer nytt system ).
+- Systemet er registrert i systemoversikten (PureService → Tilganger, sikkerhet og systemforvaltning → Registrer nytt system).
 - Codeowners definert i koderepo [CODEOWNERS](https://kartverket.atlassian.net/wiki/spaces/SIK/pages/561348667/CODEOWNERS)
 - Gjennomfør en sikkerhetssjekk
   - Se over hvilke endepunkter som er eksponert og at debug endepunkter og liknende interne endepunkter ikke er eksponert

@@ -106,6 +106,7 @@ local argokit = import '../jsonnet/argokit.libsonnet';
 local application = argokit.appAndObjects.application; // bruk appAndObjects
 
 application.new('foo-backend')
++ application.withRoutingProvider('Standard')
 + application.withAzureAdApplication(
   name='foo-ad',
   namespace='foo-team-main',

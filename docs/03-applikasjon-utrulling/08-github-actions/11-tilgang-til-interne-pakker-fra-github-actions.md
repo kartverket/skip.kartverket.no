@@ -3,7 +3,7 @@
 Når man jobber med avhengigheter til interne pakker i organisasjonen kan det være nødvendig å få tilgang til disse fra GitHub Actions. Dette er spesielt aktuelt når man bygger applikasjoner som avhenger av interne biblioteker eller pakker som ikke er publisert offentlig.
 
 ## Bakgrunn
-GitHub tilbyr ikke en optimal mekanisme for å dele interne pakker på tvers av repoer i en organisasjon. Dette har ført til at utviklerne i ulike team må opprette egne PAT's manuelt, og disse blir liggende rundt om kring i ulike repoer til de utløper. 
+GitHub tilbyr ikke en optimal mekanisme for å dele interne pakker på tvers av repoer i en organisasjon. Dette har ført til at utviklerne i ulike team må opprette egne PAT's manuelt, og disse blir liggende rundt om i ulike repoer til de utløper. 
 
 Vi har vurdert og besluttet at en pragmatisk løsning er å tilby en secret på organisasjonsnivå som gir lesetilgang til pakker internt. Dette er en mellomløsning i påvente av bedre mekanismer fra GitHub.
 

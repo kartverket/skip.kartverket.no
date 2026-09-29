@@ -1,3 +1,5 @@
+import RulleringAvHemmeligheter from './_rullering-av-hemmeligheter.mdx';
+
 # ID-Porten
 
 For å registrere en klient i ID-porten har du to muligheter:
@@ -15,6 +17,9 @@ eller opprette en `IDPortenClient`-ressurs i dev-clustrene til SKIP, i.e. `atgcp
 ## 🪪 Klientregistrering med `IDPortenClient`
 
 En `IDPortenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde ID-Porten-klientregistreringer.
+Etter å ha fullført opprettelsen, vil Digdirator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med
+hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `private_key_jwt`,
+diverse URL-er og lignende.
 
 :::caution
 Ztoperator støtter per nå kun klientregistreringer som identifiserer seg mot ID-porten med `client_secret_post`. 
@@ -22,20 +27,22 @@ Ettersom Digdirator kun oppretter klientregistreringer med `private_key_jwt`, s�
 Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 :::
 
+### Spesifikasjon
+
 <details>
     <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `IDPortenClient`</summary>
 
     <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
 
+    <p><strong>frontchannelLogoutURI</strong> _(string, required)_ – URL som ID-porten omdirigerer til når en utlogging utløses av en annen applikasjon.</p>
+
+    <p><strong>redirectURIs</strong> _([]string, required)_ – Liste over redirect URI-er som skal registreres hos DigDir.</p>
+
     <p><strong>integrationType</strong> _(string, optional)_ – Definerer integrasjonstypen for klienten. Bestemmer hvilke scopes som kan registreres. Kan ikke endres etter opprettelse. Tillatte verdier: `krr`, `idporten`, `api_klient`.</p>
 
     <p><strong>scopes</strong> _([]string, optional)_ – Definerer OAuth2-scopes for klienten. Begrenset basert på `integrationType`.</p>
 
-    <p><strong>frontchannelLogoutURI</strong> _(string, optional)_ – URL som ID-porten omdirigerer til når en utlogging utløses av en annen applikasjon.</p>
-
     <p><strong>postLogoutRedirectURIs</strong> _([]string, optional)_ – Liste over gyldige URI-er hvor ID-porten kan omdirigere etter utlogging.</p>
-
-    <p><strong>redirectURIs</strong> _([]string, optional)_ – Liste over redirect URI-er som skal registreres hos DigDir.</p>
 
     <p><strong>accessTokenLifetime</strong> _(integer, optional)_ – Maksimal levetid i sekunder for `access_token` som returneres fra ID-porten. Min: 1, maks: 3600.</p>
 
@@ -49,7 +56,9 @@ Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 
 </details>
 
-Følgende eksempel registrerer en klientintegrasjon mot ID-porten av typen `idporten`.
+### Eksempel
+
+Følgende eksempel registrerer en klientintegrasjon mot ID-porten med integrasjonstypen `idporten`.
 Når registrering er fullført vil Digdirator opprette Kubernetes-hemmeligheten `idporten-secret` i namespacet `tilgangsstyring-main`.
 
 ```yaml title="Klientregistrering mot ID-Porten med Digdirator"
@@ -63,6 +72,8 @@ spec:
   clientURI: https://test-app.atgcp1-sandbox.kartverket-intern.cloud
   frontchannelLogoutURI: https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/logout
   integrationType: idporten
+  postLogoutRedirectURIs:
+    - https://test-app.atgcp1-sandbox.kartverket-intern.cloud/
   redirectURIs:
     - https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/callback
   scopes:
@@ -87,3 +98,5 @@ data:
   IDPORTEN_WELL_KNOWN_URL: ++++++++
 type: Opaque
 ```
+
+<RulleringAvHemmeligheter />

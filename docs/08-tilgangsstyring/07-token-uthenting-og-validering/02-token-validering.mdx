@@ -17,11 +17,11 @@ er avhengig av å hente JWKS-endepunkter for de identity providerene som er akti
 validering for en identity provider som ikke er relevant for din applikasjon, introduserer du altså en unødvendig
 avhengighet og risiko for at Texas sidecar'en ikke starter opp ved nedetid hos den aktuelle identity provideren.
 
-Du finner API-spesifikasjon inkludert detaljerte feltbeskrivelser for `SecurityConfig`-ressursen i [API-dokumentasjonen](../09-accesserator/03-api-docs.mdx).
+Du finner API-spesifikasjon inkludert detaljerte feltbeskrivelser for `SecurityConfig`-ressursen i [API-dokumentasjonen](../09-accesserator/03-api-docs.md).
 
 ### Tokenx
 ```yaml title="Eksempel på SecurityConfig for Tokenx-validering"
-apiVersion: security.skip.kartverket.no/v1alpha1
+apiVersion: accesserator.kartverket.no/v1alpha
 kind: SecurityConfig
 spec:
   applicationRef: my-app
@@ -35,7 +35,7 @@ til å støtte validering av TokenX-tokens.
 
 ### Maskinporten
 ```yaml title="Eksempel på SecurityConfig for Maskinporten-validering"
-apiVersion: security.skip.kartverket.no/v1alpha1
+apiVersion: accesserator.kartverket.no/v1alpha
 kind: SecurityConfig
 spec:
   applicationRef: my-app
@@ -49,7 +49,7 @@ validering av Maskinporten-tokens.
 
 ### Entra ID
 ```yaml title="Eksempel på SecurityConfig for Entra ID-validering"
-apiVersion: security.skip.kartverket.no/v1alpha1
+apiVersion: accesserator.kartverket.no/v1alpha
 kind: SecurityConfig
 spec:
   applicationRef: my-app
@@ -63,7 +63,7 @@ validering av Entra ID-tokens.
 
 ### ID-porten
 ```yaml title="Eksempel på SecurityConfig for ID-porten-validering"
-apiVersion: security.skip.kartverket.no/v1alpha1
+apiVersion: accesserator.kartverket.no/v1alpha
 kind: SecurityConfig
 spec:
   applicationRef: my-app
@@ -83,7 +83,7 @@ Du kan lese mer om audience-restriksjon i [ID-porten-dokumentasjonen](https://do
 
 ### Ansattporten
 ```yaml title="Eksempel på SecurityConfig for Ansattporten-validering"
-apiVersion: security.skip.kartverket.no/v1alpha1
+apiVersion: accesserator.kartverket.no/v1alpha
 kind: SecurityConfig
 spec:
   applicationRef: my-app

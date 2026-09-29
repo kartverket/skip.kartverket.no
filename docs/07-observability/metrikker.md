@@ -24,6 +24,7 @@ For å kunne eksponere metrikker fra applikasjonen må du gjøre følgende:
     spec:
       image: "kartverket/example"
       port: 8080
+      routingProvider: Standard
 
       # Definer egen port
       additionalPorts:

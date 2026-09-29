@@ -1,19 +1,40 @@
 # Lokal kjøring
 
-For lokal utvikling kan du enten kjøre OPA via OPA CLI, eller som en docker container med `docker compose`.
+For lokal utvikling har Team Tilgangsstyring utviklet docker-imaget
+[ghcr.io/kartverket/skip-tilgangsstyring-local](https://github.com/kartverket/skip-tilgangsstyring-local).
+Imaget kjører OPA lokalt med dine egne policyer og data og konfigureres med en `SecurityConfig`.
 
-Følgende `docker-compose.yml` starter en OPA-server på port 3010, og leser policyene dine fra `./opa/policies` og bruker data for lokal kjøring fra `./opa/data/local`.
-Benytter man flagget `--watch` vil OPA automatisk laste inn endringer i policy- og datafilene, uten at containeren må restartes.
+Følgende `docker-compose.yaml` leser en `SecurityConfig` fra `/securityconfig.yaml` og starter en OPA-server på port 3010.
+Den leser **kun** OPA policies fra miljøvariablene `OPA_PATHS` (filstier) og `OPA_BUNDLES` (OCI-artefakter). I eksempelet
+under leser den policies fra `./opa/policies` og statisk data fra `./opa/data/local`.
+
+:::tip
+`SECURITY_CONFIG_PATH` støtter YAML, JSON og Jsonnet. Inneholder filen flere `SecurityConfig`-ressurser, kan du
+spesifisere hvilken som skal brukes med `SECURITY_CONFIG_NAME`. Består Jsonnet-en av flere filer som importerer
+hverandre fra ulike mapper, kan du sette `JSONNET_PATH` til en kolonseparert liste med mapper Jsonnet skal søke i
+under evaluering.
+:::
 
 ```yaml
-# docker-compose.yml
+# docker-compose.yaml
 services:
-  opa:
-    image: openpolicyagent/opa:latest
+  skip-tilgangsstyring-local:
+    image: ghcr.io/kartverket/skip-tilgangsstyring-local:latest
     ports:
       - "3010:3010"
-    command: ["run", "--server", "--addr", ":3010", "--watch", "/opa/policies", "/opa/data/local"]
+    environment:
+      SECURITY_CONFIG_PATH: /securityconfig.yaml
+      OPA_HTTP_PORT: 3010
+      OPA_PATHS: /opa/policies,/opa/data/local
     volumes:
+      - ./securityconfig.yaml:/securityconfig.yaml:ro
       - ./opa/policies:/opa/policies:ro
       - ./opa/data/local:/opa/data/local:ro
 ```
+
+## Versjoner
+
+En oversikt over tilgjengelige versjoner finner du på [GitHub Packages](https://github.com/kartverket/skip-tilgangsstyring-local/pkgs/container/skip-tilgangsstyring-local).
+
+Docker-imaget `ghcr.io/kartverket/skip-tilgangsstyring-local` publiseres med en datobasert tag og en bevegelig
+`latest`-tag.

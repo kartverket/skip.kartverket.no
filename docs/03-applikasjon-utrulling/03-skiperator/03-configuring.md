@@ -20,6 +20,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   ingresses:
     - ingressapp.atkv3-dev.kartverket-intern.cloud
   redirectToHTTPS: true
@@ -29,6 +30,36 @@ Dette setter opp en ingress for applikasjonen din som kan nås fra Kartverkets i
 For å gjøre den offentlig tilgjengelig kan du fjerne `-intern`-delen av domenenavnet.
 
 Hvis du ønsker, eller allerede har et annet domenenavn for applikasjonen din, må vi mest sannsynlig sette opp en CNAME-oppføring i DNS. Du kan lese mer om domenenavn [her](../../02-kom-i-gang/06-praktisk-intro/06-kubernetes/07-urler-og-sertifikat-for-tjenester-på-skip.md).
+
+#### Velg routing-API
+
+Feltet `spec.routingProvider` styrer hvilket API Skiperator bruker for ingressene. `Legacy` bruker Istio `Gateway` og `VirtualService`, `Standard` bruker Kubernetes Gateway API. Standardverdien er `Legacy`, men den blir fjernet senere, så bruk `Standard` i nye applikasjoner.
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: ingressapp
+spec:
+  image: image
+  port: 8080
+  routingProvider: Standard
+  ingresses:
+    - ingressapp.atkv3-dev.kartverket-intern.cloud
+```
+
+Se [Migrering av ekstern trafikk](05-routing.md) for hva som skjer når du bytter, og hvilke begrensninger `Standard` har.
+
+#### Eget sertifikat på et hostname
+
+Skiperator utsteder Let's Encrypt-sertifikater automatisk. Trenger du et sertifikat vi ikke kan utstede, skriver du hostnamet som `hostname+secret-navn`. Secreten må ligge i namespacet `istio-gateways` og provisjoneres på forhånd. Ta kontakt med SKIP.
+
+```yaml
+  ingresses:
+    - minapp.kartverket.no+minapp-tls
+```
+
+Se [Sertifikater utenfor ACME](../../02-kom-i-gang/06-praktisk-intro/06-kubernetes/08-certificates-outside-acme.md).
 
 ### Access policy (tilgangspolicy)
 
@@ -61,6 +92,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   accessPolicy:
     inbound:
       rules:
@@ -76,6 +108,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   accessPolicy:
     inbound:
       rules:
@@ -97,6 +130,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   accessPolicy:
     inbound:
       rules:
@@ -121,6 +155,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   accessPolicy:
     outbound:
       rules:
@@ -141,6 +176,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   accessPolicy:
     outbound:
       external:
@@ -151,6 +187,14 @@ spec:
               port: 80  
               protocol: HTTP
 ```
+
+#### Når målapplikasjonen ikke finnes
+
+En intern `outbound`-regel henter portene fra Servicen til applikasjonen den peker på. Finnes ikke den applikasjonen ennå, får objektet ditt status `InvalidConfig` og blir ikke klart. Dette er vanlig når to team ruller ut uavhengig av hverandre.
+
+Skiperator følger med på Servicen og kjører en ny reconcile med en gang målapplikasjonen dukker opp eller blir slettet. Du trenger ikke gjøre noe. Endrer Servicen porter, eller får et namespace en ny label som en regel velger på, oppdager Skiperator det innen fem minutter.
+
+En `external`-regel avhenger bare av specen din, så det finnes ingenting å vente på. Da prøver ikke Skiperator på nytt, og du må rette regelen selv.
 
 ### Replicas (kopier)
 
@@ -173,6 +217,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   replicas: 2
 ```
 
@@ -186,6 +231,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   replicas:
     min: 3
     max: 6
@@ -211,6 +257,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   replicas: 3
   stateful:
     enabled: true
@@ -245,6 +292,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   env: 
     - name: ENV_VAR
       value: "value"
@@ -267,6 +315,7 @@ metadata:
 spec:
   image: image
   port: 8080
+  routingProvider: Standard
   gcp:
     auth: 
       serviceAccount: myapp@some-project-id.iam.gserviceaccount.com
@@ -326,6 +375,7 @@ kind: Routing
 metadata:
     name: myrouting
 spec:
+    routingProvider: Standard
     hostname: kartverket.com
     routes:
         - pathPrefix: /api          # Høyest prioritet
@@ -334,3 +384,26 @@ spec:
         - pathPrefix: /             # Lavest prioritet
           targetApp: frontend-app
 ```
+
+### Dele et hostname mellom team
+
+Flere team kan legge hver sin path på det samme hostnamet, for eksempel `wms.example.com`. Hvert team lager ett `Routing`-objekt i sitt eget namespace, med `routingProvider: Standard` og `ownership: Shared`:
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Routing
+metadata:
+  name: wms
+  namespace: team-a
+spec:
+  hostname: wms.example.com
+  routingProvider: Standard
+  ownership: Shared
+  routes:
+    - pathPrefix: /ortosat
+      targetApp: ortosat
+```
+
+Standardverdien er `Standalone`, som betyr at objektet eier hele hostnamet alene.
+
+Se [Dele et hostname mellom team](06-delt-hostname.md) for hele oppsettet: DNS, hva Skiperator lager selv, hvordan paths fordeles mellom team, og hva som skjer når et team slutter å bruke hostnamet.

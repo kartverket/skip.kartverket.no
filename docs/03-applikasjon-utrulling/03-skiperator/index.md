@@ -16,4 +16,6 @@ Skiperator tilbyr tre CRDer (Custom Resource Definitions) for å gjøre det enke
 - `SKIPJob` - for å kjøre jobber og cron-jobber
 - `Routing` - for å sette opp rutingregler, for eksempel frontend- og backend-tjenester under samme domene
 
+Skiperator kan sette opp ingress med Istio eller med Kubernetes Gateway API. Se [Migrering av ekstern trafikk](05-routing.md) for hvilken du bør velge.
+
 For å komme i gang, sjekk ut sidene for [krav](01-requirements.md) og [komme i gang](../../02-kom-i-gang/index.md).

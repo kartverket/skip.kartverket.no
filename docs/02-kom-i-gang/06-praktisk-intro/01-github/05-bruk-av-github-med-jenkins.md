@@ -1,10 +1,10 @@
 # Bruk av GitHub med Jenkins
 
-Hvis en på ditt område (Grunnboka/Matrikkel/etc.) har satt opp repoer på GitHub (med Jenkins) så skal oppsett av en ny App ikke være nødvendig. Men repoet må legges til i Appen! Dette gjøres ved å sende en PR til [https://github.com/kartverket/github-iac/blob/main/apps/modules.tf](https://github.com/kartverket/github-iac/blob/main/apps/modules.tf)
+Hvis noen på ditt område (Grunnboka/Matrikkel/etc.) har satt opp repoer på GitHub (med Jenkins), skal oppsett av en ny app ikke være nødvendig. Men repoet må legges til i appen! Dette gjøres ved å sende en PR til [https://github.com/kartverket/github-iac/blob/main/apps/modules.tf](https://github.com/kartverket/github-iac/blob/main/apps/modules.tf)
 
 Denne oppskriften tar utgangspunkt i **Multibranch-pipeline** oppsett i Jenkins. Men skal fungere for andre konfigurasjoner.
 
-Utgangspunktet er at oppsettet i Jenkins skal være likt for GitHub som BitBucket, men selve autentiseringen av GitHub (kontra BitBucket) vil være noe forskjellig. Dette kommer av naturlige årsaker, siden BitBucket er lokalt hostet hos Kartverket, sammenlignet med GitHub som er åpent for “alle” på internet - og bygger på litt annen teknologi.
+Utgangspunktet er at oppsettet i Jenkins skal være likt for GitHub som for BitBucket, men selve autentiseringen mot GitHub (kontra BitBucket) vil være noe forskjellig. Dette kommer av naturlige årsaker, siden BitBucket er lokalt hostet hos Kartverket, sammenlignet med GitHub som er åpent for alle på internett – og bygger på litt annen teknologi.
 
 ## 📚 Autentisering 📚
 
@@ -30,7 +30,7 @@ Det er flere måter å autentisere Jenkins mot GitHub på, blant annet; deploy k
 
 ## 🧑‍🚒 Brannmurer 🧑‍🚒
 
-I utgangspunktet så skal portene til ditt Jenkins miljø være åpnet, slik at Jenkins når ut til GitHub. Men hvis det dette er første gang så må de åpnes for trafikk mot GitHub. Primært er det HTTPs og SSH trafikk som må tilgjengeliggjøres på port 443 og 22. Dette må bestilles hos drift.
+I utgangspunktet skal portene til ditt Jenkins-miljø være åpnet, slik at Jenkins når ut til GitHub. Men hvis dette er første gang, må de åpnes for trafikk mot GitHub. Primært er det HTTPS- og SSH-trafikk som må tilgjengeliggjøres på port 443 og 22. Dette må bestilles hos drift.
 
 ## 🪝 Webhook 🪝
 

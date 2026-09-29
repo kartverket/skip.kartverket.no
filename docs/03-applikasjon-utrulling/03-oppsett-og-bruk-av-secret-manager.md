@@ -2,7 +2,7 @@
 
 ![Secret manager](images/secret_manager.png)
 
-Google Secret Manager (GSM) er et system for å sikkert lagre nøkler, passord, sertfikater og andre sensitive data i GCP. GSM er det foretrukne stedet å lagre hemmeligheter på SKIP og Vault vil på sikt fases ut til fordel for dette.
+Google Secret Manager (GSM) er et system for å sikkert lagre nøkler, passord, sertifikater og andre sensitive data i GCP. GSM er det foretrukne stedet å lagre hemmeligheter på SKIP og Vault vil på sikt fases ut til fordel for dette.
 
 Det er mange fordeler med GSM:
 
@@ -38,8 +38,8 @@ GSM fungerer ganske likt Vault. Vault har noe mer funksjonalitet for avansert br
 
 ### Tilgangsstyring
 
-Når en secret er opprettet, kan man klikke seg inn på den, og velge **PERMISSIONS** fanen. Man får da opp hvem som har tilgang til denne secreten, og hvilke rettigheter de har.
+Når en secret er opprettet, kan du klikke deg inn på den, og velge **PERMISSIONS** fanen. Man får da opp hvem som har tilgang til denne secreten, og hvilke rettigheter de har.
 
 ![Access control](images/access_control.png)
 
-I de fleste tilfeller vil man bruke External Secret til å hente ut disse hemmelighetene. Det kan gjøres ved å opprette ExternalSecrets-ressurser i Kubernetes som henter ned hemmeligheten til en Kubernetes Secret. Det står mer om dette inkludert tilgangsstyring på [Hente hemmeligheter fra hemmelighetshvelv](./09-argo-cd/04-hente-hemmeligheter-fra-hemmelighetsvelv.md) .
+I de fleste tilfeller vil du bruke External Secret til å hente ut disse hemmelighetene. Det kan gjøres ved å opprette ExternalSecrets-ressurser i Kubernetes som henter ned hemmeligheten til en Kubernetes Secret. Det står mer om dette inkludert tilgangsstyring på [Hente hemmeligheter fra hemmelighetshvelv](./09-argo-cd/04-hente-hemmeligheter-fra-hemmelighetsvelv.md) .

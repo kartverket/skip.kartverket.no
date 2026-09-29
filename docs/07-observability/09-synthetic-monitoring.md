@@ -4,7 +4,10 @@ sidebar_position: 9
 
 # Syntetisk overvåking
 
-Syntetisk overvåking sjekker tilgjengeligheten til tjenestene dine ved å sende HTTP-forespørsler med jevne mellomrom.
+Syntetisk overvåking sjekker tilgjengeligheten til tjenestene dine ved å sende HTTP-forespørsler med jevne mellomrom og logge resultatet. Hvis resultatet ikke er en HTTP 200-kode (dvs. en feilkode eller time-out) så regnes det som en feil. Til slutt kan dette vises i et [dashboard](https://monitoring.kartverket.cloud/d/olb644d/oppetid-syntetisk-overvaking), og dere kan se hvordan tjenesten yter sammenliknet med tjenestenivåmålet (Service Level Objective - SLO) som er satt.
+![dashboard som viser feilrate](images/dashboard-uptime.png)
+
+Syntetisk overvåking kan sjekke både interne og eksternt eksponerte tjenester, så man kan både få innsikt i oppetiden til publikumstjenester og infrastruktur så lenge det er en HTTP-basert tjeneste.
 
 ## Kom i gang
 
@@ -118,6 +121,10 @@ Dersom du ønsker å fjerne syntetisk overvåking for en tjeneste, må du slette
 Dersom `synthetic-monitoring.yaml`-filen slettes eller ikke inneholder noen targets, vil valideringen feile. Vi har ikke full støtte for selvbetjent sletting av sjekker enda. Ta kontakt med oss i [#gen-skoop](https://kartverketgroup.slack.com/archives/C05DVCJ222Y) på Slack for hjelp.
 
 :::
+
+## Neste steg
+
+Når syntetisk monitorering er satt opp kan dere enkelt sette opp [oppetidsalarmer](10-alarm-on-synthetic-monitoring.md) for å varsle på høy feilrate, og [sertifikatutløpsalarmer](11-alarm-on-certificate-expiry.md) som kan varsle om automatisk sertifikatfornying skulle slutte å fungere eller om manuelt genererte sertifikater må fornyes.
 
 ## Spørsmål?
 

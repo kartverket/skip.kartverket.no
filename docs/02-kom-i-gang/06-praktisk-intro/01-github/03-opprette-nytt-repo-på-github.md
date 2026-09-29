@@ -1,6 +1,6 @@
-# Opprette nytt repo på Github
+# Opprette nytt repo på GitHub
 
-Dette dokumentet beskriver fremgangsmåten et produktteam skal bruke for å opprette et nytt repository på Github - enten de skal starte et nytt prosjekt, eller flytte et gammelt.
+Dette dokumentet beskriver fremgangsmåten et produktteam skal bruke for å opprette et nytt repository på GitHub – enten de skal starte et nytt prosjekt, eller flytte et eksisterende.
 
 ## Merknad for produkter som ikke er på SKIP
 
@@ -24,14 +24,14 @@ lage et nytt prosjekt eller importere et eksisterende prosjekt, siden du ikke vi
     - Ikke velg en lisens med mindre du faktisk skal lage et open-source prosjekt. Å velge en åpen kildekode-lisens her kan ødelegge for sikkerhetsverktøyene i Kartverket og i siste
     instans skape legale problemer for Kartverket.
   Hvis du er i tvil, ta kontakt med SKIP-teamet.
-- Dokumenter hvilket team som er ansvarlig for repositoriet ved å opprette en `Codeowners` fil.Dette er [dokumentert her](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
+- Dokumenter hvilket team som er ansvarlig for repositoriet ved å opprette en `Codeowners` fil. Dette er [dokumentert her](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
   Som regel er det nok med en linje - [slik](https://github.com/kartverket/iam/blob/main/CODEOWNERS) (bytt ut `skip` med ditt eget team).
 - Gi teamet ditt rettigheter til repoet. Dette er dokumentert [her](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-teams-and-people-with-access-to-your-repository).
   Det er vanlig å sette Tech Lead som eier for repositoriet, men dette bestemmer dere selv.
 
-## Opprett tilganger til Google Cloud for Github Actions
+## Gi tilgang til Google Cloud for GitHub Actions
 
-Dersom du har behov til å autentisere deg mot GCP kan du legge til at ditt repo GitHub kan autentisere seg mot Google Cloud med en bestemt bruker.
+Dersom du har behov for å autentisere deg mot GCP kan du legge til at ditt GitHub-repo kan autentisere seg mot Google Cloud med en bestemt bruker.
 Da må man sette opp [Workload Identity Federation](https://kartverket.atlassian.net/wiki/spaces/SKIPDOK/pages/320439634).
 Dette er noe SKIP ordner for produktteamene på en automatisert måte ved hjelp av Terraform.
 

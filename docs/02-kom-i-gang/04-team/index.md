@@ -1,7 +1,7 @@
 # 🫂 Team på SKIP
 
 * Teamets ansvar på SKIP
-* Onboarde nytt team SKIP
+* Onboarding av nytt team til SKIP
 * Legge til/fjerne personer fra teamet
-* Få tilgang til GCP, Grafana, ArgoCD, GitHUB
+* Få tilgang til GCP, Grafana, Argo CD, GitHub
 * Hvordan fungerer tilgangsstyring på SKIP

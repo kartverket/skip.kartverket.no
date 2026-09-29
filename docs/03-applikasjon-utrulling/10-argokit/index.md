@@ -15,7 +15,7 @@ Velkommen til ArgoKit! Her får du en introduksjon til hva ArgoKit er, og hvorfo
 
 Skiperator støtter både YAML og JSON. I Kartverket brukes ofte [Jsonnet](https://jsonnet.org), et konfigurasjonsspråk som utvider JSON med funksjoner, uttrykk og mulighet for gjenbruk. Jsonnet reduserer duplisering og gjør komplekse manifest enklere å vedlikeholde.
 
-ArgoKit tilbyr et sett med gjenbrukbare Jsonnet-maler (bibliotek) som gjør det raskere og mer konsistent å definere Skiperator-applikasjoner. Under ser du to eksempler som genererer identisk manifest,først en «rå» Jsonnet-funksjon, deretter en som bruker ArgoKit sine byggesteiner.
+ArgoKit tilbyr et sett med gjenbrukbare Jsonnet-maler (bibliotek) som gjør det raskere og mer konsistent å definere Skiperator-applikasjoner. Under ser du to eksempler som genererer identisk manifest, først en «rå» Jsonnet-funksjon, deretter en som bruker ArgoKit sine byggesteiner.
 ## Eksempler
 ### Uten ArgoKit-maler
 
@@ -30,6 +30,7 @@ function(name='foo-frontend', env, version, CLIENT_ID) [
     spec: {
       image: version,
       port: 3000,
+      routingProvider: 'Standard',
       ingresses: ['foo.example-' + env + '.cloud.com'],
       accessPolicy: {
         outbound: {
@@ -68,6 +69,7 @@ local app = argokit.appAndObjects.application;
 
 function(name='foo-frontend', env, version, CLIENT_ID)
   app.new(name, version, 3000)
+  + app.withRoutingProvider('Standard')
   + app.withOutboundSkipApp('foo-backend')
   + app.withOutboundHttp('graph.microsoft.com')
   + app.withOutboundHttp('login.microsoftonline.com')

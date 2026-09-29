@@ -1,0 +1,55 @@
+## 🔁 Rullering av hemmeligheter
+
+Digdirator roterer ikke hemmeligheter automatisk. I stedet fornyes den samme hemmeligheten (og tilhørende JWKS) i det
+uendelige, slik at samme JWKS kan brukes så lenge klientregistreringen eksisterer. Ønsker du likevel å rullere
+hemmeligheten har du to muligheter:
+
+### Opprette en ny hemmelighet med ny JWKS
+
+Ved å endre `secretName` i `spec` vil Digdirator opprette en helt ny `Secret`-ressurs med et nytt JWKS. Den gamle
+hemmeligheten, og den tilhørende JWKS-en, vil fortsette å være tilgjengelig og gyldig så lenge den fremdeles
+refereres til av kjørende workloads. Dette gjør det mulig å rullere hemmeligheten uten nedetid, ved å:
+1. Opprette en ny hemmelighet med nytt JWKS ved å endre `secretName` i `spec`.
+2. Oppdatere alle workloads som bruker den gamle hemmeligheten til å bruke den nye.
+3. Digdirator vil automatisk rydde opp den gamle hemmeligheten når ingen workloads lenger refererer til den.
+
+### Rullere hemmeligheten in-place
+
+Du kan tvinge frem en umiddelbar rullering av hemmeligheten ved å legge følgende annotasjon på ressursen:
+
+```yaml
+metadata:
+// diff-add-start
+  annotations:
+    digdir.nais.io/rotate: "true"
+// diff-add-end
+  ...
+spec:
+  ...
+```
+
+:::caution
+Merk at denne fremgangsmåten invaliderer den gamle JWKS-en umiddelbart, selv om en kjørende pod fortsatt bruker den.
+Dette kan medføre nedetid for applikasjonen din dersom ikke alle kjørende pods får hentet den nye hemmeligheten
+med det samme.
+:::
+
+### Sørge for at applikasjonen plukker opp den nye hemmeligheten
+
+Uavhengig av hvilken fremgangsmåte du velger, må applikasjonen din laste inn den oppdaterte hemmeligheten for at
+rulleringen skal ha noen effekt. Legg følgende annotasjon på din Skiperator-`Application` for at
+[Reloader](https://github.com/stakater/Reloader) automatisk skal rulle ut nye pods når hemmeligheten endres:
+
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  ...
+spec:
+// diff-add-start
+  podSettings:
+    annotations:
+      reloader.stakater.com/search: "true"
+// diff-add-end
+  ...
+```

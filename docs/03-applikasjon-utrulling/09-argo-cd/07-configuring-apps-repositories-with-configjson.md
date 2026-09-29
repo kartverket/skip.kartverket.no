@@ -1,8 +1,8 @@
 # Konfigurere applikasjons-repositorier med config.json
 
-Applikasjoner i [Argo CD](index.md) opprettes dynamisk når nye mapper i [apps-repoet](02-hva-er-et-apps-repo.md) blir opprettet. Disse applikasjonene følger en standard som er forhåndsdefinert av SKIP. Som standard er autosynkronsikring aktivert i utviklingsmiljø (dev), men ikke i produksjon (prod).
+Applikasjoner i [Argo CD](index.md) opprettes dynamisk når nye mapper i [apps-repoet](02-hva-er-et-apps-repo.md) blir opprettet. Disse applikasjonene følger en standard som er forhåndsdefinert av SKIP. Som standard er autosynkronisering aktivert i utviklingsmiljø (dev), men ikke i produksjon (prod).
 
-Det er mulig å konfigurere innstillingene til en applikasjon i apps-repoet ditt ved å legge til en spesiell fil kalt config.json i mappen. Når denne filen er til stede, kan et sett forhåndsdefinerte alternativer angis for å konfigurere hvordan applikasjonen skal synkroniseres av Argo CD.
+Det er mulig å konfigurere innstillingene til en applikasjon i apps-repoet ditt ved å legge til en spesiell fil kalt `config.json` i mappen. Når denne filen er til stede, kan et sett forhåndsdefinerte alternativer angis for å konfigurere hvordan applikasjonen skal synkroniseres av Argo CD.
 
 Eksempelet nedenfor viser en `config.json` fil:
 
@@ -15,7 +15,7 @@ Eksempelet nedenfor viser en `config.json` fil:
 
 `config.json` Kan kun plasseres i rot-mappen for namespaces. For eksempel: `dev/foo-main/config.json` eller `env/atkv3-dev/foo-main/config.json` .
 
-Når filen er lagt til i mappen, må applikasjonen synkroniseres i Argo CD for å oppdatere applikasjonsinnstillingene slik at de følger spesifikasjonene i `config.json`. Dette skjer automatisk hvis autosynkronsikring er aktivert.
+Når filen er lagt til i mappen, må applikasjonen synkroniseres i Argo CD for å oppdatere applikasjonsinnstillingene slik at de følger spesifikasjonene i `config.json`. Dette skjer automatisk hvis autosynkronisering er aktivert.
 
 ## Tilgjengelige innstillinger
 
