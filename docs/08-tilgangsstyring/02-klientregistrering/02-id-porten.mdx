@@ -14,6 +14,21 @@ Digdir tilbyr ID-Porten i et testmiljø, der du kan teste applikasjonen din med 
 For å registrere en klient mot ID-Porten sitt testmiljø så kan du enten gjøre det i Digdir sin [selvbetjeningsløsning i test](https://sjolvbetjening.test.samarbeid.digdir.no/login) 
 eller opprette en `IDPortenClient`-ressurs i dev-clustrene til SKIP, i.e. `atgcp1-dev` eller `atkv3-dev`.
 
+## 🔄 Refresh-tokens
+
+Om ID-porten utsteder refresh-tokens bestemmes av klientregistreringen, ikke av scopes i hver forespørsel (f.eks.
+`offline_access`). Klienten får kun utstedt refresh-token dersom den er registrert med `refresh_token` som tillatt
+grant-type, i tillegg til `authorization_code`.
+
+- **Selvbetjeningsløsningen:** Du velger selv om klienten skal ha grant-typen `refresh_token`, og kan sette levetid
+  for refresh-token og authorization, samt om refresh-tokenet skal være engangs eller gjenbrukbart.
+- **Digdirator:** En `IDPortenClient` registreres **alltid** med grant-typen `refresh_token`. Refresh-tokenet er
+  engangs, og både levetiden for refresh-token og authorization settes til `spec.sessionLifetime`. Dette kan ikke skrus av.
+
+Levetiden på refresh-tokenet bestemmer hvor lenge sesjonen kan være inaktiv, mens levetiden på authorization bestemmer
+maksimal levetid for sesjonen. Se Digdir sin dokumentasjon om
+[registrering av klienter](https://docs.digdir.no/docs/idporten/oidc/oidc_func_clientreg) for detaljer.
+
 ## 🪪 Klientregistrering med `IDPortenClient`
 
 En `IDPortenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde ID-Porten-klientregistreringer.

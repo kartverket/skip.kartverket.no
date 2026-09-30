@@ -15,9 +15,24 @@ Du kan lese mer om Ansattporten på [Digdir sine sider](https://docs.digdir.no/d
 
 ## 🧪 Testmiljø for Ansattporten
 
-Digdir tilbyr Ansattporten i et testmiljø, der du kan teste applikasjonen din med syntetiske brukere fra Test-Folkeregisteret og syntetiske organisasjoner. 
+Digdir tilbyr Ansattporten i et testmiljø, der du kan teste applikasjonen din med syntetiske brukere fra Test-Folkeregisteret og syntetiske organisasjoner.
 For å registrere en klient mot Ansattporten sitt testmiljø så kan du benytte deg av Digdir sin [selvbetjeningsløsning i test](https://sjolvbetjening.test.samarbeid.digdir.no/login) 
 Du kan også teste ut å gi ulike representasjoner til syntetiske organisasjoner for test-brukere i [Altinn sitt test-miljø](https://info.tt02.altinn.no/).
+
+## 🔄 Refresh-tokens
+
+Om Ansattporten utsteder refresh-tokens bestemmes av klientregistreringen, ikke av scopes i hver forespørsel (f.eks.
+`offline_access`). Klienten får kun utstedt refresh-token dersom den er registrert med `refresh_token` som tillatt
+grant-type, i tillegg til `authorization_code`.
+
+- **Selvbetjeningsløsningen:** Du velger selv om klienten skal ha grant-typen `refresh_token`, og kan sette levetid
+for refresh-token og authorization, samt om refresh-tokenet skal være engangs eller gjenbrukbart.
+- **Digdirator:** En `AnsattportenClient` registreres **alltid** med grant-typen `refresh_token`. Refresh-tokenet er
+engangs, og både levetiden for refresh-token og authorization settes til `spec.sessionLifetime`. Dette kan ikke skrus av.
+
+Levetiden på refresh-tokenet bestemmer hvor lenge sesjonen kan være inaktiv, mens levetiden på authorization bestemmer
+maksimal levetid for sesjonen. Se Digdir sin dokumentasjon om
+[registrering av klienter](https://docs.digdir.no/docs/idporten/oidc/oidc_func_clientreg) for detaljer.
 
 ## 🔹 Federering til Microsoft Entra ID
 
