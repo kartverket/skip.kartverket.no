@@ -12,8 +12,8 @@ Autorisasjonsreglene bygges opp i følgende rekkefølge:
 
 Et token regnes som gyldig dersom alle følgende krav er oppfylt:
 
-- **Signatur:** Tokenet er signert med en nøkkel fra identitetstilbyderens JWKS, som hentes fra `jwks_uri` i
-  discovery-dokumentet på `spec.wellKnownURI`.
+- **Signatur:** Tokenet er signert med en nøkkel fra tokenutstederens eller identitetstilbyderens JWKS, som hentes
+  fra `jwks_uri` i discovery-dokumentet på `spec.wellKnownURI`.
 - **Utsteder (`iss`):** `iss`-claimet er _nøyaktig_ lik `issuer` i discovery-dokumentet på `spec.wellKnownURI`.
 - **Audience (`aud`):** `aud`-claimet inneholder minst én av verdiene i `spec.allowedAudiences`.
 - **Utløp (`exp`):** Tokenet er ikke utløpt.
