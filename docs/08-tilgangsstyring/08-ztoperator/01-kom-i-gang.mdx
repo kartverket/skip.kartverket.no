@@ -380,3 +380,79 @@ spec:
 ```
 </details>
 
+## 🤖 Maskinporten
+
+Følgende eksempel viser hvordan en API-applikasjon kan beskyttes med Maskinporten i test. I motsetning til
+brukerrettede identitetstilbydere brukes det ikke innlogging eller `autoLogin`. Konsumenten henter et access-token fra
+Maskinporten og sender det i `Authorization: Bearer <token>` ved kall til API-et.
+
+Eksempelet bruker Digdirator til å opprette et Maskinporten-scope, Skiperator til applikasjonsutrulling og Ztoperator
+til validering av token. Merk at Maskinporten-tokens ikke inneholder noe `aud`-claim, og at vi dermed heller ikke kan
+bruke `allowedAudiences`-feltet for å validere dette. `baselineAuth` brukes her for å begrense tilgang til API-et, slik
+at kun Maskinporten-tokens med riktig scope aksepteres.
+
+### 📋 Manifester
+
+<details>
+    <summary><strong>`MaskinportenClient`: ztoperator-demo-maskinporten/maskinporten-demo</strong></summary>
+```yaml
+apiVersion: nais.io/v1
+kind: MaskinportenClient
+metadata:
+  name: maskinporten-demo
+spec:
+  clientName: Ztoperator Maskinporten Demo
+  secretName: maskinporten-demo-secret
+  scopes:
+    exposes:
+      - enabled: true
+        product: ztoperator
+        name: maskinporten-demo.read
+        separator: /
+        consumers:
+          - name: Eksempel-konsument-1
+            orgno: "123456789"
+          - name: Eksempel-konsument-2
+            orgno: "987654321"
+```
+</details>
+
+<details>
+    <summary><strong>`Application`: ztoperator-demo-maskinporten/maskinporten-demo-api</strong></summary>
+```yaml
+apiVersion: skiperator.kartverket.no/v1alpha1
+kind: Application
+metadata:
+  name: maskinporten-demo-api
+spec:
+  image: ghcr.io/kartverket/ztoperator-echo-app:v0
+  port: 5000
+  routingProvider: Standard
+  env:
+    - name: ECHO_TITLE
+      value: Hello from Ztoperator Maskinporten Demo App
+  ingresses:
+    - maskinporten-ztoperator.atgcp1-dev.kartverket.cloud
+```
+</details>
+
+<details>
+    <summary><strong>`AuthPolicy`: ztoperator-demo-maskinporten/authpolicy-maskinporten</strong></summary>
+```yaml
+apiVersion: ztoperator.kartverket.no/v1alpha1
+kind: AuthPolicy
+metadata:
+  name: authpolicy-maskinporten
+spec:
+  enabled: true
+  selector:
+    matchLabels:
+      app: maskinporten-demo-api
+  wellKnownURI: https://test.maskinporten.no/.well-known/oauth-authorization-server
+  baselineAuth:
+    claims:
+      - claim: scope
+        values:
+          - kartverk:ztoperator/maskinporten-demo.read
+```
+</details>

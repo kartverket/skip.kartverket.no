@@ -25,8 +25,11 @@ Ztoperator har aktive deprecation warnings, se [deprecation warnings](#%EF%B8%8F
   </Column>
 </Columns>
 
-Ztoperator konfigureres opp mot en identitetstilbyder med feltet `spec.wellKnownURI`, som peker til et [OpenID Connect Discovery Document](https://openid.net/specs/openid-connect-discovery-1_0.html). Dette dokumentet inneholder informasjon om hvordan Ztoperator skal kommunisere med identitetstilbyderen, slik som endepunkter for autentisering, tokenvalidering og utlogging. 
-Hvilke identitetstilbydere Ztoperator støtter per nå kan ses under [Støttede identitetstilbydere](#-støttede-identitetstilbydere).
+Ztoperator konfigureres opp mot en tokenutsteder eller identitetstilbyder med feltet `spec.wellKnownURI`, som peker til
+et [OpenID Connect Discovery Document](https://openid.net/specs/openid-connect-discovery-1_0.html). Dette dokumentet
+inneholder informasjon Ztoperator trenger for tokenvalidering og, for brukerrettede flyter, autentisering og utlogging.
+Hvilke tokenutstedere og identitetstilbydere Ztoperator støtter per nå kan ses under
+[Støttede tokenutstedere og identitetstilbydere](#-støttede-tokenutstedere-og-identitetstilbydere).
 
 Hvordan konfigurere innlogging er dokumenter under [Innlogging](02-innlogging.mdx).
 Hvordan du definerer autorisasjonsregler er dokumentert under [Autorisasjonsregler](03-autorisasjonsregler.mdx).
@@ -37,7 +40,7 @@ Hvordan du kan teste og verifisere oppførselen til en `AuthPolicy` finner du un
 
 Før du kan bruke Ztoperator til å beskytte tjenesten din må følgende være på plass:
 
-- Du må vite hvilken OAuth 2.0-identitetstilbyder som passer for din tjeneste og registrere en klient hos denne. Se [her](index.mdx#-støttede-identitetstilbydere) for en oversikt over hvilke identitetstilbydere som støttes av Ztoperator på SKIP.
+- Du må vite hvilken OAuth 2.0-tokenutsteder eller identitetstilbyder som passer for din tjeneste. Der det kreves, må du registrere en klient hos tilbyderen. Se [her](index.mdx#-støttede-tokenutstedere-og-identitetstilbydere) for en oversikt over hvilke tilbydere som støttes av Ztoperator på SKIP.
 - Du må vite hvilket *well-known endepunkt*, *audience* og eventuelle *claims* som gjelder for applikasjonen din.
 - Den beskyttede applikasjonen **må** kjøre på SKIP.
 
@@ -79,8 +82,9 @@ I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator
 - [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-kom-i-gang.mdx#--microsoft-entra-id)
 - [Eksempeloppsett av Ztoperator: ID-Porten](01-kom-i-gang.mdx#-id-porten)
 - [Eksempeloppsett av Ztoperator: Ansattporten](01-kom-i-gang.mdx#-ansattporten)
+- [Eksempeloppsett av Ztoperator: Maskinporten](01-kom-i-gang.mdx#-maskinporten)
 
-## 🛠 Støttede identitetstilbydere
+## 🛠 Støttede tokenutstedere og identitetstilbydere
 
 | Miljø | Identitetstilbyder | `wellKnownURI` | SKIP DEV | SKIP PROD |
 | --- | --- | --- | --- | --- |
