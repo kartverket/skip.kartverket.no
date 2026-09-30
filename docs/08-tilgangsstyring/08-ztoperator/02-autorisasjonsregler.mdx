@@ -1,36 +1,169 @@
 # Autorisasjonsregler
 
-## Introduksjon til autorisasjonsregler i Ztoperator
-Ztoperator lar deg spesifisere autorisasjonsregler i tre lag:
-- `authRules`: ytterligere regler (utover gyldig token) som gjelder for spesifikke paths og HTTP-metoder. Regler definert i `authRules` overstyrer kolliderende regler i `ignoreAuthRules`
-- `ignoreAuthRules`: regler som spesifiserer paths og HTTP-metoder som skal være tilgjengelig _uten_ gyldig token.
-- `baselineAuth`: ytterligere regler (utover gyldig token) som gjelder for alle paths, unntatt de som omfattes av `ignoreAuthRules`.
+En `AuthPolicy` beskytter i utgangspunktet **alle** paths og HTTP-metoder i applikasjonen, og krever et gyldig token.
+Autorisasjonsreglene bygges opp i følgende rekkefølge:
 
-Definisjonen av "gyldig token" her er:
-- Tokenet må være signert av identitetstilbyderen som er konfigurert i `spec.wellKnownURI`
-- Tokenet må ha et audience som matcher en av de som er definert i `spec.allowedAudiences`
-- Tokenet må ikke være utløpt iht. `exp`-claimet
-- Tokenet må ikke være utstedt i fremtiden iht. `nbf`-claimet
+1. [`ignoreAuthRules`](#1-ignoreauthrules-åpne-endepunkter) åpner opp paths og HTTP-metoder som skal være tilgjengelige _uten_ token.
+2. [Alt annet krever et gyldig token](#2-alt-annet-krever-et-gyldig-token).
+3. [`baselineAuth`](#3-baselineauth-krav-for-alle-beskyttede-endepunkter) stiller ytterligere krav til claims i tokenet for alle beskyttede endepunkter.
+4. [`authRules`](#4-authrules-krav-for-spesifikke-endepunkter) stiller ytterligere krav til claims i tokenet for spesifikke paths og HTTP-metoder.
 
-Ytterligere claims-baserte regler definert i `authRules` og `baselineAuth` vil bli validert i tillegg til nevnte krav
-til gyldig token.
+## 🔑 Hva er et gyldig token?
 
-## Komplett eksempel
+Et token regnes som gyldig dersom alle følgende krav er oppfylt:
+
+- **Signatur:** Tokenet er signert med en nøkkel fra identitetstilbyderens JWKS, som hentes fra `jwks_uri` i
+  discovery-dokumentet på `spec.wellKnownURI`.
+- **Utsteder (`iss`):** `iss`-claimet er _nøyaktig_ lik `issuer` i discovery-dokumentet på `spec.wellKnownURI`.
+- **Audience (`aud`):** `aud`-claimet inneholder minst én av verdiene i `spec.allowedAudiences`.
+- **Utløp (`exp`):** Tokenet er ikke utløpt.
+- **Ikke før (`nbf`):** Tokenet er ikke tatt i bruk før tidspunktet angitt i `nbf`-claimet, dersom det er satt.
+
+## 🧱 Oppbygging av autorisasjonsregler
+
+### 1. `ignoreAuthRules`: åpne endepunkter
+
+`ignoreAuthRules` spesifiserer paths og HTTP-metoder som skal være tilgjengelige _uten_ token, som f.eks. statiske
+ressurser, helsesjekker eller offentlig API-dokumentasjon. Dersom `methods` utelates, gjelder regelen for alle
+HTTP-metoder.
+
+```yaml
+spec:
+  ignoreAuthRules:
+    - paths:
+        - /public/{**}
+    - paths:
+        - /feedback
+      methods:
+        - GET
+        - POST
+```
+
+Kombinasjoner av path og metode som ikke dekkes av en regel er _ikke_ åpne. I eksemplet over krever f.eks.
+`DELETE /feedback` fortsatt et gyldig token.
+
+### 2. Alt annet krever et gyldig token
+
+Alle paths og HTTP-metoder som ikke er åpnet med `ignoreAuthRules` krever et [gyldig token](#-hva-er-et-gyldig-token).
+Dette gjelder uten at du trenger å konfigurere noe.
+
+### 3. `baselineAuth`: krav for alle beskyttede endepunkter
+
+`baselineAuth` stiller krav til claims i tokenet som gjelder for **alle** beskyttede endepunkter, altså alt som ikke
+er åpnet med `ignoreAuthRules`. Dette inkluderer også endepunkter som dekkes av `authRules`.
+
+```yaml
+spec:
+  baselineAuth:
+    claims:
+      - claim: groups
+        values:
+          - my-user-group
+```
+
+### 4. `authRules`: krav for spesifikke endepunkter
+
+`authRules` stiller ytterligere krav til claims i tokenet for spesifikke paths og HTTP-metoder. Kravene i `authRules`
+gjelder _i tillegg til_ kravene i `baselineAuth`, og overstyrer dem ikke.
+
+```yaml
+spec:
+  authRules:
+    - paths:
+        - /admin/{**}
+      when:
+        - claim: role
+          values:
+            - admin
+```
+
+:::caution
+Regler i `authRules` overskriver regler i `ignoreAuthRules`. Det betyr at du må være påpasselig med at uttrykk for paths
+i `authRules`, særlig ved bruk av wildcards, ikke overlapper med paths du ønsker skal være åpne.
+:::
+
+### Wildcards i paths
+
+`paths` støtter ikke regulære uttrykk, men såkalte path-templates med to operatorer:
+
+- `{*}` treffer nøyaktig ett path-segment. `/api/{*}/users` treffer `/api/v1/users`, men ikke `/api/v1/beta/users`.
+- `{**}` treffer null eller flere path-segmenter, og må være siste operator i pathen. `/api/{**}` treffer bl.a.
+  `/api/users` og `/api/users/123`.
+
+Den mest korrekte bruken er å la operatoren utgjøre et helt path-segment bak en `/`, f.eks. `/api/{*}/users` og
+`/public/{**}`. Da matches paths på segmentgrenser, og du unngår å treffe paths du ikke hadde tenkt å treffe.
+Ønsker du at også `/public` skal treffes, legger du den til som en egen path:
+
+```yaml
+paths:
+  - /public
+  - /public/{**}
+```
+
+Ztoperator støtter også `{**}` direkte etter en tekst i siste segment, f.eks. `/public{**}`. Dette tolkes som et
+prefiks-treff, som betyr at alle paths som _starter med_ `/public` treffes, uavhengig av segmentgrenser.
+`/public{**}` treffer dermed `/public` og `/public/123`, men også `/publication` og `/public-admin`. Denne syntaksen kan
+ikke kombineres med andre operatorer i samme path.
+
+### OR- og AND-logikk for claims
+
+Kravene i `baselineAuth.claims` og `authRules[].when` evalueres likt:
+
+- **Innenfor ett krav** er det tilstrekkelig at claimet inneholder _én_ av de oppgitte verdiene (OR).
+- **Mellom flere krav** må _alle_ være oppfylt (AND). Dette gjelder også på tvers av `baselineAuth` og `authRules`.
+
+#### OR: flere _values_ i samme _claim_
+
+Regelen nedenfor vil godta tokenet dersom claimet `groups` inneholder enten `group-a` eller `group-b`:
+
+```yaml
+spec:
+  baselineAuth:
+    claims:
+      - claim: groups
+        values:
+          - group-a
+          - group-b
+```
+
+#### AND: ulike _values_ under ulike _claim_-blokker
+
+Regelen nedenfor vil godta tokenet dersom claimet `groups` inneholder _både_ `group-a` og `group-b`:
+
+```yaml
+spec:
+  baselineAuth:
+    claims:
+      - claim: groups
+        values:
+          - group-a
+      - claim: groups
+        values:
+          - group-b
+```
+
+## 📋 Komplett eksempel
+
 ```yaml
 apiVersion: ztoperator.kartverket.no/v1alpha1
 kind: AuthPolicy
 spec:
   ignoreAuthRules:
     - paths:
-        - /public{**}
+        - /public/{**}
     - paths:
         - /feedback
       methods:
         - GET
         - POST
+  baselineAuth:
+    claims:
+      - claim: groups
+        values:
+          - my-user-group
   authRules:
     - paths:
-        - /admin{**}
+        - /admin/{**}
       when:
         - claim: role
           values:
@@ -38,17 +171,15 @@ spec:
         - claim: groups
           values:
             - my-admin-group
-  baselineAuth:
-    claims:
-      - claim: groups
-        values:
-          - my-user-group
   ... # øvrige påkrevde/valgfrie felter
 ```
 
 I dette eksemplet vil følgende autorisasjonsregler gjelde:
-- Forespørsler til `/public` og alle underliggende stier vil være tilgjengelig uten gyldig token.
-- GET- og POST-forespørsler til `/feedback` vil være tilgjengelig uten gyldig token.
-- PUT-, PATCH- og DELETE-forespørsler til `/feedback` vil kreve et gyldig token med et claim `groups` med verdien `my-user-group`, siden `ignoreAuthRules` kun gjelder for GET- og POST-forespørsler.
-- Forespørsler til `/admin` og alle underliggende stier må ha et gyldig token med claimet `role: admin` _og_ et claim `groups` med begge verdiene `my-user-group` og `my-admin-group`. Altså vil `authRules` og `baselineAuth` for samme claim bli kombinert - førstnevnte vil _ikke_ overskrive sistnevnte.
-- Forespørsler mot alle andre paths må ha et gyldig token med et claim `groups` med verdien `my-user-group`.
+
+| Forespørsel | Krav |
+| --- | --- |
+| Alle understier av `/public/...` | Ingen, åpent uten token |
+| `GET` og `POST` til `/feedback` | Ingen, åpent uten token |
+| `PUT`, `PATCH`, `DELETE` m.fl. til `/feedback` | Gyldig token med `groups` som inneholder `my-user-group` |
+| Alle understier av `/admin/...` | Gyldig token med `role: admin`, og `groups` som inneholder _både_ `my-user-group` og `my-admin-group` |
+| Alle andre paths | Gyldig token med `groups` som inneholder `my-user-group` |
