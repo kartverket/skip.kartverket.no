@@ -34,13 +34,20 @@ Levetiden på refresh-tokenet bestemmer hvor lenge sesjonen kan være inaktiv, m
 maksimal levetid for sesjonen. Se Digdir sin dokumentasjon om
 [registrering av klienter](https://docs.digdir.no/docs/idporten/oidc/oidc_func_clientreg) for detaljer.
 
-## 🔹 Federering til Microsoft Entra ID
+## 🔹 Autentiseringsmetoder og representasjon i Ansattporten
 
-Digdir annerkjenner at Microsoft Entra ID brukes som intern identitetstilbyder for brorparten av offentlige virksomheter i Norge. 
-Som et resultat av dette har de derfor implementert støtte for såkalt "federering" mellom Ansattporten og Microsoft Entra ID.
-Dette betyr at når en sluttbruker skal logge inn via Ansattporten, og vedkommende sin arbeidsgiver bruker Microsoft Entra ID, 
-så vil brukeren bli omdirigert til sin egen virksomhets Microsoft Entra ID for autentisering før de returneres til Ansattporten for autorisering og tildeling av riktige representasjoner. 
-Dette gjør det enklere for en virksomhet å enkelt vedlikeholde hvem som skal ha hvilke rettigheter til andre virksomheter sine tjenester, samtidig som sluttbrukeren får en sømløs innloggingsopplevelse ved å bruke sin vante påloggingsmetode.
+Ansattporten støtter flere autentiseringsmetoder, avhengig av hvem sluttbrukeren er og hvilken autoritativ kilde
+tjenesten din trenger for representasjon:
+- **BankID, Buypass, Commfides eller MinID:** Brukeren autentiserer seg med fødselsnummer (`pid`), og kan representere
+  en virksomhet basert på roller, tilgangspakker eller enkeltrettigheter i **Altinn**.
+- **Microsoft Entra ID:** Brukeren autentiserer seg med jobbkontoen sin, uavhengig av hvilken Entra-tenant
+  arbeidsgiveren bruker. Dette gir deg kun autentisering, ikke representasjon, med mindre arbeidsgiveren i tillegg har
+  konfigurert **Virksomhetsbroen** (pilot) for tjenesten din.
+
+Tjenesten din velger selv hvilken eller hvilke metoder den vil tilby, se [Valg av identitetstilbyder](../01-valg-av-identitetstilbyder/index.mdx) for en fullstendig
+sammenligning av alternativene, inkludert [Ansattporten med Altinn-roller](../01-valg-av-identitetstilbyder/03-altinn-roller.mdx),
+[Entra ID og Virksomhetsbroen](../01-valg-av-identitetstilbyder/04-virksomhetsbroen.mdx) og
+[kun Entra ID](../01-valg-av-identitetstilbyder/05-ansattporten-entra-id.mdx).
 
 ```mermaid
 flowchart LR;
@@ -51,13 +58,15 @@ flowchart LR;
   eid-leverandør([Private eID leverandør</br>MinID, BankID, etc.])
   altinn([Autorativ kilde</br>Altinn Autorisasjon]);
   entra-id([Ansatt eID</br>Microsoft Entra ID]);
+  virksomhetsbroen([Autorativ kilde</br>Virksomhetsbroen]);
 
   innbygger -- "integreres mot" --> id-porten;
   id-porten -- "autentiserer via" --> eid-leverandør;
   ansatte -- "integreres mot" --> ansattporten;
   ansattporten -- "autentiserer via" --> eid-leverandør;
   ansattporten -- "henter representasjon fra" --> altinn;
-  ansattporten -- "autentiserer via</br>og henter representasjon fra" --> entra-id;
+  ansattporten -- "autentiserer via (pilot)" --> entra-id;
+  ansattporten -- "henter representasjon fra (pilot)" --> virksomhetsbroen;
 ```
 _Skisse over Ansattporten og ID-Porten._
 
