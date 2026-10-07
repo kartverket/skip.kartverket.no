@@ -1,0 +1,59 @@
+# Altinn PDP
+
+[`altinn-pdp-rest-server`](https://github.com/kartverket/altinn-pdp) er en tjeneste som svarer på om en systembruker eller
+person har tilgang til en gitt ressurs i Altinn. Tjenesten leveres som et JSON-basert REST-grensesnitt på SKIP,
+tilgjengelig via intern cluster-trafikk på `http://altinn-pdp-rest-server.tilgangsstyring-altinn:8080`.
+
+## 🎯 Hvorfor PDP-oppslag?
+Et gyldig Maskinporten- eller Ansattporten-token beviser at en systembruker eller person er autentisert, men ikke
+hvorvidt denne har lov til å opptre på vegne av en organisasjon og med en gitt handling på en gitt ressurs. For å
+avgjøre dette må det gjøres et PDP-oppslag mot Altinn sitt Policy Decision Point.
+
+Din applikasjon må altså gjøre to uavhengige sjekker:
+- **Token-validering** (i applikasjonen selv, eventuelt via Ztoperator/Accesserator): at tokenet er gyldig, og at det
+  inneholder riktig scope (Maskinporten) eller er på riktig autentiseringsnivå (Ansattporten). I tillegg må
+  applikasjonen selv lese ut hvilken organisasjon systembrukeren eller personen opptrer på vegne av fra tokenets
+  `authorization_details`-claim (`systemuser_org` for en systembruker, `authorized_parties[].orgno` for en person).
+  Denne organisasjonen brukes så videre i PDP-oppslaget
+- **PDP-oppslag** (via `altinn-pdp-rest-server`): at systembrukeren eller personen faktisk har fått tildelt tilgang i Altinn til å
+  utføre den aktuelle handlingen på den aktuelle ressursen, på vegne av den aktuelle organisasjonen. Handlingen er en
+  fritekst-`action`, f.eks `read` eller `write`, og hvilke handlinger som finnes for en gitt ressurs er definert i
+  Altinn sitt ressursregister for den ressursen. Det er altså ressurseier, ikke `altinn-pdp`, som bestemmer hvilke
+  `action`-verdier som er gyldige å spørre om
+
+## 🔎 Hvordan gjøre et PDP-oppslag?
+Tjenestens API er dokumentert i [OpenAPI-specen på kartverket.dev](https://kartverket.dev/catalog/default/api/altinn-pdp-rest-server-api/definition),
+og dekker alle felt, beslutninger og feilkoder. Hovedendepunktet er `POST /authorize`.
+
+Requesten tar inn:
+- `systemuserId` (for en systembruker) **eller** `pid` (fødselsnummer/D-nummer, for en person)
+- `resourceId` - hvilken Altinn-ressurs, som du må vite på forhånd
+- `customerOrganizationNumber` - hvilken organisasjon subjektet opptrer på vegne av
+- `action` - hvilken handling, f.eks `read` eller `write`
+
+Responsen inneholder:
+- `permit` (boolean) - `true` dersom tilgang er gitt, `false` ellers. De aller fleste kallende applikasjoner trenger
+  kun å forholde seg til dette feltet
+- `decision` - den underliggende XACML-beslutningen fra Altinn: `PERMIT`, `DENY`, `NOT_APPLICABLE` (ingen matchende
+  policy ble funnet, ikke nødvendigvis en feil) eller `INDETERMINATE` (PDP-en klarte ikke å evaluere forespørselen).
+  Kun `PERMIT` gir `permit: true`
+- `minimumAuthenticationLevel` - dersom satt, er en eventuell `PERMIT` **betinget** av at sluttbrukeren var logget inn
+  på minst dette autentiseringsnivået - dette må kallende applikasjon selv verifisere, PDP-en sjekker det ikke for deg
+- `status` - Altinn sin XACML-statuskode, til feilsøking
+
+## 🔐 Tilgangsstyring til applikasjonen
+Hvilke applikasjoner (eller mer presist: _workloads_) på SKIP som har lov til å spørre om hvilke ressurser styres av [`altinn-pdp-access-control`](https://github.com/kartverket/altinn-pdp-access-control).
+Tjenesten bruker en innebygd mekanisme på SKIP kalt _SPIFFE_ til å identifisere workloads, og validerer tilgang opp mot
+reglene konfigurert i `altinn-pdp-access-control`.
+
+For å gi din applikasjon tilgang:
+1. **Åpne en pull request** mot [`altinn-pdp-access-control`](https://github.com/kartverket/altinn-pdp-access-control),
+   der du legger inn eller utvider din workload i `data.resource_access` for ressursen(e) du trenger, i miljøet(ene)
+   (`dev`, `prod`, eller begge) du trenger dem i. Ressurser kan gis som **eksakt match** (foretrukket) eller
+   **prefiks-match**.
+2. **Team Tilgangsstyring reviewer, merger og deployer pull requesten.** Når den er deployet har din workload tilgang
+   til å utføre PDP-autorisasjon for de gitte ressursen(e) i de valgte miljøene
+
+Du kan bruke Copilot-skillet `opa-access-policy-pr` (`.github/skills/opa-access-policy-pr/SKILL.md` i
+`altinn-pdp-access-control`) til å forberede PR-en, eller redigere `opa/data/<env>/resource_access/data.json`-filene
+manuelt og åpne en PR på vanlig måte.
