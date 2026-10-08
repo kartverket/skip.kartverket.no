@@ -1,0 +1,18 @@
+# Grensesnitt mot nasjonale fellesløsninger
+
+Team Tilgangsstyring tilbyr interne grensesnitt mot utvalgt funksjonalitet tilknyttet de nasjonale fellesløsningene.
+Dette kan være fordi fellesløsningen sitt grensesnitt er komplisert å bruke for teamene i Kartverket (som f.eks
+PDP-oppslag hos Altinn), eller fordi integrasjon med tjenesten krever rettigheter eller hemmeligheter teamene ikke bør
+ha tilgang til (som f.eks. bruk av virksomhetssertifikat mot Digdir/Maskinporten).
+
+De interne grensesnittene vi tilbyr er:
+- [**Altinn PDP**](01-altinn-pdp/index.mdx): et grensesnitt for å spørre Altinn sitt Policy Decision Point (PDP) om
+  en systembruker eller person har tilgang til en gitt ressurs
+- SOON: Administrasjon av Maskinporten-scopes: et grensesnitt for å opprette og administrere Maskinporten-scopes, samt
+  gi konsumenter tilgang til disse.
+
+Tilgang til tjenestene styres med _policy as code_. Teamene oppretter pull-requests mot et Git-repository med
+tilgangsregler, som Team Tilgangsstyring review-er og deployer på SKIP.
+
+Ta kontakt med Team Tilgangsstyring dersom det er andre fellesløsninger dere ønsker at vi skal tilby interne grensesnitt
+mot, eller dersom dere har innspill til forbedringer av eksisterende grensesnitt.
