@@ -18,7 +18,7 @@ oss å opprettholde et høyt minimumsnivå av sikkerhet i alle applikasjoner.
 - [Finkornet autorisasjon](05-finkornet-autorisasjon/index.mdx) med Open Policy Agent, som hjelper deg å implementere komplekse og domenespesifikke autorisasjonsregler
 - [Token Exchange](06-token-exchange/index.mdx)
 - [Verktøy for uthenting og validering av tokens](07-token-uthenting-og-validering/index.mdx)
-- [Tilpassede, interne grensesnitt](10-grensesnitt-mot-fellesloesninger/index.mdx) mot utvalgt funksjonalitet i de 
+- [Tilpassede, interne grensesnitt](10-grensesnitt-mot-nasjonale-felleslosninger/index.mdx) mot utvalgt funksjonalitet i de 
   nasjonale fellesløsningene
 
 Mye av denne funksjonaliteten tilbys via to Kubernetes-operatorer og tilhørende Kubernetes-ressurser:
