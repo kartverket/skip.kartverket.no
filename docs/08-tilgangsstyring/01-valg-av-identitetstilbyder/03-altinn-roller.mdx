@@ -26,11 +26,12 @@ sequenceDiagram
     participant AP as Ansattporten
     participant Altinn as Altinn Autorisasjon
 
+    Tjeneste->>Altinn: Oppretter generisk tilgangsressurs
     Bruker->>Tjeneste: Åpner tjenesten
-    Tjeneste->>AP: /authorize med RAR ansattporten:altinn:resource
+    Tjeneste->>AP: /authorize med RAR ansattporten:altinn:resource, inkl. ønskede actions
     AP->>Bruker: Innlogging med BankID, MinID o.l.
-    AP->>Altinn: Hvilke virksomheter har brukeren tilgang til ressursen for?
-    Altinn->>AP: Liste med virksomheter
+    AP->>Altinn: PDP-oppslag: Hvilke virksomheter har brukeren tilgang til ressursen og de ønskede actions for?
+    Altinn->>AP: Liste med virksomheter, og hvilke actions brukeren har per virksomhet
     AP->>Bruker: Organisasjonsvelger
     AP->>Tjeneste: Tokens med authorization_details
     Tjeneste->>Tjeneste: Validerer ressurs, virksomhet og actions

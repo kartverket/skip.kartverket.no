@@ -5,9 +5,21 @@ person har tilgang til en gitt ressurs i Altinn. Tjenesten leveres som et JSON-b
 tilgjengelig via intern cluster-trafikk på `http://altinn-pdp-rest-server.tilgangsstyring-altinn:8080`.
 
 ## 🎯 Hvorfor PDP-oppslag?
-Et gyldig Maskinporten- eller Ansattporten-token beviser at en systembruker eller person er autentisert, men ikke
-hvorvidt denne har lov til å opptre på vegne av en organisasjon og med en gitt handling på en gitt ressurs. For å
-avgjøre dette må det gjøres et PDP-oppslag mot Altinn sitt Policy Decision Point.
+Et gyldig Maskinporten-token med systembrukerinformasjon beviser at en systembruker er autentisert, men ikke hvorvidt
+denne har lov til å opptre på vegne av en organisasjon og med en gitt handling på en gitt ressurs – se
+[Maskinporten med Altinn-systembruker](../../01-valg-av-identitetstilbyder/02-systembruker.mdx). For å avgjøre dette
+må API-tilbyderen selv gjøre et PDP-oppslag mot Altinn sitt Policy Decision Point.
+
+:::note Ansattporten-tokens krever normalt ikke eget PDP-oppslag
+Ved bruk av [Ansattporten med Altinn-roller](../../01-valg-av-identitetstilbyder/03-altinn-roller.mdx) gjør
+Ansattporten selv PDP-oppslaget mot Altinn Autorisasjon _under innloggingen_, for ressursen(e) og `actions` som ble
+forespurt i `authorization_details`. Resultatet er allerede bakt inn i tokenet, og tjenesten din trenger derfor
+vanligvis ikke et eget PDP-kall for å validere representasjonen.
+
+Et eget PDP-oppslag for en person (med `pid`) kan likevel være aktuelt i tjenesten din dersom du trenger å sjekke
+tilgang til en ressurs eller `action` som ikke var kjent på innloggingstidspunktet, eller vil re-validere tilgangen
+senere i en langvarig sesjon.
+:::
 
 Din applikasjon må altså gjøre to uavhengige sjekker:
 - **Token-validering** (i applikasjonen selv, eventuelt via Ztoperator/Accesserator): at tokenet er gyldig, og at det
