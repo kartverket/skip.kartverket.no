@@ -22,8 +22,8 @@ som gjør det enkelt for deg å bygge og publisere OPA-bundler til GHCR i GitHub
 Følgende eksempel viser hvordan du kan bruke workflowen i ditt eget repo for å bygge og publisere en OPA bundle til GHCR når du pusher til ditt repo:
 
 :::info
-I tillegg til å bygge og publisere OPA-bundlen, vil workflowen også generere en [SLSA provenance-attestasjon](https://slsa.dev/spec/v1.2/build-provenance)
-for bundlen og publisere den i GitHub's attestasjonssystem. Dette gjør at du kan verifisere *hvordan* bundlen ble bygd.
+I tillegg til å bygge og publisere OPA-bundlen genererer workflowen en signert [SLSA provenance-attestasjon](https://slsa.dev/spec/v1.2/build-provenance)
+for bundlen og publiserer den i GitHubs attestasjonssystem. Dette gjør at du kan verifisere hvilket repo, hvilken commit og hvilken workflow bundlen ble bygd fra.
 :::
 
 ```yaml
