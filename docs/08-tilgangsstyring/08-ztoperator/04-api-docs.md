@@ -125,7 +125,7 @@ AuthPolicySpec defines the desired state of AuthPolicy.
         <td><b><a href="#authpolicyspecallowedaudiencesindex">allowedAudiences</a></b></td>
         <td>[]object</td>
         <td>
-          AllowedAudiences defines the allowed audience (`aud`) values in the JWT.<br/>At least one of the listed audience values must be present in the token&#39;s `aud` claim for validation to succeed.<br/><br/>The normative behaviour for an OAuth / OIDC-compliant identity provider is to validate the presence of one or more client IDs as allowed audiences.<br/>
+          AllowedAudiences defines the allowed audience (`aud`) values in the JWT.<br/>If multiple audiences are configured, a token is accepted when at least one configured value<br/>matches an audience in the token&#39;s `aud` claim.<br/>
         </td>
         <td>false</td>
       </tr>
