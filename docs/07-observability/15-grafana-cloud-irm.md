@@ -27,7 +27,8 @@ Sjekk hvor alarmene sendes før dere slutter å bruke OnCall. Nye team kan konta
 ## Konfigurasjon av integration
 
 Legg teamets IRM-konfigurasjon i `grafana_cloud/teams/<team>/config.yaml` i [`grafana-alerts`-repoet](https://github.com/kartverket/grafana-alerts). 
-Erstatt `<team>` med teamets shortname i Entra ID, for eksempel `skoop` eller `skip`. 
+Erstatt `<team>` med teamets shortname i Entra ID, for eksempel `skoop` eller `skip`.
+Sjekk [entra-id-config](https://github.com/kartverket/entra-id-config/blob/main/org.yaml) om du er usikker på hva som er riktig.
 
 ```yaml
 prod:
