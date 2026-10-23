@@ -40,7 +40,8 @@ sandbox:
 ```
 
 Erstatt `<kanalnavn>` med navnet på Slack-kanalen som skal varsles i hvert miljø. 
-Du kan bruke samme kanal i flere miljøer. 
+Du kan bruke samme kanal i flere miljøer.
+Du trenger ikke konfigurere miljøer teamet ikke kjører applikasjoner i.
 
 
 ## Konfigurasjon av contact point
