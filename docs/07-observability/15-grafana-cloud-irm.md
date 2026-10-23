@@ -19,7 +19,7 @@ Sjekk hvor alarmene sendes før dere slutter å bruke OnCall. Nye team kan konta
 
 ## Kom i gang
 
-1. Inviter [Grafana Cloud-appen](https://grafana.com/docs/grafana-cloud/observe-and-act/respond-to-incidents/integrations/chat-and-collaboration/slack/) til kanalene som skal motta varsler. Skriv `/invite @Grafana` i hver kanal som skal motta varsler
+1. Inviter [Grafana Cloud-appen](https://grafana.com/docs/grafana-cloud/observe-and-act/respond-to-incidents/integrations/chat-and-collaboration/slack/) til kanalene som skal motta varsler. Skriv `/invite @Grafana` i hver kanal som skal motta varsler. Velg den som heter "Grafana" om du får opp flere forslag.
 2. Konfigurer integration, se [konfigurasjon av integration](#konfigurasjon-av-integration)
 3. Sett contact point til å peke mot integration, se [konfigurasjon av contact point](#konfigurasjon-av-contact-point)
 
