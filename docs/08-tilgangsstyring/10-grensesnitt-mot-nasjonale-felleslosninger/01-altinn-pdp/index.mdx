@@ -1,8 +1,10 @@
 # Altinn PDP
 
 [altinn-pdp](https://github.com/kartverket/altinn-pdp) er en tjeneste som svarer på om en systembruker eller
-person har tilgang til en gitt ressurs i Altinn. Tjenesten leveres som et JSON-basert REST-grensesnitt på SKIP,
-tilgjengelig via intern cluster-trafikk på `http://altinn-pdp.tilgangsstyring-altinn:8080`.
+person har tilgang til en gitt ressurs i Altinn. Tjenesten leveres som et JSON-basert REST-grensesnitt på SKIP.
+
+Prod-miljøene på SKIP går mot prod-miljøet til Altinn, mens dev-miljøene går mot TT02-miljøet. Uavhengig av miljø er
+tjenesten tilgjengelig via intern cluster-trafikk på `http://altinn-pdp.tilgangsstyring-altinn:8080`.
 
 ## 🎯 Hvorfor PDP-oppslag?
 Et gyldig Maskinporten-token med systembrukerinformasjon beviser at en systembruker er autentisert, men ikke hvorvidt
