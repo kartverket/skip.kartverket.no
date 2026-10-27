@@ -1,15 +1,63 @@
 # Administrasjon av Maskinporten-scopes
 
-[`maskinporten-management-rest-server`](https://github.com/kartverket/maskinporten-management) er en tjeneste som lar
+[maskinporten-management](https://github.com/kartverket/maskinporten-management) er en tjeneste som lar
 Kartverket-team administrere Maskinporten-scopes og hvilke organisasjoner som har tilgang til dem, uten selv å måtte
 forholde seg til Digdir sitt API eller virksomhetssertifikatet som kreves for å kalle det. Tjenesten leveres som et
-JSON-basert REST-grensesnitt på SKIP, tilgjengelig via intern cluster-trafikk på
-`http://maskinporten-management-rest-server.tilgangsstyring-maskinporten:8080`.
+JSON-basert REST-grensesnitt på SKIP.
 
-## 🎯 Hvorfor et eget grensesnitt mot Digdir?
-Administrasjon av Maskinporten-scopes skjer normalt via [Digdir sitt API](https://api.samarbeid.digdir.no/swagger-ui/index.html).
-Å kalle dette APIet krever autentisering med virksomhetssertifikat, som vi ikke ønsker at teamene selv skal ha tilgang
-til. `maskinporten-management-rest-server` gjør derfor dette kallet på vegne av teamenes applikasjoner.
+Fra prod-miljøene på SKIP er det mulig å administrere både Maskinporten sitt produksjonsmiljø og testmiljø. Dette
+skjer med intern cluster-trafikk mot to ulike tjenester:
+- Maskinporten sitt produksjonsmiljø: `http://maskinporten-management-prod.tilgangsstyring-maskinporten:8080`.
+- Maskinporten sitt testmiljø: `http://maskinporten-management-test.tilgangsstyring-maskinporten:8080`.
+
+I dev-miljøene er det kun administrasjon av Maskinporten sitt testmiljø som støttes, via intern
+cluster-trafikk på `http://maskinporten-management-test.tilgangsstyring-maskinporten:8080`.
+
+## 🤹 Velg én av to modeller
+Maskinporten sitt prod-miljø kan kun nås fra prod-miljø på SKIP, men Maskinporten sitt testmiljø kan nås fra både prod-
+og dev-miljø. Du bør bare la **ett** miljø styre hvert scope. Ellers kan prod- og dev-applikasjonen overstyre
+hverandres scopes i Maskinporten test.
+
+- **Modell A:** Prod-appen din er koblet til både Maskinporten prod og test, og styrer alle scopes i begge miljøer.
+Dev-appen din bør bruke helt andre scopes i Maskinporten test, som ikke kolliderer med scopes prod-tjenesten din styrer.
+Egner seg godt f.eks. dersom du skal lage et brukergrensesnitt for å administrere scopes, og du ikke vil at brukerne
+skal måtte forholde seg til `dev`-miljø i Kartverket.
+- **Modell B:** Prod-appen din er koblet til Maskinporten prod, og dev-appen din til Maskinporten test. Prod-scopes styres
+fra prod, og test-scopes styres fra dev.
+
+```mermaid
+flowchart TB
+    classDef prod fill:#fde8e8,stroke:#c0392b,stroke-width:2px,color:#7b1f14,rx:8,ry:8
+    classDef dev fill:#e8f1fd,stroke:#2e6fd9,stroke-width:2px,color:#143a7b,rx:8,ry:8
+    classDef mpProd fill:#c0392b,stroke:#7b1f14,stroke-width:2px,color:#fff,rx:8,ry:8
+    classDef mpTest fill:#2e6fd9,stroke:#143a7b,stroke-width:2px,color:#fff,rx:8,ry:8
+
+    subgraph M1["🅰️ Modell A: Alt styres fra KV prod"]
+        direction LR
+        P1["🏭 App i KV prod"]:::prod
+        D1["🧪 App i KV dev"]:::dev
+        MP1["🔒 Maskinporten prod"]:::mpProd
+        MT1["🧪 Maskinporten test"]:::mpTest
+        P1 ==>|"styrer alle scopes"| MP1
+        P1 ==>|"styrer alle scopes"| MT1
+        D1 -. "⚠️ bør bruke helt separate scopes" .-> MT1
+    end
+
+    subgraph M2["🅱️ Modell B: Prod styrer prod, dev styrer test"]
+        direction LR
+        P2["🏭 App i KV prod"]:::prod
+        D2["🧪 App i KV dev"]:::dev
+        MP2["🔒 Maskinporten prod"]:::mpProd
+        MT2["🧪 Maskinporten test"]:::mpTest
+        P2 ==>|"prod-scopes"| MP2
+        D2 ==>|"test-scopes"| MT2
+    end
+
+    M1 ~~~ M2
+
+    style M1 fill:#fafafa10,stroke:#888,stroke-dasharray:4 4
+    style M2 fill:#fafafa10,stroke:#888,stroke-dasharray:4 4
+```
 
 ## 🔎 Hvordan bruke tjenesten?
 Tjenestens API er dokumentert med OpenAPI [på kartverket.dev](https://kartverket.dev/catalog/default/api/maskinporten-management-rest-server-api/definition)
