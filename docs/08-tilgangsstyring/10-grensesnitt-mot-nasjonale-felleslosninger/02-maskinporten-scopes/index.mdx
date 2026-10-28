@@ -102,14 +102,14 @@ Det viktigste er at du tar stilling til hvorvidt din workload trenger `scopes/wr
 `scopeaccess/write`-tilgang.
 
 For å gi din applikasjon tilgang:
-1. **Åpne en pull request** mot [`maskinporten-management-access-control`](https://github.com/kartverket/maskinporten-management-access-control),
+1. **Åpne en pull request** mot [maskinporten-management-access-control](https://github.com/kartverket/maskinporten-management-access-control),
    der du legger inn eller utvider din workload (`<namespace>/<service-account>`) i `data.workload_access` for
    miljøet(ene) (`dev`, `prod`, eller begge) du trenger tilgang i, med hvilke `actions` og scopes (eksakt og/eller
    prefiks) du trenger.
 2. **Team Tilgangsstyring reviewer, merger og deployer pull requesten.** Når den er deployet har din workload
    tilgang til å utføre de gitte operasjonene på de gitte scopene i de valgte miljøene.
 
-Du kan bruke Copilot-skillet `maskinporten-scope-access-pr`
-(`.github/skills/maskinporten-scope-access-pr/SKILL.md` i `maskinporten-management-access-control`) til å
+Du kan bruke Copilot-skill'en `maskinporten-scope-access-pr`
+(`.github/skills/maskinporten-scope-access-pr/SKILL.md` i repo) til å
 forberede PR-en, eller redigere `opa/data/<env>/workload_access/data.json`-filene manuelt og åpne en PR på vanlig
 måte.
