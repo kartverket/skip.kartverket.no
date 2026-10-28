@@ -165,3 +165,29 @@ Når `offline_access` er inkludert i scopes, vil flyten se slik ut:
 3. Når access-tokenet er utløpt eller ikke lenger tilgjengelig, bruker Ztoperator automatisk refresh-tokenet til å hente et nytt access-token
 via [token refresh-flyten (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749#section-6) – uten at brukeren merker noe.
 4. Sesjonen varer inntil refresh-tokenet selv utløper eller trekkes tilbake av identitetstilbyderen.
+
+## Cookies som Ztoperator setter
+
+Når innlogging er skrudd på, setter Ztoperator (via Envoys OAuth2-filter i `istio-proxy`) cookies i brukerens nettleser.
+Alle cookies er satt på verten brukeren besøker (uten `Domain`-attributt), med `Path=/`, `SameSite=Lax`, `Secure` og `HttpOnly`.
+Disse cookiene er nødvendige for at innloggingen skal fungere, og kan derfor beskrives som **strengt nødvendige**
+informasjonskapsler i din cookieserklæring. De brukes ikke til sporing eller statistikk.
+
+| Cookie | Formål | Innhold |
+| --- | --- | --- |
+| `BearerToken` | Holder brukerens access-token slik at brukeren er innlogget. Levetiden følger access-tokenet fra identitetstilbyderen | Access-token, kryptert |
+| `IdToken` | Holder brukerens ID-token, brukt blant annet ved utlogging | ID-token, kryptert |
+| `RefreshToken` | Brukes til å hente nytt access-token uten ny innlogging. Settes kun hvis identitetstilbyderen utsteder refresh-token, se [lengre brukersesjoner](#lengre-brukersesjoner-med-offline_access-og-refresh-tokens) | Refresh-token, kryptert |
+| `OauthHMAC` | Signatur som sikrer at øvrige session-cookies ikke er endret av tredjepart | HMAC-signatur |
+| `OauthExpires` | Tidspunkt for når access-tokenet utløper | Tidsstempel |
+| `OauthNonce` | Beskyttelse mot CSRF under innloggingsflyten. Kortlevd og brukes kun under selve innloggingen | Tilfeldig verdi (nonce) |
+| `OauthCodeVerifier` | PKCE-verifikator under innloggingsflyten. Kortlevd og brukes kun under selve innloggingen | Tilfeldig verdi, kryptert |
+
+:::note
+Cookienavnene er standardnavnene til Envoys OAuth2-filter, og Ztoperator endrer dem ikke. Token-verdiene er kryptert
+med en hemmelighet som kun Ztoperator og `istio-proxy` har tilgang til, slik at innholdet ikke kan leses i nettleseren.
+Cookies fjernes når brukeren logger ut via `logoutPath`.
+
+Applikasjonen din kan i tillegg sette egne cookies, og identitetstilbyderen kan sette sine egne cookies på sitt domene
+under innlogging. Disse omfattes ikke av tabellen over, og må dokumenteres separat.
+:::
