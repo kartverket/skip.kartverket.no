@@ -1,0 +1,101 @@
+# Ansattporten med Entra ID
+Egner seg dersom du:
+1. Ønsker å la ansatte i eksterne virksomheter logge inn med Ansattporten, og
+2. Ønsker å tilby innlogging med jobbkontoen i Microsoft Entra ID, i stedet for eller i tillegg til BankID/MinID, og
+3. Ikke trenger at Ansattporten forteller deg hvilken virksomhet brukeren representerer, eller har et annet grunnlag for
+   tilgangsstyring (se [Hva kan du bruke dette til?](#hva-kan-du-bruke-dette-til))
+
+:::caution Pilot
+Entra ID i Ansattporten er i pilotfase hos Digdir (2025/2026), og Digdir varsler at funksjonalitet og tekniske
+grensesnitt kan endres underveis.
+:::
+
+## Hvordan fungerer det?
+Ansattporten er registrert som en _multi-tenant_-app i Entra ID. Det betyr at brukere i en hvilken som helst
+Entra-tenant kan logge inn via Ansattporten, uten at verken du som tjenesteeier eller arbeidsgiveren må sette opp en
+egen føderering. Du trenger heller **ikke** konfigurere noe i Kartverkets Entra-tenant.
+
+Om en bruker faktisk får logge inn avgjøres av innstillingene i brukerens egen Entra-tenant: med standardinnstillinger
+må brukeren samtykke første gang, mens arbeidsgiverens Entra-administrator kan gi samtykke på vegne av virksomheten
+eller blokkere Ansattporten helt.
+
+## Aktiver Entra ID i innloggingsforespørselen
+Entra ID vises kun som innloggingsvalg dersom klienten sender `entraid` i `acr_values`. Klientregistreringen er den
+samme som for ordinær Ansattporten, se [klientregistrering for Ansattporten](../02-klientregistrering/04-ansattporten.mdx).
+
+```yaml title="Utdrag fra AuthPolicy"
+spec:
+  autoLogin:
+    loginParams:
+// diff-add-start
+      acr_values: entraid
+// diff-add-end
+```
+
+:::caution
+Ztoperator støtter per nå kun `client_secret_post`. Klienter opprettet med Digdirator (`AnsattportenClient`) bruker
+`private_key_jwt` og vil derfor ikke fungere med Ztoperator. Bruk Digdir sin selvbetjeningsløsning dersom du skal bruke
+Ztoperator for innlogging.
+:::
+
+Valider alltid at `acr` faktisk er `entraid`, enten med `baselineAuth` i Ztoperator eller i applikasjonskoden. Ønsker du
+å tilby både Entra ID og vanlig eID, se [Kombinere innloggingsmetoder](./index.mdx#kombinere-innloggingsmetoder).
+{/* TODO: verifiser at acr er med i access token (det er access token Ztoperator validerer og videresender) */}
+
+## Innhold i tokenet
+Ved innlogging med Entra ID vil tokenet inneholde følgende claims i tillegg til de vanlige:
+
+| Claim | Beskrivelse |
+| --- | --- |
+| `acr` | Alltid `entraid` |
+| `amr` | Autentiseringsfaktorene fra Entra ID, prefikset med `entraid`, f.eks. `["entraid_pwd", "entraid_mfa"]` |
+| `email` | E-postadressen til brukeren, slik den er registrert i brukerens Entra-tenant |
+| `given_name` / `family_name` | Navn slik det er registrert i brukerens Entra-tenant. Krever scope `profile` |
+| `groups` | De 20 første Entra-gruppene brukeren er medlem av, som objekt-ID-er i **brukerens egen** tenant |
+
+Merk at tokenet **ikke** inneholder `pid` (fødselsnummer), og heller ikke hvilken Entra-tenant brukeren kommer fra.
+Dersom du f.eks. bruker `outputClaimToHeaders` med `pid` for vanlig Ansattporten-innlogging, må du bruke en annen
+identifikator for Entra ID-brukere.
+{/* TODO: avklar med Digdir om sub er stabil for Entra-brukere og kan brukes som brukeridentifikator */}
+
+## Hva kan du bruke dette til?
+Innlogging med Entra ID gir deg **autentisering, ikke autorisasjon**. Du vet at brukeren har en jobbkonto i en
+Entra-tenant, og eventuelt at brukeren har brukt tofaktorautentisering, men ikke hvilken virksomhet brukeren tilhører
+eller har lov til å representere.
+
+:::danger Ikke tilgangsstyr på `email` eller `groups`
+Ikke bruk e-postdomenet eller `groups` fra tokenet til å avgjøre hvilken virksomhet brukeren tilhører. E-postadressen
+kan settes av administratoren i en hvilken som helst Entra-tenant, og Microsoft fraråder
+[å bruke `email` til autorisasjon](https://learn.microsoft.com/en-us/entra/identity-platform/migrate-off-email-claim-authorization).
+Gruppe-ID-ene tilhører brukerens egen tenant, som du ikke kontrollerer, og kun de 20 første er med.
+:::
+
+Innlogging med Entra ID egner seg derfor til:
+- **Tjenester der det holder å vite at brukeren er en reell person med en jobbkonto**, f.eks. tjenester med lav
+  risiko, eller der identiteten primært brukes til sporbarhet
+- **Tjenester med eget brukerregister**, der brukere godkjennes av tjenesten på forhånd (f.eks. via invitasjon eller
+  manuell godkjenning), og tilgangen knyttes til `sub` ved første innlogging, ikke til e-postadressen
+- **Et enklere innloggingsalternativ** ved siden av BankID/MinID, der du fortsatt bruker
+  [Ansattporten med Altinn-roller](./03-altinn-roller.mdx) når du trenger å vite hvilken virksomhet brukeren representerer
+
+## Sikkerhetsvurderinger
+- **Sikkerhetsnivå:** `entraid` er ikke et sikkerhetsnivå etter eIDAS (`substantial`/`high`). Hvor sterk autentiseringen
+  er avhenger av brukerens egen Entra-konfigurasjon. Ta stilling til dette i risikovurderingen, og vurder å kreve
+  `entraid_mfa` i `amr`.
+- **Hvem som helst kan logge inn:** Brukere i alle Entra-tenanter kan i utgangspunktet logge inn via Ansattporten. Uten
+  egen tilgangsstyring vil i praksis alle med en jobbkonto slippe inn.
+
+## Testing
+- Digdir sin [demo-klient](https://demo-client.test.ansattporten.no/) lar deg teste innlogging med Entra ID uten egen
+  integrasjon. Velg `entraid` som acr-verdi og scope `openid profile`
+- Microsoft har ikke noe testmiljø. Du må logge inn med en ekte Entra-bruker, eller en bruker i en dedikert test-tenant
+
+## Kartverket som arbeidsgiver
+Kartverkets egne ansatte kan også bli bedt om å logge inn med Kartverket-kontoen sin i andre virksomheters tjenester
+via Ansattporten. Om det er tillatt avgjøres av samtykkeinnstillingene i Kartverkets Entra-tenant. Dette håndteres ikke
+av Team Tilgangsstyring.
+{/* TODO: avklar hvem i Kartverket (IT/Entra-administrator) som eier samtykke og ev. Virksomhetsbroen-oppsett for Kartverket */}
+
+## Videre lesning
+- [Entra ID i Ansattporten (Digdir)](https://docs.digdir.no/docs/ansattporten/ansattporten_entraid.html)
+- [Ansattporten protokoll (Digdir)](https://docs.digdir.no/docs/ansattporten/ansattporten_protocol.html)

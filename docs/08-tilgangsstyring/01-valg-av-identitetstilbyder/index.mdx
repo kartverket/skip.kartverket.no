@@ -76,11 +76,9 @@ flowchart LR;
 ```
 _Valg av identitetstilbyder som API-konsument._
 
-## Utvidet funksjonalitet hos enkelte identitetstilbydere
-Maskinporten og Ansattporten kan i kombinasjon med Altinn tilby utvidet funksjonalitet. Disse kan være aktuelle dersom
-du har behov for mer finkornet tilgangsstyring til, eller validering i, ditt API.
+## Utvidet funksjonalitet med Maskinporten+Altinn
 
-### Maskinporten + Altinn-delegering
+### Maskinporten med Altinn-delegering
 Altinn-delegering egner seg dersom du:
 1. Ønsker å bruke Maskinporten for å sikre ditt API, og
 2. Ønsker å tilgangsstyre API-et ved å gi konsumenter (f.eks en kommune) eksplisitt tilgang via Maskinporten, og
@@ -93,7 +91,7 @@ tilgangen videre i Altinn.
 
 [Her kan du lese mer om Altinn-delegering.](./01-delegering.mdx)
 
-### Maskinporten + Systembrukere i Altinn
+### Maskinporten med Altinn-systembruker
 Systembrukere i Altinn egner seg dersom du:
 1. Ønsker å bruke Maskinporten for å sikre ditt API, og
 2. Ønsker å tilgangsstyre API-et ved å gi systemleverandører eksplisitt tilgang via Maskinporten, og
@@ -106,9 +104,62 @@ vil kunne hente ut tokens med konsumentens systembruker som `authorization_detai
 
 [Her kan du lese mer om systembrukere, systemer og ressurser i Altinn.](./02-systembruker.mdx)
 
-### Ansattporten + Altinn-roller
+## Utvidet funksjonalitet med Ansattporten, Altinn og Entra ID
+Ansattporten kan brukes til kun autentisering, eller til å la brukeren representerer en virksomhet. Du ber om bruk av
+representasjon ved å sende en _RAR-type_ (Rich Authorization Requests) i `authorization_details` ved innlogging.
+Hvilken kilde som avgjør representasjonen avhenger av hvordan brukeren logger inn:
+
+| Innloggingsmetode | `acr` i token | RAR-type | Autoritativ kilde for representasjon | Status |
+| --- | --- | --- | --- | --- |
+| BankID, Buypass, Commfides | `high` | `ansattporten:altinn:resource` | Altinn Autorisasjon | I produksjon |
+| MinID | `substantial` | `ansattporten:altinn:resource` | Altinn Autorisasjon | I produksjon |
+| Jobbkonto i Entra ID | `entraid` | `ansattporten:orgno` | Virksomhetsbroen | Pilot, kun i test |
+| Jobbkonto i Entra ID | `entraid` | – | – (kun autentisering) | Pilot, men i produksjon |
+
+### Sammenligning av alternativene
+
+Før du velger å ta i bruk Ansattporten i kombinasjon med enten Altinn-roller eller Entra ID, må du vurdere grundig
+hvilke behov du har for autoriativ kilde for representasjon. Tabellen nedenfor sammenligner de ulike alternativene, med
+fokus på innlogging, representasjon og administrasjon av tilgang.
+
+| | Ansattporten med Altinn-roller | Ansattporten med Entra ID | Ansattporten med Entra ID og Virksomhetsbroen | Gjestebruker (B2B) i Kartverkets Entra ID |
+| --- | --- | --- | --- | --- |
+| **Innlogging** | BankID, MinID o.l. | Jobbkonto i Entra ID | Jobbkonto i Entra ID | Jobbkonto i Entra ID |
+| **Vet hvilken virksomhet brukeren representerer** | Ja, via Altinn | Nei | Ja, via Virksomhetsbroen | Nei, med mindre Kartverket registrerer det |
+| **Hvem administrerer tilgang?** | Arbeidsgiver, i Altinn | Tjenesteeier, i egen tjeneste | Arbeidsgiver, i Virksomhetsbroen | Kartverket |
+| **Forutsetninger hos tjenesteeier** | Altinn-ressurs i ressursregisteret | Ansattporten-klient | Ansattporten-klient | Invitasjon og livsløpsforvaltning av gjester |
+
+### Kombinere innloggingsmetoder
+Du kan tilby flere innloggingsmetoder i samme tjeneste ved å sende f.eks. `acr_values: substantial,entraid` ved redirect
+til Ansattporten-innlogging. Brukeren velger da selv, og du må håndtere begge utfallene. Valider alltid `acr`-claimet og
+`authorization_details`-claimet i tokenet, slik at en bruker ikke får tilgang basert på en innloggingsmetode eller
+representasjonskilde du ikke har tatt stilling til.
+
+### Ansattporten med representasjon via Altinn-roller
 Egner seg dersom du:
 1. Ønsker å la ansatte i eksterne virksomheter logge inn med Ansattporten, og
-2. Ønsker å tilgangsstyre tilgang til API-et basert på roller definert i Altinn
+2. Ønsker å vite hvilken virksomhet brukeren representerer, og
+3. Ønsker at virksomheten selv skal styre tilgangen i Altinn, basert på roller (f.eks. daglig leder), tilgangspakker
+   eller enkeltrettigheter
 
 [Her kan du lese mer om hvordan du kan bruke Ansattporten i kombinasjon med Altinn-roller.](./03-altinn-roller.mdx)
+
+### Ansattporten med Entra ID og representasjon via Virksomhetsbroen
+Egner seg dersom du:
+1. Ønsker å bruke innlogging med Entra ID i Ansattporten, og
+2. Ønsker at arbeidsgiveren selv skal styre hvilke av sine ansatte som kan representere virksomheten i tjenesten din,
+   ved hjelp av egne Entra-grupper, e-postdomener eller e-postadresser
+
+Funksjonaliteten er i pilot, og RAR-typen `ansattporten:orgno` er ifølge Digdir foreløpig kun tilgjengelig i test.
+
+[Her kan du lese mer om Ansattporten med Entra ID og Virksomhetsbroen.](./04-virksomhetsbroen.mdx)
+
+### Ansattporten med Entra ID, uten representasjon
+Egner seg dersom du:
+1. Ønsker å la ansatte i eksterne virksomheter logge inn med Ansattporten, og
+2. Ønsker å tilby innlogging med jobbkontoen i Microsoft Entra ID, i stedet for eller i tillegg til BankID/MinID, og
+3. Ikke trenger at Ansattporten forteller deg hvilken virksomhet brukeren representerer
+
+Innlogging med Entra ID gir autentisering, men ikke autorisasjon.
+
+[Her kan du lese mer om innlogging med Entra ID i Ansattporten.](./05-ansattporten-entra-id.mdx)

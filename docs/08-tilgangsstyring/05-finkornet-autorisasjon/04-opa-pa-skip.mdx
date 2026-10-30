@@ -22,8 +22,8 @@ som gjør det enkelt for deg å bygge og publisere OPA-bundler til GHCR i GitHub
 Følgende eksempel viser hvordan du kan bruke workflowen i ditt eget repo for å bygge og publisere en OPA bundle til GHCR når du pusher til ditt repo:
 
 :::info
-I tillegg til å bygge og publisere OPA-bundlen, vil workflowen også generere en [SLSA provenance-attestasjon](https://slsa.dev/spec/v1.2/build-provenance)
-for bundlen og publisere den i GitHub's attestasjonssystem. Dette gjør at du kan verifisere *hvordan* bundlen ble bygd.
+I tillegg til å bygge og publisere OPA-bundlen genererer workflowen en signert [SLSA provenance-attestasjon](https://slsa.dev/spec/v1.2/build-provenance)
+for bundlen og publiserer den i GitHubs attestasjonssystem. Dette gjør at du kan verifisere hvilket repo, hvilken commit og hvilken workflow bundlen ble bygd fra.
 :::
 
 ```yaml
@@ -32,12 +32,13 @@ name: Build and push OPA bundle
 on: [push]
 
 permissions:
-  contents: read          # for å kunne bygge fra repoet
-  packages: write         # for å kunne pushe til GHCR
-  id-token: write         # for å kunne kunne generere en OIDC-token for å signere provenance-attestasjonen med Sigstore
-  attestations: write     # for å kunne publisere provenance-attestasjonen i GitHub's attestasjonssystem
-  security-events: write  # for å kunne laste opp sarif-resultatet av `regal lint` i GitHub Advanced Security
-  actions: read           # for å kunne hente metadata om workflowen som bygger bundlen og inkludere det i provenance-attestasjonen
+  contents: read            # for å kunne bygge fra repoet
+  packages: write           # for å kunne pushe til GHCR
+  id-token: write           # for å kunne generere en OIDC-token for å signere provenance-attestasjonen med Sigstore
+  attestations: write       # for å kunne publisere provenance-attestasjonen i GitHubs attestasjonssystem
+  artifact-metadata: write  # for å kunne opprette en storage record for bundlen på organisasjonens «linked artifacts»-side
+  security-events: write    # for å kunne laste opp sarif-resultatet av `regal lint` i GitHub Advanced Security
+  actions: read             # for å kunne hente metadata om workflowen som bygger bundlen og inkludere det i provenance-attestasjonen
 
 jobs:
   build:

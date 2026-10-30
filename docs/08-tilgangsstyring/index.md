@@ -18,6 +18,8 @@ oss å opprettholde et høyt minimumsnivå av sikkerhet i alle applikasjoner.
 - [Finkornet autorisasjon](05-finkornet-autorisasjon/index.mdx) med Open Policy Agent, som hjelper deg å implementere komplekse og domenespesifikke autorisasjonsregler
 - [Token Exchange](06-token-exchange/index.mdx)
 - [Verktøy for uthenting og validering av tokens](07-token-uthenting-og-validering/index.mdx)
+- [Tilpassede, interne grensesnitt](10-grensesnitt-mot-nasjonale-felleslosninger/index.mdx) mot utvalgt funksjonalitet i de 
+  nasjonale fellesløsningene
 
 Mye av denne funksjonaliteten tilbys via to Kubernetes-operatorer og tilhørende Kubernetes-ressurser:
 - [Ztoperator](08-ztoperator/index.mdx): en Kubernetes-operator for innlogging, sesjonshåndtering og claims-validering, via
@@ -37,7 +39,7 @@ På generelt grunnlag anbefaler vi å ha flere lag med sikkerhet, og dermed impl
 validering både i plattformen og i applikasjonskoden.
 
 ### Token-validering og grovkornet tilgangsstyring i Ztoperator vs. applikasjonskode
-Med bruk av [test-authpolicy-action](08-ztoperator/04-test-authpolicy.mdx) er det mulig å teste i CI/CD at en
+Med bruk av [test-authpolicy-action](08-ztoperator/05-test-authpolicy.mdx) er det mulig å teste i CI/CD at en
 Ztoperator-`AuthPolicy` er konfigurert til å utføre deny/redirect/allow slik som forventet. Det eksisterer derimot ikke
 noe testverktøy som tester selve applikasjonskoden sitt samspill med Ztoperator. Basert på dette anbefaler vi at teamene
 selv tar stilling til hvorvidt de er komfortable med å kun stole på Ztoperator for token-validering, eller om de ønsker

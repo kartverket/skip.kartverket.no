@@ -25,23 +25,27 @@ Ztoperator har aktive deprecation warnings, se [deprecation warnings](#%EF%B8%8F
   </Column>
 </Columns>
 
-Ztoperator konfigureres opp mot en identitetstilbyder med feltet `spec.wellKnownURI`, som peker til et [OpenID Connect Discovery Document](https://openid.net/specs/openid-connect-discovery-1_0.html). Dette dokumentet inneholder informasjon om hvordan Ztoperator skal kommunisere med identitetstilbyderen, slik som endepunkter for autentisering, tokenvalidering og utlogging. 
-Hvilke identitetstilbydere Ztoperator støtter per nå kan ses under [Støttede identitetstilbydere](#-støttede-identitetstilbydere).
+Ztoperator konfigureres opp mot en tokenutsteder eller identitetstilbyder med feltet `spec.wellKnownURI`, som peker til
+et [OpenID Connect Discovery Document](https://openid.net/specs/openid-connect-discovery-1_0.html). Dette dokumentet
+inneholder informasjon Ztoperator trenger for tokenvalidering og, for brukerrettede flyter, autentisering og utlogging.
+Hvilke tokenutstedere og identitetstilbydere Ztoperator støtter per nå kan ses under
+[Støttede tokenutstedere og identitetstilbydere](#-støttede-tokenutstedere-og-identitetstilbydere).
 
-Hvordan du definerer autorisasjonsregler er dokumentert under [Autorisasjonsregler](02-autorisasjonsregler.mdx).
-Hvilke felter som eksisterer og deres oppførsel er dokumentert i [API Reference](03-api-docs.md).
-Hvordan du kan teste og verifisere oppførselen til en `AuthPolicy` finner du under [Test din Ztoperator-AuthPolicy](04-test-authpolicy.mdx).
+Hvordan konfigurere innlogging er dokumenter under [Innlogging](02-innlogging.mdx).
+Hvordan du definerer autorisasjonsregler er dokumentert under [Autorisasjonsregler](03-autorisasjonsregler.mdx).
+Hvilke felter som eksisterer og deres oppførsel er dokumentert i [API Reference](04-api-docs.md).
+Hvordan du kan teste og verifisere oppførselen til en `AuthPolicy` finner du under [Test din Ztoperator-AuthPolicy](05-test-authpolicy.mdx).
 
 ## 🧩 Forutsetninger
 
 Før du kan bruke Ztoperator til å beskytte tjenesten din må følgende være på plass:
 
-- Du må vite hvilken OAuth 2.0-identitetstilbyder som passer for din tjeneste og registrere en klient hos denne. Se [her](index.mdx#-støttede-identitetstilbydere) for en oversikt over hvilke identitetstilbydere som støttes av Ztoperator på SKIP.
+- Du må vite hvilken OAuth 2.0-tokenutsteder eller identitetstilbyder som passer for din tjeneste. Der det kreves, må du registrere en klient hos tilbyderen. Se [her](index.mdx#-støttede-tokenutstedere-og-identitetstilbydere) for en oversikt over hvilke tilbydere som støttes av Ztoperator på SKIP.
 - Du må vite hvilket *well-known endepunkt*, *audience* og eventuelle *claims* som gjelder for applikasjonen din.
 - Den beskyttede applikasjonen **må** kjøre på SKIP.
 
 :::caution
-Ztoperator registrerer ikke en OIDC-klient for deg. Du må selv ha etablert en integrasjon mot valgt identitetstilbyder, og Ztoperator brukes kun til å beskrive hvordan appen skal beskyttes og håndtere eventuelle innloggingsflyter.
+Ztoperator registrerer ikke klienter for deg. Du må selv ha etablert en integrasjon mot valgt tokenutsteder eller identitetstilbyder, og Ztoperator brukes kun til å beskrive hvordan appen skal beskyttes og håndtere eventuelle innloggingsflyter.
 :::
 
 ## 🔐 Verifiser at Ztoperator beskytter din Skiperator-applikasjon
@@ -71,103 +75,6 @@ altså mest nyttig i tilfeller der en applikasjon spinnes opp for første gang. 
 valideringen i fremtiden til å verifisere kontinuerlig, også under kjøring, at en pod har
 korreket konfigurasjon i henhold til dens tilhørende `AuthPolicy`-ressurs.
 
-## 🚀 Innlogging og utlogging med Ztoperator
-
-Det går an å konfigurere Ztoperator til å håndtere innlogging og utlogging av sluttbrukere på vegne av applikasjonen din. 
-Dette gjøres ved å sette opp `spec.autoLogin` og `spec.oAuthCredentials` i Ztoperator-`AuthPolicy`-ressursen din. 
-`spec.autoLogin` konfigurerer ulike endepunkter brukt i innloggings -og utloggingsflyten, mens `spec.oAuthCredentials` 
-peker til en Kubernetes-hemmelighet som inneholder klient-ID `client_id` og klienthemmelighet `client_secret` for en registrert OIDC-klient hos identitetstilbyderen. 
-
-En annen ting å merke seg er at Ztoperator ikke har lov til å laste inn hemmeligheter som brukes for innlogging i den beskyttede applikasjonen. 
-For å løse dette er man nødt til å legge til en konfigurasjon på den beskyttede Skiperator-applikasjonen for at innloggingshemligheter som Ztoperator håndterer skal kunne lastes inn.
-Følgende eksempel viser hvordan dette kan gjøres i en Skiperator-applikasjon. Det er viktig at `<NAVN PÅ AUTHPOLICY>` erstattes med navnet på din Ztoperator-`AuthPolicy`. Hvis din `AuthPolicy` for eksempel heter `my-auth-policy`, så må du sette `secretName: my-auth-policy-envoy-secret`.
-
-:::danger[OBS]
-For at innlogging skal fungere med Ztoperator, **må** den beskyttede Skiperator-applikasjonen oppdateres med 
-`spec.podSettings.annotations.sidecar.istio.io/userVolume` og `spec.podSettings.annotations.sidecar.istio.io/userVolumeMount`.
-:::
-
-```yaml title="Skiperator-applikasjon med Ztoperator-innlogging"
-apiVersion: skiperator.kartverket.no/v1alpha1
-kind: Application
-metadata:
-  name: myapp
-spec:
-//diff-add-start
-  podSettings:
-    annotations:
-      sidecar.istio.io/userVolume: |
-        [
-          {
-            "name": "istio-oauth2",
-            "secret": {
-              "secretName": "<NAVN PÅ AUTHPOLICY>-envoy-secret"
-            }
-          }
-        ]
-      sidecar.istio.io/userVolumeMount: |
-        [
-          {
-            "name": "istio-oauth2",
-            "mountPath": "/etc/istio/config",
-            "readonly": true
-          }
-        ]
-//diff-add-end
-  image: ghcr.io/kartverket/myapp:latest
-  port: 8080
-  ingresses:
-    - myapp.atkv3-dev.kartverket-intern.cloud
-  redirectToHTTPS: true
-  accessPolicy:
-    inbound: 
-      rules:
-        - application: myjob-skipjob
-```
-
-
-### Lengre brukersesjoner med `offline_access` og refresh-tokens
-
-Som standard vil en brukersesjon utløpe når access-tokenet fra identitetstilbyderen utløper. For applikasjoner som
-krever lengre sesjoner uten at brukeren skal måtte logge inn på nytt, kan scopet `offline_access` legges til i
-`spec.autoLogin.scopes`. Dette ber identitetstilbyderen om å utstede et **refresh-token** i tillegg til access-tokenet.
-
-Ztoperator vil automatisk bruke refresh-tokenet til å hente nye access-tokens i bakgrunnen når det eksisterende
-utløper, slik at brukeren holdes innlogget uten avbrudd.
-
-:::caution[Sikkerhetshensyn]
-Refresh-tokens gir langvarig tilgang, som kan ha konsekvenser og muliggjøre misbruk. Sørg for at
-du kun bruker `offline_access` når det er et reelt behov for lengre sesjoner.
-:::
-
-Du kan ta i bruk `offline_access` i din `AuthPolicy` ved å legge det til i `spec.autoLogin.scopes`-listen:
-
-```yaml title="AuthPolicy med offline_access for lengre sesjoner"
-apiVersion: ztoperator.kartverket.no/v1alpha1
-kind: AuthPolicy
-metadata:
-  name: min-authpolicy
-spec:
-  autoLogin:
-    enabled: true
-    logoutPath: /logout
-    redirectPath: /oauth2/callback
-    scopes:
-//diff-add-start
-      - offline_access
-//diff-add-end
-      ...
-  ...
-```
-
-Når `offline_access` er inkludert i scopes, vil flyten se slik ut:
-
-1. Brukeren logger inn og identitetstilbyderen returnerer både et **access-token** og et **refresh-token**.
-2. Ztoperator lagrer refresh-tokenet kryptert i session-cookien på klientsiden.
-3. Når access-tokenet er utløpt eller ikke lenger tilgjengelig, bruker Ztoperator automatisk refresh-tokenet til å hente et nytt access-token
-via [token refresh-flyten (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749#section-6) – uten at brukeren merker noe.
-4. Sesjonen varer inntil refresh-tokenet selv utløper eller trekkes tilbake av identitetstilbyderen.
-
 ## 🎬 Tutorials
 
 I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator for å beskytte en applikasjon på SKIP.
@@ -175,8 +82,9 @@ I denne docsen finner du en rekke tutorials på hvordan du tar i bruk Ztoperator
 - [Eksempeloppsett av Ztoperator: Microsoft Entra ID](01-kom-i-gang.mdx#--microsoft-entra-id)
 - [Eksempeloppsett av Ztoperator: ID-Porten](01-kom-i-gang.mdx#-id-porten)
 - [Eksempeloppsett av Ztoperator: Ansattporten](01-kom-i-gang.mdx#-ansattporten)
+- [Eksempeloppsett av Ztoperator: Maskinporten](01-kom-i-gang.mdx#-maskinporten)
 
-## 🛠 Støttede identitetstilbydere
+## 🛠 Støttede tokenutstedere og identitetstilbydere
 
 | Miljø | Identitetstilbyder | `wellKnownURI` | SKIP DEV | SKIP PROD |
 | --- | --- | --- | --- | --- |
