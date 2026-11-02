@@ -12,15 +12,15 @@ denne har lov til å opptre på vegne av en organisasjon og med en gitt handling
 [Maskinporten med Altinn-systembruker](../../01-valg-av-identitetstilbyder/02-systembruker.mdx). For å avgjøre dette
 må API-tilbyderen selv gjøre et PDP-oppslag mot Altinn sitt Policy Decision Point.
 
-:::note Ansattporten-tokens krever normalt ikke eget PDP-oppslag
+:::note Ansattporten-tokens: PDP-oppslag gjøres kun for hovedressursen
 Ved bruk av [Ansattporten med Altinn-roller](../../01-valg-av-identitetstilbyder/03-altinn-roller.mdx) gjør
-Ansattporten selv PDP-oppslaget mot Altinn Autorisasjon _under innloggingen_, for ressursen(e) og `actions` som ble
-forespurt i `authorization_details`. Resultatet er allerede bakt inn i tokenet, og tjenesten din trenger derfor
-vanligvis ikke et eget PDP-kall for å validere representasjonen.
+Ansattporten selv PDP-oppslaget mot Altinn Autorisasjon _under innloggingen_, men **kun for hovedressursen og `actions`
+som ble forespurt i `authorization_details`**. Resultatet er bakt inn i tokenet. PDP-oppslag for hovedressursen kan
+likevel være relevant for `action`-verdier som ikke var kjent på innloggingstidspunktet, eller for å re-validere
+tilgangen senere i en langvarig sesjon.
 
-Et eget PDP-oppslag for en person (med `pid`) kan likevel være aktuelt i tjenesten din dersom du trenger å sjekke
-tilgang til en ressurs eller `action` som ikke var kjent på innloggingstidspunktet, eller vil re-validere tilgangen
-senere i en langvarig sesjon.
+**Ansattporten gjør ikke PDP-oppslag for sub-ressurser**. Skal du validere tilgang til en sub-ressurs, må du selv
+gjøre PDP-oppslaget for personen (med `pid`) og sende sub-ressursen i `resourceAttributes`.
 :::
 
 Din applikasjon må altså gjøre to uavhengige sjekker:
@@ -29,7 +29,7 @@ Din applikasjon må altså gjøre to uavhengige sjekker:
   applikasjonen selv lese ut hvilken organisasjon systembrukeren eller personen opptrer på vegne av fra tokenets
   `authorization_details`-claim (`systemuser_org` for en systembruker, `authorized_parties[].orgno` for en person).
   Denne organisasjonen brukes så videre i PDP-oppslaget
-- **PDP-oppslag** (via `altinn-pdp-rest-server`): at systembrukeren eller personen faktisk har fått tildelt tilgang i Altinn til å
+- **PDP-oppslag** (via `altinn-pdp`): at systembrukeren eller personen faktisk har fått tildelt tilgang i Altinn til å
   utføre den aktuelle handlingen på den aktuelle ressursen, på vegne av den aktuelle organisasjonen. Handlingen er en
   fritekst-`action`, f.eks `read` eller `write`, og hvilke handlinger som finnes for en gitt ressurs er definert i
   Altinn sitt ressursregister for den ressursen. Det er altså ressurseier, ikke `altinn-pdp`, som bestemmer hvilke
@@ -44,6 +44,8 @@ Eneste endepunkt er `POST /authorize`. Dette tar inn:
 - `resourceId` - hvilken Altinn-ressurs, som du må vite på forhånd
 - `customerOrganizationNumber` - hvilken organisasjon subjektet opptrer på vegne av
 - `action` - hvilken handling, f.eks `read` eller `write`
+- `resourceAttributes` (valgfri) - liste av `{ "type": "...", "id": "..." }` for å spørre om en sub-ressurs. Se
+  [Sub-ressurser](#-sub-ressurser-og-resourceattributes)
 
 Responsen inneholder:
 - `permit` (boolean) - `true` dersom tilgang er gitt, `false` ellers. De aller fleste kallende applikasjoner trenger
@@ -54,6 +56,48 @@ Responsen inneholder:
 - `minimumAuthenticationLevel` - dersom satt, er en eventuell `PERMIT` **betinget** av at sluttbrukeren var logget inn
   på minst dette autentiseringsnivået - dette må kallende applikasjon selv verifisere, PDP-en sjekker det ikke for deg
 - `status` - Altinn sin XACML-statuskode, til feilsøking
+
+## 🧩 Sub-ressurser og `resourceAttributes`
+Har ressursens policy regler for sub-ressurser, sender du sub-ressursen som `resourceAttributes`:
+
+```json
+{
+  "systemuserId": "<uuid>",
+  "resourceId": "kv-geonorge",
+  "customerOrganizationNumber": "923609016",
+  "action": "download",
+  "resourceAttributes": [
+    { "type": "urn:kv:geonorge", "id": "dataset" }
+  ]
+}
+```
+
+I policy-editoren i Altinn Studio er hver oppføring i `resourceAttributes` én Type/Id-rad i sub-ressursen, bortsett
+fra den første raden (`urn:altinn:resource` med `resourceId` som Id). En regel matcher kun når alle radene i en av
+dens sub-ressurser er sendt. Reglene for `type` og `id`:
+- `type` må være `urn:<navn>` eller `urn:<navn>:<navn>`, med kun små bokstaver, `-` og `_`
+- `type` under `urn:altinn:` avvises, bortsett fra `urn:altinn:subresource`
+- `id` kan ikke være tom eller inneholde `:`, og er case-sensitiv
+- hver `type` kan kun sendes én gang
+
+## ⏱️ Caching og `Cache-Control`
+Tjenesten på SKIP cacher beslutninger fra Altinn som standard. Et cachet svar kan fortsatt si `PERMIT` en stund etter at
+tilgangen er fjernet i Altinn. Du kan selv bestemme hvor gamle svar du aksepterer ved å sende med
+`Cache-Control`-headeren:
+
+| Header                     | Betydning                                               |
+|----------------------------|---------------------------------------------------------|
+| `Cache-Control: no-cache`  | Spør alltid Altinn, uten bruk av cache                  |
+| `Cache-Control: max-age=0` | Samme som `no-cache`                                    |
+| `Cache-Control: max-age=N` | Aksepterer svar som er opptil N sekunder gammelt        |
+| Uten header                | Tjenestens default cache-varighet, typisk 5-10 minutter |
+
+Regler:
+- `max-age` må være et helt antall sekunder, 0 eller mer. Ugyldig verdi gir `400`-feil
+- Tjenesten har en øvre grense (TTL) og svarer aldri med noe eldre enn dette, uansett hvilken `max-age` du sender
+- Cache er per kombinasjon av subjekt, ressurs, organisasjon, `action` og `resourceAttributes` (rekkefølgen på
+`resourceAttributes` spiller ingen rolle). Svar for én sub-ressurs gjenbrukes aldri for en annen
+- Svaret har en `Age`-header som forteller hvor mange sekunder siden tjenesten spurte Altinn
 
 ## 🔐 Tilgangsstyring til applikasjonen
 Hvilke applikasjoner på SKIP som har lov til å spørre om hvilke ressurser styres av [altinn-pdp-access-control](https://github.com/kartverket/altinn-pdp-access-control).
