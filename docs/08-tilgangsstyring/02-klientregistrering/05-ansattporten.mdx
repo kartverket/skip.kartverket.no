@@ -72,7 +72,7 @@ _Skisse over Ansattporten og ID-Porten._
 
 ## 🪪 Klientregistrering med `AnsattportenClient`
 
-En `AnsattportenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde Ansattporten-klientregistreringer.
+En `AnsattportenClient` er en Kubernetes-ressurs som lar brukere deklarativt opprette og vedlikeholde Ansattporten-klientregistreringer.
 Etter å ha fullført opprettelsen, vil Digdirator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med
 hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `private_key_jwt`,
 diverse URL-er og lignende.

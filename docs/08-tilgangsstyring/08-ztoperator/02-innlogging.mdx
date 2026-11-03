@@ -135,7 +135,7 @@ du kun bruker `offline_access` når det er et reelt behov for lengre sesjoner.
 For ID-porten og Ansattporten styres utstedelse av refresh-tokens **ikke** av scopet `offline_access`, men av
 klientregistreringen hos Digdir. Du trenger derfor ikke legge til `offline_access` i `spec.autoLogin.scopes` for
 disse tilbyderne. Se [ID-porten](../02-klientregistrering/02-id-porten.mdx#-refresh-tokens) og
-[Ansattporten](../02-klientregistrering/04-ansattporten.mdx#-refresh-tokens) under Klientregistrering.
+[Ansattporten](../02-klientregistrering/05-ansattporten.mdx#-refresh-tokens) under Klientregistrering.
 :::
 
 Du kan ta i bruk `offline_access` i din `AuthPolicy` ved å legge det til i `spec.autoLogin.scopes`-listen:

@@ -31,7 +31,7 @@ maksimal levetid for sesjonen. Se Digdir sin dokumentasjon om
 
 ## 🪪 Klientregistrering med `IDPortenClient`
 
-En `IDPortenClient` er en CRD som lar brukere deklarativt opprette og vedlikeholde ID-Porten-klientregistreringer.
+En `IDPortenClient` er en Kubernetes-ressurs som lar brukere deklarativt opprette og vedlikeholde ID-Porten-klientregistreringer.
 Etter å ha fullført opprettelsen, vil Digdirator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med
 hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `private_key_jwt`,
 diverse URL-er og lignende.
