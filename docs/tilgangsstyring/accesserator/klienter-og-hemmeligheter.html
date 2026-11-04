@@ -16,8 +16,8 @@
 <script>!function(t,e){var o,s,r,a;e.__SV||(window.posthog=e,e._i=[],e.init=function(p,i,n){function u(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(r=t.createElement("script")).type="text/javascript",r.async=!0,r.src=i.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(a=t.getElementsByTagName("script")[0]).parentNode.insertBefore(r,a);var c=e;for(void 0!==n?c=e[n]=[]:n="posthog",c.people=c.people||[],c.toString=function(t){var e="posthog";return"posthog"!==n&&(e+="."+n),t||(e+=" (stub)"),e},c.people.toString=function(){return c.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),s=0;s<o.length;s++)u(c,o[s]);e._i.push([p,i,n])},e.__SV=1)}(document,window.posthog||[]),posthog.init("phc_u4Ex4Cbp5HNPRMCbuXo9saYy66sbqTPAuzOBCkD8EJa",{api_host:"https://ph.kartverket.no",ui_host:"https://eu.i.posthog.com",id:"default"})</script>
 
 <script src="https://platform.twitter.com/widgets.js"></script><link rel="stylesheet" href="/assets/css/styles.4e10fffa.css">
-<script src="/assets/js/runtime~main.d8b43fae.js" defer="defer"></script>
-<script src="/assets/js/main.cab94c8d.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.61c52e92.js" defer="defer"></script>
+<script src="/assets/js/main.07048add.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -40,7 +40,7 @@ Maskinporten og Entra ID. For denne funksjonaliteten tilbyr <code>SecurityConfig
 <p><code>client</code>-feltet i <code>SecurityConfig</code>-ressursen for Maskinporten tilbyr mulighet for å spesifisere scopes du skal
 konsumere. Du finner API-spesifikasjon for <code>client-feltet</code> <a class="" href="/docs/tilgangsstyring/accesserator/api-docs#securityconfigspecmaskinportenclient">her</a>.
 Kubernetes-ressursen som opprettes er en <code>MaskinportenClient</code>, tilsvarende som ved bruk av Digdirator. Les mer om
-Digdirator og MaskinportenClient i <a class="" href="/docs/tilgangsstyring/klientregistrering/maskinporten">dokumentasjonen om klientregistrering for Maskinporten</a>.</p>
+Digdirator og MaskinportenClient i <a class="" href="/docs/tilgangsstyring/klientregistrering/maskinporten-konsument">dokumentasjonen om klientregistrering for Maskinporten</a>.</p>
 <h2 class="anchor anchorTargetStickyNavbar_KvHb" id="entra-id">Entra ID<a href="#entra-id" class="hash-link" aria-label="Direct link to Entra ID" title="Direct link to Entra ID" translate="no">​</a></h2>
 <p><code>client</code>-feltet i <code>SecurityConfig</code>-ressursen for Entra ID tilbyr et subset av feltene tilgjengelig via <code>Azurerator</code>, som
 vi mener dekker alle behov på SKIP. Du finner API-spesifikasjon for <code>client-feltet</code> <a class="" href="/docs/tilgangsstyring/accesserator/api-docs#securityconfigspecentraidclient">her</a>.
