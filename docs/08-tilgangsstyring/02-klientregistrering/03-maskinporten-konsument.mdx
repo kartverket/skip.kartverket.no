@@ -1,0 +1,88 @@
+import RulleringAvHemmeligheter from './_rullering-av-hemmeligheter.mdx';
+
+# Maskinporten som konsument
+
+For å registrere en klient **som konsument av scopes** i Maskinporten har du tre muligheter:
+- Bruke Digdir sin [selvbetjeningsløsning](https://sjolvbetjening.samarbeid.digdir.no/login). Du søker om tilgang til selvbetjeningsløsningen via Pureservice.
+- Bruke Kubernetes-ressursen `MaskinportenClient`. Denne ressurstypen er tilgjengelig via Kubernetes-operatoren
+  [Digdirator](https://github.com/nais/digdirator), utviklet av [NAV sitt plattformteam (NAIS)](https://nais.io).
+- Bruke Kubernetes-ressursen `SecurityConfig`, som er en Kartverket-tilpasset abstraksjon på toppen av Digdirator. Les
+  mer om `SecurityConfig` i [dokumentasjonen for Accesserator](../09-accesserator/02-klienter-og-hemmeligheter.mdx#maskinporten).
+  Merk at `SecurityConfig`-ressursen kun støtter å _konsumere_ scopes i Maskinporten, ikke å _eksponere_ scopes.
+
+En vil typisk velge å bruke `SecurityConfig` fremfor `MaskinportenClient` dersom en uansett skal bruke førstnevnte til
+annen funksjonalitet, som Token Exchange, token-uthenting eller validering med Texas, OPA eller annet.
+
+Skal applikasjonen din i stedet eksponere egne scopes til andre organisasjoner, se
+[Maskinporten som API-tilbyder](./04-maskinporten-api-tilbyder.mdx).
+
+## 🧪 Testmiljø for Maskinporten
+
+Digdir tilbyr Maskinporten i et testmiljø, der du kan teste applikasjonen din med syntetiske organisasjoner.
+For å registrere en klient mot Maskinporten sitt testmiljø så kan du enten gjøre det i Digdir sin [selvbetjeningsløsning i test](https://sjolvbetjening.test.samarbeid.digdir.no/login)
+eller opprette en `MaskinportenClient`-ressurs med `consumes`-feltet satt i dev-clustrene til SKIP, i.e. `atgcp1-dev`
+eller `atkv3-dev`.
+
+## 🤖 Klientregistrering med `MaskinportenClient`
+
+En `MaskinportenClient` er en Kubernetes-ressurs som lar brukere deklarativt opprette og vedlikeholde Maskinporten-klientregistreringer.
+Etter å ha fullført opprettelsen, vil Digdirator opprette en Kubernetes-hemmelighet (`Secret`) i samme namespace med
+hemmeligheter som kan brukes av applikasjoner til tilgangsstyring, som for eksempel `client_id`, `private_key_jwt`,
+diverse URL-er og lignende.
+
+### Spesifikasjon
+
+<details>
+    <summary><strong>spec</strong> _(object, required)_ – Spesifikasjon til `MaskinportenClient`</summary>
+
+    <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
+    <p><strong>clientName</strong> _(string, optional)_ – Navnet på klienten registrert hos DigDir. Vises under innlogging for brukerorienterte flyter, og er ellers en lesbar måte å skille mellom klienter i DigDirs selvbetjeningsportal.</p>
+    <details>
+        <summary><strong>scopes</strong> _([]object, optional)_ – Definerer hvilke scopes applikasjonen konsumerer.</summary>
+        <details>
+            <summary><strong>consumes</strong> _([]object, optional)_ – En liste med scopes din klient kan forespørre tilgang til.</summary>
+            <p><strong>name</strong> _(string, required)_ – Scopene som applikasjonen konsumerer for å få tilgang til en ekstern organisasjons API.</p>
+        </details>
+    </details>
+</details>
+
+### Eksempel
+
+Følgende eksempel oppretter en klientintegrasjon mot Maskinporten som konsumerer scopet `<organisasjon>:<scope>`,
+eksemplifisert under med et fiktivt scope fra en ekstern tjeneste. Når registrering er fullført vil Digdirator
+opprette Kubernetes-hemmeligheten du har satt i `secretName`.
+
+```yaml title="Klientregistrering mot Maskinporten med Digdirator"
+apiVersion: nais.io/v1
+kind: MaskinportenClient
+metadata:
+  name: test-client
+  namespace: test-namespace
+spec:
+  clientName: mitt-klientnavn
+  secretName: test-client-maskinporten-secret
+  scopes:
+    consumes:
+      - name: "altinn:serviceowner/notifications.create"
+      - name: "altinn:serviceowner/notifications.read"
+      - name: "skatteetaten:formuesobjektfasteiendom"
+```
+
+```yaml title="Hemmelighet opprettet av Digdirator etter fullført klientregistrering"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: <navn-på-secret>
+  namespace: <mitt-namespace>
+data:
+  MASKINPORTEN_CLIENT_ID: ++++++++
+  MASKINPORTEN_CLIENT_JWK: ++++++++
+  MASKINPORTEN_ISSUER: ++++++++
+  MASKINPORTEN_JWKS_URI: ++++++++
+  MASKINPORTEN_SCOPES: ++++++++
+  MASKINPORTEN_TOKEN_ENDPOINT: ++++++++
+  MASKINPORTEN_WELL_KNOWN_URL: ++++++++
+type: Opaque
+```
+
+<RulleringAvHemmeligheter />
