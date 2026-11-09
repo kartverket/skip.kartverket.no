@@ -67,16 +67,12 @@ Se [API-dokumentasjonen](04-api-docs.md#authpolicyspecautologin) for en fullsten
 
 ## Nødvendig konfigurasjon i Skiperator-applikasjonen
 :::danger[OBS]
-For at innlogging skal fungere med Ztoperator, **må** den beskyttede Skiperator-applikasjonen oppdateres med
-`spec.podSettings.annotations.sidecar.istio.io/userVolume` og `spec.podSettings.annotations.sidecar.istio.io/userVolumeMount`.
+For at innlogging skal fungere med Ztoperator, **må** den beskyttede Skiperator-applikasjonen ha annotasjonen
+`ztoperator.kartverket.no/inject: "true"` i `spec.podSettings.annotations`.
 :::
 
-Ztoperator ikke har lov til å laste inn hemmeligheter som brukes for innlogging i den beskyttede applikasjonen. For å
-løse dette er man nødt til å legge til en konfigurasjon på den beskyttede Skiperator-applikasjonen for at
-innloggingshemligheter som Ztoperator håndterer skal kunne lastes inn. Følgende eksempel viser hvordan dette kan gjøres
-i en Skiperator-applikasjon. Det er viktig at `<NAVN PÅ AUTHPOLICY>` erstattes med navnet på din
-Ztoperator-`AuthPolicy`. Hvis din `AuthPolicy` for eksempel heter `my-auth-policy`, så må du sette
-`secretName: my-auth-policy-envoy-secret`.
+Denne annotasjonen sørger for at `istio-proxy`-sidecar'en som kjører sammen med applikasjonen på SKIP får tilgang til
+nødvendig konfigurasjon basert på din `AuthPolicy`-ressurs.
 
 ```yaml title="Skiperator-applikasjon med Ztoperator-innlogging"
 apiVersion: skiperator.kartverket.no/v1alpha1
@@ -87,23 +83,7 @@ spec:
 //diff-add-start
   podSettings:
     annotations:
-      sidecar.istio.io/userVolume: |
-        [
-          {
-            "name": "istio-oauth2",
-            "secret": {
-              "secretName": "<NAVN PÅ AUTHPOLICY>-envoy-secret"
-            }
-          }
-        ]
-      sidecar.istio.io/userVolumeMount: |
-        [
-          {
-            "name": "istio-oauth2",
-            "mountPath": "/etc/istio/config",
-            "readonly": true
-          }
-        ]
+      ztoperator.kartverket.no/inject: "true"
 //diff-add-end
   image: ghcr.io/kartverket/myapp:latest
   port: 8080

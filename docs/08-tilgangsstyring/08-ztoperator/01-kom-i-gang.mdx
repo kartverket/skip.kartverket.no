@@ -45,23 +45,7 @@ metadata:
 spec:
   podSettings:
     annotations:
-      sidecar.istio.io/userVolume: |
-        [
-          {
-            "name": "istio-oauth2",
-            "secret": {
-              "secretName": "authpolicy-entraid-envoy-secret"
-            }
-          }
-        ]
-      sidecar.istio.io/userVolumeMount: |
-        [
-          {
-            "name": "istio-oauth2",
-            "mountPath": "/etc/istio/config",
-            "readonly": true
-          }
-        ]
+      ztoperator.kartverket.no/inject: "true"
   image: ghcr.io/kartverket/ztoperator-echo-app:v0
   port: 5000
   routingProvider: Standard
@@ -173,23 +157,7 @@ metadata:
 spec:
   podSettings:
     annotations:
-      sidecar.istio.io/userVolume: |
-        [
-          {
-            "name": "istio-oauth2",
-            "secret": {
-              "secretName": "authpolicy-idporten-envoy-secret"
-            }
-          }
-        ]
-      sidecar.istio.io/userVolumeMount: |
-        [
-          {
-            "name": "istio-oauth2",
-            "mountPath": "/etc/istio/config",
-            "readonly": true
-          }
-        ]
+      ztoperator.kartverket.no/inject: "true"
   image: ghcr.io/kartverket/ztoperator-echo-app:v0
   port: 5000
   routingProvider: Standard
@@ -302,23 +270,7 @@ metadata:
 spec:
   podSettings:
     annotations:
-      sidecar.istio.io/userVolume: |
-        [
-          {
-            "name": "istio-oauth2",
-            "secret": {
-              "secretName": "authpolicy-ansattporten-envoy-secret"
-            }
-          }
-        ]
-      sidecar.istio.io/userVolumeMount: |
-        [
-          {
-            "name": "istio-oauth2",
-            "mountPath": "/etc/istio/config",
-            "readonly": true
-          }
-        ]
+      ztoperator.kartverket.no/inject: "true"
   image: ghcr.io/kartverket/ztoperator-echo-app:v0
   port: 5000
   routingProvider: Standard

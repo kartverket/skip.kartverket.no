@@ -49,7 +49,7 @@ Ztoperator registrerer ikke klienter for deg. Du må selv ha etablert en integra
 :::
 
 ## 🔐 Verifiser at Ztoperator beskytter din Skiperator-applikasjon
-Siden Ztoperator er en kritisk komponent mtp. sikkerheten og tilgangsstyringen til en applikasjon finnes det mekanismer
+Siden Ztoperator er en kritisk komponent mtp. sikkerheten og tilgangsstyringen til en applikasjon, finnes det mekanismer
 på SKIP som hindrer oppstart av applikasjonen dersom tilhørende `AuthPolicy`-ressurs ikke er klar. Du aktiverer dette
 ved å legge en annotasjon på din Skiperator-applikasjon:
 
@@ -66,6 +66,12 @@ spec:
 //diff-add-end
   ...
 ```
+
+:::note
+Annotasjonen `ztoperator.kartverket.no/inject: "true"`, som brukes ved [innlogging](02-innlogging.mdx#nødvendig-konfigurasjon-i-skiperator-applikasjonen),
+hindrer også oppstart dersom `AuthPolicy`-ressursen ikke er klar. Bruker du allerede `inject`-annotasjonen, trenger du
+derfor ikke `ztoperator.kartverket.no/verify-authpolicy`.
+:::
 
 Tilfeller der mekanismen hindrer oppstart vil utarte seg ved at Skiperator-applikasjonen sitt `ReplicaSet` er _unhealthy_,
 og det ikke dukker opp noen `Pod`-ressurser for applikasjonen.
