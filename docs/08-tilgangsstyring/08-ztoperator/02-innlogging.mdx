@@ -116,6 +116,9 @@ For ID-porten og Ansattporten styres utstedelse av refresh-tokens **ikke** av sc
 klientregistreringen hos Digdir. Du trenger derfor ikke legge til `offline_access` i `spec.autoLogin.scopes` for
 disse tilbyderne. Se [ID-porten](../02-klientregistrering/02-id-porten.mdx#-refresh-tokens) og
 [Ansattporten](../02-klientregistrering/05-ansattporten.mdx#-refresh-tokens) under Klientregistrering.
+
+For ID-porten kan du sette `refreshTokenLifetime: 1800` på `IDPortenClient` for å logge ut inaktive brukere etter
+30 minutter, slik ID-porten krever.
 :::
 
 Du kan ta i bruk `offline_access` i din `AuthPolicy` ved å legge det til i `spec.autoLogin.scopes`-listen:
