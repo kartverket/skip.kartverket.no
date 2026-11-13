@@ -37,6 +37,7 @@ diverse URL-er og lignende.
 
     <p><strong>secretName</strong> _(string, required)_ – Navnet på den resulterende `Secret`-ressursen som vil bli opprettet.</p>
     <p><strong>clientName</strong> _(string, optional)_ – Navnet på klienten registrert hos DigDir. Vises under innlogging for brukerorienterte flyter, og er ellers en lesbar måte å skille mellom klienter i DigDirs selvbetjeningsportal.</p>
+    <p><strong>accessTokenLifetime</strong> _(integer, optional)_ – Maksimal levetid i sekunder for `access_token` utstedt til klienten. Den faktiske levetiden begrenses også av de forespurte scopene. Default: 3600. Min: 1.</p>
     <details>
         <summary><strong>scopes</strong> _([]object, optional)_ – Definerer hvilke scopes applikasjonen konsumerer.</summary>
         <details>

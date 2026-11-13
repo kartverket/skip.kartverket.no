@@ -28,7 +28,8 @@ grant-type, i tillegg til `authorization_code`.
 - **Selvbetjeningsløsningen:** Du velger selv om klienten skal ha grant-typen `refresh_token`, og kan sette levetid
 for refresh-token og authorization, samt om refresh-tokenet skal være engangs eller gjenbrukbart.
 - **Digdirator:** En `AnsattportenClient` registreres **alltid** med grant-typen `refresh_token`. Refresh-tokenet er
-engangs, og både levetiden for refresh-token og authorization settes til `spec.sessionLifetime`. Dette kan ikke skrus av.
+engangs. Levetiden for refresh-token settes med `spec.refreshTokenLifetime` (default 7200 sekunder), mens levetiden for
+authorization settes til `spec.sessionLifetime`. Refresh-token kan ikke skrus av.
 
 Levetiden på refresh-tokenet bestemmer hvor lenge sesjonen kan være inaktiv, mens levetiden på authorization bestemmer
 maksimal levetid for sesjonen. Se Digdir sin dokumentasjon om
@@ -98,9 +99,13 @@ Vi jobber med å få på plass støtte for `private_key_jwt` i Ztoperator.
 
     <p><strong>accessTokenLifetime</strong> _(integer, optional)_ – Maksimal levetid i sekunder for `access_token` som returneres fra Ansattporten. Min: 1, maks: 3600.</p>
 
+    <p><strong>backchannelLogoutURI</strong> _(string, optional)_ – URL som Ansattporten sender et logout-token til (server-til-server) når brukeren logger ut av en sesjon klienten deltar i. Må være en `https`-URL, og domenet må matche domenet til en av `redirectURIs`.</p>
+
     <p><strong>clientURI</strong> _(string, optional)_ – URL til klienten brukt av DigDir når en 'tilbake'-knapp vises eller ved feil.</p>
 
     <p><strong>clientName</strong> _(string, optional)_ – Navnet på klienten registrert hos DigDir. Vises under innlogging for brukerorienterte flyter.</p>
+
+    <p><strong>refreshTokenLifetime</strong> _(integer, optional)_ – Levetid i sekunder for `refresh_token` som returneres fra Ansattporten. Må være større enn `accessTokenLifetime` og mindre enn eller lik `sessionLifetime`. Default: 7200. Min: 1, maks: 28800.</p>
 
     <p><strong>sessionLifetime</strong> _(integer, optional)_ – Maksimal øktlevetid i sekunder for en innlogget sluttbruker for denne klienten. Min: 3600, maks: 28800.</p>
 
@@ -126,6 +131,9 @@ spec:
   redirectURIs:
     - https://test-app.atgcp1-sandbox.kartverket-intern.cloud/oauth2/callback
   secretName: ansattporten-secret
+  accessTokenLifetime: 300
+  refreshTokenLifetime: 1800
+  sessionLifetime: 7200
 ```
 
 ```yaml title="Hemmelighet opprettet av Digdirator etter fullført klientregistrering"
