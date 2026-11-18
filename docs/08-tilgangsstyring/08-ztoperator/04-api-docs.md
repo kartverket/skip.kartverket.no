@@ -737,6 +737,14 @@ AuthPolicyStatus defines the observed state of AuthPolicy.
         <td>false</td>
       </tr>
       <tr>
+        <td><b><a href="#authpolicystatusistioambientconfig">istioAmbientConfig</a></b></td>
+        <td>object</td>
+        <td>
+          IstioAmbientConfig holds the relevant configuration if the AuthPolicy selects workloads<br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
         <td><b>message</b></td>
         <td>string</td>
         <td>
@@ -833,6 +841,76 @@ Condition contains details for one aspect of the current state of this API Resou
           <br/>
             <i>Format</i>: int64<br/>
             <i>Minimum</i>: 0<br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="authpolicystatusistioambientconfig"></a>
+#### AuthPolicy.status.istioAmbientConfig
+
+<sup>[Parent](#authpolicystatus)</sup>
+
+IstioAmbientConfig holds the relevant configuration if the AuthPolicy selects workloads
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>enabled</b></td>
+        <td>boolean</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b><a href="#authpolicystatusistioambientconfigenvoybootstrap">envoyBootstrap</a></b></td>
+        <td>object</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr>
+    </tbody>
+</table>
+<a id="authpolicystatusistioambientconfigenvoybootstrap"></a>
+#### AuthPolicy.status.istioAmbientConfig.envoyBootstrap
+
+<sup>[Parent](#authpolicystatusistioambientconfig)</sup>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>configMapKey</b></td>
+        <td>string</td>
+        <td>
+          <br/>
+        </td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td><b>configMapName</b></td>
+        <td>string</td>
+        <td>
+          <br/>
         </td>
         <td>false</td>
       </tr>
