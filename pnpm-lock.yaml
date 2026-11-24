@@ -153,8 +153,8 @@ importers:
         specifier: ^1.24.0
         version: 1.24.0
       posthog-docusaurus:
-        specifier: ^2.0.5
-        version: 2.0.5
+        specifier: ^2.0.7
+        version: 2.0.7
       prism-react-renderer:
         specifier: ^2.4.1
         version: 2.4.1(react@19.3.1)
@@ -5117,8 +5117,8 @@ packages:
     resolution: {integrity: sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-docusaurus@2.0.5:
-    resolution: {integrity: sha512-Ray65LYEJrMMqDtsBUBXunEVP/g4wtATvq/xz9rchUoLy/9mSkkFgUko/8DVtGxgiP3vivpFMgfb9HpCuDrBHg==}
+  posthog-docusaurus@2.0.7:
+    resolution: {integrity: sha512-BHWk/y6UtpzhRb2tLMs7ksDXTkVPTvqDN5jF6exX24WgiGcATKfP1ms+xBT3scWz22c8iJsG9lX4dy1QxDdSEg==}
     engines: {node: '>=10.15.1'}
 
   prettier@3.10.1:
@@ -12842,7 +12842,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  posthog-docusaurus@2.0.5: {}
+  posthog-docusaurus@2.0.7: {}
 
   prettier@3.10.1: {}
 
